@@ -6,8 +6,7 @@ This "proxy" uses the [MultiWii Serial Protocol (MSP)](http://www.multiwii.com/w
 with the physical flight controller. The communication is established
 using a serial communication.
 
-### Installation
-
+## Installation
 Enter the main directory and choose one of the following command to install the module.
 
 ##### Pip
@@ -16,8 +15,7 @@ Enter the main directory and choose one of the following command to install the 
 ##### Python 3
 ```python3 setup.py```
 
-### MultiWii
-
+## MultiWii
 [MultiWii](https://github.com/multiwii) is a free and open source flight controller software made for Arduino based drones.
 It was first released early 2012 and has been successful ever since drone enthusiasts, 
 tinkerers and developers started building their own Arduino based drones.
@@ -25,16 +23,14 @@ tinkerers and developers started building their own Arduino based drones.
 MultiWii has a communication protocol for sending and receving data. This is possible
 with the [MultiWii Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
 
-### Why WiiProxy?
-
+## Why WiiProxy?
 Since most developers nowadays use the programming language [Python](https://www.python.org/) and the newer version [Python 3](https://www.python.org/download/releases/3.0/), it became truly fitting and appropriate to develop WiiProxy. A simple to use and user friendly Python 3 module that allows you to effectively and safely control your MultiWii based drone.
 
 This is the only Python 3 based module for communicating with a MultiWii flight controller. If you plan on developing a Python 3 based application for a MultiWii based drone, this module will definitely be useful.
 
 This module can be deployed on a single-board computer such as the [Raspberry Pi](https://www.raspberrypi.org/), preferably the Raspberry Pi 3. Your single-board computer must be deployed on the drone and connected to the MultiWii flight controller via USB.
 
-### Usage
-
+## Usage
 This module is extremely easy to use and does not require a complex setup to function properly.
 
 #### Serial communication
@@ -93,8 +89,7 @@ print(ident)
 print(imu)
 ```
 
-### Information
-
+## Information
 This module was developed by engineer-186f[.](https://i.ytimg.com/vi/cI01_TXIMWc/hqdefault.jpg)
 
 WiiProxy - Version 1.0
