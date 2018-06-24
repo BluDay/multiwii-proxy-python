@@ -24,7 +24,6 @@ tinkerers and developers started building their own Arduino based drones.
 
 MultiWii has a communication protocol for sending commands and receving data. This is done
 with the [MultiWii Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
-The *MultiWii Serial Protocol* presumably requires an individual with a significant amount of knowledge in computer science to comprehend this communication protocol.
 
 ### Why WiiProxy?
 
