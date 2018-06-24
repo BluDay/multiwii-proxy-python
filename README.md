@@ -8,7 +8,7 @@ using a serial communication.
 
 ### Installation
 
-Enter the main directory and choose the following command to install the module.
+Enter the main directory and choose one of the following command to install the module.
 
 ##### Pip
 ```pip3 install .```
