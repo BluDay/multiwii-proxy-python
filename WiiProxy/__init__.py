@@ -114,8 +114,6 @@ class MultiWii(object):
     def _write(self, command: bytes):
         if not self._controller: return
         
-        self._controller.flush()
-        
         self._controller.write(command)
 
     def _read(self, exp_byte_size: int = 1):
