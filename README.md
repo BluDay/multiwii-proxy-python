@@ -31,7 +31,7 @@ Since most developers nowadays use the programming language [Python](https://www
 
 This is the only Python 3 based module for communicating with a MultiWii flight controller. If you plan on developing a Python 3 based application for a MultiWii based drone, this module will definitely be useful.
 
-This module can be deployed on a single-board computer such as the [Raspberry Pi](https://www.raspberrypi.org/), preferably the Raspberry Pi 3. Your single-board computer must be deployed to the drone and connected to the MultiWii flight controller via USB.
+This module can be deployed on a single-board computer such as the [Raspberry Pi](https://www.raspberrypi.org/), preferably the Raspberry Pi 3. Your single-board computer must be deployed on the drone and connected to the MultiWii flight controller via USB.
 
 ### Usage
 
