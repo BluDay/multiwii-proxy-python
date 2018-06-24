@@ -45,7 +45,7 @@ In order to communicate with the flight controller, you need to correctly setup 
 ```
 serial = pyserial.Serial()
 
-serial.port          = "/dev/ttyUSB0" # Multi-optional
+serial.port          = "/dev/ttyUSB0" # Port depends on you OS and interface.
 serial.baudrate      = 115200
 serial.bytesize      = pyserial.EIGHTBITS
 serial.parity        = pyserial.PARITY_NONE
