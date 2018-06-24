@@ -45,7 +45,7 @@ In order to communicate with the flight controller, you need to correctly setup 
 ```
 serial = pyserial.Serial()
 
-serial.port          = "/dev/ttyUSB0" # Port depends on you OS and interface.
+serial.port          = "/dev/ttyUSB0" # Port depends on your OS and interface.
 serial.baudrate      = 115200
 serial.bytesize      = pyserial.EIGHTBITS
 serial.parity        = pyserial.PARITY_NONE
@@ -96,3 +96,5 @@ print(imu)
 ### Information
 
 This module was developed by engineer-186f[.](https://i.ytimg.com/vi/cI01_TXIMWc/hqdefault.jpg)
+
+WiiProxy - Version 1.0
