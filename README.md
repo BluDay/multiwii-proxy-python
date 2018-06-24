@@ -22,7 +22,7 @@ Enter the main directory and choose one of the following command to install the 
 It was first released early 2012 and has been successful ever since drone enthusiasts, 
 tinkerers and developers started building their own Arduino based drones.
 
-MultiWii has a communication protocol for sending commands and receving data. This is done
+MultiWii has a communication protocol for sending and receving data. This is done
 with the [MultiWii Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
 
 ### Why WiiProxy?
