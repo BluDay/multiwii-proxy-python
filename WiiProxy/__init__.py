@@ -182,19 +182,14 @@ class MultiWii(object):
         if raw: return data
         
         types = (
-            "throttle", "yaw", "pitch", "roll",
+            "roll", "pitch", "yaw", "throttle",
             "aux1", "aux2", "aux3", "aux4"
         )
         
         values = dict()
         
         for x in range(0, len(types)):
-            value_index = x
-            
-            if x < len(types) / 2:    
-                value_index = len(types) / 2 - 1 - x
-            
-            values[types[x]] = data[int(value_index)]
+            values[types[x]] = data[x]
         
         return values
 
