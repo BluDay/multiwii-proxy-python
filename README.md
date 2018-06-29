@@ -39,19 +39,9 @@ In order to communicate with the flight controller, you need to correctly setup 
 
 ##### Serial port initialization
 ```
-serial = pyserial.Serial()
+import serial
 
-serial.port          = "/dev/ttyUSB0" # Port depends on your OS and interface.
-serial.baudrate      = 115200
-serial.bytesize      = pyserial.EIGHTBITS
-serial.parity        = pyserial.PARITY_NONE
-serial.stopbits      = pyserial.STOPBITS_ONE
-serial.write_timeout = 3
-serial.xonxoff       = False
-serial.rtscts        = False
-serial.dsrdtr        = False
-
-serial.open()
+ser = serial.Serial('/dev/tty0', baudrate=115200 , timeout=1)
 ```
 
 #### Flight controller
@@ -81,12 +71,9 @@ controller.disarm()
 ```
 ###### Fetching metadata
 ```
-ident = controller.get_ident()
-
-imu = controller.get_imu()
-
-print(ident)
-print(imu)
+for i in range(0,100):
+    print(controller.get_imu(0)) 
+    print(controller.get_attitude())
 ```
 
 ## Information
