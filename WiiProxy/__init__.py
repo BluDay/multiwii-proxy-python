@@ -260,18 +260,22 @@ class MultiWii(object):
         self._controller.read(1)
         return values
 
-    def get_waypoint(self):
-        command = self._construct_payload(MultiWii.WAYPOINT)
+    def get_waypoint(self, wp_number : int):
+        command = self._construct_payload(MultiWii.WAYPOINT, [wp_number] , 2)
         self._write(command)
-        self._controller.read(5)
-        values = dict()
-        values['WP_number'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
-        values['lat'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
-        values['lon'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
-        values['alt'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
-        values['flags'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
-        self._controller.read(1)
-        return values
+        if self._controller.read(3) == b'$M>':
+            values = dict()
+            jump = int.from_bytes(self._controller.read(1), byteorder='little', signed=False)
+            if int.from_bytes(self._controller.read(1), byteorder='little', signed=False) == MultiWii.WAYPOINT:
+                values['WP_number'] = int.from_bytes(self._controller.read(1), byteorder='little', signed=False)
+                self._controller.read(1)
+                values['lat'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
+                values['lon'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
+                values['alt'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=False)
+                self._controller.read(jump - 13)
+                return values
+        return None
+
     # ---------------------------------------------------------------------
 
     def _get_multitype(self, index: int):
