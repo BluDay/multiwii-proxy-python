@@ -51,6 +51,7 @@ class MultiWii(object):
     SET_WAYPOINT    = 209
     EEPROM_WRITE    = 250
 
+
     DATA_MIN_SIZE = 6
 
     ARM_DELAY       = 0.5
@@ -170,7 +171,32 @@ class MultiWii(object):
 
         self._write(command)
 
-    def get_channels(self, raw: bool):
+    def get_channels_inav(self, raw: bool):
+        command = self._construct_payload(MultiWii.RC)
+
+        self._write(command)
+
+        buf = self._read(32)
+
+        data = self._destruct_payload(buf, "H" * 16)
+
+
+        if raw: return data
+
+        types = (
+            "roll", "pitch", "yaw", "throttle",
+            "aux1", "aux2", "aux3", "aux4",
+            "aux5", "aux6", "aux7", "aux8",
+            "aux9", "aux10", "aux11", "aux12",
+        )
+
+        values = dict()
+
+        for x in range(0, len(types)):
+            values[types[x]] = data[x]
+        return values
+
+    def get_channels_mw(self, raw: bool):
         command = self._construct_payload(MultiWii.RC)
 
         self._write(command)
@@ -231,6 +257,19 @@ class MultiWii(object):
         values['roll'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True) / 10
         values['pitch'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True) / 10
         values['heading'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
+        self._controller.read(1)
+        return values
+
+    def get_waypoint(self):
+        command = self._construct_payload(MultiWii.WAYPOINT)
+        self._write(command)
+        self._controller.read(5)
+        values = dict()
+        values['WP_number'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
+        values['lat'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
+        values['lon'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
+        values['alt'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
+        values['flags'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
         self._controller.read(1)
         return values
     # ---------------------------------------------------------------------
