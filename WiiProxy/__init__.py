@@ -171,52 +171,37 @@ class MultiWii(object):
 
         self._write(command)
 
-    def get_channels_inav(self, raw: bool):
+    def get_channels(self, raw: bool , msp: bool) :
         command = self._construct_payload(MultiWii.RC)
 
         self._write(command)
-
-        buf = self._read(32)
-
-        data = self._destruct_payload(buf, "H" * 16)
-
-
+        if self._controller.read(3) == b'$M>':
+            read_num = int.from_bytes(self._controller.read(1), byteorder='little', signed=False)
+        self._controller.read(1)
+        buf = self._controller.read(read_num)
+        self._controller.read(1)
+        data = unpack("<%s" % ("H" * int(read_num / 2)), buf)
         if raw: return data
-
-        types = (
+        if msp == 1 : # use this if you use MSP_RX
+            types = (
             "roll", "pitch", "yaw", "throttle",
             "aux1", "aux2", "aux3", "aux4",
             "aux5", "aux6", "aux7", "aux8",
             "aux9", "aux10", "aux11", "aux12",
-        )
-
+            "aux12", "aux13","aux14", "aux15"
+            )
+        else:
+            types = (
+            "roll", "pitch", "throttle", "yaw",
+            "aux1", "aux2", "aux3", "aux4",
+            "aux5", "aux6", "aux7", "aux8",
+            "aux9", "aux10", "aux11", "aux12",
+            "aux12", "aux13","aux14", "aux15"
+            )
         values = dict()
 
-        for x in range(0, len(types)):
+        for x in range(0, len(data)):
             values[types[x]] = data[x]
-        return values
-
-    def get_channels_mw(self, raw: bool):
-        command = self._construct_payload(MultiWii.RC)
-
-        self._write(command)
-
-        buf = self._read(16)
-
-        data = self._destruct_payload(buf, "H" * 8)
-
-        if raw: return data
-
-        types = (
-            "roll", "pitch", "yaw", "throttle",
-            "aux1", "aux2", "aux3", "aux4"
-        )
-
-        values = dict()
-
-        for x in range(0, len(types)):
-            values[types[x]] = data[x]
-
         return values
 
     def get_imu(self, raw: bool):
@@ -275,7 +260,6 @@ class MultiWii(object):
                 self._controller.read(jump - 13)
                 return values
         return None
-
     # ---------------------------------------------------------------------
 
     def _get_multitype(self, index: int):
