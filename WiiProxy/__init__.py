@@ -45,6 +45,7 @@ class MultiWii(object):
     ATTITUDE    = 108
     ALTITUDE    = 109
     WAYPOINT    = 118
+    RAW_GPS     = 106
 
     SET_RAW_RC      = 200
     SET_RAW_GPS     = 201
@@ -245,6 +246,25 @@ class MultiWii(object):
         self._controller.read(1)
         return values
 
+    def get_raw_gps(self):
+        command = self._construct_payload(MultiWii.RAW_GPS)
+        self._write(command)
+        if self._controller.read(3) == b'$M>':
+            values = dict()
+            self._controller.read(1)
+            if int.from_bytes(self._controller.read(1), byteorder='little', signed=False) == MultiWii.RAW_GPS:
+                values['fix_type'] = int.from_bytes(self._controller.read(1), byteorder='little', signed=False)
+                values['sats'] = int.from_bytes(self._controller.read(1), byteorder='little', signed=False)
+                values['lat'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
+                values['lon'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
+                values['alt'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=True)
+                values['groundSpeed'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
+                values['groundCourse'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
+                values['hdop'] = int.from_bytes(self._controller.read(2), byteorder='little', signed=False)
+                self._controller.read(1)
+                return values
+        return None
+
     def get_waypoint(self, wp_number : int):
         command = self._construct_payload(MultiWii.WAYPOINT, [wp_number] , 2)
         self._write(command)
@@ -256,7 +276,7 @@ class MultiWii(object):
                 self._controller.read(1)
                 values['lat'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
                 values['lon'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True) / 10000000
-                values['alt'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=False)
+                values['alt'] = int.from_bytes(self._controller.read(4), byteorder='little', signed=True)
                 self._controller.read(jump - 13)
                 return values
         return None
