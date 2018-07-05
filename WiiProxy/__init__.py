@@ -185,7 +185,7 @@ class MultiWii(object):
         if raw: return data
         if msp == 1 : # use this if you use MSP_RX
             types = (
-            "roll", "pitch", "yaw", "throttle",
+            "roll", "pitch", "throttle", "yaw",
             "aux1", "aux2", "aux3", "aux4",
             "aux5", "aux6", "aux7", "aux8",
             "aux9", "aux10", "aux11", "aux12",
@@ -193,7 +193,7 @@ class MultiWii(object):
             )
         else:
             types = (
-            "roll", "pitch", "throttle", "yaw",
+            "roll", "pitch", "yaw", "throttle",
             "aux1", "aux2", "aux3", "aux4",
             "aux5", "aux6", "aux7", "aux8",
             "aux9", "aux10", "aux11", "aux12",
