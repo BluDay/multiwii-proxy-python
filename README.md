@@ -89,6 +89,13 @@ print(ident)
 print(imu)
 ```
 
+## Compatible boards
+WiiProxy and the MultiWii Serial Protocol (MSP) can be used on different boards, unfortunately, I've only tested MSP through WiiProxy on these following boards. Your board will most likely be able to operate if it's indeed compatible with the MSP.
+
+- MultiWii Crius SE 2.0
+- MultiWii Crius AIO 2.0
+- MultiWii PRO
+
 ## Information
 This module was developed by engineer-186f[.](https://i.ytimg.com/vi/cI01_TXIMWc/hqdefault.jpg)
 
