@@ -50,26 +50,29 @@ class MultiWii(object):
     SET_RAW_GPS     = 201
     SET_WAYPOINT    = 209
     EEPROM_WRITE    = 250
-
-    DATA_MIN_SIZE = 6
+    
+    AUX_CHANNEL_COUNT = 4
 
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
 
+    DATA_MIN_SIZE = 6
+    
     PREAMBLE = [b'$', b'M', b'<']
 
     # ---------------------------------------------------------------------
 
-    def __init__(self, controller: Serial):
-        self._controller = controller
+    def __init__(self, controller: Serial, standalone: bool = False):
+        self._controller    = controller
+        self.standalone     = standalone
 
     # ---------------------------------------------------------------------
 
     def _construct_payload(
         self, 
         code: int, 
-        size: int = 0
-        data: list = [], 
+        size: int = 0,
+        data: list = [] 
     ):
         buf = bytes()
         
@@ -171,7 +174,7 @@ class MultiWii(object):
         
         self._write(command)
 
-    def get_channels(self, raw: bool):
+    def get_channels(self, raw: bool, exclude_aux: bool = False):
         command = self._construct_payload(MultiWii.RC)
         
         self._write(command)
@@ -180,19 +183,13 @@ class MultiWii(object):
         
         data = self._destruct_payload(buf, "H" * 8)
         
-        if raw: return data
+        if raw: 
+            if exclude_aux:
+                return data[:4]
+
+            return data
         
-        types = (
-            "roll", "pitch", "yaw", "throttle",
-            "aux1", "aux2", "aux3", "aux4"
-        )
-        
-        values = dict()
-        
-        for x in range(0, len(types)):
-            values[types[x]] = data[x]
-        
-        return values
+        return self._get_channel_values(data)
 
     def get_imu(self, raw: bool):
         command = self._construct_payload(MultiWii.IMU)
@@ -204,6 +201,65 @@ class MultiWii(object):
         data = self._destruct_payload(buf, "h" * 9)
         
         if raw: return data
+        
+        return self._get_imu_data(data)
+
+    def get_ident(self):
+        command = self._construct_payload(MultiWii.IDENT)
+        
+        self._write(command)
+        
+        buf = self._read(7)
+        
+        data = self._destruct_payload(buf, "BBIB")
+        
+        return self._get_ident_data(data)
+
+    # ---------------------------------------------------------------------
+
+    def _get_multitype(self, index: int):
+        try:
+            if not MultiWii.Multitype(index):
+                return None
+
+            multitype = str(MultiWii.Multitype(index))
+
+            return multitype.split(".")[1]
+        except IndexError:
+            return None
+
+    def _get_new_coords(self):
+        return {"x": 0.0, "y": 0.0, "z": 0.0}
+    
+    def _get_ident_data(self, data: list):
+        if len(data) < 1: return
+        
+        return {
+            "multitype" : self._get_multitype(data[1]),
+            "version"   : str(data[0] / 100)
+        }
+
+    def _get_channel_values(self, data: list):
+        if len(data) < 4: return
+
+        types = ("roll", "pitch", "throttle", "yaw")
+        
+        if self.standalone:
+            types[2], types[3] = types[3], types[2]
+        
+        if not exclude_aux:
+            for x in range(0, MultiWii.AUX_CHANNEL_COUNT):
+                types += ("aux%d" % (x + 1),)
+
+        values = dict()
+        
+        for x in range(0, len(types)):
+            values[types[x]] = data[x]
+
+        return values
+       
+    def _get_imu_data(self, data: list):
+        if len(data) < 1: return
         
         value_index = 0
         
@@ -222,34 +278,4 @@ class MultiWii(object):
                 value_index += 1
         
         return values
-
-    def get_ident(self):
-        command = self._construct_payload(MultiWii.IDENT)
-        
-        self._write(command)
-        
-        buf = self._read(7)
-        
-        data = self._destruct_payload(buf, "BBIB")
-        
-        return {
-            "multitype" : self._get_multitype(data[1]),
-            "version"   : str(data[0] / 100)
-        }
-
-    # ---------------------------------------------------------------------
-
-    def _get_multitype(self, index: int):
-        try:
-            if not MultiWii.Multitype(index):
-                return None
-
-            multitype = str(MultiWii.Multitype(index))
-
-            return multitype.split(".")[1]
-        except IndexError:
-            return None
-
-    def _get_new_coords(self):
-        return {"x": 0.0, "y": 0.0, "z": 0.0}
 
