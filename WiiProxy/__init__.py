@@ -189,7 +189,7 @@ class MultiWii(object):
 
             return data
         
-        return self._get_channel_values(data)
+        return self._get_channel_values(data, exclude_aux)
 
     def get_imu(self, raw: bool):
         command = self._construct_payload(MultiWii.IMU)
@@ -239,7 +239,7 @@ class MultiWii(object):
             "version"   : str(data[0] / 100)
         }
 
-    def _get_channel_values(self, data: list):
+    def _get_channel_values(self, data: list, exclude_aux: bool):
         if len(data) < 4: return
 
         types = ("roll", "pitch", "throttle", "yaw")
