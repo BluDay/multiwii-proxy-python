@@ -53,8 +53,8 @@ class MultiWii(object):
 
     DATA_MIN_SIZE = 6
 
-    ARM_DELAY       = 0.5
-    RC_WRITE_DELAY  = 0.05
+    ARM_DELAY   = 0.5
+    WRITE_DELAY = 0.05
 
     PREAMBLE = [b'$', b'M', b'<']
 
@@ -68,15 +68,16 @@ class MultiWii(object):
     def _construct_payload(
         self, 
         code: int, 
+        size: int = 0
         data: list = [], 
-        size: int = 0):
+    ):
+        buf = bytes()
+        
         payload = (
             ("<3c", MultiWii.PREAMBLE),
             ("<2B", [size, code]),
             ("<%dH" % len(data), data)
         )
-
-        buf = bytes()
         
         for section in payload:
             buf += pack(section[0], *section[1])
@@ -141,7 +142,7 @@ class MultiWii(object):
         while elapsed < MultiWii.ARM_DELAY:
             self.set_channels(channels)
             
-            sleep(MultiWii.RC_WRITE_DELAY)
+            sleep(MultiWii.WRITE_DELAY)
             
             elapsed = time() - start
 
@@ -155,7 +156,7 @@ class MultiWii(object):
         while elapsed < MultiWii.ARM_DELAY:
             self.set_channels(channels)
             
-            sleep(MultiWii.RC_WRITE_DELAY)
+            sleep(MultiWii.WRITE_DELAY)
             
             elapsed = time() - start
 
@@ -165,7 +166,7 @@ class MultiWii(object):
         if len(channels) < 4: return
         
         command = self._construct_payload(
-            MultiWii.SET_RAW_RC, channels, len(channels) * 2
+            MultiWii.SET_RAW_RC, len(channels) * 2, channels
         )
         
         self._write(command)
