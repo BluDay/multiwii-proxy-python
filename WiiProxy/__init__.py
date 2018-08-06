@@ -31,7 +31,7 @@ class MultiWii(object):
         QuadX       = 3,
         Hex6        = 7,
         Hex6X       = 10,
-        OctoX8      = 11, 
+        OctoX8      = 11,
         OctoFlatP   = 12,
         OctoFlatX   = 13
     
@@ -46,9 +46,10 @@ class MultiWii(object):
     ALTITUDE    = 109
     WAYPOINT    = 118
 
-    SET_RAW_RC      = 200
-    SET_RAW_GPS     = 201
+    SET_RC          = 200
+    SET_GPS         = 201
     SET_WAYPOINT    = 209
+    SET_MOTOR       = 214
     EEPROM_WRITE    = 250
     
     AUX_CHANNEL_COUNT = 4
@@ -59,6 +60,9 @@ class MultiWii(object):
     DATA_MIN_SIZE = 6
     
     PREAMBLE = [b'$', b'M', b'<']
+    
+    CHANNEL_TYPES   = ("roll", "pitch", "throttle", "yaw")
+    IMU_TYPES       = ("acc", "gyr")
 
     # ---------------------------------------------------------------------
 
@@ -71,8 +75,8 @@ class MultiWii(object):
     def _construct_payload(
         self, 
         code: int, 
-        size: int = 0,
-        data: list = [] 
+        size: int = 0, 
+        data: list = []
     ):
         buf = bytes()
         
@@ -96,7 +100,7 @@ class MultiWii(object):
                 checksum = checksum ^ byte
        
         buf += pack(
-            "<{}".format("H" if checksum > 0x100 else "B"), 
+            "<%s" % "H" if checksum > 0x100 else "B",
             checksum
         )
 
@@ -133,6 +137,9 @@ class MultiWii(object):
         
         return buf[:exp_byte_size]
 
+    def _write_read(self, exp_byte_size: int, destruct_pattern: str):
+        return None
+
     # ---------------------------------------------------------------------
 
     def arm(self):
@@ -164,17 +171,41 @@ class MultiWii(object):
             elapsed = time() - start
 
     # ---------------------------------------------------------------------
-
-    def set_channels(self, channels: list):
-        if len(channels) < 4: return
+    
+    def set_motors(self, values: list):
+        if len(values) < 4: return
         
         command = self._construct_payload(
-            MultiWii.SET_RAW_RC, len(channels) * 2, channels
+            MultiWii.SET_MOTOR, len(values) * 2, values
         )
         
         self._write(command)
 
-    def get_channels(self, raw: bool, exclude_aux: bool = False):
+    def get_motors(self, raw: bool, limit: int = 8):
+        command = self._construct_payload(MultiWii.MOTOR)
+        
+        self._write(command)
+        
+        buf = self._read(16)
+        
+        data = self._destruct_payload(buf, "H" * 8)
+
+        data = data[:limit]
+
+        if raw: return data
+        
+        return self._get_motor_values(data)
+
+    def set_channels(self, values: list):
+        if len(values) < 4: return
+        
+        command = self._construct_payload(
+            MultiWii.SET_RC, len(values) * 2, values
+        )
+        
+        self._write(command)
+
+    def get_channels(self, raw: bool, include_aux: bool = False):
         command = self._construct_payload(MultiWii.RC)
         
         self._write(command)
@@ -183,13 +214,35 @@ class MultiWii(object):
         
         data = self._destruct_payload(buf, "H" * 8)
         
-        if raw: 
-            if exclude_aux:
+        if raw:
+            if not include_aux:
                 return data[:4]
 
             return data
         
-        return self._get_channel_values(data, exclude_aux)
+        return self._get_channel_values(data, include_aux)
+    
+    def get_altitude(self):
+        command = self._construct_payload(MultiWii.ALTITUDE)
+        
+        self._write(command)
+        
+        buf = self._read(6)
+        
+        data = self._destruct_payload(buf, "ih")
+        
+        return data
+
+    def get_attitude(self):
+        command = self._construct_payload(MultiWii.ATTITUDE)
+        
+        self._write(command)
+        
+        buf = self._read(6)
+        
+        data = self._destruct_payload(buf, "hhh")
+
+        return data
 
     def get_imu(self, raw: bool):
         command = self._construct_payload(MultiWii.IMU)
@@ -229,8 +282,8 @@ class MultiWii(object):
             return None
 
     def _get_new_coords(self):
-        return {"x": 0.0, "y": 0.0, "z": 0.0}
-    
+        return { "x": 0.0, "y": 0.0, "z": 0.0 }
+
     def _get_ident_data(self, data: list):
         if len(data) < 1: return
         
@@ -239,15 +292,25 @@ class MultiWii(object):
             "version"   : str(data[0] / 100)
         }
 
-    def _get_channel_values(self, data: list, exclude_aux: bool):
+    def _get_motor_values(self, data: list):
         if len(data) < 4: return
 
-        types = ("roll", "pitch", "throttle", "yaw")
-        
+        values = dict()
+
+        for x in range(0, len(data)):
+            values[("motor%d" % (x + 1))] = data[x] 
+
+        return values
+
+    def _get_channel_values(self, data: list, include_aux: bool):
+        if len(data) < 4: return
+
+        types = MultiWii.CHANNEL_TYPES
+            
         if self.standalone:
             types[2], types[3] = types[3], types[2]
         
-        if not exclude_aux:
+        if include_aux:
             for x in range(0, MultiWii.AUX_CHANNEL_COUNT):
                 types += ("aux%d" % (x + 1),)
 
@@ -257,7 +320,7 @@ class MultiWii(object):
             values[types[x]] = data[x]
 
         return values
-       
+
     def _get_imu_data(self, data: list):
         if len(data) < 1: return
         
@@ -265,7 +328,7 @@ class MultiWii(object):
         
         coords = self._get_new_coords()
         
-        types = ("acc", "gyr")
+        types = MultiWii.IMU_TYPES
         
         values = dict()
         
