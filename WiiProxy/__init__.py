@@ -62,7 +62,7 @@ class MultiWii(object):
     ATTITUDE_TYPES  = ("angx", "angy", "heading")
     CHANNEL_TYPES   = ("roll", "pitch", "throttle", "yaw")
     GPS_TYPES       = ("lat", "lon", "attitude", "speed")
-    IMU_TYPES       = ("acc", "gyr")
+    IMU_TYPES       = ("acc", "gyr", "mag")
 
     # ---------------------------------------------------------------------
 
