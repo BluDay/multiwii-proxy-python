@@ -51,7 +51,10 @@ if not controller: exit()
 try:
     print("\nIdent - Information")
     print(controller.get_ident())
-    
+
+    print("\nGetting IMU values")
+    print(controller.get_imu(False))
+
     print("\nGetting channel values")
     print(controller.get_channels(False))
 
