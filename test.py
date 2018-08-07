@@ -56,7 +56,7 @@ try:
     print(controller.get_imu(False))
 
     print("\nChannels")
-    print(controller.get_channels(False))
+    print(controller.get_channels(False, True))
 
     print("\nMotors")
     print(controller.get_motors(False))
@@ -67,22 +67,20 @@ try:
     print("\nAttitude")
     print(controller.get_attitude(False))
     
-    print("\nGPS")
-    print(controller.get_gps(False))
+    # Used to print GPS data
+    # print("\nGPS")
+    # print(controller.get_gps(False))
 
     print("")
 
-    """ 
+    """
+    ---- Print IMU approximately every 10ms ----"""
+
     print("Arming the craft")
     
     controller.arm()
     
-    sleep(3)
-
-    print("Getting current channel values")
-    print(controller.get_channels(True))
-
-    print("Printing IMU in 2 seconds...")
+    print("\nPrinting IMU in 2 seconds...")
 
     sleep(2)
 
@@ -92,7 +90,7 @@ try:
         print(controller.get_imu(False))
 
         sleep(0.05)
-    """
+    """"""
 except KeyboardInterrupt:
     exit()
 
