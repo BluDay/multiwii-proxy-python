@@ -65,7 +65,10 @@ try:
     print(controller.get_altitude())
     
     print("\nAttitude")
-    print(controller.get_attitude())
+    print(controller.get_attitude(False))
+    
+    print("\nGPS")
+    print(controller.get_gps(False))
 
     print("")
 

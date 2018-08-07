@@ -220,7 +220,7 @@ class MultiWii(object):
     def get_altitude(self):
         return self._write_read(MultiWii.ALTITUDE, 6, "ih")
 
-    def get_attitude(self, raw: bool = False):
+    def get_attitude(self, raw: bool):
         data = self._write_read(MultiWii.ATTITUDE, 6, "3h")
         
         if raw: return data
@@ -246,6 +246,11 @@ class MultiWii(object):
     def get_gps(self, raw: bool):
         data = self._write_read(MultiWii.GPS, 16, "BBII3H")
         
+        data = data[2:len(data)] 
+
+        data[0] /= 10000000
+        data[1] /= 10000000
+
         if raw: return data
 
         return self._get_gps_data(data)
@@ -338,8 +343,6 @@ class MultiWii(object):
 
     def _get_gps_data(self, data: list):
         if len(data) < 0x04: return
-        
-        data = data[2:len(data)]
         
         types = MultiWii.GPS_TYPES
         
