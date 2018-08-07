@@ -279,7 +279,7 @@ class MultiWii(object):
         return { "x": 0.0, "y": 0.0, "z": 0.0 }
 
     def _get_ident_data(self, data: list):
-        if len(data) < 1: return
+        if len(data) < 0x02: return
         
         return {
             "multitype" : self._get_multitype(data[1]),

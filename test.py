@@ -49,22 +49,22 @@ if not controller: exit()
 # ------- PLAYGROUND! Modify this freely -------
 
 try:
-    print("\nIdent - Information")
+    print("\nIdent")
     print(controller.get_ident())
 
-    print("\nGetting IMU values")
+    print("\nIMU")
     print(controller.get_imu(False))
 
-    print("\nGetting channel values")
+    print("\nChannels")
     print(controller.get_channels(False))
 
-    print("\nGetting motor values")
+    print("\nMotors")
     print(controller.get_motors(False))
 
-    print("\nGetting altitude")
+    print("\nAltitude")
     print(controller.get_altitude())
     
-    print("\nGetting attitude")
+    print("\nAttitude")
     print(controller.get_attitude())
 
     print("")
