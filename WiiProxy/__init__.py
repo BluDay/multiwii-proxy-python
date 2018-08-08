@@ -53,8 +53,8 @@ class MultiWii(object):
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
     
-    PREAMBLE_OUTGOING = (0x24, 0x4d, 0x3c)
-    PREAMBLE_INCOMING = (0x24, 0x4d, 0x3e)
+    HEADER_OUTGOING = (0x24, 0x4d, 0x3c)
+    HEADER_INCOMING = (0x24, 0x4d, 0x3e)
     
     OP_DICT_DATA = {
         "attitude"  : ("angx", "angy", "heading"),
@@ -80,7 +80,7 @@ class MultiWii(object):
         payload = bytes()
         
         data = (
-            ("<3b", MultiWii.PREAMBLE_OUTGOING),
+            ("<3b", MultiWii.HEADER_OUTGOING),
             ("<BB", (size, code)),
             ("<%dH" % len(data), data)
         )
@@ -118,9 +118,9 @@ class MultiWii(object):
     def _read(self, size: int = 1):
         self._flush()
         
-        pre_payload = tuple(self._controller.read(5)[:3])
+        header = tuple(self._controller.read(5)[:3])
         
-        if pre_payload == MultiWii.PREAMBLE_INCOMING:
+        if header == MultiWii.HEADER_INCOMING:
             payload = self._controller.read(size)
             
             self._controller.read(1)
