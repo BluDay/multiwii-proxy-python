@@ -46,18 +46,15 @@ class MultiWii(object):
     ALTITUDE    = 0x6d
     WAYPOINT    = 0x76
     
-    SET_RC          = 0xc8
-    SET_GPS         = 0xc9
-    SET_MOTOR       = 0xd6
-    
-    AUX_CHANNEL_COUNT = 4
+    SET_RC      = 0xc8
+    SET_GPS     = 0xc9
+    SET_MOTOR   = 0xd6
     
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
     
-    DATA_MIN_SIZE = 6
-    
-    PREAMBLE = (0x24, 0x4d, 0x3c)
+    PREAMBLE_OUTGOING = (0x24, 0x4d, 0x3c)
+    PREAMBLE_INCOMING = (0x24, 0x4d, 0x3e)
     
     OP_DICT_DATA = {
         "attitude"  : ("angx", "angy", "heading"),
@@ -80,44 +77,36 @@ class MultiWii(object):
         size: int = 0, 
         data: list = []
     ):
-        buf = bytes()
+        payload = bytes()
         
-        payload = (
-            ("<3b", MultiWii.PREAMBLE),
-            ("<2B", (size, code)),
+        data = (
+            ("<3b", MultiWii.PREAMBLE_OUTGOING),
+            ("<BB", (size, code)),
             ("<%dH" % len(data), data)
         )
         
-        for section in payload:
-            buf += pack(section[0], *section[1])
-
-        payload = buf[3:len(buf)]
-
-        checksum = int(payload[1])
-
-        if len(payload) > 0x02:
+        for section in data:
+            payload += pack(section[0], *section[1])
+        
+        data = payload[3:]
+        
+        checksum = code
+        
+        if len(data) > 0x02:
             checksum = 0
             
-            for byte in payload:
+            for byte in data:
                 checksum = checksum ^ byte
-       
-        buf += pack(
-            "<%s" % "H" if checksum > 0x64 else "B",
+        
+        payload += pack(
+            "<%s" % "H" if checksum > 0xff else "B",
             checksum
         )
-
-        return buf
+        
+        return payload
         
     def _destruct_payload(self, payload: list, pattern: str):
-        if MultiWii.DATA_MIN_SIZE > len(payload):
-            return None
-        
-        data_start  = 0x05
-        data_end    = data_start + payload[3]
-        
-        buf = payload[data_start:data_end]
-        
-        return unpack("<%s" % pattern, buf)
+        return unpack("<%s" % pattern, payload) if payload else None
 
     # ---------------------------------------------------------------------
 
@@ -126,26 +115,26 @@ class MultiWii(object):
         
         self._controller.write(command)
 
-    def _read(self, expected_size: int = 1):
-        expected_size += MultiWii.DATA_MIN_SIZE
-        
+    def _read(self, size: int = 1):
         self._flush()
         
-        buf = None
+        pre_payload = tuple(self._controller.read(5)[:3])
         
-        while not buf:
-            buf = self._controller.read(expected_size)
-        
-        return buf[:expected_size]
+        if pre_payload == MultiWii.PREAMBLE_INCOMING:
+            payload = self._controller.read(size)
+            
+            self._controller.read(1)
+            
+            return payload
 
     def _write_read(self, code: int, expected_size: int, pattern: str):
         command = self._construct_payload(code)
         
         self._write(command)
         
-        buf = self._read(expected_size)
+        payload = self._read(expected_size)
         
-        return self._destruct_payload(buf, pattern)
+        return self._destruct_payload(payload, pattern)
 
     def _flush(self):
         if not self._controller: return
@@ -195,10 +184,12 @@ class MultiWii(object):
         self._write(command)
 
     def get_motors(self, raw: bool, limit: int = 8):
-        if limit < 1: return
+        if limit < 0x01: return
         
         data = self._write_read(MultiWii.MOTOR, 16, "8H")
         
+        if not data: return None
+
         data = data[:limit]
         
         if raw: return data
@@ -216,16 +207,19 @@ class MultiWii(object):
 
     def get_channels(
         self, 
-        raw: bool, 
-        include_aux: bool = False, 
-        extra_aux: bool = False):
-        data = (16, "8H")
+        raw         : bool, 
+        include_aux : bool = False, 
+        extra_aux   : bool = False
+    ):
+        data_sizes = (16, "8H")
 
         if include_aux and extra_aux:
-            data = (32, "16H")
+            data_sizes = (32, "16H")
 
-        data = self._write_read(MultiWii.RC, *data)
+        data = self._write_read(MultiWii.RC, *data_sizes)
         
+        if not data: return None
+
         if raw:
             if not include_aux:
                 return data[:4]
@@ -240,6 +234,8 @@ class MultiWii(object):
     def get_attitude(self, raw: bool):
         data = self._write_read(MultiWii.ATTITUDE, 6, "3h")
         
+        if not data: return None
+
         if raw: return data
         
         types = MultiWii.OP_DICT_DATA["attitude"]
@@ -263,7 +259,9 @@ class MultiWii(object):
     def get_gps(self, raw: bool):
         data = self._write_read(MultiWii.GPS, 16, "BBII3H")
         
-        data = data[2:len(data)] 
+        if not data: return None
+
+        data = data[2:] 
 
         data[0] /= 10000000
         data[1] /= 10000000
@@ -275,6 +273,8 @@ class MultiWii(object):
     def get_imu(self, raw: bool):
         data = self._write_read(MultiWii.IMU, 18, "9h")
         
+        if not data: return None
+
         if raw: return data
         
         return self._get_imu_data(data)
@@ -282,6 +282,8 @@ class MultiWii(object):
     def get_ident(self):
         data = self._write_read(MultiWii.IDENT, 7, "BBIB")
         
+        if not data: return None
+
         return self._get_ident_data(data)
 
     # ---------------------------------------------------------------------
@@ -301,7 +303,7 @@ class MultiWii(object):
         return { "x": 0.0, "y": 0.0, "z": 0.0 }
 
     def _get_ident_data(self, data: list):
-        if len(data) < 0x02: return
+        if len(data) < 0x02: return None
         
         return {
             "multitype" : self._get_multitype(data[1]),
@@ -309,7 +311,7 @@ class MultiWii(object):
         }
 
     def _get_motor_values(self, data: list):
-        if len(data) < 0x04: return
+        if len(data) < 0x04: return None
         
         values = dict()
         
@@ -319,7 +321,7 @@ class MultiWii(object):
         return values
 
     def _get_channel_values(self, data: list, include_aux: bool):
-        if len(data) < 0x04: return
+        if len(data) < 0x04: return None
         
         types = MultiWii.OP_DICT_DATA["channels"]
             
@@ -327,7 +329,7 @@ class MultiWii(object):
             types[2], types[3] = types[3], types[2]
         
         if include_aux:
-            for x in range(0, MultiWii.AUX_CHANNEL_COUNT):
+            for x in range(0, len(data[4:])):
                 types += ("aux%d" % (x + 1),)
         
         values = dict()
@@ -338,7 +340,7 @@ class MultiWii(object):
         return values
 
     def _get_imu_data(self, data: list):
-        if len(data) < 0x01: return
+        if len(data) < 0x01: return None
         
         value_index = 0
         
@@ -359,7 +361,7 @@ class MultiWii(object):
         return values
 
     def _get_gps_data(self, data: list):
-        if len(data) < 0x04: return
+        if len(data) < 0x04: return None
         
         types = MultiWii.OP_DICT_DATA["gps"]
         

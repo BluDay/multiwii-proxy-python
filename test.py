@@ -42,6 +42,8 @@ serial.open()
 
 sleep(6)
 
+system("clear")
+
 controller = MultiWii(serial)
 
 if not controller: exit()
@@ -67,9 +69,8 @@ try:
     print("\nAttitude")
     print(controller.get_attitude(False))
     
-    # Used to print GPS data
-    # print("\nGPS")
-    # print(controller.get_gps(False))
+    print("\nGPS")
+    print(controller.get_gps(False))
 
     print("")
 
@@ -86,10 +87,15 @@ try:
 
     while True:
         system("clear")
-
+        
+        # Print IDENT before fetching IMU to 
+        # experience the speed of WiiProxy.
+        #
+        print(controller.get_ident())
+        
         print(controller.get_imu(False))
 
-        sleep(0.05)
+        sleep(0.025)
     """"""
 except KeyboardInterrupt:
     exit()
