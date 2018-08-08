@@ -37,18 +37,18 @@ class MultiWii(object):
     
     # ---------------------------------------------------------------------
     
-    IDENT       = 0x64
-    IMU         = 0x66
-    MOTOR       = 0x68
-    RC          = 0x69
-    GPS         = 0x6a
-    ATTITUDE    = 0x6c
-    ALTITUDE    = 0x6d
-    WAYPOINT    = 0x76
+    IDENT       = 100
+    IMU         = 102
+    MOTOR       = 104
+    RC          = 105
+    GPS         = 106
+    ATTITUDE    = 108
+    ALTITUDE    = 109
+    WAYPOINT    = 118
     
-    SET_RC      = 0xc8
-    SET_GPS     = 0xc9
-    SET_MOTOR   = 0xd6
+    SET_RC      = 200
+    SET_GPS     = 201
+    SET_MOTOR   = 214
     
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
