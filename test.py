@@ -51,7 +51,7 @@ if not controller: exit()
 # ------- PLAYGROUND! Modify this freely -------
 
 try:
-    print("\nIdent")
+    print("Ident")
     print(controller.get_ident())
 
     print("\nIMU")
@@ -86,14 +86,14 @@ try:
     sleep(2)
 
     while True:
-        system("clear")
-        
         # Print IDENT before fetching IMU to 
         # experience the speed of WiiProxy.
         #
-        print(controller.get_ident())
+        # print(controller.get_ident(), end = "\r")
         
-        print(controller.get_imu(False))
+        system("clear")
+
+        print(controller.get_imu(False), end = "\r")
 
         sleep(0.025)
     """"""

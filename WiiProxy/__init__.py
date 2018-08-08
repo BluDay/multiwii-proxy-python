@@ -53,8 +53,10 @@ class MultiWii(object):
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
     
-    HEADER_OUTGOING = (0x24, 0x4d, 0x3c)
-    HEADER_INCOMING = (0x24, 0x4d, 0x3e)
+    PREAMBLE = (0x24, 0x4d)
+
+    HEADER_OUTGOING = (*PREAMBLE, 0x3c)
+    HEADER_INCOMING = (*PREAMBLE, 0x3e)
     
     OP_DICT_DATA = {
         "attitude"  : ("angx", "angy", "heading"),
