@@ -106,14 +106,14 @@ class MultiWii(object):
         return payload
         
     def _destruct_payload(self, payload: list, pattern: str):
-        return unpack("<%s" % pattern, payload) if payload else None
+        if not payload: return None
+        
+        return unpack("<%s" % pattern, payload)
 
     # ---------------------------------------------------------------------
 
     def _write(self, command: bytes):
-        if not self._controller: return
-        
-        self._controller.write(command)
+        if self._controller: self._controller.write(command)
 
     def _read(self, size: int = 1):
         self._flush()
@@ -127,12 +127,12 @@ class MultiWii(object):
             
             return payload
 
-    def _write_read(self, code: int, expected_size: int, pattern: str):
+    def _write_read(self, code: int, size: int, pattern: str):
         command = self._construct_payload(code)
         
         self._write(command)
         
-        payload = self._read(expected_size)
+        payload = self._read(size)
         
         return self._destruct_payload(payload, pattern)
 
