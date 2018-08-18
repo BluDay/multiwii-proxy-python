@@ -66,7 +66,7 @@ from WiiProxy import MultiWii
 
 controller = MultiWii(serial)
 ```
-##### Manipulation example
+#### Manipulation example
 ###### Dis/arm
 ```
 controller.arm()
@@ -88,6 +88,11 @@ imu = controller.get_imu()
 print(ident)
 print(imu)
 ```
+
+#### Implementing a new MSP function
+All serial based methods [_write()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L117), [_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L120) and [_write_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L132) should be used in a public method when performing some operation. Methods such as [set_channels()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L208) and [get_channels()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L221) should be cloned when implementing other MultiWii functionalities.
+
+To properly use the [_write()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L117) method, you need to strictly comply with the rules of [MSP](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol) and to properly use the [_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L120) method, you also need to comply with the formatting rules of the Python library [struct](https://docs.python.org/2/library/struct.html). The [_construct_payload()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L76) method compliments the [_write()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L117) method and the [_destruct_payload()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L110) compliments the [_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L120) method. The [_write_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L132) should be used when performing some request. It provides the same result as [_write()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L117) and [_read()](https://github.com/engineer-186f/WiiProxy/blob/master/WiiProxy/__init__.py#L120) together but intentionally causes less syntaxes from being made. Examine the arguments for all mentioned methods to gather a deeper understanding of how WiiProxy works.
 
 ## Compatible boards
 WiiProxy and the MultiWii Serial Protocol (MSP) can be used on different boards, unfortunately, I've only tested MSP through WiiProxy on these following boards. Your board will most likely be able to operate if it's indeed compatible with the MSP.
