@@ -1,6 +1,6 @@
 # WiiProxy
 
-A proxy for MultiWii flight controller developed specifically for Python 3.
+A proxy for MultiWii flight controller module for Python 3
 
 This "proxy" uses the [MultiWii Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol) to communicate
 with the physical flight controller. The communication is established
