@@ -47,7 +47,7 @@ serial.bytesize      = pyserial.EIGHTBITS
 serial.parity        = pyserial.PARITY_NONE
 serial.stopbits      = pyserial.STOPBITS_ONE
 serial.write_timeout = 3
-serial.xonxoff       = False
+serial.xonxoff        = False
 serial.rtscts        = False
 serial.dsrdtr        = False
 
