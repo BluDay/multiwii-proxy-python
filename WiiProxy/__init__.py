@@ -207,9 +207,9 @@ class MultiWii(object):
         self._write(command)
 
     def get_channels(self, 
-        raw         : bool, 
-        include_aux : bool = False, 
-        extra_aux   : bool = False
+        raw:            bool, 
+        include_aux:    bool = False, 
+        extra_aux:      bool = False
     ):
         data_sizes = (16, "8H")
 
