@@ -53,16 +53,16 @@ if not controller: exit()
 try:
     print("Ident")
     print(controller.get_ident())
-
+    
     print("\nIMU")
     print(controller.get_imu(False))
-
+    
     print("\nChannels")
     print(controller.get_channels(False, True))
-
+    
     print("\nMotors")
     print(controller.get_motors(False))
-
+    
     print("\nAltitude")
     print(controller.get_altitude())
     
@@ -71,30 +71,30 @@ try:
     
     print("\nGPS")
     print(controller.get_gps(False))
-
+    
     print("")
-
+    
     """
     ---- Print IMU approximately every 10ms ----"""
-
+    
     print("Arming the craft")
     
     controller.arm()
     
     print("\nPrinting IMU in 2 seconds...")
-
+    
     sleep(2)
-
+    
     while True:
+        system("clear")
+        
         # Print IDENT before fetching IMU to 
         # experience the speed of WiiProxy.
         #
         # print(controller.get_ident(), end = "\r")
+         
+        print(controller.get_imu(False))
         
-        system("clear")
-
-        print(controller.get_imu(False), end = "\r")
-
         sleep(0.025)
     """"""
 except KeyboardInterrupt:

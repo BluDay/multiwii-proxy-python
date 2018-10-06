@@ -73,8 +73,7 @@ class MultiWii(object):
 
     # ---------------------------------------------------------------------
 
-    def _construct_payload(
-        self, 
+    def _construct_payload(self, 
         code: int, 
         size: int = 0, 
         data: list = []
@@ -207,8 +206,7 @@ class MultiWii(object):
         
         self._write(command)
 
-    def get_channels(
-        self, 
+    def get_channels(self, 
         raw         : bool, 
         include_aux : bool = False, 
         extra_aux   : bool = False
@@ -223,8 +221,7 @@ class MultiWii(object):
         if not data: return None
 
         if raw:
-            if not include_aux:
-                return data[:4]
+            if not include_aux: return data[:4]
             
             return data
         
