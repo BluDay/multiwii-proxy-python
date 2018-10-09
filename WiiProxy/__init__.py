@@ -44,12 +44,15 @@ class MultiWii(object):
     GPS         = 106
     ATTITUDE    = 108
     ALTITUDE    = 109
+    MISC        = 114
     WAYPOINT    = 118
     
     SET_RC      = 200
     SET_GPS     = 201
     SET_MOTOR   = 214
     
+    INIT_TIMEOUT = 3
+
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
     
@@ -68,8 +71,11 @@ class MultiWii(object):
     # ---------------------------------------------------------------------
 
     def __init__(self, controller: Serial, standalone: bool = False):
-        self._controller    = controller
-        self.standalone     = standalone
+        self.standalone = standalone
+        
+        self._controller = controller
+        
+        sleep(MultiWii.INIT_TIMEOUT)
 
     # ---------------------------------------------------------------------
 
@@ -100,7 +106,7 @@ class MultiWii(object):
                 checksum = checksum ^ byte
         
         payload += pack(
-            "<%s" % "H" if checksum > 0xff else "B",
+            "<%s" % "H" if checksum > 0xff else "B", 
             checksum
         )
         
@@ -259,21 +265,21 @@ class MultiWii(object):
         data = self._write_read(MultiWii.GPS, 16, "BBII3H")
         
         if not data: return None
-
+        
         data = data[2:] 
-
+        
         data[0] /= 10000000
         data[1] /= 10000000
-
+        
         if raw: return data
-
+        
         return self._get_gps_data(data)
 
     def get_imu(self, raw: bool):
         data = self._write_read(MultiWii.IMU, 18, "9h")
         
         if not data: return None
-
+        
         if raw: return data
         
         return self._get_imu_data(data)
@@ -282,8 +288,15 @@ class MultiWii(object):
         data = self._write_read(MultiWii.IDENT, 7, "BBIB")
         
         if not data: return None
-
+        
         return self._get_ident_data(data)
+    
+    def get_misc(self):
+        data = self._write_read(MultiWii.MISC, 19, "6HBH4B")
+        
+        if not data: return None
+        
+        return self._get_misc_data(data)
 
     # ---------------------------------------------------------------------
 
@@ -307,6 +320,11 @@ class MultiWii(object):
             "multitype" : self._get_multitype(data[1]),
             "version"   : str(data[0] / 100)
         }
+
+    def _get_misc_data(self, data: list):
+        if len(data) < 0x01: return None
+
+        return { "misc": data }
 
     def _get_motor_values(self, data: list):
         if len(data) < 0x04: return None
