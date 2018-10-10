@@ -125,7 +125,7 @@ class MultiWii(object):
     def _destruct_payload(self, payload: list, pattern: str):
         if not payload: return None
         
-        return unpack("<%s" % pattern, payload)
+        return list(unpack("<%s" % pattern, payload))
 
     # ---------------------------------------------------------------------
 
@@ -263,7 +263,10 @@ class MultiWii(object):
         data = self._write_read(MultiWii.ATTITUDE, 6, "3h")
         
         if not data: return None
-
+        
+        data[0] /= 10.0
+        data[1] /= 10.0 
+        
         if raw: return data
         
         types = MultiWii.OP_DICT_DATA["attitude"]
@@ -321,7 +324,7 @@ class MultiWii(object):
         
         return self._get_misc_data(data)
     
-    det calibrate_acc(self):
+    def calibrate_acc(self):
         command = self._construct_payload(MultiWii.ACC_CALIBRATION)
         
         self._write(command)
@@ -354,7 +357,7 @@ class MultiWii(object):
         if len(data) < 0x02: return None
         
         return {
-            "multitype" : str(MultiWii.Multitype[data[1]]),
+            "multitype" : str(MultiWii.Multitype(data[1])),
             "version"   : str(data[0] / 100)
         }
 
