@@ -18,7 +18,7 @@
 
 # -------------------------------------------------------------------------
 
-from enum       import IntEnum
+from enum       import IntEnum, unique
 from serial     import Serial
 from struct     import pack, unpack
 from time       import time, sleep
@@ -26,6 +26,7 @@ from time       import time, sleep
 # -------------------------------------------------------------------------
 
 class MultiWii(object):
+    @unique
     class Multitype(IntEnum):
         Tri         = 1,
         QuadX       = 3,
@@ -34,11 +35,15 @@ class MultiWii(object):
         OctoX8      = 11,
         OctoFlatP   = 12,
         OctoFlatX   = 13
+        
+        def __str__(self): 
+            return self.name
     
     # ---------------------------------------------------------------------
     
     IDENT       = 100
     IMU         = 102
+    SERVO       = 103
     MOTOR       = 104
     RC          = 105
     GPS         = 106
@@ -47,9 +52,14 @@ class MultiWii(object):
     MISC        = 114
     WAYPOINT    = 118
     
-    SET_RC      = 200
-    SET_GPS     = 201
-    SET_MOTOR   = 214
+    SET_RC              = 200
+    SET_GPS             = 201
+    SET_MOTOR           = 214
+    ACC_CALIBRATION     = 205
+    MAG_CALIBRATION     = 206
+    RESET_CONF          = 208
+    BIND                = 240
+    EEPROM_WRITE        = 250
     
     INIT_TIMEOUT = 3
 
@@ -181,6 +191,19 @@ class MultiWii(object):
 
     # ---------------------------------------------------------------------
     
+    def get_servos(self, raw: bool, limit: int = 8):
+        if limit < 0x01: return
+        
+        data = self._write_read(MultiWii.SERVO, 16, "8H")
+        
+        if not data: return None
+        
+        data = data[:limit]
+        
+        if raw: return data
+        
+        return self._get_servo_values(data) 
+
     def set_motors(self, values: list):
         if len(values) < 0x04: return
         
@@ -256,9 +279,9 @@ class MultiWii(object):
         if len(coordinates) < 0x02: return
         
         values = [1, 0] + coordinates + [attitude, speed]
-
+        
         command = self._construct_payload(MultiWii.SET_GPS, 14, values)
-
+        
         self._write(command)
 
     def get_gps(self, raw: bool):
@@ -297,19 +320,33 @@ class MultiWii(object):
         if not data: return None
         
         return self._get_misc_data(data)
+    
+    det calibrate_acc(self):
+        command = self._construct_payload(MultiWii.ACC_CALIBRATION)
+        
+        self._write(command)
+    
+    def calibrate_mag(self):
+        command = self._construct_payload(MultiWii.MAG_CALIBRATION)
+        
+        self._write(command)
+    
+    def set_eeprom(self):
+        command = self._construct_payload(MultiWii.EEPROM_WRITE)
+        
+        self._write(command)
+
+    def reset_configuration(self):
+        command = self._construct_payload(MultiWii.RESET_CONF)
+        
+        self._write(command)
+
+    def bind_spektrum_satellite(self):
+        command = self._construct_payload(MultiWii.BIND)
+        
+        self._write(command)
 
     # ---------------------------------------------------------------------
-
-    def _get_multitype(self, index: int):
-        try:
-            if not MultiWii.Multitype(index):
-                return None
-            
-            multitype = str(MultiWii.Multitype(index))
-            
-            return multitype.split(".")[1]
-        except IndexError:
-            return None
 
     def _get_new_coords(self): return { "x": 0.0, "y": 0.0, "z": 0.0 }
 
@@ -317,7 +354,7 @@ class MultiWii(object):
         if len(data) < 0x02: return None
         
         return {
-            "multitype" : self._get_multitype(data[1]),
+            "multitype" : str(MultiWii.Multitype[data[1]]),
             "version"   : str(data[0] / 100)
         }
 
@@ -333,6 +370,16 @@ class MultiWii(object):
         
         for x in range(0, len(data)):
             values[("motor%d" % (x + 1))] = data[x] 
+        
+        return values
+    
+    def _get_servo_values(self, data: list):
+        if len(data) < 0x04: return None
+        
+        values = dict()
+        
+        for x in range(0, len(data)):
+            values[("servo%d" % (x + 1))] = data[x] 
         
         return values
 
