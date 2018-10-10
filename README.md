@@ -41,15 +41,15 @@ In order to communicate with the flight controller, you need to correctly setup 
 ```
 serial = pyserial.Serial()
 
-serial.port          = "/dev/ttyUSB0" # Port depends on your OS and interface.
-serial.baudrate      = 115200
-serial.bytesize      = pyserial.EIGHTBITS
-serial.parity        = pyserial.PARITY_NONE
-serial.stopbits      = pyserial.STOPBITS_ONE
-serial.write_timeout = 3
-serial.xonxoff        = False
-serial.rtscts        = False
-serial.dsrdtr        = False
+serial.port              = "/dev/ttyUSB0" # Port depends on your OS and interface.
+serial.baudrate          = 115200
+serial.bytesize          = pyserial.EIGHTBITS
+serial.parity            = pyserial.PARITY_NONE
+serial.stopbits          = pyserial.STOPBITS_ONE
+serial.write_timeout     = 3
+serial.xonxoff            = False
+serial.rtscts            = False
+serial.dsrdtr            = False
 
 serial.open()
 ```
