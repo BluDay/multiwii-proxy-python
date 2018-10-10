@@ -51,13 +51,15 @@ class MultiWii(object):
     ALTITUDE    = 109
     MISC        = 114
     WAYPOINT    = 118
+    SERVO_CONF  = 120
     
     SET_RC              = 200
     SET_GPS             = 201
-    SET_MOTOR           = 214
     ACC_CALIBRATION     = 205
     MAG_CALIBRATION     = 206
     RESET_CONF          = 208
+    SET_SERVO_CONF      = 212
+    SET_MOTOR           = 214
     BIND                = 240
     EEPROM_WRITE        = 250
     
