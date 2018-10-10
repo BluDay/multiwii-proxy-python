@@ -286,7 +286,7 @@ class MultiWii(object):
         command = self._construct_payload(MultiWii.SET_GPS, 14, values)
         
         self._write(command)
-
+    
     def get_gps(self, raw: bool):
         data = self._write_read(MultiWii.GPS, 16, "BBII3H")
         
@@ -300,7 +300,7 @@ class MultiWii(object):
         if raw: return data
         
         return self._get_gps_data(data)
-
+    
     def get_imu(self, raw: bool):
         data = self._write_read(MultiWii.IMU, 18, "9h")
         
@@ -309,7 +309,7 @@ class MultiWii(object):
         if raw: return data
         
         return self._get_imu_data(data)
-
+    
     def get_ident(self):
         data = self._write_read(MultiWii.IDENT, 7, "BBIB")
         
@@ -317,10 +317,33 @@ class MultiWii(object):
         
         return self._get_ident_data(data)
     
-    def get_misc(self):
+    def set_servo_conf(self, values: list):
+        command = self._construct_payload(
+            MultiWii.SET_SERVO_CONF, 56, values
+        )
+        
+        self._write(command)
+    
+    def get_servo_conf(self):
+        data = self._write_read(MultiWii.SERVO_CONF, 56, 8 * "3HB")
+        
+        if not data: return None
+        
+        if raw: return data
+        
+        return self._get_servo_conf_data(data)
+    
+    def get_misc(self, raw: bool = False):
         data = self._write_read(MultiWii.MISC, 19, "6HBH4B")
         
         if not data: return None
+        
+        data[7]     /= 10.0
+        data[9]     /= 10.0
+        data[10]    /= 10.0
+        data[11]    /= 10.0
+        
+        if raw: return data 
         
         return self._get_misc_data(data)
     
@@ -338,21 +361,21 @@ class MultiWii(object):
         command = self._construct_payload(MultiWii.EEPROM_WRITE)
         
         self._write(command)
-
+    
     def reset_configuration(self):
         command = self._construct_payload(MultiWii.RESET_CONF)
         
         self._write(command)
-
+    
     def bind_spektrum_satellite(self):
         command = self._construct_payload(MultiWii.BIND)
         
         self._write(command)
-
+    
     # ---------------------------------------------------------------------
-
+    
     def _get_new_coords(self): return { "x": 0.0, "y": 0.0, "z": 0.0 }
-
+    
     def _get_ident_data(self, data: list):
         if len(data) < 0x02: return None
         
@@ -372,7 +395,7 @@ class MultiWii(object):
         values = dict()
         
         for x in range(0, len(data)):
-            values[("motor%d" % (x + 1))] = data[x] 
+            values["motor%d" % (x + 1)] = data[x] 
         
         return values
     
@@ -382,7 +405,24 @@ class MultiWii(object):
         values = dict()
         
         for x in range(0, len(data)):
-            values[("servo%d" % (x + 1))] = data[x] 
+            values["servo%d" % (x + 1)] = data[x] 
+        
+        return values
+    
+    def _get_servo_conf_data(self, data: list):
+        if len(data) < 0x08: return None
+        
+        values = dict()
+        
+        for x in range(0, len(data), 4):
+            servo = data[x:x + 4]
+            
+            values["servo%d" % (x / 4)] = {
+                "min"       : servo[0],
+                "max"       : servo[1],
+                "middle"    : servo[2],
+                "rate"      : servo[3]
+            }
         
         return values
 
