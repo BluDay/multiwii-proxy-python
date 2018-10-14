@@ -64,12 +64,12 @@ class MultiWii(object):
     EEPROM_WRITE        = 250
     
     INIT_TIMEOUT = 3
-
+    
     ARM_DELAY   = 0.5
     WRITE_DELAY = 0.05
     
     PREAMBLE = (0x24, 0x4d)
-
+    
     HEADER_OUTGOING = (*PREAMBLE, 0x3c)
     HEADER_INCOMING = (*PREAMBLE, 0x3e)
     
@@ -193,18 +193,14 @@ class MultiWii(object):
 
     # ---------------------------------------------------------------------
     
-    def get_servos(self, raw: bool, limit: int = 8):
+    def get_servos(self, limit: int = 8):
         if limit < 0x01: return
         
         data = self._write_read(MultiWii.SERVO, 16, "8H")
         
         if not data: return None
         
-        data = data[:limit]
-        
-        if raw: return data
-        
-        return self._get_servo_values(data) 
+        return data[:limit]
 
     def set_motors(self, values: list):
         if len(values) < 0x04: return
@@ -215,18 +211,14 @@ class MultiWii(object):
         
         self._write(command)
 
-    def get_motors(self, raw: bool, limit: int = 8):
+    def get_motors(self, limit: int = 8):
         if limit < 0x01: return
         
         data = self._write_read(MultiWii.MOTOR, 16, "8H")
         
         if not data: return None
-
-        data = data[:limit]
         
-        if raw: return data
-        
-        return self._get_motor_values(data)
+        return data[:limit]
 
     def set_channels(self, values: list):
         if len(values) < 0x04: return
@@ -390,26 +382,6 @@ class MultiWii(object):
         if len(data) < 0x01: return None
 
         return { "misc": data }
-
-    def _get_motor_values(self, data: list):
-        if len(data) < 0x04: return None
-        
-        values = dict()
-        
-        for x in range(0, len(data)):
-            values["motor%d" % (x + 1)] = data[x] 
-        
-        return values
-    
-    def _get_servo_values(self, data: list):
-        if len(data) < 0x04: return None
-        
-        values = dict()
-        
-        for x in range(0, len(data)):
-            values["servo%d" % (x + 1)] = data[x] 
-        
-        return values
     
     def _get_servo_conf_data(self, data: list):
         if len(data) < 0x08: return None
