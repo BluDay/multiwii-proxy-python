@@ -61,7 +61,7 @@ try:
     print(controller.get_channels(False, True))
     
     print("\nMotors")
-    print(controller.get_motors(False))
+    print(controller.get_motors())
     
     print("\nAltitude")
     print(controller.get_altitude())

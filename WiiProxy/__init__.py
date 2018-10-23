@@ -248,7 +248,7 @@ class MultiWii(object):
             
             return data
         
-        return self._get_channel_values(data, include_aux)
+        return self._get_channel_data(data, include_aux)
     
     def get_altitude(self):
         return self._write_read(MultiWii.ALTITUDE, 6, "ih")
@@ -263,15 +263,8 @@ class MultiWii(object):
         
         if raw: return data
         
-        types = MultiWii.OP_DICT_DATA["attitude"]
-        
-        values = dict()
-        
-        for x in range(0, len(data)):
-            values[types[x]] = data[x]
-        
-        return values
-    
+        return self._get_attitude_data(data)
+            
     def set_gps(self, coordinates: list, attitude: int, speed: int):
         if len(coordinates) < 0x02: return
         
@@ -400,7 +393,7 @@ class MultiWii(object):
         
         return values
 
-    def _get_channel_values(self, data: list, include_aux: bool):
+    def _get_channel_data(self, data: list, include_aux: bool):
         if len(data) < 0x04: return None
         
         types = MultiWii.OP_DICT_DATA["channels"]
@@ -418,7 +411,19 @@ class MultiWii(object):
             values[types[x]] = data[x]
         
         return values
-
+    
+    def _get_attitude_data(self, data: list):
+        if len(data) < 0x03: return
+        
+        types = MultiWii.OP_DICT_DATA["attitude"]
+        
+        values = dict()
+        
+        for x in range(0, len(data)):
+            values[types[x]] = data[x]
+        
+        return values
+    
     def _get_imu_data(self, data: list):
         if len(data) < 0x01: return None
         
