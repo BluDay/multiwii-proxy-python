@@ -93,8 +93,8 @@ class MultiWii(object):
 
     def _construct_payload(self, 
         code: int, 
-        size: int = 0, 
-        data: list = []
+        size: int   = 0, 
+        data: list  = []
     ):
         payload = bytes()
         
@@ -115,7 +115,7 @@ class MultiWii(object):
             checksum = 0
             
             for byte in data:
-                checksum = checksum ^ byte
+                checksum ^= byte
         
         payload += pack(
             "<%s" % "H" if checksum > 0xff else "B", 
