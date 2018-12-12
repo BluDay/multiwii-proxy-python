@@ -193,14 +193,12 @@ class MultiWii(object):
 
     # ---------------------------------------------------------------------
     
-    def get_servos(self, limit: int = 8):
-        if limit < 0x01: return
-        
+    def get_servos(self):
         data = self._write_read(MultiWii.SERVO, 16, "8H")
         
         if not data: return None
         
-        return data[:limit]
+        return data
 
     def set_motors(self, values: list):
         if len(values) < 0x04: return
@@ -211,14 +209,12 @@ class MultiWii(object):
         
         self._write(command)
 
-    def get_motors(self, limit: int = 8):
-        if limit < 0x01: return
-        
+    def get_motors(self):
         data = self._write_read(MultiWii.MOTOR, 16, "8H")
         
         if not data: return None
         
-        return data[:limit]
+        return data
 
     def set_channels(self, values: list):
         if len(values) < 0x04: return
@@ -230,7 +226,7 @@ class MultiWii(object):
         self._write(command)
 
     def get_channels(self, 
-        raw:            bool, 
+        raw:            bool = False, 
         include_aux:    bool = False, 
         extra_aux:      bool = False
     ):
@@ -253,13 +249,10 @@ class MultiWii(object):
     def get_altitude(self):
         return self._write_read(MultiWii.ALTITUDE, 6, "ih")
 
-    def get_attitude(self, raw: bool):
+    def get_attitude(self, raw: bool = False):
         data = self._write_read(MultiWii.ATTITUDE, 6, "3h")
         
         if not data: return None
-        
-        data[0] /= 10.0
-        data[1] /= 10.0 
         
         if raw: return data
         
@@ -274,21 +267,16 @@ class MultiWii(object):
         
         self._write(command)
     
-    def get_gps(self, raw: bool):
+    def get_gps(self, raw: bool = False):
         data = self._write_read(MultiWii.GPS, 16, "BBII3H")
         
         if not data: return None
-        
-        data = data[2:] 
-        
-        data[0] /= 10000000
-        data[1] /= 10000000
         
         if raw: return data
         
         return self._get_gps_data(data)
     
-    def get_imu(self, raw: bool):
+    def get_imu(self, raw: bool = False):
         data = self._write_read(MultiWii.IMU, 18, "9h")
         
         if not data: return None
@@ -297,11 +285,13 @@ class MultiWii(object):
         
         return self._get_imu_data(data)
     
-    def get_ident(self):
+    def get_ident(self, raw: bool = False):
         data = self._write_read(MultiWii.IDENT, 7, "BBIB")
         
         if not data: return None
         
+        if raw: return data
+
         return self._get_ident_data(data)
     
     def set_servo_conf(self, values: list):
@@ -324,11 +314,6 @@ class MultiWii(object):
         data = self._write_read(MultiWii.MISC, 19, "6HBH4B")
         
         if not data: return None
-        
-        data[7]     /= 10.0
-        data[9]     /= 10.0
-        data[10]    /= 10.0
-        data[11]    /= 10.0
         
         if raw: return data 
         
@@ -373,6 +358,11 @@ class MultiWii(object):
 
     def _get_misc_data(self, data: list):
         if len(data) < 0x01: return None
+        
+        data[7]     /= 10.0
+        data[9]     /= 10.0
+        data[10]    /= 10.0
+        data[11]    /= 10.0
 
         return { "misc": data }
     
@@ -414,7 +404,10 @@ class MultiWii(object):
     
     def _get_attitude_data(self, data: list):
         if len(data) < 0x03: return
-        
+       
+        data[0] /= 10.0
+        data[1] /= 10.0 
+
         types = MultiWii.OP_DICT_DATA["attitude"]
         
         values = dict()
@@ -446,7 +439,12 @@ class MultiWii(object):
         return values
 
     def _get_gps_data(self, data: list):
-        if len(data) < 0x04: return None
+        if len(data) < 0x06: return None
+      
+        data = data[2:] 
+
+        data[0] /= 10000000
+        data[1] /= 10000000
         
         types = MultiWii.OP_DICT_DATA["gps"]
         
