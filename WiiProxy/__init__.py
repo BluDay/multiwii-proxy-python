@@ -132,7 +132,10 @@ class MultiWii(object):
     # ---------------------------------------------------------------------
 
     def _write(self, command: bytes):
-        if self._controller: self._controller.write(command)
+        if self._controller: 
+            sleep(WRITE_DELAY)
+
+            self._controller.write(command)
 
     def _read(self, size: int = 1):
         self._flush()
