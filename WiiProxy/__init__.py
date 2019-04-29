@@ -421,22 +421,26 @@ class MultiWii(object):
     def _get_imu_data(self, data: list):
         if len(data) < 0x01: return None
         
-        value_index = 0
-        
-        coords = self._get_new_coords()
-        
         types = MultiWii.OP_DICT_DATA["imu"]
         
         values = dict()
         
-        for i in range(0, len(types)):
-            for j in range(0, len(coords)):
-                axis = list(coords.keys())[j]
-                
-                values[types[i] + axis] = float(data[value_index])
-                
-                value_index += 1
+        value_index = 0
         
+        for i in range(0, len(types)):
+            sensor_type = types[i]
+            
+            axes = self._get_new_coords()
+            
+            for j in range(0, len(axes)):    
+                axis = list(axes.keys())[j]
+                
+                axes[axis] = float(data[value_index])
+               
+                values[sensor_type] = axes;
+
+                value_index += 1
+
         return values
 
     def _get_gps_data(self, data: list):
