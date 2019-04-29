@@ -51,7 +51,15 @@ if not controller: exit()
 # ------- PLAYGROUND! Modify this freely -------
 
 try:
-    print("Ident")
+    print("Arming...")
+    
+    controller.arm()
+
+    print("Armed")
+
+    sleep(2)
+
+    print("\nIdent")
     print(controller.get_ident())
     
     print("\nIMU")

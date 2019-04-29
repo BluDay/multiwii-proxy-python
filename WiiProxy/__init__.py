@@ -138,8 +138,6 @@ class MultiWii(object):
             sleep(MultiWii.WRITE_DELAY)
 
     def _read(self, size: int = 1):
-        self._flush()
-        
         header = tuple(self._controller.read(5)[:3])
         
         if header == MultiWii.HEADER_INCOMING:
@@ -153,9 +151,9 @@ class MultiWii(object):
         command = self._construct_payload(code)
         
         self._write(command)
-        
+
         payload = self._read(size)
-        
+
         return self._destruct_payload(payload, pattern)
 
     def _flush(self):
