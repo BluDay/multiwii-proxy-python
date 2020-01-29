@@ -8,22 +8,22 @@
 |      \_/\_/  |_|_| |_|   |_|  \___/_/\_\\__, |      |
 |                                         |___/ 1.0   |
 |                                                     |
-|                MADE BY engineer-186f                |
+|                 MADE BY engineer-99b                |
 |                                                     |
-|            MultiWii Flight Controller <3            |
+|             MultiWii Flight Controller              |
 |                                                     |
 |                    FOR Python 3                     |
 |                                                     |
 +---------------------------------------------------"""
 
-# -------------------------------------------------------------------------
+# -----------------------------------------------------------
 
 from enum       import IntEnum, unique
 from serial     import Serial
 from struct     import pack, unpack
 from time       import time, sleep
 
-# -------------------------------------------------------------------------
+# -----------------------------------------------------------
 
 class MultiWii(object):
     @unique
@@ -38,8 +38,6 @@ class MultiWii(object):
         
         def __str__(self): 
             return self.name
-    
-    # ---------------------------------------------------------------------
     
     IDENT       = 100
     IMU         = 102
@@ -80,18 +78,22 @@ class MultiWii(object):
         "imu"       : ("acc", "gyr", "mag")
     }
     
-    # ---------------------------------------------------------------------
-
-    def __init__(self, controller: Serial, standalone: bool = False):
+    # -----------------------------------------------------------
+    
+    def __init__(
+        self, 
+        controller: Serial, 
+        standalone: bool    = False
+    ):
         self.standalone = standalone
         
         self._controller = controller
         
         sleep(MultiWii.INIT_TIMEOUT)
 
-    # ---------------------------------------------------------------------
-
-    def _construct_payload(self, 
+    # -----------------------------------------------------------
+    
+    def _encode_payload(self, 
         code: int, 
         size: int   = 0, 
         data: list  = []
@@ -124,13 +126,13 @@ class MultiWii(object):
         
         return payload
         
-    def _destruct_payload(self, payload: list, pattern: str):
+    def _decode_payload(self, payload: list, pattern: str):
         if not payload: return None
         
         return list(unpack("<%s" % pattern, payload))
 
-    # ---------------------------------------------------------------------
-
+    # -----------------------------------------------------------
+    
     def _write(self, command: bytes):
         if self._controller: 
             self._controller.write(command)
@@ -148,13 +150,13 @@ class MultiWii(object):
             return payload
 
     def _write_read(self, code: int, size: int, pattern: str):
-        command = self._construct_payload(code)
+        command = self._encode_payload(code)
         
         self._write(command)
 
         payload = self._read(size)
 
-        return self._destruct_payload(payload, pattern)
+        return self._decode_payload(payload, pattern)
 
     def _flush(self):
         if not self._controller: return
@@ -162,8 +164,8 @@ class MultiWii(object):
         self._controller.reset_input_buffer()
         self._controller.reset_output_buffer()
 
-    # ---------------------------------------------------------------------
-
+    # -----------------------------------------------------------
+    
     def arm(self):
         channels = [1500, 1500, 2000, 1000]
         
@@ -192,7 +194,7 @@ class MultiWii(object):
             
             elapsed = time() - start
 
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------
     
     def get_servos(self):
         data = self._write_read(MultiWii.SERVO, 16, "8H")
@@ -204,7 +206,7 @@ class MultiWii(object):
     def set_motors(self, values: list):
         if len(values) < 0x04: return
         
-        command = self._construct_payload(
+        command = self._encode_payload(
             MultiWii.SET_MOTOR, len(values) * 2, values
         )
         
@@ -220,7 +222,7 @@ class MultiWii(object):
     def set_channels(self, values: list):
         if len(values) < 0x04: return
         
-        command = self._construct_payload(
+        command = self._encode_payload(
             MultiWii.SET_RC, len(values) * 2, values
         )
         
@@ -264,7 +266,7 @@ class MultiWii(object):
         
         values = [1, 0] + coordinates + [attitude, speed]
         
-        command = self._construct_payload(MultiWii.SET_GPS, 14, values)
+        command = self._encode_payload(MultiWii.SET_GPS, 14, values)
         
         self._write(command)
     
@@ -296,7 +298,7 @@ class MultiWii(object):
         return self._get_ident_data(data)
     
     def set_servo_conf(self, values: list):
-        command = self._construct_payload(
+        command = self._encode_payload(
             MultiWii.SET_SERVO_CONF, 56, values
         )
         
@@ -321,33 +323,34 @@ class MultiWii(object):
         return self._get_misc_data(data)
     
     def calibrate_acc(self):
-        command = self._construct_payload(MultiWii.ACC_CALIBRATION)
+        command = self._encode_payload(MultiWii.ACC_CALIBRATION)
         
         self._write(command)
     
     def calibrate_mag(self):
-        command = self._construct_payload(MultiWii.MAG_CALIBRATION)
+        command = self._encode_payload(MultiWii.MAG_CALIBRATION)
         
         self._write(command)
     
     def set_eeprom(self):
-        command = self._construct_payload(MultiWii.EEPROM_WRITE)
+        command = self._encode_payload(MultiWii.EEPROM_WRITE)
         
         self._write(command)
     
     def reset_configuration(self):
-        command = self._construct_payload(MultiWii.RESET_CONF)
+        command = self._encode_payload(MultiWii.RESET_CONF)
         
         self._write(command)
     
     def bind_spektrum_satellite(self):
-        command = self._construct_payload(MultiWii.BIND)
+        command = self._encode_payload(MultiWii.BIND)
         
         self._write(command)
     
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------
     
-    def _get_new_coords(self): return { "x": 0.0, "y": 0.0, "z": 0.0 }
+    def _get_new_coords(self):
+        return { "x": 0.0, "y": 0.0, "z": 0.0 }
     
     def _get_ident_data(self, data: list):
         if len(data) < 0x02: return None

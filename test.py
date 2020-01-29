@@ -1,30 +1,20 @@
 #! /usr/bin/python3
 
-"""
-       WiiProxy - Test script
+# -----------------------------------------------------------
 
-   Modifiable script for executing 
-      operations on your craft.
-
-   https://github.com/engineer-186f
-
-"""
-
-# --------------------------------------------------
-
-import json
 import serial as pyserial
 
+from json       import dumps
 from os         import system
 from time       import sleep
 from WiiProxy   import MultiWii
 
-# --------------------------------------------------
+# -----------------------------------------------------------
 
 controller  = None
 serial      = None
 
-# --------------------------------------------------
+# -----------------------------------------------------------
 
 serial = pyserial.Serial()
 
@@ -42,49 +32,50 @@ serial.open()
 
 sleep(6)
 
-system("clear")
-
 controller = MultiWii(serial)
 
 if not controller: exit()
-
-# ------- PLAYGROUND! Modify this freely -------
 
 try:
     print("Arming...")
     
     controller.arm()
 
-    print("Armed")
+    print("Armed.")
 
-    sleep(2)
+    sleep(1)
 
-    print("\nIdent")
-    print(controller.get_ident())
-    
-    print("\nIMU")
-    print(controller.get_imu(False))
-    
-    print("\nChannels")
-    print(controller.get_channels(False, True))
-    
-    print("\nMotors")
-    print(controller.get_motors())
-    
-    print("\nAltitude")
-    print(controller.get_altitude())
-    
-    print("\nAttitude")
-    print(controller.get_attitude(False))
-    
-    print("\nGPS")
-    print(controller.get_gps(False))
-    
+    tests = {
+        "Ident"     : controller.get_ident(),
+        "IMU"       : controller.get_imu(False),
+        "Channels"  : controller.get_channels(False, True),
+        "Motors"    : controller.get_motors(),
+        "Altitude"  : controller.get_altitude(),
+        "Attitude"  : controller.get_attitude(False),
+        "GPS"       : controller.get_gps(False)
+    }
+
     print("")
+
+    for x in tests:
+        if len(str(tests[x])) > 32:
+            print("%s\n\n%s\n" % (
+                x, dumps(tests[x], indent = 4))
+            )
+        else:
+            print("%s\n\n%s\n" % (x, tests[x]))
+
+    sleep(1)
+
+    print("Disarming...")
+    
+    controller.disarm()
+    
+    print("Disarmed.")
 except KeyboardInterrupt:
     exit()
 
-# ----------------------------------------------
+# -----------------------------------------------------------
 
 serial.close()
 
