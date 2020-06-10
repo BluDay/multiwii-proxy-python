@@ -1,25 +1,13 @@
-#! /usr/bin/python3
-
-"""
-         WiiProxy Setup Wizard
-
-             engineer-186f
-
-                 (o.0)
-"""
-
-# -------------------------------------
+#! /usr/bin/env python3
 
 from setuptools import setup
 
-# -------------------------------------
-
 setup(
 	name 		= "WiiProxy",
-	version		= "1.0",
-	description 	= "MultiWii FC Proxy for Python 3",
-	url		= "https://github.com/engineer-186f/WiiProxy",
-	author		= "engineer-186f",
+	version     = "2.0",
+	description = "Python 3 module for MultiWii firmware.",
+	url         = "https://github.com/engineer-99b/WiiProxy",
+	author		= "engineer-99b",
 	license		= "MIT",
 	packages	= ["WiiProxy"]
 )
