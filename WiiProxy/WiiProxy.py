@@ -226,7 +226,7 @@ class Commands:
 
     @classmethod
     def all(cls) -> tuple:
-        for value in cls.__dict__.data():
+        for value in cls.__dict__.values():
             if isinstance(value, Command):
                 yield value
 
