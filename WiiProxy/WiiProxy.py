@@ -745,11 +745,10 @@ class MultiWii:
     # --------------------------------------------------------------------
 
     def execute(self, command: Command, data: tuple) -> None:
-        if type(command) is not Command:
-            if type(data) is not tuple:
-                return
-
         if not self.__active: return
+
+        if type(command)    is not Command  : return
+        if type(data)       is not tuple    : return
 
         if not command.priority: return
 
