@@ -1,8 +1,8 @@
 # ( 0 _ o )
 
-__author__  = "engineer-99b"
+__author__  = 'BluDay'
 
-__version__ = "2.0"
+__version__ = '2.0'
 
 # ------------------------------------------------------------------------
 
@@ -149,21 +149,21 @@ class Command:
     @name.setter
     def name(self, value: str) -> str:
         if type(value) is not str:
-            raise TypeError("String value required.")
+            raise TypeError('String value required.')
 
         self.__name = value
     
     @code.setter
     def code(self, value: int) -> int:
         if type(value) is not int:
-            raise TypeError("Integer value required.")
+            raise TypeError('Integer value required.')
 
         self.__code = value
 
     @format.setter
     def format(self, value: str) -> str:
         if type(value) is not str:
-            raise TypeError("String value required.")
+            raise TypeError('String value required.')
 
         self.__format   = value
         self.__size     = calcsize('<' + value)
@@ -171,7 +171,7 @@ class Command:
     @dynamic.setter
     def dynamic(self, value: bool) -> bool:
         if type(value) is not bool:
-            raise TypeError("Boolean value required.")
+            raise TypeError('Boolean value required.')
 
         self.__dynamic = value
 
@@ -179,7 +179,7 @@ class Command:
     def priority(self, value: Priority) -> Priority:
         if value is not None:
             if type(value) is not Priority:
-                raise TypeError("Priority or NoneType value required.")
+                raise TypeError('Priority or NoneType value required.')
 
         self.__priority = value
 
@@ -187,42 +187,42 @@ class Command:
 
 class Commands:
     #                   CODE    FORMAT      DYNAMIC     PRIORITY
-    IDENT           =   100,    "3BI",      False,      None
-    STATUS          =   101,    "3HIB",     False,      None
-    RAW_IMU         =   102,    "9h",       False,      Priority.High
-    SERVO           =   103,    "8H",       False,      Priority.Normal
-    MOTOR           =   104,    "8H",       False,      Priority.High
-    RC              =   105,    "8H",       False,      Priority.Critical
-    RAW_GPS         =   106,    "2B2I3H",   False,      None
-    COMP_GPS        =   107,    "2HB",      False,      None
-    ATTITUDE        =   108,    "3h",       False,      Priority.High
-    ALTITUDE        =   109,    "ih",       False,      Priority.High
-    ANALOG          =   110,    "B3H",      False,      None
-    RC_TUNING       =   111,    "7B",       False,      None
-    PID             =   112,    "30B",      False,      None
-    BOX             =   113,    "H",        True,       None
-    MISC            =   114,    "6HIH4B",   False,      None
-    MOTOR_PINS      =   115,    "8B",       False,      None
-    BOXNAMES        =   116,    "s",        True,       None
-    PIDNAMES        =   117,    "s",        True,       None
-    WP              =   118,    "B3I2HB",   False,      None
-    BOXIDS          =   119,    "B",        True,       None
-    SERVO_CONF      =   120,    "3HB",      True,       None
+    IDENT           =   100,    '3BI',      False,      None
+    STATUS          =   101,    '3HIB',     False,      None
+    RAW_IMU         =   102,    '9h',       False,      Priority.High
+    SERVO           =   103,    '8H',       False,      Priority.Normal
+    MOTOR           =   104,    '8H',       False,      Priority.High
+    RC              =   105,    '8H',       False,      Priority.Critical
+    RAW_GPS         =   106,    '2B2I3H',   False,      None
+    COMP_GPS        =   107,    '2HB',      False,      None
+    ATTITUDE        =   108,    '3h',       False,      Priority.High
+    ALTITUDE        =   109,    'ih',       False,      Priority.High
+    ANALOG          =   110,    'B3H',      False,      None
+    RC_TUNING       =   111,    '7B',       False,      None
+    PID             =   112,    '30B',      False,      None
+    BOX             =   113,    'H',        True,       None
+    MISC            =   114,    '6HIH4B',   False,      None
+    MOTOR_PINS      =   115,    '8B',       False,      None
+    BOXNAMES        =   116,    's',        True,       None
+    PIDNAMES        =   117,    's',        True,       None
+    WP              =   118,    'B3I2HB',   False,      None
+    BOXIDS          =   119,    'B',        True,       None
+    SERVO_CONF      =   120,    '3HB',      True,       None
 
-    SET_RAW_RC      =   200,    "8H",       False,      Priority.Critical
-    SET_RAW_GPS     =   201,    "2B2I2H",   False,      None
-    SET_PID         =   202,    "30B",      False,      None
-    SET_BOX         =   203,    "H",        True,       None
-    SET_RC_TUNING   =   204,    "7B",       False,      None
-    ACC_CALIBRATION =   205,    "",         False,      None
-    MAG_CALIBRATION =   206,    "",         False,      None
-    SET_MISC        =   207,    "6HIH4B",   False,      None
-    RESET_CONF      =   208,    "",         False,      None
-    SET_HEAD        =   211,    "h",        False,      None
-    SET_SERVO_CONF  =   212,    "56B",      False,      None
-    SET_MOTOR       =   214,    "8H",       False,      None
-    BIND            =   240,    "",         False,      None
-    EEPROM_WRITE    =   250,    "",         False,      None
+    SET_RAW_RC      =   200,    '8H',       False,      Priority.Critical
+    SET_RAW_GPS     =   201,    '2B2I2H',   False,      None
+    SET_PID         =   202,    '30B',      False,      None
+    SET_BOX         =   203,    'H',        True,       None
+    SET_RC_TUNING   =   204,    '7B',       False,      None
+    ACC_CALIBRATION =   205,    '',         False,      None
+    MAG_CALIBRATION =   206,    '',         False,      None
+    SET_MISC        =   207,    '6HIH4B',   False,      None
+    RESET_CONF      =   208,    '',         False,      None
+    SET_HEAD        =   211,    'h',        False,      None
+    SET_SERVO_CONF  =   212,    '56B',      False,      None
+    SET_MOTOR       =   214,    '8H',       False,      None
+    BIND            =   240,    '',         False,      None
+    EEPROM_WRITE    =   250,    '',         False,      None
 
     @classmethod
     def all(cls) -> tuple:
@@ -522,9 +522,9 @@ class MultiWii:
     __OUT       = 0x3e        # >
     __IN        = 0x3c        # <
 
-    __FMT_PREAMBLE  = "<3b"     # Preamble, Direction
-    __FMT_PAYLOAD   = "<2B%s"   # Size, Code, Data[]
-    __FMT_CRC       = "<B"      # CRC
+    __FMT_PREAMBLE  = '<3b'     # Preamble, Direction
+    __FMT_PAYLOAD   = '<2B%s'   # Size, Code, Data[]
+    __FMT_CRC       = '<B'      # CRC
 
     __FMT_BASE = (  __FMT_PREAMBLE       +
                     __FMT_PAYLOAD   [1:] +
@@ -592,10 +592,10 @@ class MultiWii:
     @write_delay.setter
     def write_delay(self, value: float) -> None:
         if not isinstance(value, float):
-            raise TypeError("Float value required.")
+            raise TypeError('Float value required.')
 
         if value < 0:
-            raise ValueError("Unsigned value required.")
+            raise ValueError('Unsigned value required.')
             
         self.__write_delay = value
     
@@ -685,7 +685,7 @@ class MultiWii:
 
         if not data:
             size    = 0
-            format  = ""
+            format  = ''
 
         if dynamic and data:
             size    = size ** 2
