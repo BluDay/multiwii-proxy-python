@@ -1,4 +1,4 @@
-# WiiProxy
+# wiiproxy
 
 A user-friendly and multithreaded Python 3 module for controlling _MultiWii_-based drones.
 
