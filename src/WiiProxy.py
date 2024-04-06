@@ -152,7 +152,7 @@ class WiiProxy(object):
         """
         full_payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT + format
 
-        payload = struct_pack(full_payload_format, *data)
+        payload = pack(full_payload_format, *data)
             
         checksum = cls.__calculate_crc(payload).to_bytes(
             length=1,
@@ -175,7 +175,7 @@ class WiiProxy(object):
         """
         payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT % format
 
-        return struct_unpack(payload_format, payload)
+        return unpack(payload_format, payload)
 
     @staticmethod
     def __calculate_crc(payload: bytes) -> int:
