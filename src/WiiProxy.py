@@ -15,7 +15,7 @@ class WiiProxy(object):
     """
 
     """A tuple of the base preamble that both incoming and outgoing messages uses."""
-    __PREAMBLE = (0x24, 0x4d) # $, M
+    __MESSAGE_PREAMBLE_BASE_FORMAT = '$M'
 
     """Hex values for the two ASCII characters used for incoming and outgoing message preambles."""
     _IN  = 0x3c
@@ -48,7 +48,7 @@ class WiiProxy(object):
 
         $M< (ASCII)
     """
-    _PREAMBLE_IN = pack(_PREAMBLE_STRUCT_FORMAT, *_PREAMBLE, _IN)
+    _PREAMBLE_IN = pack(_PREAMBLE_STRUCT_FORMAT, '$M<')
 
     """
     Same as above, but with outgoing messages.
@@ -59,7 +59,7 @@ class WiiProxy(object):
 
         $M> (ASCII)
     """
-    _PREAMBLE_OUT = pack(_PREAMBLE_STRUCT_FORMAT, *_PREAMBLE, _OUT)
+    _PREAMBLE_OUT = pack(_PREAMBLE_STRUCT_FORMAT, '$M>')
 
     def __init__(self, serial: Serial) -> None:
         """Initializes an instance using the provided serial connection.
@@ -152,7 +152,7 @@ class WiiProxy(object):
         """
         payload = pack(format, *data)
             
-        checksum = cls.__calculate_crc(payload).to_bytes(
+        checksum = cls.__get_crc(payload).to_bytes(
             length=1,
             byteorder=cls._INT_BYTEORDER,
             signed=False
@@ -174,7 +174,7 @@ class WiiProxy(object):
         return unpack(format, payload)
 
     @staticmethod
-    def __calculate_crc(payload: bytes) -> int:
+    def __get_crc(payload: bytes) -> int:
         """Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
         Parameters:
@@ -190,7 +190,7 @@ class WiiProxy(object):
         return checksum
 
     @staticmethod
-    def __create_payload_struct_format(format: str, size: int) -> str:
+    def __get_dynamically_sized_data_format(format: str, size: int) -> str:
         """Why did I do this?
 
         Parameters:
@@ -261,7 +261,7 @@ class WiiProxy(object):
             format = ''
         elif command.is_dynamic:
             size   = size ** 2
-            format = self.__create_payload_struct_format(format, size)
+            format = self.__get_dynamically_sized_data_format(format, size)
 
         payload = (size, command.code, *data)
 
@@ -298,13 +298,13 @@ class WiiProxy(object):
 
         checksum = buffer[-1]
 
-        if checksum != self.__calculate_crc(payload):
+        if checksum != self.__get_crc(payload):
             return None
 
         format = None
 
         if command.is_dynamic:
-            format = self.__create_payload_struct_format(
+            format = self.__get_dynamically_sized_data_format(
                 format=command.format,
                 size=data_size // command.size
             )
