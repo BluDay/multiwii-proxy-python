@@ -150,9 +150,7 @@ class WiiProxy(object):
         Returns:
             bytes: an array of bytes for the whole message.
         """
-        full_payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT + format
-
-        payload = pack(full_payload_format, *data)
+        payload = pack(format, *data)
             
         checksum = cls.__calculate_crc(payload).to_bytes(
             length=1,
@@ -173,9 +171,7 @@ class WiiProxy(object):
         Returns:
             tuple: A tuple of raw and unevaluated values of integers.
         """
-        payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT % format
-
-        return unpack(payload_format, payload)
+        return unpack(format, payload)
 
     @staticmethod
     def __calculate_crc(payload: bytes) -> int:
