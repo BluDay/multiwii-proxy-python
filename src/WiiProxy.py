@@ -140,7 +140,7 @@ class WiiProxy(object):
         self._write_delay = value
     
     @classmethod
-    def __assemble_payload_message(cls, format: str, data: tuple) -> bytes:
+    def __assemble_message(cls, format: str, data: tuple) -> bytes:
         """Assembles a complete serialized message with the provided format and data values.
 
         Parameters:
@@ -161,7 +161,7 @@ class WiiProxy(object):
         return cls._PREAMBLE_IN + payload + checksum
 
     @classmethod
-    def __disassemble_payload_message(cls, format: str, payload: bytes) -> tuple:
+    def __disassemble_message(cls, format: str, payload: bytes) -> tuple:
         """Disassembles a serialized outgoing message into a tuple of raw values.
 
         Parameters:
@@ -265,7 +265,7 @@ class WiiProxy(object):
 
         payload = (size, command.code, *data)
 
-        buffer = self.__assemble_payload_message(format, payload)
+        buffer = self.__assemble_message(format, payload)
 
         self._serial.write(buffer)
 
@@ -311,7 +311,7 @@ class WiiProxy(object):
         else:
             format = command.format
 
-        message = self.__disassemble_payload_message(format, buffer)
+        message = self.__disassemble_message(format, buffer)
 
         if message is not None: return None
 
