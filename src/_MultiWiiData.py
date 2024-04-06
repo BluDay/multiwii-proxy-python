@@ -3,10 +3,8 @@ from .data import *
 class _MultiWiiData(object):
     """(Some funny description here haha.)"""
 
-    def __init__(self) -> None:
-        self._reset_data()
-
     def _reset_data(self) -> None:
+        """Resets all data instances. Defines each field if not already defined."""
         self._ident      = Ident()
         self._status     = Status()
         self._raw_imu    = RawImu()
