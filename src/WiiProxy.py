@@ -1,778 +1,343 @@
-# ( 0 _ o )
+from serial    import Serial
+from struct    import pack, unpack
+from threading import Thread
+from time      import sleep
+from queue     import PriorityQueue
 
-__author__  = 'BluDay'
-
-__version__ = '2.0'
-
-# ------------------------------------------------------------------------
-
-from enum       import IntEnum, unique
-from queue      import PriorityQueue
-from serial     import Serial
-from struct     import calcsize, pack, unpack
-from time       import sleep
-from threading  import Thread
-
-# ------------------------------------------------------------------------
-
-@unique
-class Multitype(IntEnum):
-    Unidentified    = 0
-    Tri             = 1
-    QuadP           = 2
-    QuadX           = 3
-    Bi              = 4
-    Gimbal          = 5
-    Y6              = 6
-    Hex6            = 7
-    FlyingWing      = 8
-    Y4              = 9
-    Hex6X           = 10
-    OctoX8          = 11
-    OctoflatP       = 12
-    OctoflatX       = 13
-    Airplane        = 14
-    Heli120CCPM     = 15
-    Heli90Deg       = 16
-    VTail4          = 17
-    Hex6H           = 18
-    Singlecopter    = 21
-    Dualcopter      = 20
-
-@unique
-class Capability(IntEnum):
-    Bind    = 0b0000001
-    Dynbal  = 0b0000010
-    Flap    = 0b0000100
-    Nav     = 0b0001000
-    ExtAux  = 0b0010000
-
-@unique
-class Sensor(IntEnum):
-    Acc     = 0
-    Baro    = 1
-    Mag     = 2
-    Gps     = 3
-    Sonar   = 4
-
-@unique
-class BoxType(IntEnum):
-    Arm         = 0
-    Angle       = 1
-    Horizon     = 2
-    Baro        = 3
-    Vario       = 4
-    Mag         = 5
-    HeadFree    = 6
-    HeadAdj     = 7
-    CamStab     = 8
-    CamTrig     = 9
-    GpsHome     = 10
-    GpsHold     = 11
-    Passthru    = 12
-    Beeper      = 13
-    LedMax      = 14
-    LedLow      = 15
-    LLights     = 16
-    Calib       = 17
-    Governor    = 18
-    OsdSwitch   = 19
-    Mission     = 20
-    Land        = 21
-
-@unique
-class Priority(IntEnum):
-    Critical    = 1
-    High        = 2
-    Normal      = 3
-    Low         = 4
-
-# ------------------------------------------------------------------------
-
-class Task:
-    def __init__(self,
-        priority    : Priority, 
-        arguments   : tuple
-    ) -> None:
-        self.priority   = priority
-        self.arguments  = arguments
-
-    def __lt__(self, other) -> bool:
-        return self.priority < other.priority
-
-# ------------------------------------------------------------------------
-
-class Command:
-    def __init__(self,
-        name        : str,
-        code        : int,
-        format      : str,
-        dynamic     : bool,
-        priority    : Priority
-    ) -> None:
-        self.name       = name
-        self.code       = code
-        self.format     = format
-        self.dynamic    = dynamic
-        self.priority   = priority
-
-    def __iter__(self) -> iter:
-        return iter((
-            self.size,
-            self.code,
-            self.format,
-            self.dynamic
-        ))
-
-    # --------------------------------------------------------------------
-
-    @property
-    def name(self) -> str: return self.__name
+class WiiProxy(object):
+    """The main class of this module that handles everything.
     
-    @property
-    def code(self) -> int: return self.__code
-
-    @property
-    def format(self) -> str: return self.__format
-
-    @property
-    def dynamic(self) -> bool: return self.__dynamic
-
-    @property
-    def priority(self) -> Priority: return self.__priority
-    
-    @property
-    def size(self) -> int: return self.__size
-    
-    # --------------------------------------------------------------------
-
-    @name.setter
-    def name(self, value: str) -> str:
-        if type(value) is not str:
-            raise TypeError('String value required.')
-
-        self.__name = value
-    
-    @code.setter
-    def code(self, value: int) -> int:
-        if type(value) is not int:
-            raise TypeError('Integer value required.')
-
-        self.__code = value
-
-    @format.setter
-    def format(self, value: str) -> str:
-        if type(value) is not str:
-            raise TypeError('String value required.')
-
-        self.__format   = value
-        self.__size     = calcsize('<' + value)
-
-    @dynamic.setter
-    def dynamic(self, value: bool) -> bool:
-        if type(value) is not bool:
-            raise TypeError('Boolean value required.')
-
-        self.__dynamic = value
-
-    @priority.setter
-    def priority(self, value: Priority) -> Priority:
-        if value is not None:
-            if type(value) is not Priority:
-                raise TypeError('Priority or NoneType value required.')
-
-        self.__priority = value
-
-# ------------------------------------------------------------------------
-
-class Commands:
-    #                   CODE    FORMAT      DYNAMIC     PRIORITY
-    IDENT           =   100,    '3BI',      False,      None
-    STATUS          =   101,    '3HIB',     False,      None
-    RAW_IMU         =   102,    '9h',       False,      Priority.High
-    SERVO           =   103,    '8H',       False,      Priority.Normal
-    MOTOR           =   104,    '8H',       False,      Priority.High
-    RC              =   105,    '8H',       False,      Priority.Critical
-    RAW_GPS         =   106,    '2B2I3H',   False,      None
-    COMP_GPS        =   107,    '2HB',      False,      None
-    ATTITUDE        =   108,    '3h',       False,      Priority.High
-    ALTITUDE        =   109,    'ih',       False,      Priority.High
-    ANALOG          =   110,    'B3H',      False,      None
-    RC_TUNING       =   111,    '7B',       False,      None
-    PID             =   112,    '30B',      False,      None
-    BOX             =   113,    'H',        True,       None
-    MISC            =   114,    '6HIH4B',   False,      None
-    MOTOR_PINS      =   115,    '8B',       False,      None
-    BOXNAMES        =   116,    's',        True,       None
-    PIDNAMES        =   117,    's',        True,       None
-    WP              =   118,    'B3I2HB',   False,      None
-    BOXIDS          =   119,    'B',        True,       None
-    SERVO_CONF      =   120,    '3HB',      True,       None
-
-    SET_RAW_RC      =   200,    '8H',       False,      Priority.Critical
-    SET_RAW_GPS     =   201,    '2B2I2H',   False,      None
-    SET_PID         =   202,    '30B',      False,      None
-    SET_BOX         =   203,    'H',        True,       None
-    SET_RC_TUNING   =   204,    '7B',       False,      None
-    ACC_CALIBRATION =   205,    '',         False,      None
-    MAG_CALIBRATION =   206,    '',         False,      None
-    SET_MISC        =   207,    '6HIH4B',   False,      None
-    RESET_CONF      =   208,    '',         False,      None
-    SET_HEAD        =   211,    'h',        False,      None
-    SET_SERVO_CONF  =   212,    '56B',      False,      None
-    SET_MOTOR       =   214,    '8H',       False,      None
-    BIND            =   240,    '',         False,      None
-    EEPROM_WRITE    =   250,    '',         False,      None
-
-    @classmethod
-    def all(cls) -> tuple:
-        for value in cls.__dict__.values():
-            if isinstance(value, Command):
-                yield value
-
-    @classmethod
-    def seed(cls) -> None:
-        for key, value in cls.__dict__.items():
-            if isinstance(value, tuple):
-                setattr(cls, key, Command(key, *value))
+    This class merely requires an open serial connection---at baudrate 115200---to be
+    passed at instantiation. Everything else, like the commands, the thread, each data
+    instance, gets created automatically.
 
-# ------------------------------------------------------------------------
+    This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
+    """
 
-class DataType:
-    def __init__(self) -> None:
-        self.__raw = ()
-    
-    @property
-    def raw(self) -> tuple: return self.__raw
+    """A tuple of the base preamble that both incoming and outgoing messages uses."""
+    __PREAMBLE = (0x24, 0x4d) # $, M
 
-    def evaluate(self, data: tuple) -> None:
-        keys = (
-            key for key in self.__dict__
-                if key[0] != '_'
-        )
+    """Hex values for the two ASCII characters used for incoming and outgoing message preambles."""
+    _IN  = 0x3c
+    _OUT = 0x3e
 
-        for index, key in enumerate(keys):
-            setattr(self, key, data[index])
+    """ATmega328 microprocessor and most Arduino-based microcontrollers use Little-endian."""
+    _ENDIANNESS = '<' # '>'
 
-    def update(self, data: tuple) -> None:
-        if data is None: return
+    """Same as above, but for serializing `int`s without `struct`."""
+    _INT_BYTEORDER = 'little'
 
-        self.__raw = data
+    """The message preamble format for `struct.pack` and `struct.unpack`."""
+    _PREAMBLE_STRUCT_FORMAT = f'{ENDIANNESS}3b'
 
-        self.evaluate(data)
+    """Same as above, but for the payload.
 
-class DataTypes:
-    class Single(DataType):
-        def __init__(self) -> None:
-            super().__init__()
+    The format consists of a `%s` specifier and is used for creating complete payload
+    formats using either a dynamic or a non-dynamic data format for a specific command.
+    """
+    _PAYLOAD_STRUCT_FORMAT = f'{ENDIANNESS}2B'
 
-            self.values = ()
+    """
+    A pre-packed preamble payload for incoming messages. All message preambles for
+    incoming messages are the same, and do not need to be re-packed every single
+    time at runtime.
 
-        def evaluate(self, data: tuple) -> None:
-            self.values = data
+    Example:
 
-    class Names(Single):
-        def __init__(self) -> None:
-            super().__init__()
+        \\x24\\x4d\\x3c
 
-        def evaluate(self, data: tuple) -> None:
-            self.values = tuple(data[0].decode().split(';')[:-1])
+        $M< (ASCII)
+    """
+    _PREAMBLE_IN = pack(_PREAMBLE_STRUCT_FORMAT, *_PREAMBLE, _IN)
 
-    # --------------------------------------------------------------------
+    """
+    Same as above, but with outgoing messages.
 
-    class Ident(DataType):
-        def __init__(self) -> None:
-            super().__init__()
+    Example:
 
-            self.version        = 0
-            self.multitype      = Multitype.Unidentified
-            self.capabilities   = ()
-            self.navi_version   = 0
-
-        def evaluate(self, data: tuple) -> None:
-            self.version    = data[0] / 100
-            self.multitype  = Multitype(data[1])
-            
-            self.capabilities = ()
-
-            for capability in Capability:
-                if capability & data[3]:
-                    self.capabilities += capability,
-
-            self.navi_version = data[3] >> 28
-
-    class Status(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.cycle_time     = 0
-            self.i2c_errors     = 0
-            self.sensors        = ()
-            self.flag           = 0
-            self.global_conf    = 0
-
-        def evaluate(self, data: tuple) -> None:
-            self.cycle_time = data[0]
-            self.i2c_errors = data[1]
-
-            self.sensors = ()
-
-            for sensor in Sensor:
-                if sensor | data[2]:
-                    self.sensors += sensor,
-
-            self.flag           = data[3]
-            self.global_conf    = data[4]
-
-    class RawImu(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.acc    = (0, 0, 0)
-            self.gyro   = (0, 0, 0)
-            self.mag    = (0, 0, 0)
-
-        def evaluate(self, data: tuple) -> None:
-            self.acc    = data[0:3]
-            self.gyro   = data[3:6]
-            self.mag    = data[6:9]
-
-    class Servo(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class ServoConf(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-        def evaluate(self, data: tuple) -> None:
-            self.values = ()
-
-            for index in range(0, len(data), 4):
-                conf = data[index:index + 4]
-
-                self.values += conf,
-
-    class Motor(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class MotorPins(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class Rc(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.roll        = 0
-            self.pitch       = 0
-            self.yaw         = 0
-            self.throttle    = 0
-            self.aux         = (0, 0, 0, 0)
-        
-        def evaluate(self, data: tuple) -> None:
-            self.roll       = data[0]
-            self.pitch      = data[1]
-            self.yaw        = data[2]
-            self.throttle   = data[3]
-            self.aux        = data[4:]
-
-    class RcTuning(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.rate                   = 0
-            self.expo                   = 0
-            self.roll_pitch_rate        = 0
-            self.yaw_rate               = 0
-            self.dynamic_throttle_pid   = 0
-            self.throttle_mid           = 0
-            self.throttle_expo          = 0
-
-    class RawGps(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.fix            = 0
-            self.satellites     = 0
-            self.coordinates    = (0, 0)
-            self.altitude       = 0
-            self.speed          = 0
-            self.ground_course  = 0
-
-        def evaluate(self, data: tuple) -> None:
-            self.fix            = data[0]
-            self.satellites     = data[1]
-            self.coordinates    = data[2:4]
-            self.altitude       = data[4]
-            self.speed          = data[5]
-            self.ground_course  = data[6]
-
-    class CompGps(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.distance_to_home   = 0
-            self.direction_to_home  = 0
-            self.update             = 0
-
-    class Waypoint(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.number         = 0
-            self.position       = (0, 0)
-            self.alt_hold       = 0
-            self.heading        = 0
-            self.time_to_stay   = 0
-            self.flag           = 0
-
-        def evaluate(self, data: tuple) -> None:
-            self.number         = data[0]
-            self.position       = data[1:3]
-            self.alt_hold       = data[3]
-            self.heading        = data[4]
-            self.time_to_stay   = data[5]
-            self.flag           = data[6]
-
-    class Attitude(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.angle      = (0, 0)
-            self.heading    = 0
-
-        def evaluate(self, data: tuple) -> None:
-            self.angle      = data[0:2]
-            self.heading    = data[2]
-
-    class Altitude(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.estimation         = 0
-            self.pressure_variation = 0
-
-    class Analog(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-            
-            self.voltage        = 0
-            self.power_meter    = 0 # Unclear
-            self.rssi           = 0
-            self.amperage       = 0
-
-    class Pid(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-        def evaluate(self, data: tuple) -> None:
-            self.values = ()
-
-            for index in range(0, len(data), 3):
-                pid = data[index:index + 3]
-
-                self.values += pid,
-
-    class PidNames(Names):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class Box(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class BoxNames(Names):
-        def __init__(self) -> None:
-            super().__init__()
-
-    class BoxIds(Single):
-        def __init__(self) -> None:
-            super().__init__()
-
-        def evaluate(self, data: tuple) -> None:
-            self.values = ()
-
-            for value in data:
-                self.values += BoxType(value),
-
-    class Misc(DataType):
-        def __init__(self) -> None:
-            super().__init__()
-
-            self.power_trigger      = 0
-            self.throttle_idle      = 0
-            self.throttle_min       = 0
-            self.throttle_max       = 0
-            self.throttle_failsafe  = 0
-            self.plog_arm           = 0
-            self.plog_lifetime      = 0
-            self.mag_declination    = 0
-            self.battery_scale      = 0
-            self.battery_warn_1     = 0
-            self.battery_warn_2     = 0
-            self.battery_critical   = 0
-
-# ------------------------------------------------------------------------
-
-class MultiWii:
-    __PREAMBLE  = 0x24, 0x4d  # $, M
-    __ERROR     = 0x21        # !
-    __OUT       = 0x3e        # >
-    __IN        = 0x3c        # <
-
-    __FMT_PREAMBLE  = '<3b'     # Preamble, Direction
-    __FMT_PAYLOAD   = '<2B%s'   # Size, Code, Data[]
-    __FMT_CRC       = '<B'      # CRC
-
-    __FMT_BASE = (  __FMT_PREAMBLE       +
-                    __FMT_PAYLOAD   [1:] +
-                    __FMT_CRC       [1:]    )
-
-    __PREAMBLE_IN = pack(__FMT_PREAMBLE, *__PREAMBLE, __IN)
-
-    __MAX_QUEUE_LENGTH = 100
-
-    __WRITE_DELAY = 0.005
-
-    # --------------------------------------------------------------------
+        \\x24\\x4d\\x3e
+
+        $M> (ASCII)
+    """
+    _PREAMBLE_OUT = pack(_PREAMBLE_STRUCT_FORMAT, *_PREAMBLE, _OUT)
 
     def __init__(self, serial: Serial) -> None:
-        self.__active = False
+        """Initializes an instance using the provided serial connection.
+        
+        The provided serial instance that presumably has been connected with a device
+        with a baudrate of 115200.
 
-        self.__data = {
-            Commands.IDENT      : DataTypes.Ident(),
-            Commands.STATUS     : DataTypes.Status(),
-            Commands.RAW_IMU    : DataTypes.RawImu(),
-            Commands.SERVO      : DataTypes.Servo(),
-            Commands.SERVO_CONF : DataTypes.ServoConf(),
-            Commands.MOTOR      : DataTypes.Motor(),
-            Commands.MOTOR_PINS : DataTypes.MotorPins(),
-            Commands.RC         : DataTypes.Rc(),
-            Commands.RC_TUNING  : DataTypes.RcTuning(),
-            Commands.ATTITUDE   : DataTypes.Attitude(),
-            Commands.ALTITUDE   : DataTypes.Altitude(),
-            Commands.RAW_GPS    : DataTypes.RawGps(),
-            Commands.COMP_GPS   : DataTypes.CompGps(),
-            Commands.WP         : DataTypes.Waypoint(),
-            Commands.ANALOG     : DataTypes.Analog(),
-            Commands.PID        : DataTypes.Pid(),
-            Commands.PIDNAMES   : DataTypes.PidNames(),
-            Commands.BOX        : DataTypes.Box(),
-            Commands.BOXNAMES   : DataTypes.BoxNames(),
-            Commands.BOXIDS     : DataTypes.BoxIds(),
-            Commands.MISC       : DataTypes.Misc()
+
+        Parameters:
+            serial (Serial): The serial connection instance.
+        """
+        self._is_active = False
+
+        self._data = {
+            MultiWiiCommands.IDENT:      Ident(),
+            MultiWiiCommands.STATUS:     Status(),
+            MultiWiiCommands.RAW_IMU:    RawImu(),
+            MultiWiiCommands.SERVO:      Servo(),
+            MultiWiiCommands.SERVO_CONF: ServoConf(),
+            MultiWiiCommands.MOTOR:      Motor(),
+            MultiWiiCommands.MOTOR_PINS: MotorPins(),
+            MultiWiiCommands.RC:         Rc(),
+            MultiWiiCommands.RC_TUNING:  RcTuning(),
+            MultiWiiCommands.ATTITUDE:   Attitude(),
+            MultiWiiCommands.ALTITUDE:   Altitude(),
+            MultiWiiCommands.RAW_GPS:    RawGps(),
+            MultiWiiCommands.COMP_GPS:   CompGps(),
+            MultiWiiCommands.WP:         Waypoint(),
+            MultiWiiCommands.ANALOG:     Analog(),
+            MultiWiiCommands.PID:        Pid(),
+            MultiWiiCommands.PIDNAMES:   PidNames(),
+            MultiWiiCommands.BOX:        Box(),
+            MultiWiiCommands.BOXNAMES:   BoxNames(),
+            MultiWiiCommands.BOXIDS:     BoxIds(),
+            MultiWiiCommands.MISC:       Misc()
         }
 
-        self.__queue = PriorityQueue(self.__MAX_QUEUE_LENGTH)
+        self._command_queue = PriorityQueue(100)
 
-        self.__serial = serial
+        self._serial = serial
 
-        self.__worker = Thread(target = self.__work)
+        self._thread = Thread(target=self._handle_command_queue)
 
-        self.__write_delay = self.__WRITE_DELAY
+        self._write_delay = 0.005
 
     def __del__(self) -> None:
-        if self.__active: self.__stop()
-
-    # --------------------------------------------------------------------
-
-    @property
-    def active(self) -> bool: return self.__active
+        """None: Stops the worker and the thread at destruction."""
+        self._stop()
 
     @property
-    def data(self) -> dict: return self.__data
+    def is_active(self) -> bool:
+        """bool: Gets a value indicating whether the module is communicating to the flight controller."""
+        return self._is_active
 
     @property
-    def write_delay(self) -> float: return self.__WRITE_DELAY
+    def data(self) -> dict:
+        """dict: Gets the command-to-data instance map for accessing read and processed values."""
+        return self._data
 
-    # --------------------------------------------------------------------
+    @property
+    def write_delay(self) -> float:
+        """float: Gets the delay value for serial writes."""
+        return self._write_delay
 
     @write_delay.setter
     def write_delay(self, value: float) -> None:
+        """Sets the write delay value.
+
+        Parameters:
+            value (float): A floating-point value in seconds.
+        """
         if not isinstance(value, float):
-            raise TypeError('Float value required.')
+            raise TypeError
 
         if value < 0:
-            raise ValueError('Unsigned value required.')
+            raise ValueError
             
-        self.__write_delay = value
+        self._write_delay = value
     
-    # --------------------------------------------------------------------
+    @classmethod
+    def __assemble_payload_message(cls, format: str, data: tuple) -> bytes:
+        """Assembles a complete serialized message with the provided format and data values.
+
+        Parameters:
+            format (str): The payload struct format.
+            data (tuple): The data values.
+
+        Returns:
+            bytes: an array of bytes for the whole message.
+        """
+        full_payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT + format
+
+        payload = struct_pack(full_payload_format, *data)
+            
+        checksum = cls.__calculate_crc(payload).to_bytes(
+            length=1,
+            byteorder=cls._INT_BYTEORDER,
+            signed=False
+        )
+
+        return cls._PREAMBLE_IN + payload + checksum
 
     @classmethod
-    def __assemble(cls, format: str, payload: tuple) -> bytes:
-        payload = pack(cls.__FMT_PAYLOAD % format, *payload)
+    def __disassemble_payload_message(cls, format: str, payload: bytes) -> tuple:
+        """Disassembles a serialized outgoing message into a tuple of raw values.
 
-        checksum = pack(cls.__FMT_CRC, cls.__crc(payload))
+        Parameters:
+            format (str): A `struct` format for the full message.
+            payload (bytes): The full message buffer.
 
-        return cls.__PREAMBLE_IN + payload + checksum
+        Returns:
+            tuple: A tuple of raw and unevaluated values of integers.
+        """
+        payload_format = _STRUCT_PARTIAL_PAYLOAD_FORMAT % format
 
-    @classmethod
-    def __disassemble(cls, format: str, message: bytes) -> tuple:
-        return unpack(cls.__FMT_BASE % format, message)
+        return struct_unpack(payload_format, payload)
 
     @staticmethod
-    def __crc(payload: bytes) -> int:
+    def __calculate_crc(payload: bytes) -> int:
+        """Calculates the a single byte checksum using CRC (cyclic redundancy check).
+
+        Parameters:
+            payload (bytes): A serialized payload buffer.
+
+        Returns:
+            int: The calculated CRC value for the provided payload§.
+        """
         checksum = 0
 
-        for byte in payload: checksum ^= byte
+        for value in payload: checksum ^= value
 
         return checksum
 
     @staticmethod
-    def __dynamic_format(format: str, size: int) -> str:
-        if len(format) < 2:
-            return str(size) + format
+    def __create_payload_struct_format(format: str, size: int) -> str:
+        """Why did I do this?
 
-        return format * size
+        Parameters:
+            format (str): The `struct` format for the data values.
+            size (int): The size or length of the data values in the full payload.
 
-    # --------------------------------------------------------------------
+        Returns:
+            str: The `struct` format for the required data values.
+        """
+        if len(format) > 2:
+            return format * size
 
-    def __work(self) -> None:
-        if not self.__serial: return
+        return f'{str(size)}{format}'
 
-        while self.__active:
-            if self.__queue.empty():
-                for command in self.__data:
-                    if command.priority:
-                        self.__enqueue(command, ())
+    def __handle_command_queue(self) -> None:
+        """The thread worker method that performs the whole communication part.
 
-            task = self.__dequeue()
+        This worker method runs continously in a thread and handles everything
+        from enqueuing commands and sending messages to the flight controller,
+        to receiving messages and updating their corresponding data value instance
+        in the `self._data` dictionary.
 
-            command, data = task.arguments
+        Control flow: 
 
-            self.__flush()
+            1. Create prioritized commands if the queue is empty and enqueue them.
+            2. Dequeue one command per iteration.
+            3. Flush the input/output buffer of the serial device.
+            4. Send and construct a message using the dequeued command with empty values.
+            5. Read the output buffer for an outgoing message.
+            6. Update the corresponding the values of the corresponding data value
+               instance using the received data values if not null---skip to the next
+               iteration if null.
+            7. Signal that the dequeued task has been completed.
+        """
+        while self._is_active:
+            if self._command_queue.empty():
+                for command in self._data:
+                    prioritized_command = (command.priority, command)
 
-            self.__write(command, data)
+                    self._command_queue.put(prioritized_command)
 
-            if data: continue
+            command = self._command_queue.get()
 
-            new_data = self.__read(command)
+            self.__flush_serial_io_buffer()
 
-            if not new_data: continue
+            self.__send_message(command, data=())
 
-            self.__data[command].update(new_data)
+            data = self.__read_message(command)
 
-            self.__queue.task_done()
+            if data is None: continue
 
-    # --------------------------------------------------------------------
+            self._data[command].update_values(data)
 
-    def __enqueue(self, command: Command, data: tuple) -> None:
-        if not self.__queue: return
+            self._command_queue.task_done()
 
-        if self.__queue.full(): return
+    def __send_message(self, command: Command, data: tuple) -> None:
+        """Creates a serialized message and sends it to the flight controller.
 
-        priority    = command.priority
-        arguments   = (command, data)
-
-        task = Task(priority, arguments)
-
-        self.__queue.put(task)
-
-    def __dequeue(self) -> tuple:
-        if not self.__queue: return None
-
-        return self.__queue.get()
-
-    # --------------------------------------------------------------------
-
-    def __write(self, command: Command, data: tuple) -> None:
-        if not self.__serial: return
-
-        size, code, format, dynamic = command
+        Parameters:
+            command (Command): The command to execute on the FC.
+            data (tuple): A tuple of raw integer values to sent to the FC.
+        """
+        size   = command.size
+        format = command.format
 
         if not data:
-            size    = 0
-            format  = ''
+            size   = 0
+            format = ''
+        elif command.is_dynamic:
+            size   = size ** 2
+            format = self.__create_payload_struct_format(format, size)
 
-        if dynamic and data:
-            size    = size ** 2
-            format  = self.__dynamic_format(format, size)
+        payload = (size, command.code, *data)
 
-        payload = (size, code, *data)
+        buffer = self.__assemble_payload_message(format, payload)
 
-        buffer = self.__assemble(format, payload)
+        self._serial.write(buffer)
 
-        self.__serial.write(buffer)
+        sleep(self._write_delay)
 
-        sleep(self.__write_delay)
+    def _read_message(self, command: Command) -> tuple:
+        """Attempts to read a message of a specific command from the serial connection.
 
-    def __read(self, command: Command) -> tuple:
-        if not self.__serial: return None
+        Parameters:
+            command (Command): The targeted command.
 
-        size, code, format, dynamic = command
+        Returns:
+            tuple: An immutable list of data values for the command.
+        """
+        buffer = self._serial.read(3)
 
-        buffer = self.__serial.read(3)
-
-        if buffer[2] == self.__ERROR:
+        if buffer[2] is not cls._OUT:
             return None
 
-        buffer += self.__serial.read(2)
+        buffer += self._serial.read(2)
 
-        if buffer[4] != code:
+        if buffer[4] != command.code:
             return None
 
         data_size = buffer[3]
 
-        buffer += self.__serial.read(data_size)
-        buffer += self.__serial.read(1)
+        buffer += self._serial.read(data_size + 1)
 
-        payload     = buffer[3:-1]
-        checksum    = buffer[-1]
+        payload = buffer[3:-1]
 
-        if checksum != self.__crc(payload):
+        checksum = buffer[-1]
+
+        if checksum != self.__calculate_crc(payload):
             return None
 
-        if dynamic:
-            size    = data_size // size
-            format  = self.__dynamic_format(format, size)
+        format = None
 
-        message = self.__disassemble(format, buffer)
+        if command.is_dynamic:
+            format = self.__create_payload_struct_format(
+                format=command.format,
+                size=data_size // command.size
+            )
+        else:
+            format = command.format
 
-        if not message:
-            return None
+        message = self.__disassemble_payload_message(format, buffer)
+
+        if message is not None: return None
 
         return message[5:-1]
 
-    def __flush(self) -> None:
-        if not self.__serial: return
-
-        self.__serial.reset_input_buffer()
-        self.__serial.reset_output_buffer()
-
-    # --------------------------------------------------------------------
-
-    def execute(self, command: Command, data: tuple) -> None:
-        if not self.__active: return
-
-        if type(command)    is not Command  : return
-        if type(data)       is not tuple    : return
-
-        if not command.priority: return
-
-        self.__enqueue(command, data)
-
-    # --------------------------------------------------------------------
+    def _flush_serial_io_buffer(self) -> None:
+        """Flushes both the input and output buffer of the serial connection."""
+        self._serial.reset_input_buffer()
+        self._serial.reset_output_buffer()
 
     def start(self) -> None:
-        if self.__active: return
+        """Starts the worker thread and enables communication to the craft."""
+        if self._is_active: return
         
-        if not self.__serial.is_open:
-            self.__serial.open()
-
-        self.__active = True
-
-        self.__worker.start()
+        self._thread.start()
+        
+        self._is_active = True
 
     def stop(self) -> None:
-        if not self.__active: return
+        """"Stops the worker thread and disables communication to the craft."""
+        if not self._is_active: return
 
-        self.__active = False
+        self._thread.join()
 
-        self.__worker.join()
-
-        if self.__serial.is_open:
-            self.__serial.close()
-
+        self._is_active = False
