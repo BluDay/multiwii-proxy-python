@@ -3,7 +3,7 @@ from .data import *
 class _MultiWiiData(object):
     """(Some funny description here haha.)"""
 
-    def __init__(self) -> None_
+    def __init__(self) -> None:
         self._reset_data()
 
     def _reset_data(self) -> None:
