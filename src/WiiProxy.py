@@ -14,12 +14,12 @@ class WiiProxy(object):
     This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
     """
 
-    """A tuple of the base preamble that both incoming and outgoing messages uses."""
+    """The base format string for the message preamble."""
     __MESSAGE_PREAMBLE_BASE_FORMAT = '$M'
 
-    """Hex values for the two ASCII characters used for incoming and outgoing message preambles."""
-    _IN  = 0x3c
-    _OUT = 0x3e
+    """The message direction characters."""
+    __MESSAGE_DIRECTION_INCOMING_CHAR = '<'
+    __MESSAGE_DIRECTION_OUTGOING_CHAR = '>'
 
     """ATmega328 microprocessor and most Arduino-based microcontrollers use Little-endian."""
     _ENDIANNESS = '<' # '>'
@@ -172,6 +172,27 @@ class WiiProxy(object):
             tuple: A tuple of raw and unevaluated values of integers.
         """
         return unpack(format, payload)
+    
+    @classmethod
+    def get_message_preamble_base_format_string(cls, incoming: bool) -> str:
+        """Gets the message preamble, including the message direction character.
+
+        Parameters:
+            incoming (bool): Decides which direction characters should be included.
+
+        Returns:
+            str: A preamble format string with a direction char.
+
+        Example:
+            incoming = True  -> "$M<"
+            incoming = False -> "$M>"
+        """
+        if incoming:
+            direction = cls.__MESSAGE_DIRECTION_INCOMING_CHAR
+        else:
+            direction = cls.__MESSAGE_DIRECTION_OUTGOING_CHAR
+
+        return cls.__MESSAGE_PREAMBLE_BASE_FORMAT + direction
 
     @staticmethod
     def __get_crc(payload: bytes) -> int:
@@ -181,7 +202,7 @@ class WiiProxy(object):
             payload (bytes): A serialized payload buffer.
 
         Returns:
-            int: The calculated CRC value for the provided payload§.
+            int: The calculated CRC value for the provided payload.
         """
         checksum = 0
 
