@@ -1,10 +1,12 @@
+from . import _MultiWiiData
+
 from serial    import Serial
 from struct    import pack, unpack
 from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
 
-class WiiProxy(object):
+class WiiProxy(_MultiWiiData):
     """The main class of this module that handles everything.
     
     This class merely requires an open serial connection---at baudrate 115200---to be
@@ -14,10 +16,8 @@ class WiiProxy(object):
     This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
     """
 
-    """The base format string for the message preamble."""
     __MESSAGE_PREAMBLE_BASE_FORMAT = '$M'
 
-    """The message direction characters."""
     __MESSAGE_DIRECTION_INCOMING_CHAR = '<'
     __MESSAGE_DIRECTION_OUTGOING_CHAR = '>'
 
@@ -67,35 +67,12 @@ class WiiProxy(object):
         The provided serial instance that presumably has been connected with a device
         with a baudrate of 115200.
 
-
         Parameters:
             serial (Serial): The serial connection instance.
         """
-        self._is_active = False
+        super().__init__()
 
-        self._data = {
-            MultiWiiCommands.IDENT:      Ident(),
-            MultiWiiCommands.STATUS:     Status(),
-            MultiWiiCommands.RAW_IMU:    RawImu(),
-            MultiWiiCommands.SERVO:      Servo(),
-            MultiWiiCommands.SERVO_CONF: ServoConf(),
-            MultiWiiCommands.MOTOR:      Motor(),
-            MultiWiiCommands.MOTOR_PINS: MotorPins(),
-            MultiWiiCommands.RC:         Rc(),
-            MultiWiiCommands.RC_TUNING:  RcTuning(),
-            MultiWiiCommands.ATTITUDE:   Attitude(),
-            MultiWiiCommands.ALTITUDE:   Altitude(),
-            MultiWiiCommands.RAW_GPS:    RawGps(),
-            MultiWiiCommands.COMP_GPS:   CompGps(),
-            MultiWiiCommands.WP:         Waypoint(),
-            MultiWiiCommands.ANALOG:     Analog(),
-            MultiWiiCommands.PID:        Pid(),
-            MultiWiiCommands.PIDNAMES:   PidNames(),
-            MultiWiiCommands.BOX:        Box(),
-            MultiWiiCommands.BOXNAMES:   BoxNames(),
-            MultiWiiCommands.BOXIDS:     BoxIds(),
-            MultiWiiCommands.MISC:       Misc()
-        }
+        self._is_active = False
 
         self._command_queue = PriorityQueue(100)
 
@@ -113,11 +90,6 @@ class WiiProxy(object):
     def is_active(self) -> bool:
         """bool: Gets a value indicating whether the module is communicating to the flight controller."""
         return self._is_active
-
-    @property
-    def data(self) -> dict:
-        """dict: Gets the command-to-data instance map for accessing read and processed values."""
-        return self._data
 
     @property
     def write_delay(self) -> float:
