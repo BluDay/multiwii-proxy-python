@@ -140,18 +140,6 @@ class WiiProxy(_MultiWiiData):
         """
         return unpack(format, payload)
     
-    @classmethod
-    def get_message_preamble(cls, incoming: bool = True) -> str:
-        """Gets the message preamble, including the message direction character.
-
-        Parameters:
-            incoming (bool): Decides which direction characters should be included.
-
-        Returns:
-            str: A preamble format string with a direction char.
-        """
-        return '$M' + '<' if incoming is True else '>'
-
     @staticmethod
     def __get_crc(payload: bytes) -> int:
         """Calculates the a single byte checksum using CRC (cyclic redundancy check).
@@ -169,20 +157,16 @@ class WiiProxy(_MultiWiiData):
         return checksum
 
     @staticmethod
-    def __get_dynamically_sized_data_format(format: str, size: int) -> str:
-        """Why did I do this?
+    def get_message_preamble(incoming: bool = True) -> str:
+        """Gets the message preamble, including the message direction character.
 
         Parameters:
-            format (str): The `struct` format for the data values.
-            size (int): The size or length of the data values in the full payload.
+            incoming (bool): Decides which direction characters should be included.
 
         Returns:
-            str: The `struct` format for the required data values.
+            str: A preamble format string with a direction char.
         """
-        if len(format) > 2:
-            return format * size
-
-        return f'{str(size)}{format}'
+        return '$M' + '<' if incoming is True else '>'
 
     def __handle_command_queue(self) -> None:
         """The thread worker method that performs the whole communication part.
