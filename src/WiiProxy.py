@@ -1,4 +1,4 @@
-from . import _MultiWiiData
+from .multiwii import _MultiWiiData
 
 from serial    import Serial
 from struct    import pack, unpack
