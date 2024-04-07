@@ -1,5 +1,4 @@
-from .       import 
-from .config import PriorityType
+from ..config import PriorityType
 
 class MultiWiiCommands(object):
     """
