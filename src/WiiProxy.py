@@ -16,8 +16,9 @@ class WiiProxy(_MultiWiiData):
     This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
     """
 
-    """ATmega328 microprocessor and most Arduino-based microcontrollers use Little-endian."""
-    _ENDIANNESS = '<' # '>'
+    _DEFAULT_COMMAND_QUEUE_SIZE: int = 100
+
+    _DEFAULT_WRITE_DELAY: float = 0.005
 
     def __init__(self, serial: Serial) -> None:
         """Initializes an instance using the provided serial connection.
@@ -28,17 +29,20 @@ class WiiProxy(_MultiWiiData):
         Parameters:
             serial (Serial): The serial connection instance.
         """
+        if not isinstance(serial, Serial):
+            raise TypeError
+
         self._reset_data()
 
         self._is_active = False
 
-        self._command_queue = PriorityQueue(maxsize=100)
+        self._command_queue = PriorityQueue(maxsize=self._DEFAULT_COMMAND_QUEUE_SIZE)
 
         self._serial = serial
 
         self._thread = Thread(target=self._handle_command_queue)
 
-        self._write_delay = 0.005
+        self._write_delay = self._DEFAULT_WRITE_DELAY
 
     def __del__(self) -> None:
         """None: Stops the worker and the thread at destruction."""
