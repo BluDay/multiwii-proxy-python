@@ -5,7 +5,7 @@ from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
 
-class WiiProxy(object, _MultiWiiData):
+class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
     """
     The main class of this module that handles everything.
     
