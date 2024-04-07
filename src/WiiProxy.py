@@ -49,7 +49,7 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
         """
         Stops the worker and the thread at destruction.
         """
-        self._stop()
+        self.stop()
 
     @property
     def is_active(self) -> bool:
