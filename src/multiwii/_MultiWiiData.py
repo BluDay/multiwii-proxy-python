@@ -51,7 +51,7 @@ class _MultiWiiData(object):
     corresponding private fields for an instance of this type, or of a derived type.
     """
 
-    def _reset_data(self) -> None:
+    def reset_data(self) -> None:
         """
         Resets all data value instances. defines each field if not already defined.
         """

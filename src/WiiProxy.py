@@ -33,8 +33,6 @@ class WiiProxy(object, _MultiWiiData):
         if not isinstance(serial, Serial):
             raise TypeError
 
-        self._reset_data()
-
         self._command_queue = PriorityQueue(maxsize=self._DEFAULT_COMMAND_QUEUE_SIZE)
 
         self._is_active = False
@@ -44,6 +42,8 @@ class WiiProxy(object, _MultiWiiData):
         self._thread = Thread(target=self._handle_command_queue)
 
         self._write_delay = self._DEFAULT_WRITE_DELAY
+
+        self.reset_data()
 
     def __del__(self) -> None:
         """
