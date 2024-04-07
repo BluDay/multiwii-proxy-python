@@ -1,7 +1,6 @@
 from .multiwii import _MultiWiiData
 
 from serial    import Serial
-from struct    import pack, unpack
 from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
@@ -10,11 +9,11 @@ class WiiProxy(object, _MultiWiiData):
     """
     The main class of this module that handles everything.
     
-    This class merely requires an open serial connection---at baudrate 115200---to be
-    passed at instantiation. Everything else, like the commands, the thread, each data
-    instance, gets created automatically.
+    This class merely requires an open serial connection—at baudrate 115200—to be passed at
+    instantiation. Everything else, like the commands, the thread, each data instance, gets
+    created automatically.
 
-    This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
+    This module only supports MSP v1 and not any of the newer versions.
     """
 
     _DEFAULT_COMMAND_QUEUE_MAXSIZE: int = 100
@@ -36,9 +35,9 @@ class WiiProxy(object, _MultiWiiData):
 
         self._reset_data()
 
-        self._is_active = False
-
         self._command_queue = PriorityQueue(maxsize=self._DEFAULT_COMMAND_QUEUE_SIZE)
+
+        self._is_active = False
 
         self._serial = serial
 
