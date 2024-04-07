@@ -16,11 +16,6 @@ class WiiProxy(_MultiWiiData):
     This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
     """
 
-    __MESSAGE_PREAMBLE_BASE_FORMAT = '$M'
-
-    __MESSAGE_DIRECTION_INCOMING_CHAR = '<'
-    __MESSAGE_DIRECTION_OUTGOING_CHAR = '>'
-
     """ATmega328 microprocessor and most Arduino-based microcontrollers use Little-endian."""
     _ENDIANNESS = '<' # '>'
 
@@ -146,7 +141,7 @@ class WiiProxy(_MultiWiiData):
         return unpack(format, payload)
     
     @classmethod
-    def get_message_preamble_base_format_string(cls, incoming: bool) -> str:
+    def get_message_preamble(cls, incoming: bool = True) -> str:
         """Gets the message preamble, including the message direction character.
 
         Parameters:
@@ -154,17 +149,8 @@ class WiiProxy(_MultiWiiData):
 
         Returns:
             str: A preamble format string with a direction char.
-
-        Example:
-            incoming = True  -> "$M<"
-            incoming = False -> "$M>"
         """
-        if incoming:
-            direction = cls.__MESSAGE_DIRECTION_INCOMING_CHAR
-        else:
-            direction = cls.__MESSAGE_DIRECTION_OUTGOING_CHAR
-
-        return cls.__MESSAGE_PREAMBLE_BASE_FORMAT + direction
+        return '$M' + '<' if incoming is True else '>'
 
     @staticmethod
     def __get_crc(payload: bytes) -> int:
