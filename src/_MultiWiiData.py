@@ -2,12 +2,13 @@ from .data import *
 
 class _MultiWiiData(object):
     """
-    Some funny description here haha.
+    The mixin class used for initializing all MultiWii data value instances and creating
+    corresponding private fields for an instance of this type, or of a derived type.
     """
 
     def _reset_data(self) -> None:
         """
-        Resets all data instances. Defines each field if not already defined.
+        Resets all data value instances. defines each field if not already defined.
         """
         self._ident      = Ident()
         self._status     = Status()
