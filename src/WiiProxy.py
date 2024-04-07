@@ -19,43 +19,6 @@ class WiiProxy(_MultiWiiData):
     """ATmega328 microprocessor and most Arduino-based microcontrollers use Little-endian."""
     _ENDIANNESS = '<' # '>'
 
-    """Same as above, but for serializing `int`s without `struct`."""
-    _INT_BYTEORDER = 'little'
-
-    """The message preamble format for `struct.pack` and `struct.unpack`."""
-    _PREAMBLE_STRUCT_FORMAT = f'{ENDIANNESS}3b'
-
-    """Same as above, but for the payload.
-
-    The format consists of a `%s` specifier and is used for creating complete payload
-    formats using either a dynamic or a non-dynamic data format for a specific command.
-    """
-    _PAYLOAD_STRUCT_FORMAT = f'{ENDIANNESS}2B'
-
-    """
-    A pre-packed preamble payload for incoming messages. All message preambles for
-    incoming messages are the same, and do not need to be re-packed every single
-    time at runtime.
-
-    Example:
-
-        \\x24\\x4d\\x3c
-
-        $M< (ASCII)
-    """
-    _PREAMBLE_IN = pack(_PREAMBLE_STRUCT_FORMAT, '$M<')
-
-    """
-    Same as above, but with outgoing messages.
-
-    Example:
-
-        \\x24\\x4d\\x3e
-
-        $M> (ASCII)
-    """
-    _PREAMBLE_OUT = pack(_PREAMBLE_STRUCT_FORMAT, '$M>')
-
     def __init__(self, serial: Serial) -> None:
         """Initializes an instance using the provided serial connection.
         
@@ -65,11 +28,11 @@ class WiiProxy(_MultiWiiData):
         Parameters:
             serial (Serial): The serial connection instance.
         """
-        super().__init__()
+        self._reset_data()
 
         self._is_active = False
 
-        self._command_queue = PriorityQueue(100)
+        self._command_queue = PriorityQueue(maxsize=100)
 
         self._serial = serial
 
@@ -107,7 +70,7 @@ class WiiProxy(_MultiWiiData):
         self._write_delay = value
     
     @classmethod
-    def __assemble_message(cls, format: str, data: tuple) -> bytes:
+    def _assemble_message(cls, format: str, data: tuple) -> bytes:
         """Assembles a complete serialized message with the provided format and data values.
 
         Parameters:
@@ -119,7 +82,7 @@ class WiiProxy(_MultiWiiData):
         """
         payload = pack(format, *data)
             
-        checksum = cls.__get_crc(payload).to_bytes(
+        checksum = cls._get_crc(payload).to_bytes(
             length=1,
             byteorder=cls._INT_BYTEORDER,
             signed=False
@@ -128,7 +91,7 @@ class WiiProxy(_MultiWiiData):
         return cls._PREAMBLE_IN + payload + checksum
 
     @classmethod
-    def __disassemble_message(cls, format: str, payload: bytes) -> tuple:
+    def _disassemble_message(cls, format: str, payload: bytes) -> tuple:
         """Disassembles a serialized outgoing message into a tuple of raw values.
 
         Parameters:
@@ -141,7 +104,7 @@ class WiiProxy(_MultiWiiData):
         return unpack(format, payload)
     
     @staticmethod
-    def __get_crc(payload: bytes) -> int:
+    def _get_crc(payload: bytes) -> int:
         """Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
         Parameters:
@@ -177,7 +140,7 @@ class WiiProxy(_MultiWiiData):
         """
         return '$M'
 
-    def __handle_command_queue(self) -> None:
+    def _handle_command_queue(self) -> None:
         """The thread worker method that performs the whole communication part.
 
         This worker method runs continously in a thread and handles everything
@@ -195,7 +158,7 @@ class WiiProxy(_MultiWiiData):
 
             pass
 
-    def __send_message(self, command: Command, data: tuple) -> None:
+    def _send_message(self, command: Command, data: tuple) -> None:
         """Creates a serialized message and sends it to the flight controller.
 
         Parameters:
@@ -211,7 +174,7 @@ class WiiProxy(_MultiWiiData):
 
         pass
 
-    def __read_message(self, command: Command) -> tuple:
+    def _read_message(self, command: Command) -> tuple:
         """Attempts to read a message of a specific command from the serial connection.
 
         Parameters:
@@ -229,14 +192,15 @@ class WiiProxy(_MultiWiiData):
 
         pass
 
-    def __reset_input_output_buffer(self) -> None:
+    def _reset_input_output_buffer(self) -> None:
         """Resets both the input and output buffer of the serial connection."""
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
     def start(self) -> None:
         """Starts the worker thread and enables communication to the craft."""
-        if self._is_active: return
+        if self._is_active:
+            return
         
         self._thread.start()
         
@@ -244,7 +208,8 @@ class WiiProxy(_MultiWiiData):
 
     def stop(self) -> None:
         """"Stops the worker thread and disables all communication."""
-        if not self._is_active: return
+        if not self._is_active:
+            return
 
         self._thread.join()
 
