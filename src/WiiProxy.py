@@ -1,4 +1,4 @@
-from .multiwii import _MultiWiiData, _MultiWiiMessage
+from .multiwii import _MultiWiiData, _MultiWiiMessageHandler
 
 from serial    import Serial
 from threading import Thread
