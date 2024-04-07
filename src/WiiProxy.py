@@ -78,44 +78,8 @@ class WiiProxy(object, _MultiWiiData):
             
         self._write_delay = value
     
-    @classmethod
-    def _assemble_message(cls, format: str, data: tuple) -> bytes:
-        """
-        Assembles a complete serialized message with the provided format and data values.
-
-        Parameters:
-            format (str): The payload struct format.
-            data (tuple): The data values.
-
-        Returns:
-            bytes: an array of bytes for the whole message.
-        """
-        payload = pack(format, *data)
-            
-        checksum = cls._get_crc(payload).to_bytes(
-            length=1,
-            byteorder=cls._INT_BYTEORDER,
-            signed=False
-        )
-
-        return cls._PREAMBLE_IN + payload + checksum
-
-    @classmethod
-    def _disassemble_message(cls, format: str, payload: bytes) -> tuple:
-        """
-        Disassembles a serialized outgoing message into a tuple of raw values.
-
-        Parameters:
-            format (str): A `struct` format for the full message.
-            payload (bytes): The full message buffer.
-
-        Returns:
-            tuple: A tuple of raw and unevaluated values of integers.
-        """
-        return unpack(format, payload)
-    
     @staticmethod
-    def _get_crc(payload: bytes) -> int:
+    def _calculate_crc(data: bytes) -> int:
         """
         Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
@@ -137,18 +101,18 @@ class WiiProxy(object, _MultiWiiData):
 
         Parameters:
             incoming (bool): Decides which direction characters should be included.
+
+        Returns:
+            str: The direction character as a string.
         """
         return '<' if incoming else '>'
 
     @staticmethod
     def get_message_preamble() -> str:
-        """Gets the message preamble string.
-
-        Parameters:
-            incoming (bool): Decides which direction characters should be included.
+        """Gets the message preamble.
 
         Returns:
-            str: A preamble format string with a direction char.
+            str: The message preamble string.
         """
         return '$M'
 
