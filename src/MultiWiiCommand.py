@@ -4,7 +4,8 @@ from .config import PriorityType
 from struct import calcsize
 
 class MultiWiiCommand(object):
-    """Represents a descriptor for a MultiWii command.
+    """
+    Represents a descriptor for a MultiWii command.
 
     This class contains information about a command, such as the code and format of the command.
     """
@@ -16,7 +17,9 @@ class MultiWiiCommand(object):
         is_dynamic:    bool,
         priority_type: PriorityType
     ) -> None:
-        """Initializes an instance with all necessary parameters."""
+        """
+        Initializes an instance with all necessary parameters.
+        """
         self._code = code
 
         self._format = format
@@ -29,25 +32,35 @@ class MultiWiiCommand(object):
     
     @property
     def code(self) -> int:
-        """int: Gets the code of the command."""
+        """
+        Gets the code of the command.
+        """
         return self._code
 
     @property
     def format(self) -> str:
-        """str: Gets the `struct` format for the data values."""
+        """
+        Gets the `struct` format for the data values.
+        """
         return self._format
 
     @property
     def is_dynamic(self) -> bool:
-        """bool: Gets a value indicative whether the data size is indeterminate."""
+        """
+        Gets a value indicative whether the data size is indeterminate.
+        """
         return self._is_dynamic
 
     @property
     def priority_type(self) -> PriorityType:
-        """PriorityType: Gets the priority of the command."""
+        """
+        Gets the priority of the command.
+        """
         return self._priority_type
     
     @property
     def size(self) -> int:
-        """int: Gets the total byte size of the data values."""
+        """
+        Gets the total byte size of the data values.
+        """
         return self._size

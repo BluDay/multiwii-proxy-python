@@ -2,7 +2,9 @@ from enum import IntEnum, unique
 
 @unique
 class VehicleType(IntEnum):
-    """Represents different types of available vehicle configurations."""
+    """
+    Represents different types of available vehicle configurations.
+    """
     Unidentified = 0
     Tri          = 1
     QuadP        = 2
