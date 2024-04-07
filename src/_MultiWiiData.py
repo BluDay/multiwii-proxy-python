@@ -1,10 +1,14 @@
 from .data import *
 
 class _MultiWiiData(object):
-    """(Some funny description here haha.)"""
+    """
+    Some funny description here haha.
+    """
 
     def _reset_data(self) -> None:
-        """Resets all data instances. Defines each field if not already defined."""
+        """
+        Resets all data instances. Defines each field if not already defined.
+        """
         self._ident      = Ident()
         self._status     = Status()
         self._raw_imu    = RawImu()
@@ -29,105 +33,147 @@ class _MultiWiiData(object):
 
     @property
     def ident(self) -> Ident:
-        """Gets the..."""
+        """
+        Gets the...
+        """
         return self._ident
 
     @property
     def status(self) -> Status:
-        """Gets the..."""
+        """
+        Gets the...
+        """
         return self._status
 
     @property
     def raw_imu(self) -> RawImu:
-        """Gets the..."""
+        """
+        Gets the...
+        """
         return self._raw_imu
 
     @property
     def servo(self) -> Servo:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._servo
 
     @property
     def servo_conf(self) -> ServoConf:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._servo_conf
 
     @property
     def motor(self) -> Motor:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._motor
 
     @property
     def motor_pins(self) -> MotorPins:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._motor_pins
 
     @property
     def rc(self) -> Rc:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._rc
 
     @property
     def rc_tuning(self) -> RcTuning:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._rc_tuning
 
     @property
     def attitude(self) -> Attitude:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._attitude
 
     @property
     def altitude(self) -> Altitude:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._altitude
 
     @property
     def raw_gps(self) -> RawGps:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._raw_gps
 
     @property
     def comp_gps(self) -> CompGps:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._comp_gps
 
     @property
     def waypoint(self) -> Waypoint:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._waypoint
 
     @property
     def analog(self) -> Analog:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._analog
 
     @property
     def pid(self) -> Pid:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._pid
 
     @property
     def pidnames(self) -> PidNames:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._pidnames
 
     @property
     def box(self) -> Box:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._box
 
     @property
     def boxnames(self) -> BoxNames:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._boxnames
 
     @property
     def boxids(self) -> BoxIds:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._boxids
 
     @property
     def misc(self) -> Misc:
-        """Gets the..."""
+        """
+		Gets the...
+		"""
         return self._misc

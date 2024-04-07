@@ -2,7 +2,8 @@ from .       import MultiWiiCommand
 from .config import PriorityType
 
 class MultiWiiCommands(object):
-    """This class contains the info for all of the available MultiWii commands.
+    """
+    This class contains the info for all of the available MultiWii commands.
 
     Structure for commands defined below:
 

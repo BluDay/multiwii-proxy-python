@@ -2,7 +2,9 @@ from enum import IntEnum, unique
 
 @unique
 class BoxType(IntEnum):
-    """Represents the various boxes that can be checked."""
+    """
+    Represents the various boxes that can be checked.
+    """
     Arm       = 0
     Angle     = 1
     Horizon   = 2

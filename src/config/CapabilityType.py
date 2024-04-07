@@ -2,7 +2,9 @@ from enum import IntEnum, unique
 
 @unique
 class CapabilityType(IntEnum):
-    """Represents some capabilities that the flight controller has."""
+    """
+    Represents some capabilities that the flight controller has.
+    """
     Bind   = 0b0000001
     Dynbal = 0b0000010
     Flap   = 0b0000100

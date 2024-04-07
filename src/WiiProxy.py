@@ -6,8 +6,9 @@ from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
 
-class WiiProxy(_MultiWiiData):
-    """The main class of this module that handles everything.
+class WiiProxy(object, _MultiWiiData):
+    """
+    The main class of this module that handles everything.
     
     This class merely requires an open serial connection---at baudrate 115200---to be
     passed at instantiation. Everything else, like the commands, the thread, each data
@@ -16,12 +17,13 @@ class WiiProxy(_MultiWiiData):
     This module and this class only supports the legacy version of MSP (MultiWii Serial Protocol).
     """
 
-    _DEFAULT_COMMAND_QUEUE_SIZE: int = 100
+    _DEFAULT_COMMAND_QUEUE_MAXSIZE: int = 100
 
     _DEFAULT_WRITE_DELAY: float = 0.005
 
     def __init__(self, serial: Serial) -> None:
-        """Initializes an instance using the provided serial connection.
+        """
+        Initializes an instance using the provided serial connection.
         
         The provided serial instance that presumably has been connected with a device
         with a baudrate of 115200.
@@ -45,17 +47,21 @@ class WiiProxy(_MultiWiiData):
         self._write_delay = self._DEFAULT_WRITE_DELAY
 
     def __del__(self) -> None:
-        """None: Stops the worker and the thread at destruction."""
+        """
+        Stops the worker and the thread at destruction.
+        """
         self._stop()
 
     @property
     def is_active(self) -> bool:
-        """bool: Gets a value indicating whether the module is communicating to the flight controller."""
+        """
+        Gets a value indicating whether the module is communicating to the flight controller.
+        """
         return self._is_active
 
     @property
     def write_delay(self) -> float:
-        """float: Gets the delay value for serial writes."""
+        """Gets the delay value for serial writes."""
         return self._write_delay
 
     @write_delay.setter
@@ -75,7 +81,8 @@ class WiiProxy(_MultiWiiData):
     
     @classmethod
     def _assemble_message(cls, format: str, data: tuple) -> bytes:
-        """Assembles a complete serialized message with the provided format and data values.
+        """
+        Assembles a complete serialized message with the provided format and data values.
 
         Parameters:
             format (str): The payload struct format.
@@ -96,7 +103,8 @@ class WiiProxy(_MultiWiiData):
 
     @classmethod
     def _disassemble_message(cls, format: str, payload: bytes) -> tuple:
-        """Disassembles a serialized outgoing message into a tuple of raw values.
+        """
+        Disassembles a serialized outgoing message into a tuple of raw values.
 
         Parameters:
             format (str): A `struct` format for the full message.
@@ -109,7 +117,8 @@ class WiiProxy(_MultiWiiData):
     
     @staticmethod
     def _get_crc(payload: bytes) -> int:
-        """Calculates the a single byte checksum using CRC (cyclic redundancy check).
+        """
+        Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
         Parameters:
             payload (bytes): A serialized payload buffer.
@@ -163,7 +172,8 @@ class WiiProxy(_MultiWiiData):
             pass
 
     def _send_message(self, command: Command, data: tuple) -> None:
-        """Creates a serialized message and sends it to the flight controller.
+        """
+        Creates a serialized message and sends it to the flight controller.
 
         Parameters:
             command (Command): The command to execute on the FC.
@@ -179,7 +189,8 @@ class WiiProxy(_MultiWiiData):
         pass
 
     def _read_message(self, command: Command) -> tuple:
-        """Attempts to read a message of a specific command from the serial connection.
+        """
+        Attempts to read a message of a specific command from the serial connection.
 
         Parameters:
             command (Command): The targeted command.
@@ -197,12 +208,16 @@ class WiiProxy(_MultiWiiData):
         pass
 
     def _reset_input_output_buffer(self) -> None:
-        """Resets both the input and output buffer of the serial connection."""
+        """
+        Resets both the input and output buffer of the serial connection.
+        """
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
     def start(self) -> None:
-        """Starts the worker thread and enables communication to the craft."""
+        """
+        Starts the worker thread and enables communication to the craft.
+        """
         if self._is_active:
             return
         
@@ -211,7 +226,9 @@ class WiiProxy(_MultiWiiData):
         self._is_active = True
 
     def stop(self) -> None:
-        """"Stops the worker thread and disables all communication."""
+        """
+        Stops the worker thread and disables all communication.
+        """
         if not self._is_active:
             return
 
