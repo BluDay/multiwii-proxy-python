@@ -172,42 +172,19 @@ class WiiProxy(_MultiWiiData):
         """The thread worker method that performs the whole communication part.
 
         This worker method runs continously in a thread and handles everything
-        from enqueuing commands and sending messages to the flight controller,
-        to receiving messages and updating their corresponding data value instance
-        in the `self._data` dictionary.
-
-        Control flow: 
-
-            1. Create prioritized commands if the queue is empty and enqueue them.
-            2. Dequeue one command per iteration.
-            3. Flush the input/output buffer of the serial device.
-            4. Send and construct a message using the dequeued command with empty values.
-            5. Read the output buffer for an outgoing message.
-            6. Update the corresponding the values of the corresponding data value
-               instance using the received data values if not null---skip to the next
-               iteration if null.
-            7. Signal that the dequeued task has been completed.
+        from enqueuing commands and sending messages to the flight controller, to
+        receiving messages and updating their corresponding data value instances.
         """
-        while self._is_active:
-            if self._command_queue.empty():
-                for command in self._data:
-                    prioritized_command = (command.priority, command)
+        while True:
+            # TODO: Fill command queue with prioritized commands if empty.
+            # TODO: Dequeue the most prioritized command from the queue.
+            # TODO: Reset the input/output buffer.
+            # TODO: Send message with empty data values to receive a response.
+            # TODO: Read response message.
+            # TODO: Update corresponding instance for command with new values if not null.
+            # TODO: Indicate that the command has been processed.
 
-                    self._command_queue.put(prioritized_command)
-
-            command = self._command_queue.get()
-
-            self.__flush_serial_io_buffer()
-
-            self.__send_message(command, data=())
-
-            data = self.__read_message(command)
-
-            if data is None: continue
-
-            self._data[command].update_values(data)
-
-            self._command_queue.task_done()
+            pass
 
     def __send_message(self, command: Command, data: tuple) -> None:
         """Creates a serialized message and sends it to the flight controller.
@@ -216,25 +193,16 @@ class WiiProxy(_MultiWiiData):
             command (Command): The command to execute on the FC.
             data (tuple): A tuple of raw integer values to sent to the FC.
         """
-        size   = command.size
-        format = command.format
 
-        if not data:
-            size   = 0
-            format = ''
-        elif command.is_dynamic:
-            size   = size ** 2
-            format = self.__get_dynamically_sized_data_format(format, size)
+        # TODO: Get size and format for command.
+        # TODO: Create payload tuple.
+        # TODO: Assembly message using the format and payload.
+        # TODO: Write message to the serial port.
+        # TODO: Sleep for `write_delay` seconds.
 
-        payload = (size, command.code, *data)
+        pass
 
-        buffer = self.__assemble_message(format, payload)
-
-        self._serial.write(buffer)
-
-        sleep(self._write_delay)
-
-    def _read_message(self, command: Command) -> tuple:
+    def __read_message(self, command: Command) -> tuple:
         """Attempts to read a message of a specific command from the serial connection.
 
         Parameters:
@@ -243,45 +211,17 @@ class WiiProxy(_MultiWiiData):
         Returns:
             tuple: An immutable list of data values for the command.
         """
-        buffer = self._serial.read(3)
 
-        if buffer[2] is not cls._OUT:
-            return None
+        # TODO: Read preamble, code and data size.
+        # TODO: Validate preamble.
+        # TODO: Read data value bytes and checksum value.
+        # TODO: Unpack the whole message.
+        # TODO: Return the unpacked message.
 
-        buffer += self._serial.read(2)
+        pass
 
-        if buffer[4] != command.code:
-            return None
-
-        data_size = buffer[3]
-
-        buffer += self._serial.read(data_size + 1)
-
-        payload = buffer[3:-1]
-
-        checksum = buffer[-1]
-
-        if checksum != self.__get_crc(payload):
-            return None
-
-        format = None
-
-        if command.is_dynamic:
-            format = self.__get_dynamically_sized_data_format(
-                format=command.format,
-                size=data_size // command.size
-            )
-        else:
-            format = command.format
-
-        message = self.__disassemble_message(format, buffer)
-
-        if message is not None: return None
-
-        return message[5:-1]
-
-    def _flush_serial_io_buffer(self) -> None:
-        """Flushes both the input and output buffer of the serial connection."""
+    def __reset_input_output_buffer(self) -> None:
+        """Resets both the input and output buffer of the serial connection."""
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
@@ -294,7 +234,7 @@ class WiiProxy(_MultiWiiData):
         self._is_active = True
 
     def stop(self) -> None:
-        """"Stops the worker thread and disables communication to the craft."""
+        """"Stops the worker thread and disables all communication."""
         if not self._is_active: return
 
         self._thread.join()
