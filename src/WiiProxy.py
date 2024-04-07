@@ -157,8 +157,17 @@ class WiiProxy(_MultiWiiData):
         return checksum
 
     @staticmethod
-    def get_message_preamble(incoming: bool = True) -> str:
-        """Gets the message preamble, including the message direction character.
+    def get_message_direction(incoming: bool = True) -> str:
+        """Gets an incoming or an outgoing message direction character.
+
+        Parameters:
+            incoming (bool): Decides which direction characters should be included.
+        """
+        return '<' if incoming else '>'
+
+    @staticmethod
+    def get_message_preamble() -> str:
+        """Gets the message preamble string.
 
         Parameters:
             incoming (bool): Decides which direction characters should be included.
@@ -166,7 +175,7 @@ class WiiProxy(_MultiWiiData):
         Returns:
             str: A preamble format string with a direction char.
         """
-        return '$M' + '<' if incoming is True else '>'
+        return '$M'
 
     def __handle_command_queue(self) -> None:
         """The thread worker method that performs the whole communication part.
