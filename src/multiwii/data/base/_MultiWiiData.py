@@ -1,4 +1,4 @@
-class MultiWiiData(object):
+class _MultiWiiData(object):
     """
     Represents the base class for MultiWii data types.
     """
