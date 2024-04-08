@@ -1,4 +1,4 @@
-class NamesBase(ValuesBase):
+class _MultiWiiNames(ValuesBase):
     def __init__(self) -> None:
         super().__init__()
 
