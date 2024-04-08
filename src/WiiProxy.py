@@ -16,9 +16,19 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
     This module only supports MSP v1 and not any of the newer versions.
     """
 
-    _DEFAULT_COMMAND_QUEUE_MAXSIZE: int = 100
+    # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
+    """
+    Default maximum size for the priority queue.
+    """
+    _DEFAULT_QUEUE_MAXSIZE: int = 100
+
+    """
+    Default delay (in seconds) for serial writes.
+    """
     _DEFAULT_WRITE_DELAY: float = 0.005
+
+    # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> None:
         """
@@ -33,7 +43,7 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
         if not isinstance(serial, Serial):
             raise TypeError
 
-        self._command_queue = PriorityQueue(maxsize=self._DEFAULT_COMMAND_QUEUE_SIZE)
+        self._command_queue = PriorityQueue(maxsize=self._DEFAULT_QUEUE_SIZE)
 
         self._is_active = False
 
@@ -51,6 +61,8 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
         """
         self.stop()
 
+    # --------------------------------------- PROPERTIES ---------------------------------------
+
     @property
     def is_active(self) -> bool:
         """
@@ -60,7 +72,12 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
 
     @property
     def write_delay(self) -> float:
-        """Gets the delay value for serial writes."""
+        """
+        Gets the number of seconds to delay each write operation with in seconds.
+
+        Returns:
+            float: The delay value as a floating-point.
+        """
         return self._write_delay
 
     @write_delay.setter
@@ -77,45 +94,9 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
             raise ValueError
             
         self._write_delay = value
+
+    # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    @staticmethod
-    def _calculate_crc(data: bytes) -> int:
-        """
-        Calculates the a single byte checksum using CRC (cyclic redundancy check).
-
-        Parameters:
-            payload (bytes): A serialized payload buffer.
-
-        Returns:
-            int: The calculated CRC value for the provided payload.
-        """
-        checksum = 0
-
-        for value in payload: checksum ^= value
-
-        return checksum
-
-    @staticmethod
-    def get_message_direction(incoming: bool = True) -> str:
-        """Gets an incoming or an outgoing message direction character.
-
-        Parameters:
-            incoming (bool): Decides which direction characters should be included.
-
-        Returns:
-            str: The direction character as a string.
-        """
-        return '<' if incoming else '>'
-
-    @staticmethod
-    def get_message_preamble() -> str:
-        """Gets the message preamble.
-
-        Returns:
-            str: The message preamble string.
-        """
-        return '$M'
-
     def _handle_command_queue(self) -> None:
         """The thread worker method that performs the whole communication part.
 
