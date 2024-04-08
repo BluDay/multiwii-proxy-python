@@ -47,7 +47,6 @@ class _MultiWiiMessageHandler(object):
     """
     MESSAGE_SERIALIZED_ERROR_CHAR: Final[int] = ord(MESSAGE_ERROR_CHAR) & 0xff
 
-
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
