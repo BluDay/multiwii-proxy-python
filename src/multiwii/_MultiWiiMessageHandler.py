@@ -7,7 +7,7 @@ class _MultiWiiMessageHandler(object):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
-     """
+    """
     The error character.
     """
     MESSAGE_ERROR_CHAR: Final[str] = '!'
@@ -32,7 +32,7 @@ class _MultiWiiMessageHandler(object):
     """
     MESSAGE_INCOMING_HEADER: Final[str] = __get_header()
 
-     """
+    """
     The outgoing header.
     """
     MESSAGE_OUTGOING_HEADER: Final[str] = __get_header(incoming=False)

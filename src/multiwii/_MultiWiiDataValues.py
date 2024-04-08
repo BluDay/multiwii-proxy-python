@@ -1,24 +1,24 @@
 from .data import (
-    Altitude
-    Analog
-    Attitude
-    Box
-    BoxIds
-    BoxNames
-    CompGps
-    Ident
-    Misc
-    Motor
-    MotorPins
-    Pid
-    PidNames
-    RawGps
-    RawImu
-    Rc
-    RcTuning
-    Servo
-    ServoConf
-    Status
+    Altitude,
+    Analog,
+    Attitude,
+    Box,
+    BoxIds,
+    BoxNames,
+    CompGps,
+    Ident,
+    Misc,
+    Motor,
+    MotorPins,
+    Pid,
+    PidNames,
+    RawGps,
+    RawImu,
+    Rc,
+    RcTuning,
+    Servo,
+    ServoConf,
+    Status,
     Waypoint
 )
 
