@@ -77,127 +77,127 @@ class _MultiWiiData(object):
     @property
     def servo(self) -> Servo:
         """
-		Gets the instance for MSP_SERVO.
-		"""
+        Gets the instance for MSP_SERVO.
+        """
         return self._servo
 
     @property
     def servo_conf(self) -> ServoConf:
         """
-		Gets the instance for MSP_SERVO_CONF.
-		"""
+        Gets the instance for MSP_SERVO_CONF.
+        """
         return self._servo_conf
 
     @property
     def motor(self) -> Motor:
         """
-		Gets the instance for MSP_MOTOR.
-		"""
+        Gets the instance for MSP_MOTOR.
+        """
         return self._motor
 
     @property
     def motor_pins(self) -> MotorPins:
         """
-		Gets the instance for MSP_MOTOR_PINS.
-		"""
+        Gets the instance for MSP_MOTOR_PINS.
+        """
         return self._motor_pins
 
     @property
     def rc(self) -> Rc:
         """
-		Gets the instance for MSP_RC.
-		"""
+        Gets the instance for MSP_RC.
+        """
         return self._rc
 
     @property
     def rc_tuning(self) -> RcTuning:
         """
-		Gets the instance for MSP_RC_TUNING.
-		"""
+        Gets the instance for MSP_RC_TUNING.
+        """
         return self._rc_tuning
 
     @property
     def attitude(self) -> Attitude:
         """
-		Gets the instance for MSP_ATTITUDE.
-		"""
+        Gets the instance for MSP_ATTITUDE.
+        """
         return self._attitude
 
     @property
     def altitude(self) -> Altitude:
         """
-		Gets the instance for MSP_ALTITUDE.
-		"""
+        Gets the instance for MSP_ALTITUDE.
+        """
         return self._altitude
 
     @property
     def raw_gps(self) -> RawGps:
         """
-		Gets the instance for MSP_RAW_GPS.
-		"""
+        Gets the instance for MSP_RAW_GPS.
+        """
         return self._raw_gps
 
     @property
     def comp_gps(self) -> CompGps:
         """
         Gets the instance for MSP_COMP_GPS.
-		"""
+        """
         return self._comp_gps
 
     @property
     def waypoint(self) -> Waypoint:
         """
-		Gets the instance for MSP_WP.
-		"""
+        Gets the instance for MSP_WP.
+        """
         return self._waypoint
 
     @property
     def analog(self) -> Analog:
         """
-		Gets the instance for MSP_AMALOG.
-		"""
+        Gets the instance for MSP_AMALOG.
+        """
         return self._analog
 
     @property
     def pid(self) -> Pid:
         """
-		Gets the instance for MSP_PID.
-		"""
+        Gets the instance for MSP_PID.
+        """
         return self._pid
 
     @property
     def pidnames(self) -> PidNames:
         """
-		Gets the instance for MSP_PIDNAMES.
-		"""
+        Gets the instance for MSP_PIDNAMES.
+        """
         return self._pidnames
 
     @property
     def box(self) -> Box:
         """
-		Gets the instance for MSP_BOX.
-		"""
+        Gets the instance for MSP_BOX.
+        """
         return self._box
 
     @property
     def boxnames(self) -> BoxNames:
         """
         Gets the instance for MSP_BOXNAMES.
-		"""
+        """
         return self._boxnames
 
     @property
     def boxids(self) -> BoxIds:
         """
-		Gets the instance for MSP_BOXIDS.
-		"""
+        Gets the instance for MSP_BOXIDS.
+        """
         return self._boxids
 
     @property
     def misc(self) -> Misc:
         """
         Gets the instance for MSP_MISC.
-		"""
+        """
         return self._misc
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
