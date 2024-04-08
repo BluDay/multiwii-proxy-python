@@ -1,7 +1,7 @@
 from .data import *
 
 """
-Saved commands from the previous codebase:
+Saved commands from the instance for MSP_evious codebase:
 
     {NAME} = ({CODE}, {STRUCT_FORMAT}, {HAS_VARIABLE_DATA_SIZE}, {PRIORITY_TYPE})
 
@@ -50,6 +50,157 @@ class _MultiWiiData(object):
     The mixin class used for initializing all MultiWii data value instances and creating
     corresponding private fields for an instance of this type, or of a derived type.
     """
+    
+    # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def ident(self) -> Ident:
+        """
+        Gets the instance for MSP_IDENT.
+        """
+        return self._ident
+
+    @property
+    def status(self) -> Status:
+        """
+        Gets the instance for MSP_STATUS.
+        """
+        return self._status
+
+    @property
+    def raw_imu(self) -> RawImu:
+        """
+        Gets the instance for MSP_RAW_IMU.
+        """
+        return self._raw_imu
+
+    @property
+    def servo(self) -> Servo:
+        """
+		Gets the instance for MSP_SERVO.
+		"""
+        return self._servo
+
+    @property
+    def servo_conf(self) -> ServoConf:
+        """
+		Gets the instance for MSP_SERVO_CONF.
+		"""
+        return self._servo_conf
+
+    @property
+    def motor(self) -> Motor:
+        """
+		Gets the instance for MSP_MOTOR.
+		"""
+        return self._motor
+
+    @property
+    def motor_pins(self) -> MotorPins:
+        """
+		Gets the instance for MSP_MOTOR_PINS.
+		"""
+        return self._motor_pins
+
+    @property
+    def rc(self) -> Rc:
+        """
+		Gets the instance for MSP_RC.
+		"""
+        return self._rc
+
+    @property
+    def rc_tuning(self) -> RcTuning:
+        """
+		Gets the instance for MSP_RC_TUNING.
+		"""
+        return self._rc_tuning
+
+    @property
+    def attitude(self) -> Attitude:
+        """
+		Gets the instance for MSP_ATTITUDE.
+		"""
+        return self._attitude
+
+    @property
+    def altitude(self) -> Altitude:
+        """
+		Gets the instance for MSP_ALTITUDE.
+		"""
+        return self._altitude
+
+    @property
+    def raw_gps(self) -> RawGps:
+        """
+		Gets the instance for MSP_RAW_GPS.
+		"""
+        return self._raw_gps
+
+    @property
+    def comp_gps(self) -> CompGps:
+        """
+        Gets the instance for MSP_COMP_GPS.
+		"""
+        return self._comp_gps
+
+    @property
+    def waypoint(self) -> Waypoint:
+        """
+		Gets the instance for MSP_WP.
+		"""
+        return self._waypoint
+
+    @property
+    def analog(self) -> Analog:
+        """
+		Gets the instance for MSP_AMALOG.
+		"""
+        return self._analog
+
+    @property
+    def pid(self) -> Pid:
+        """
+		Gets the instance for MSP_PID.
+		"""
+        return self._pid
+
+    @property
+    def pidnames(self) -> PidNames:
+        """
+		Gets the instance for MSP_PIDNAMES.
+		"""
+        return self._pidnames
+
+    @property
+    def box(self) -> Box:
+        """
+		Gets the instance for MSP_BOX.
+		"""
+        return self._box
+
+    @property
+    def boxnames(self) -> BoxNames:
+        """
+        Gets the instance for MSP_BOXNAMES.
+		"""
+        return self._boxnames
+
+    @property
+    def boxids(self) -> BoxIds:
+        """
+		Gets the instance for MSP_BOXIDS.
+		"""
+        return self._boxids
+
+    @property
+    def misc(self) -> Misc:
+        """
+        Gets the instance for MSP_MISC.
+		"""
+        return self._misc
+
+    # ------------------------------------ INSTANCE METHODS ------------------------------------
 
     def reset_data(self) -> None:
         """
@@ -76,150 +227,3 @@ class _MultiWiiData(object):
         self._boxnames   = BoxNames()
         self._boxids     = BoxIds()
         self._misc       = Misc()
-
-    @property
-    def ident(self) -> Ident:
-        """
-        Gets the...
-        """
-        return self._ident
-
-    @property
-    def status(self) -> Status:
-        """
-        Gets the...
-        """
-        return self._status
-
-    @property
-    def raw_imu(self) -> RawImu:
-        """
-        Gets the...
-        """
-        return self._raw_imu
-
-    @property
-    def servo(self) -> Servo:
-        """
-		Gets the...
-		"""
-        return self._servo
-
-    @property
-    def servo_conf(self) -> ServoConf:
-        """
-		Gets the...
-		"""
-        return self._servo_conf
-
-    @property
-    def motor(self) -> Motor:
-        """
-		Gets the...
-		"""
-        return self._motor
-
-    @property
-    def motor_pins(self) -> MotorPins:
-        """
-		Gets the...
-		"""
-        return self._motor_pins
-
-    @property
-    def rc(self) -> Rc:
-        """
-		Gets the...
-		"""
-        return self._rc
-
-    @property
-    def rc_tuning(self) -> RcTuning:
-        """
-		Gets the...
-		"""
-        return self._rc_tuning
-
-    @property
-    def attitude(self) -> Attitude:
-        """
-		Gets the...
-		"""
-        return self._attitude
-
-    @property
-    def altitude(self) -> Altitude:
-        """
-		Gets the...
-		"""
-        return self._altitude
-
-    @property
-    def raw_gps(self) -> RawGps:
-        """
-		Gets the...
-		"""
-        return self._raw_gps
-
-    @property
-    def comp_gps(self) -> CompGps:
-        """
-		Gets the...
-		"""
-        return self._comp_gps
-
-    @property
-    def waypoint(self) -> Waypoint:
-        """
-		Gets the...
-		"""
-        return self._waypoint
-
-    @property
-    def analog(self) -> Analog:
-        """
-		Gets the...
-		"""
-        return self._analog
-
-    @property
-    def pid(self) -> Pid:
-        """
-		Gets the...
-		"""
-        return self._pid
-
-    @property
-    def pidnames(self) -> PidNames:
-        """
-		Gets the...
-		"""
-        return self._pidnames
-
-    @property
-    def box(self) -> Box:
-        """
-		Gets the...
-		"""
-        return self._box
-
-    @property
-    def boxnames(self) -> BoxNames:
-        """
-		Gets the...
-		"""
-        return self._boxnames
-
-    @property
-    def boxids(self) -> BoxIds:
-        """
-		Gets the...
-		"""
-        return self._boxids
-
-    @property
-    def misc(self) -> Misc:
-        """
-		Gets the...
-		"""
-        return self._misc
