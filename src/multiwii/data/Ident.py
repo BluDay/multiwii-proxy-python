@@ -1,22 +1,32 @@
+from ..config import CapabilityType, Multitype
+
+from dataclasses import dataclass
+
+@dataclass(slots=True)
 class Ident(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_IDENT command.
+    """
+    version: float = 0.0
 
-        self.version = 0
+    multitype: Multitype = Multitype.Unidentified
 
-        self.multitype = Multitype.Unidentified
+    capabilities: Tuple[CapabilityType] = ()
 
-        self.capabilities = ()
+    navi_version: int = 0
 
-        self.navi_version = 0
-
-    def evaluate(self, data: tuple) -> None:
+    def update_values(self, data: tuple) -> None:
+        """
+        Overridden method.
+        """
         self.version = data[0] / 100
 
         self.multitype = Multitype(data[1])
         
         self.capabilities = (
-            capability if capability & data[3] for capability in Capability
+            capability if capability & data[3] for capability in CapabilityType
         )
 
         self.navi_version = data[3] >> 28
+
+        super().update_values(data)
