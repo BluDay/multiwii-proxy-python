@@ -1,5 +1,5 @@
 from .base    import _MultiWiiData
-from ..config import CapabilityType, Multitype
+from ..config import CapabilityType, VehicleType
 
 from dataclasses import dataclass
 
@@ -10,7 +10,7 @@ class Ident(_MultiWiiData):
     """
     version: float = 0.0
 
-    multitype: Multitype = Multitype.Unidentified
+    multitype: VehicleType = VehicleType.Unidentified
 
     capabilities: Tuple[CapabilityType] = ()
 
@@ -22,7 +22,7 @@ class Ident(_MultiWiiData):
         """
         self.version = data[0] / 100
 
-        self.multitype = Multitype(data[1])
+        self.multitype = VehicleType(data[1])
         
         self.capabilities = (
             capability if capability & data[3] for capability in CapabilityType
