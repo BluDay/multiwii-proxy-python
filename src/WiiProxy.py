@@ -1,11 +1,11 @@
-from .multiwii import _MultiWiiData, _MultiWiiMessageHandler
+from .multiwii import _MultiWiiDataValues, _MultiWiiMessageHandler
 
 from serial    import Serial
 from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
 
-class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
+class WiiProxy(object, _MultiWiiDataValues, _MultiWiiMessageHandler):
     """
     The main class of this module that handles everything.
     
