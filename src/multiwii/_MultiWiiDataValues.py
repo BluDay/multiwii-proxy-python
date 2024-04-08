@@ -70,7 +70,7 @@ Saved commands from the instance for MSP_evious codebase
 """
 
 @dataclass(slots=True)
-class _MultiWiiDataValues(object)
+class _MultiWiiDataValues(object):
     """
     The class used for initializing all MultiWii data value instances and creating
     corresponding private fields for an instance of this type, or of a derived type.
