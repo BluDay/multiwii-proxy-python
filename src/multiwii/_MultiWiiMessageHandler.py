@@ -8,17 +8,17 @@ class _MultiWiiMessageHandler(object):
     """
     The fixed MultiWii preamble used for all messages.
     """
-    _MESSAGE_PREAMBLE: str = '$M'
+    __MESSAGE_PREAMBLE: str = '$M'
 
     """
     The incoming direction character for an incoming MultiWii message.
     """
-    _MESSAGE_DIRECTION_INCOMING: str = '<'
+    __MESSAGE_DIRECTION_INCOMING: str = '<'
 
     """
     The outgoing direction character for an incoming MultiWii message.
     """
-    _MESSAGE_DIRECTION_OUTGOING: str = '>'
+    __MESSAGE_DIRECTION_OUTGOING: str = '>'
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
@@ -54,9 +54,9 @@ class _MultiWiiMessageHandler(object):
             str: The direction character as a string.
         """
         if incoming:
-            return cls._MESSAGE_DIRECTION_INCOMING
+            return cls.__MESSAGE_DIRECTION_INCOMING
 
-        return cls._MESSAGE_DIRECTION_OUTGOING
+        return cls.__MESSAGE_DIRECTION_OUTGOING
 
     @classmethod
     def get_message_preamble(cls) -> str:
@@ -66,4 +66,4 @@ class _MultiWiiMessageHandler(object):
         Returns:
             str: Really?
         """
-        return cls._MESSAGE_PREAMBLE
+        return cls.__MESSAGE_PREAMBLE
