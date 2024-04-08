@@ -35,6 +35,37 @@ class _MultiWiiMessageHandler(object):
     """
     __MESSAGE_DIRECTION_OUTGOING_BYTE: int = __MESSAGE_DIRECTION_OUTGOING & 0xff
 
+    # -------------------------------------- CLASS METHODS -------------------------------------
+
+    @classmethod
+    def get_incoming_direction_char(cls) -> str:
+        """
+        Gets the incoming message direction character.
+
+        Returns:
+            str: The direction character as a string.
+        """
+        return cls.__MESSAGE_DIRECTION_INCOMING
+
+    @classmethod
+    def get_outgoing_direction_char(cls) -> str:
+        """
+        Gets the outgoing message direction character.
+
+        Returns:
+            str: The direction character as a string.
+        """
+        return cls.__MESSAGE_DIRECTION_OUTGOING
+
+    @classmethod
+    def get_preamble(cls) -> str:
+        """
+        Gets the fixed MultiWii preamble string.
+
+        Returns:
+            str: Really?
+        """
+        return cls.__MESSAGE_PREAMBLE
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
@@ -54,33 +85,3 @@ class _MultiWiiMessageHandler(object):
         for byte in data: checksum ^= byte
 
         return checksum
-
-    @staticmethod
-    def get_incoming_direction_char() -> str:
-        """
-        Gets the incoming message direction character.
-
-        Returns:
-            str: The direction character as a string.
-        """
-        return _MultiWiiMessageHandler.__MESSAGE_DIRECTION_INCOMING
-
-    @staticmethod
-    def get_outgoing_direction_char() -> str:
-        """
-        Gets the outgoing message direction character.
-
-        Returns:
-            str: The direction character as a string.
-        """
-        return _MultiWiiMessageHandler.__MESSAGE_DIRECTION_OUTGOING
-
-    @staticmethod
-    def get_preamble() -> str:
-        """
-        Gets the fixed MultiWii preamble string.
-
-        Returns:
-            str: Really?
-        """
-        return _MultiWiiMessageHandler.__MESSAGE_PREAMBLE

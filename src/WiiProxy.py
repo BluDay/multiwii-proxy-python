@@ -99,27 +99,27 @@ class WiiProxy(object, _MultiWiiDataValues):
             
         self._write_delay = value
 
-    # ------------------------------------- STATIC METHODS -------------------------------------
+    # -------------------------------------- CLASS METHODS -------------------------------------
 
-    @staticmethod
-    def get_default_queue_maxsize() -> int:
+    @classmethod
+    def get_default_queue_maxsize(cls) -> int:
         """
         Gets the default queue maxsize.
 
         Returns:
             int: The maxsize value.
         """
-        return WiiProxy.__DEFAULT_QUEUE_MAXSIZE
+        return cls.__DEFAULT_QUEUE_MAXSIZE
 
-    @staticmethod
-    def get_default_write_delay() -> float:
+    @classmethod
+    def get_default_write_delay(cls) -> float:
         """
         Gets the write delay value.
 
         Returns:
             float: The write delay value.
         """
-        return WiiProxy.__DEFAULT_WRITE_DELAY
+        return cls.__DEFAULT_WRITE_DELAY
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
