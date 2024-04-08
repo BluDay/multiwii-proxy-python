@@ -7,10 +7,10 @@ class _MultiWiiMessageHandler(object):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
+     """
+    The error character.
     """
-    The fixed MSP v1 preamble used for all messages.
-    """
-    MESSAGE_PREAMBLE: Final[str] = '$M'
+    MESSAGE_ERROR_CHAR: Final[str] = '!'
 
     """
     The incoming direction character.
@@ -23,31 +23,99 @@ class _MultiWiiMessageHandler(object):
     MESSAGE_OUTGOING_CHAR: Final[str] = '>'
 
     """
-    The error character.
+    The fixed MSP v1 preamble used for all messages.
     """
-    MESSAGE_ERROR_CHAR: Final[str] = '!'
+    MESSAGE_PREAMBLE: Final[str] = '$M'
 
     """
-    The preamble in bytes.
+    The incoming header.
     """
-    MESSAGE_SERIALIZED_PREAMBLE: Final[bytes] = MESSAGE_PREAMBLE.encode('ascii')
-    
-    """
-    The incoming character as a byte.
-    """
-    MESSAGE_SERIALIZED_INCOMING_CHAR: Final[int] = ord(MESSAGE_INCOMING_CHAR) & 0xff
+    MESSAGE_INCOMING_HEADER: Final[str] = __get_header()
 
+     """
+    The outgoing header.
     """
-    The outgoing character as a byte.
-    """
-    MESSAGE_SERIALIZED_OUTGOING_CHAR: Final[int] = ord(MESSAGE_OUTGOING_CHAR) & 0xff
+    MESSAGE_OUTGOING_HEADER: Final[str] = __get_header(incoming=False)
 
     """
     The error character as a byte.
     """
-    MESSAGE_SERIALIZED_ERROR_CHAR: Final[int] = ord(MESSAGE_ERROR_CHAR) & 0xff
+    MESSAGE_SERIALIZED_ERROR_CHAR: Final[int] = __int8(MESSAGE_ERROR_CHAR)
+
+    """
+    The incoming character as a byte.
+    """
+    MESSAGE_SERIALIZED_INCOMING_CHAR: Final[int] = __int8(MESSAGE_INCOMING_CHAR)
+
+    """
+    The outgoing character as a byte.
+    """
+    MESSAGE_SERIALIZED_OUTGOING_CHAR: Final[int] = __int8(MESSAGE_OUTGOING_CHAR)
+
+    """
+    The preamble in bytes.
+    """
+    MESSAGE_SERIALIZED_PREAMBLE: Final[bytes] = __encode(MESSAGE_PREAMBLE)
+
+    """
+    The serialized incoming header.
+    """
+    MESSAGE_SERIALIZED_INCOMING_HEADER: Final[bytes] = __encode(MESSAGE_INCOMING_HEADER)
+
+    """
+    The serialized outgoing header.
+    """
+    MESSAGE_SERIALIZED_OUTGOING_HEADER: Final[bytes] = __encode(MESSAGE_OUTGOING_HEADER)
+
+    # ------------------------------------- CLASS METHODS --------------------------------------
+
+    @classmethod
+    def __get_header(cls, incoming: bool = True) -> str:
+        """
+        Gets a header for a specific direction.
+
+        Parameters:
+            incoming (bool): Whether the direction character should be incoming or outgoing.
+
+        Returns:
+            str: The full header string value.
+        """
+        direction: str
+
+        if incoming:
+            direction = cls.MESSAGE_INCOMING_CHAR
+        else
+            direction = cls.MESSAGE_OUTGOING_CHAR
+
+        return cls.MESSAGE_PREAMBLE + direction
 
     # ------------------------------------- STATIC METHODS -------------------------------------
+
+    @staticmethod
+    def __encode(value: str) -> bytes:
+        """
+        Converts a string to an ASCII-encoded byte array.
+
+        Parameters:
+            value (str): String to be encoded.
+
+        Returns:
+            bytes: ASCII-encoded string.
+        """
+        return value.encode('ascii')
+
+    @staticmethod
+    def __int8(value: str) -> int:
+        """
+        Serializes the provided string value to a signed 8-bit integer.
+
+        Parameters:
+            value (str): The string value to be serialized.
+
+        Returns:
+            int: The serialized 8-bit integer.
+        """
+        return ord(value) & 0xff
 
     @staticmethod
     def calculate_crc(payload: bytes) -> int:
