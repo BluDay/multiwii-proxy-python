@@ -21,12 +21,12 @@ class WiiProxy(object):
     """
     Default maximum size for the priority queue.
     """
-    _DEFAULT_QUEUE_MAXSIZE: int = 100
+    __DEFAULT_QUEUE_MAXSIZE: int = 100
 
     """
     Default delay (in seconds) for serial writes.
     """
-    _DEFAULT_WRITE_DELAY: float = 0.005
+    __DEFAULT_WRITE_DELAY: float = 0.005
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
@@ -110,6 +110,28 @@ class WiiProxy(object):
             raise ValueError
             
         self._write_delay = value
+
+    # ------------------------------------- STATIC METHODS -------------------------------------
+
+    @staticmethod
+    def get_default_queue_maxsize() -> int:
+        """
+        Gets the default queue maxsize.
+
+        Returns:
+            int: The maxsize value.
+        """
+        return WiiProxy.__DEFAULT_QUEUE_MAXSIZE
+
+    @staticmethod
+    def get_default_write_delay() -> float:
+        """
+        Gets the write delay value.
+
+        Returns:
+            float: The write delay value.
+        """
+        return WiiProxy.__DEFAULT_WRITE_DELAY
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
