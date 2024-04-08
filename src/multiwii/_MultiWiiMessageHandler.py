@@ -53,10 +53,10 @@ class _MultiWiiMessageHandler(object):
         Returns:
             str: The direction character as a string.
         """
-        if incoming:
-            return cls.__MESSAGE_DIRECTION_INCOMING
+        if not incoming:
+            return cls.__MESSAGE_DIRECTION_OUTGOING
 
-        return cls.__MESSAGE_DIRECTION_OUTGOING
+        return cls.__MESSAGE_DIRECTION_INCOMING
 
     @classmethod
     def get_message_preamble(cls) -> str:
