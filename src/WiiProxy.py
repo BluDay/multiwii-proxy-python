@@ -79,6 +79,9 @@ class WiiProxy(object):
     def is_active(self) -> bool:
         """
         Gets a value indicating whether the module is communicating to the flight controller.
+
+        Returns:
+            bool: True or false value.
         """
         return self._is_active
 
@@ -94,7 +97,8 @@ class WiiProxy(object):
 
     @write_delay.setter
     def write_delay(self, value: float) -> None:
-        """Sets the write delay value.
+        """
+        Sets the write delay value.
 
         Parameters:
             value (float): A floating-point value in seconds.
@@ -110,7 +114,8 @@ class WiiProxy(object):
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
     def _handle_command_queue(self) -> None:
-        """The thread worker method that performs the whole communication part.
+        """
+        The thread worker method that performs the whole communication part.
 
         This worker method runs continously in a thread and handles everything
         from enqueuing commands and sending messages to the flight controller, to
@@ -124,7 +129,6 @@ class WiiProxy(object):
             # TODO: Read response message.
             # TODO: Update corresponding instance for command with new values if not null.
             # TODO: Indicate that the command has been processed.
-
             pass
 
     # TODO: Get size and format for command.
