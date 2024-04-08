@@ -75,6 +75,9 @@ class _MultiWiiDataValues(object):
     The class used for initializing all MultiWii data value instances and creating
     corresponding private fields for an instance of this type, or of a derived type.
     """
+
+    # ------------------------------------ CLASS VARIABLES -------------------------------------
+
     ident:      Ident
     status:     Status
     raw_imu:    RawImu
