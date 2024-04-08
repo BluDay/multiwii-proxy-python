@@ -5,7 +5,7 @@ from threading import Thread
 from time      import sleep
 from queue     import PriorityQueue
 
-class WiiProxy(object, _MultiWiiDataValues, _MultiWiiMessageHandler):
+class WiiProxy(object):
     """
     The main class of this module that handles everything.
     
@@ -45,6 +45,8 @@ class WiiProxy(object, _MultiWiiDataValues, _MultiWiiMessageHandler):
 
         self._command_queue = PriorityQueue(maxsize=self._DEFAULT_QUEUE_SIZE)
 
+        self._data = _MultiWiiDataValues()
+
         self._is_active = False
 
         self._serial = serial
@@ -53,7 +55,7 @@ class WiiProxy(object, _MultiWiiDataValues, _MultiWiiMessageHandler):
 
         self._write_delay = self._DEFAULT_WRITE_DELAY
 
-        self.reset_data()
+        self._data.reset_data()
 
     def __del__(self) -> None:
         """
@@ -62,6 +64,16 @@ class WiiProxy(object, _MultiWiiDataValues, _MultiWiiMessageHandler):
         self.stop()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def data(self) -> _MultiWiiDataValues:
+        """
+        Gets the MultiWii data values instance.
+
+        Returns:
+            _MultiWiiDataValues: The data values instance.
+        """
+        return self._data
 
     @property
     def is_active(self) -> bool:
