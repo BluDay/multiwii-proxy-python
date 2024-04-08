@@ -8,7 +8,7 @@ class _MultiWiiMessageHandler(object):
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
     """
-    The fixed MultiWii preamble used for all messages.
+    The fixed MSP v1 preamble used for all messages.
     """
     MESSAGE_PREAMBLE: Final[str] = '$M'
 
@@ -23,7 +23,7 @@ class _MultiWiiMessageHandler(object):
     MESSAGE_OUTGOING_CHAR: Final[str] = '>'
 
     """
-    The error direction character.
+    The error character.
     """
     MESSAGE_ERROR_CHAR: Final[str] = '!'
 
