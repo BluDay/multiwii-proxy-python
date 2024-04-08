@@ -55,34 +55,32 @@ class _MultiWiiMessageHandler(object):
 
         return checksum
 
-    # ------------------------------------- CLASS METHODS --------------------------------------
-
-    @classmethod
-    def get_incoming_direction_character(cls) -> str:
+    @staticmethod
+    def get_incoming_direction_char() -> str:
         """
         Gets the incoming message direction character.
 
         Returns:
             str: The direction character as a string.
         """
-        return cls.__MESSAGE_DIRECTION_INCOMING
+        return _MultiWiiMessageHandler.__MESSAGE_DIRECTION_INCOMING
 
-    @classmethod
-    def get_outgoing_direction_character(cls) -> str:
+    @staticmethod
+    def get_outgoing_direction_char() -> str:
         """
         Gets the outgoing message direction character.
 
         Returns:
             str: The direction character as a string.
         """
-        return cls.__MESSAGE_DIRECTION_OUTGOING
+        return _MultiWiiMessageHandler.__MESSAGE_DIRECTION_OUTGOING
 
-    @classmethod
-    def get_preamble(cls) -> str:
+    @staticmethod
+    def get_preamble() -> str:
         """
         Gets the fixed MultiWii preamble string.
 
         Returns:
             str: Really?
         """
-        return cls.__MESSAGE_PREAMBLE
+        return _MultiWiiMessageHandler.__MESSAGE_PREAMBLE
