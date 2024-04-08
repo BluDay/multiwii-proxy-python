@@ -1,76 +1,51 @@
+from typing import Final
+
 class _MultiWiiMessageHandler(object):
     """
     The class for managing and analyzing MultiWii messages.
     """
 
-    # ------------------------------------ CLASS CONSTANTS -------------------------------------
+    # ------------------------------------ CLASS VARIABLES -------------------------------------
 
     """
     The fixed MultiWii preamble used for all messages.
     """
-    __MESSAGE_PREAMBLE: str = '$M'
+    MESSAGE_PREAMBLE: Final[str] = '$M'
 
     """
-    The incoming direction character for an incoming MultiWii message.
+    The incoming direction character.
     """
-    __MESSAGE_DIRECTION_INCOMING: str = '<'
+    MESSAGE_INCOMING_CHAR: Final[str] = '<'
 
     """
-    The outgoing direction character for an incoming MultiWii message.
+    The outgoing direction character.
     """
-    __MESSAGE_DIRECTION_OUTGOING: str = '>'
+    MESSAGE_OUTGOING_CHAR: Final[str] = '>'
 
     """
-    The preamble as bytes.
+    The error direction character.
     """
-    __MESSAGE_PREAMBLE_BYTES: bytes = __MESSAGE_PREAMBLE.encode('ascii')
+    MESSAGE_ERROR_CHAR: Final[str] = '!'
 
+    """
+    The preamble in bytes.
+    """
+    MESSAGE_SERIALIZED_PREAMBLE: Final[bytes] = MESSAGE_PREAMBLE.encode('ascii')
+    
     """
     The incoming direction character as a byte.
     """
-    __MESSAGE_DIRECTION_INCOMING_BYTE: int = __MESSAGE_DIRECTION_INCOMING & 0xff
+    MESSAGE_SERIALIZED_INCOMING_CHAR: Final[int] = ord(MESSAGE_INCOMING_CHAR) & 0xff
 
     """
     The outgoing direction character as a byte.
     """
-    __MESSAGE_DIRECTION_OUTGOING_BYTE: int = __MESSAGE_DIRECTION_OUTGOING & 0xff
-
-    # -------------------------------------- CLASS METHODS -------------------------------------
-
-    @classmethod
-    def get_incoming_direction_char(cls) -> str:
-        """
-        Gets the incoming message direction character.
-
-        Returns:
-            str: The direction character as a string.
-        """
-        return cls.__MESSAGE_DIRECTION_INCOMING
-
-    @classmethod
-    def get_outgoing_direction_char(cls) -> str:
-        """
-        Gets the outgoing message direction character.
-
-        Returns:
-            str: The direction character as a string.
-        """
-        return cls.__MESSAGE_DIRECTION_OUTGOING
-
-    @classmethod
-    def get_preamble(cls) -> str:
-        """
-        Gets the fixed MultiWii preamble string.
-
-        Returns:
-            str: Really?
-        """
-        return cls.__MESSAGE_PREAMBLE
+    MESSAGE_SERIALIZED_OUTGOING_CHAR: Final[int] = ord(MESSAGE_OUTGOING_CHAR) & 0xff
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
-    def calculate_crc(data: bytes) -> int:
+    def calculate_crc(payload: bytes) -> int:
         """
         Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
@@ -82,6 +57,6 @@ class _MultiWiiMessageHandler(object):
         """
         checksum = 0
 
-        for byte in data: checksum ^= byte
+        for byte in payload: checksum ^= byte
 
         return checksum
