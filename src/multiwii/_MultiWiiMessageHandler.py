@@ -58,24 +58,27 @@ class _MultiWiiMessageHandler(object):
     # ------------------------------------- CLASS METHODS --------------------------------------
 
     @classmethod
-    def get_message_direction_char(cls, incoming: bool = True) -> str:
+    def get_incoming_direction_character(cls) -> str:
         """
-        Gets the incoming or outgoing message direction character depending on the provided
-        boolean value.
-
-        Parameters:
-            incoming (bool): Determines the direction character.
+        Gets the incoming message direction character.
 
         Returns:
             str: The direction character as a string.
         """
-        if not incoming:
-            return cls.__MESSAGE_DIRECTION_OUTGOING
-
         return cls.__MESSAGE_DIRECTION_INCOMING
 
     @classmethod
-    def get_message_preamble(cls) -> str:
+    def get_outgoing_direction_character(cls) -> str:
+        """
+        Gets the outgoing message direction character.
+
+        Returns:
+            str: The direction character as a string.
+        """
+        return cls.__MESSAGE_DIRECTION_OUTGOING
+
+    @classmethod
+    def get_preamble(cls) -> str:
         """
         Gets the fixed MultiWii preamble string.
 
