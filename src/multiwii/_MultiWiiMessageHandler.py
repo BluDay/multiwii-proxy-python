@@ -33,27 +33,33 @@ class _MultiWiiMessageHandler(object):
     MESSAGE_SERIALIZED_PREAMBLE: Final[bytes] = MESSAGE_PREAMBLE.encode('ascii')
     
     """
-    The incoming direction character as a byte.
+    The incoming character as a byte.
     """
     MESSAGE_SERIALIZED_INCOMING_CHAR: Final[int] = ord(MESSAGE_INCOMING_CHAR) & 0xff
 
     """
-    The outgoing direction character as a byte.
+    The outgoing character as a byte.
     """
     MESSAGE_SERIALIZED_OUTGOING_CHAR: Final[int] = ord(MESSAGE_OUTGOING_CHAR) & 0xff
+
+    """
+    The error character as a byte.
+    """
+    MESSAGE_SERIALIZED_ERROR_CHAR: Final[int] = ord(MESSAGE_ERROR_CHAR) & 0xff
+
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
     def calculate_crc(payload: bytes) -> int:
         """
-        Calculates the a single byte checksum using CRC (cyclic redundancy check).
+        Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
 
         Parameters:
-            payload (bytes): A serialized payload buffer.
+            payload (bytes): The serialized payload.
 
         Returns:
-            int: The calculated CRC value for the provided payload.
+            int: The calculated checksum value.
         """
         checksum = 0
 
