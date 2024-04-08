@@ -115,41 +115,17 @@ class WiiProxy(object, _MultiWiiData, _MultiWiiMessageHandler):
 
             pass
 
-    def _send_message(self, command: Command, data: tuple) -> None:
-        """
-        Creates a serialized message and sends it to the flight controller.
+    # TODO: Get size and format for command.
+    # TODO: Create payload tuple.
+    # TODO: Assembly message using the format and payload.
+    # TODO: Write message to the serial port.
+    # TODO: Sleep for `write_delay` seconds.
 
-        Parameters:
-            command (Command): The command to execute on the FC.
-            data (tuple): A tuple of raw integer values to sent to the FC.
-        """
-
-        # TODO: Get size and format for command.
-        # TODO: Create payload tuple.
-        # TODO: Assembly message using the format and payload.
-        # TODO: Write message to the serial port.
-        # TODO: Sleep for `write_delay` seconds.
-
-        pass
-
-    def _read_message(self, command: Command) -> tuple:
-        """
-        Attempts to read a message of a specific command from the serial connection.
-
-        Parameters:
-            command (Command): The targeted command.
-
-        Returns:
-            tuple: An immutable list of data values for the command.
-        """
-
-        # TODO: Read preamble, code and data size.
-        # TODO: Validate preamble.
-        # TODO: Read data value bytes and checksum value.
-        # TODO: Unpack the whole message.
-        # TODO: Return the unpacked message.
-
-        pass
+    # TODO: Read preamble, code and data size.
+    # TODO: Validate preamble.
+    # TODO: Read data value bytes and checksum value.
+    # TODO: Unpack the whole message.
+    # TODO: Return the unpacked message.
 
     def _reset_input_output_buffer(self) -> None:
         """
