@@ -20,6 +20,22 @@ class _MultiWiiMessageHandler(object):
     """
     __MESSAGE_DIRECTION_OUTGOING: str = '>'
 
+    """
+    The preamble as bytes.
+    """
+    __MESSAGE_PREAMBLE_BYTES: bytes = __MESSAGE_PREAMBLE.encode('ascii')
+
+    """
+    The incoming direction character as a byte.
+    """
+    __MESSAGE_DIRECTION_INCOMING_BYTE: int = __MESSAGE_DIRECTION_INCOMING & 0xff
+
+    """
+    The outgoing direction character as a byte.
+    """
+    __MESSAGE_DIRECTION_OUTGOING_BYTE: int = __MESSAGE_DIRECTION_OUTGOING & 0xff
+
+
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
