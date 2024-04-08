@@ -1,9 +1,10 @@
+from .base    import _MultiWiiData
 from ..config import CapabilityType, Multitype
 
 from dataclasses import dataclass
 
 @dataclass(slots=True)
-class Ident(MultiWiiData):
+class Ident(_MultiWiiData):
     """
     Represents data values for the MSP_IDENT command.
     """
