@@ -23,7 +23,7 @@ class _MultiWiiMessageHandler(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
-    def _calculate_crc(data: bytes) -> int:
+    def calculate_crc(data: bytes) -> int:
         """
         Calculates the a single byte checksum using CRC (cyclic redundancy check).
 
