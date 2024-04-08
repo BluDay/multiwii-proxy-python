@@ -3,6 +3,7 @@ from .multiwii import _MultiWiiDataValues, _MultiWiiMessageHandler
 from serial    import Serial
 from threading import Thread
 from time      import sleep
+from typing    import Final
 from queue     import PriorityQueue
 
 class WiiProxy(object, _MultiWiiDataValues):
@@ -21,12 +22,12 @@ class WiiProxy(object, _MultiWiiDataValues):
     """
     Default maximum size for the priority queue.
     """
-    __DEFAULT_QUEUE_MAXSIZE: int = 100
+    DEFAULT_QUEUE_MAXSIZE: Final[int] = 100
 
     """
     Default delay (in seconds) for serial writes.
     """
-    __DEFAULT_WRITE_DELAY: float = 0.005
+    DEFAULT_WRITE_DELAY: Final[float] = 0.005
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
@@ -43,15 +44,15 @@ class WiiProxy(object, _MultiWiiDataValues):
         if not isinstance(serial, Serial):
             raise TypeError
 
-        self._command_queue = PriorityQueue(maxsize=self._DEFAULT_QUEUE_SIZE)
+        self._command_queue = PriorityQueue(maxsize=self.DEFAULT_QUEUE_SIZE)
 
         self._is_active = False
 
         self._serial = serial
 
-        self._thread = Thread(target=self._handle_command_queue)
+        self._thread = Thread(target=self.__handle_command_queue)
 
-        self._write_delay = self._DEFAULT_WRITE_DELAY
+        self._write_delay = self.DEFAULT_WRITE_DELAY
 
         self.reset_data()
 
@@ -99,31 +100,9 @@ class WiiProxy(object, _MultiWiiDataValues):
             
         self._write_delay = value
 
-    # -------------------------------------- CLASS METHODS -------------------------------------
-
-    @classmethod
-    def get_default_queue_maxsize(cls) -> int:
-        """
-        Gets the default queue maxsize.
-
-        Returns:
-            int: The maxsize value.
-        """
-        return cls.__DEFAULT_QUEUE_MAXSIZE
-
-    @classmethod
-    def get_default_write_delay(cls) -> float:
-        """
-        Gets the write delay value.
-
-        Returns:
-            float: The write delay value.
-        """
-        return cls.__DEFAULT_WRITE_DELAY
-
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    def _handle_command_queue(self) -> None:
+    def __handle_command_queue(self) -> None:
         """
         The thread worker method that performs the whole communication part.
 
@@ -153,7 +132,7 @@ class WiiProxy(object, _MultiWiiDataValues):
     # TODO: Unpack the whole message.
     # TODO: Return the unpacked message.
 
-    def _reset_input_output_buffer(self) -> None:
+    def __reset_input_output_buffer(self) -> None:
         """
         Resets both the input and output buffer of the serial connection.
         """
