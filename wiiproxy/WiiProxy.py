@@ -102,7 +102,7 @@ class WiiProxy(object, MultiWiiDataValues):
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    def __handle_command_queue(self) -> None:
+    def _handle_command_queue(self) -> None:
         """
         The thread worker method that performs the whole communication part.
 
@@ -123,7 +123,7 @@ class WiiProxy(object, MultiWiiDataValues):
         while True:
             pass
 
-    def __reset_input_output_buffer(self) -> None:
+    def _reset_input_output_buffer(self) -> None:
         """
         Resets both the input and output buffer of the serial connection.
         """
