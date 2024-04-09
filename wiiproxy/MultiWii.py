@@ -1,4 +1,4 @@
-from . import MultiWiiDataValues, MultiWiiMessage
+from . import MultiWiiDataValues
 
 from serial    import Serial
 from threading import Thread
@@ -115,6 +115,25 @@ class MultiWii(object, MultiWiiDataValues):
             raise ValueError
             
         self._write_delay = value
+
+    # ------------------------------------- STATIC METHODS -------------------------------------
+
+    @staticmethod
+    def _calculate_crc(payload: bytes) -> int:
+        """
+        Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
+
+        Parameters:
+            payload (bytes): The serialized payload.
+
+        Returns:
+            int: The calculated checksum value.
+        """
+        checksum = 0
+
+        for byte in payload: checksum ^= byte
+
+        return checksum
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     

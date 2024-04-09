@@ -2,7 +2,7 @@ from . import MultiWiiMessageDirection
 
 from typing import Final
 
-class MultiWiiMessage(object):
+class MultiWiiMessageHeader(object):
     """
     The class for managing and analyzing MultiWii messages.
     """
@@ -17,12 +17,12 @@ class MultiWiiMessage(object):
     """
     The incoming header.
     """
-    INCOMING_HEADER: Final[str] = _get_incoming_header()
+    INCOMING: Final[str] = _get_incoming_header()
 
     """
     The outgoing header.
     """
-    OUTGOING_HEADER: Final[str] = _get_outgoing_header()
+    OUTGOING: Final[str] = _get_outgoing_header()
 
     """
     A serialized preamble.
@@ -32,12 +32,12 @@ class MultiWiiMessage(object):
     """
     A serialized incoming header.
     """
-    SERIALIZED_INCOMING_HEADER: Final[bytes] = _encode(INCOMING_HEADER)
+    SERIALIZED_INCOMING: Final[bytes] = _encode(INCOMING)
 
     """
     A serialized outgoing header.
     """
-    SERIALIZED_OUTGOING_HEADER: Final[bytes] = _encode(OUTGOING_HEADER)
+    SERIALIZED_OUTGOING: Final[bytes] = _encode(OUTGOING)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
@@ -69,20 +69,3 @@ class MultiWiiMessage(object):
             bytes: ASCII-encoded string.
         """
         return value.encode('ascii')
-
-    @staticmethod
-    def calculate_crc(payload: bytes) -> int:
-        """
-        Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
-
-        Parameters:
-            payload (bytes): The serialized payload.
-
-        Returns:
-            int: The calculated checksum value.
-        """
-        checksum = 0
-
-        for byte in payload: checksum ^= byte
-
-        return checksum
