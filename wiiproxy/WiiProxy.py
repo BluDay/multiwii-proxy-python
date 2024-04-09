@@ -50,7 +50,7 @@ class WiiProxy(object, MultiWiiDataValues):
 
         self._serial = serial
 
-        self._thread = Thread(target=self.__handle_command_queue)
+        self._thread = Thread(target=self._handle_command_queue)
 
         self._write_delay = self.DEFAULT_WRITE_DELAY
 
