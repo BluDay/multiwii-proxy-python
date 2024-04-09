@@ -15,8 +15,7 @@ class Misc(MultiWiiData):
     throttle_min:      Final[int] = 0
     throttle_max:      Final[int] = 0
 
-    plog_arm: Final[int] = 0
-
+    plog_arm:      Final[int] = 0
     plog_lifetime: Final[int] = 0
 
     mag_declination: Final[int] = 0
