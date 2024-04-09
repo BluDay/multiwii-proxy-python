@@ -1,11 +1,11 @@
-from .base    import MspDataType
+from .base    import MspDataStructure
 from ..config import BoxType
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class BoxIds(MspDataType):
+class BoxIds(MspDataStructure):
     """
     Represents data values for the MSP_BOXIDS command.
     """

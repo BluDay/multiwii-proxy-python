@@ -1,10 +1,10 @@
-from . import MspDataType
+from . import MspDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class MspDataIntValues(MspDataType):
+class MspDataStructureIntValues(MspDataStructure):
     """
     The base class for data values with a single, public int tuple member.
     """

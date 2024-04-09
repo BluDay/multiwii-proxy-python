@@ -1,6 +1,6 @@
-from .base import MspDataTypeIntValues
+from .base import MspDataStructureIntValues
 
-class Box(MspDataTypeIntValues):
+class Box(MspDataStructureIntValues):
     """
     Represents data values for the MSP_BOX command.
     """

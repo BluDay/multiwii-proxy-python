@@ -1,6 +1,6 @@
-from .base import MspDataTypeStringValues
+from .base import MspDataStructureStringValues
 
-class PidNames(MspDataTypeStringValues):
+class PidNames(MspDataStructureStringValues):
     """
     Represents data values for the MSP_PIDNAMES command.
     """
