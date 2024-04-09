@@ -22,38 +22,11 @@ from .data import (
     Waypoint
 )
 
-from dataclasses import dataclass
-
-@dataclass(slots=True)
 class MultiWiiDataValues(object):
     """
     The class used for initializing all MSP data value instances and creating
     corresponding private fields for an instance of this type, or of a derived type.
     """
-
-    # ------------------------------------ CLASS VARIABLES -------------------------------------
-
-    ident:      Ident
-    status:     Status
-    raw_imu:    RawImu
-    servo:      Servo
-    servo_conf: ServoConf
-    motor:      Motor
-    motor_pins: MotorPins
-    rc:         Rc
-    rc_tuning:  RcTuning
-    attitude:   Attitude
-    altitude:   Altitude
-    raw_gps:    RawGps
-    comp_gps:   CompGps
-    wp:         Waypoint
-    analog:     Analog
-    pid:        Pid
-    pidnames:   PidNames
-    box:        Box
-    boxnames:   BoxNames
-    boxids:     BoxIds
-    misc:       Misc
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
