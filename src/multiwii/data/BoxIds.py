@@ -1,4 +1,4 @@
-from .        import MultiWiiData
+from .base    import MultiWiiData
 from ..config import BoxType
 
 from dataclasses import dataclass

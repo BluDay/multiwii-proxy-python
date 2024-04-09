@@ -1,11 +1,7 @@
-from . import MultiWiiData
+from .base import MultiWiiDataIntValues
 
-from dataclasses import dataclass
-from typing      import Final
-
-@dataclass(slots=True)
 class Pid(MultiWiiData):
     """
     Represents data values for the MSP_PID command.
     """
-    values: Final[Tuple[int]] = ()
+    pass

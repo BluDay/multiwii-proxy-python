@@ -1,11 +1,7 @@
-from . import MultiWiiData
+from .base import MultiWiiDataIntValues
 
-from dataclasses import dataclass
-from typing      import Final
-
-@dataclass(slots=True)
-class Motor(MultiWiiData):
+class Motor(MultiWiiDataIntValues):
     """
     Represents data values for the MSP_MOTOR command.
     """
-    values: Final[Tuple[int]] = ()
+    pass
