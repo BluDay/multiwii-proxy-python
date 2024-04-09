@@ -6,15 +6,15 @@ from time      import sleep
 from typing    import Final
 from queue     import PriorityQueue
 
-class WiiProxy(object, MultiWiiDataValues):
+class WiiProxy(object, MspDataValues):
     """
-    The main class of this module that handles everything.
+    The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
-    instantiation. Everything else, like the commands, the thread, each data instance, gets
+    instantiation. Everything else—like the commands, the thread, each data instance—gets
     created automatically.
 
-    This module only supports MSP v1 and not any of the newer versions.
+    Supports MSP v1 and not any of the newer versions.
     """
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
