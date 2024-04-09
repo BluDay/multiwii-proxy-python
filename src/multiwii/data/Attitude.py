@@ -1,12 +1,13 @@
- class Attitude(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
 
-        self.angle = (0, 0)
+from dataclasses import dataclass
+from typing      import Final
 
-        self.heading = 0
+@dataclass(slots=True)
+class Attitude(MultiWiiData):
+    """
+    Represents data values for the MSP_ATTITUDE command.
+    """
+    angle: Final[Tuple[int]] = (0, 0)
 
-    def evaluate(self, data) -> None:
-        self.angle = data[0:2]
-
-        self.heading = data[2]
+    heading: Final[int] = 0

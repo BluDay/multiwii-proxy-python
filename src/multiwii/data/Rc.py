@@ -1,24 +1,16 @@
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
 class Rc(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_RC command.
+    """
+    roll:     Final[int] = 0
+    pitch:    Final[int] = 0
+    yaw:      Final[int] = 0
+    throttle: Final[int] = 0
 
-        self.roll = 0
-
-        self.pitch = 0
-
-        self.yaw = 0
-
-        self.throttle = 0
-
-        self.aux = (0, 0, 0, 0)
-    
-    def evaluate(self, data) -> None:
-        self.roll = data[0]
-
-        self.pitch = data[1]
-
-        self.yaw = data[2]
-
-        self.throttle = data[3]
-
-        self.aux = data[4:]
+    aux: Final[Tuple[int]] = (0, 0, 0, 0)

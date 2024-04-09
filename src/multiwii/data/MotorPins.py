@@ -1,3 +1,11 @@
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
 class MotorPins(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_MOTOR_PINS command.
+    """
+    values: Final[Tuple[int]] = ()

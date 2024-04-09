@@ -1,7 +1,13 @@
- class Altitude(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
 
-        self.estimation = 0
+from dataclasses import dataclass
+from typing      import Final
 
-        self.pressure_variation = 0
+@dataclass(slots=True)
+class Altitude(MultiWiiData):
+    """
+    Represents data values for the MSP_ALTITUDE command.
+    """
+    estimation: Final[int] = 0
+
+    pressure_variation: Final[int] = 0

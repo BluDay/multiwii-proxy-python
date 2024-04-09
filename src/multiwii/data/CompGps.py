@@ -1,9 +1,15 @@
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
 class CompGps(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_COMP_GPS command.
+    """
+    distance_to_home: Final[int] = 0
 
-        self.distance_to_home = 0
+    direction_to_home: Final[int] = 0
 
-        self.direction_to_home = 0
-
-        self.update = 0 # What?
+    update: Final[int] = 0 # What?

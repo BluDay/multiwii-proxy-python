@@ -1,33 +1,18 @@
-from .base    import _MultiWiiData
+from .base    import MultiWiiData
 from ..config import CapabilityType, VehicleType
 
 from dataclasses import dataclass
+from typing      import Final
 
 @dataclass(slots=True)
-class Ident(_MultiWiiData):
+class Ident(MultiWiiData):
     """
     Represents data values for the MSP_IDENT command.
     """
-    version: float = 0.0
+    version: Final[float] = 0.0
 
-    multitype: VehicleType = VehicleType.Unidentified
+    multitype: Final[VehicleType] = VehicleType.Unidentified
 
-    capabilities: Tuple[CapabilityType] = ()
+    capabilities: Final[Tuple[CapabilityType]] = ()
 
-    navi_version: int = 0
-
-    def update_values(self, data: tuple) -> None:
-        """
-        Overridden method.
-        """
-        self.version = data[0] / 100
-
-        self.multitype = VehicleType(data[1])
-        
-        self.capabilities = (
-            capability if capability & data[3] for capability in CapabilityType
-        )
-
-        self.navi_version = data[3] >> 28
-
-        super().update_values(data)
+    navi_version: Final[int] = 0
