@@ -1,27 +1,27 @@
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
 class Misc(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_MISC command.
+    """
+    power_trigger: Final[int] = 0
 
-        self.power_trigger = 0
+    throttle_failsafe: Final[int] = 0
+    throttle_idle:     Final[int] = 0
+    throttle_min:      Final[int] = 0
+    throttle_max:      Final[int] = 0
 
-        self.throttle_idle = 0
+    plog_arm: Final[int] = 0
 
-        self.throttle_min = 0
+    plog_lifetime: Final[int] = 0
 
-        self.throttle_max = 0
+    mag_declination: Final[int] = 0
 
-        self.throttle_failsafe = 0
-
-        self.plog_arm = 0
-
-        self.plog_lifetime = 0
-
-        self.mag_declination = 0
-
-        self.battery_scale = 0
-
-        self.battery_warn_1 = 0
-
-        self.battery_warn_2 = 0
-
-        self.battery_critical = 0
+    battery_scale:    Final[int] = 0
+    battery_warn_1:   Final[int] = 0
+    battery_warn_2:   Final[int] = 0
+    battery_critical: Final[int] = 0

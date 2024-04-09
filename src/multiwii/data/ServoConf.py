@@ -1,8 +1,11 @@
-class ServoConf(ValuesBase):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
 
-    def evaluate(self, data) -> None:
-        self.values = (
-            data[index:index + 4] for index in range(0, len(data), 4)
-        )
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
+class ServoConf(MultiWiiData):
+    """
+    Represents data values for the MSP_SERVO_CONF command.
+    """
+    values: Final[Tuple[int]] = ()

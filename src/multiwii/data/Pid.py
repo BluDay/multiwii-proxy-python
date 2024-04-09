@@ -1,8 +1,11 @@
-class Pid(ValuesBase):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
 
-    def evaluate(self, data) -> None:
-        self.values = (
-            data[index:index + 3] for index in range(0, len(data), 3)
-        )
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
+class Pid(MultiWiiData):
+    """
+    Represents data values for the MSP_PID command.
+    """
+    values: Final[Tuple[int]] = ()

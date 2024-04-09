@@ -24,8 +24,13 @@ from .data import (
 
 from dataclasses import dataclass
 
-"""
-Saved commands from the instance for MSP_evious codebase
+@dataclass(slots=True)
+class MultiWiiDataValues(object):
+    """
+    The class used for initializing all MultiWii data value instances and creating
+    corresponding private fields for an instance of this type, or of a derived type.
+
+    Saved commands from the instance for MSP_evious codebase
 
     {NAME} = ({CODE}, {STRUCT_FORMAT}, {HAS_VARIABLE_DATA_SIZE}, {PRIORITY_TYPE})
 
@@ -67,13 +72,6 @@ Saved commands from the instance for MSP_evious codebase
     MSP_SET_MOTOR       = (214, '8H',     False, Inactive)
     MSP_BIND            = (240, '',       False, Inactive)
     MSP_EEPROM_WRITE    = (250, '',       False, Inactive)
-"""
-
-@dataclass(slots=True)
-class MultiWiiDataValues(object):
-    """
-    The class used for initializing all MultiWii data value instances and creating
-    corresponding private fields for an instance of this type, or of a derived type.
     """
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------

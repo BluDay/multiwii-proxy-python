@@ -1,17 +1,21 @@
- class RcTuning(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
 
-        self.rate = 0
+from dataclasses import dataclass
+from typing      import Final
 
-        self.expo = 0
+@dataclass(slots=True)
+class RcTuning(MultiWiiData):
+    """
+    Represents data values for the MSP_RC_TUNING command.
+    """
+    rate: Final[int] = 0
+    expo: Final[int] = 0
 
-        self.roll_pitch_rate = 0
+    roll_pitch_rate: Final[int] = 0
 
-        self.yaw_rate = 0
+    yaw_rate: Final[int] = 0
 
-        self.dynamic_throttle_pid = 0
+    dynamic_throttle_pid: Final[int] = 0
 
-        self.throttle_mid = 0
-
-        self.throttle_expo = 0
+    throttle_mid:  Final[int] = 0
+    throttle_expo: Final[int] = 0

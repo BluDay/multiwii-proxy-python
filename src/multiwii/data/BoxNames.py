@@ -1,3 +1,11 @@
-class BoxNames(NamesBase):
-    def __init__(self) -> None:
-        super().__init__()
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
+class BoxNames(MultiWiiData):
+    """
+    Represents data values for the MSP_BOXNAMES command.
+    """
+    values: Final[Tuple[str]] = ()

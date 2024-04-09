@@ -1,24 +1,19 @@
+from . import MultiWiiData
+
+from dataclasses import dataclass
+from typing      import Final
+
+@dataclass(slots=True)
 class Status(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
+    """
+    Represents data values for the MSP_STATUS command.
+    """
+    cycle_time: Final[int] = 0
 
-        self.cycle_time = 0
+    i2c_errors: Final[int] = 0
 
-        self.i2c_errors = 0
+    sensors: Final[Tuple[int]] = ()
 
-        self.sensors = ()
+    flag: Final[int] = 0
 
-        self.flag = 0
-
-        self.global_conf = 0
-
-    def evaluate(self, data) -> None:
-        self.cycle_time = data[0]
-
-        self.i2c_errors = data[1]
-
-        self.sensors = (sensor if sensor | data[2] for sensor in Sensor)
-
-        self.flag = data[3]
-
-        self.global_conf = data[4]
+    global_conf: Final[int] = 0

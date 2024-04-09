@@ -1,11 +1,17 @@
- class Analog(MultiWiiData):
-    def __init__(self) -> None:
-        super().__init__()
-        
-        self.voltage = 0
+from . import MultiWiiData
 
-        self.power_meter = 0 # Unclear
+from dataclasses import dataclass
+from typing      import Final
 
-        self.rssi = 0
-        
-        self.amperage = 0
+@dataclass(slots=True)
+class Analog(MultiWiiData):
+    """
+    Represents data values for the MSP_ANALOG command.
+    """
+    voltage: Final[int] = 0
+
+    power_meter: Final[int] = 0 # Unclear
+
+    rssi: Final[int] = 0
+
+    amperage: Final[int] = 0
