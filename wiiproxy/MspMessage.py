@@ -17,12 +17,12 @@ class MspMessage(object):
     """
     The incoming header.
     """
-    MESSAGE_INCOMING_HEADER: Final[str] = __get_header()
+    MESSAGE_INCOMING_HEADER: Final[str] = __get_incoming_header()
 
     """
     The outgoing header.
     """
-    MESSAGE_OUTGOING_HEADER: Final[str] = __get_header(incoming=False)
+    MESSAGE_OUTGOING_HEADER: Final[str] = __get_outgoing_header()
 
     """
     The preamble in encoded bytes.
@@ -42,24 +42,18 @@ class MspMessage(object):
     # ------------------------------------- CLASS METHODS --------------------------------------
 
     @classmethod
-    def __get_header(cls, incoming: bool = True) -> str:
+    def __get_incoming_header(cls) -> str:
         """
-        Gets a header for a specific direction.
-
-        Parameters:
-            incoming (bool): Whether the direction character should be incoming or outgoing.
-
-        Returns:
-            str: The full header string value.
+        Gets the header for an incoming message.
         """
-        direction: str
+        return cls.MESSAGE_PREAMBLE + MspMessageDirection.INCOMING
 
-        if incoming:
-            direction = MspMessageDirection.INCOMING
-        else:
-            direction = MspMessageDirection.OUTGOING
-
-        return cls.MESSAGE_PREAMBLE + direction
+    @classmethod
+    def __get_outgoing_header(cls) -> str:
+        """
+        Gets the header for an outgoing message.
+        """
+        return cls.MESSAGE_PREAMBLE + MspMessageDirection.OUTGOING
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
