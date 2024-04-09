@@ -63,10 +63,9 @@ class MultiWiiMessageHandler(object):
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
-    """
     @staticmethod
     def __encode(value: str) -> bytes:
-        \"""
+        """
         Converts a string to an ASCII-encoded byte array.
 
         Parameters:
@@ -74,22 +73,8 @@ class MultiWiiMessageHandler(object):
 
         Returns:
             bytes: ASCII-encoded string.
-        \"""
+        """
         return value.encode('ascii')
-
-    @staticmethod
-    def __int8(value: str) -> int:
-        \"""
-        Serializes the provided string value to a signed 8-bit integer.
-
-        Parameters:
-            value (str): The string value to be serialized.
-
-        Returns:
-            int: The serialized 8-bit integer.
-        \"""
-        return ord(value) & 0xff
-    """
 
     @staticmethod
     def calculate_crc(payload: bytes) -> int:
