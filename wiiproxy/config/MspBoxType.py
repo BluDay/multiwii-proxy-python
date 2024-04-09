@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class BoxType(IntEnum):
+class MspBoxType(IntEnum):
     """
     Represents the various boxes that can be checked.
     """

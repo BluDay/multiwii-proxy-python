@@ -1,5 +1,5 @@
 from .base    import MspDataStructure
-from ..config import CapabilityType, VehicleType
+from ..config import MspCapabilityType, MspMultitypeType
 
 from dataclasses import dataclass
 from typing      import Final
@@ -11,8 +11,8 @@ class Ident(MspDataStructure):
     """
     version: Final[float] = 0.0
 
-    multitype: Final[VehicleType] = VehicleType.Unidentified
+    multitype: Final[MspMultitypeType] = MspMultitypeType.Unidentified
 
-    capabilities: Final[Tuple[CapabilityType]] = ()
+    capabilities: Final[Tuple[MspCapabilityType]] = ()
 
     navi_version: Final[int] = 0
