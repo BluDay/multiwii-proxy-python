@@ -15,9 +15,19 @@ class MspMessage(object):
     MESSAGE_PREAMBLE: Final[str] = '$M'
 
     """
+    The preamble in encoded bytes.
+    """
+    MESSAGE_PREAMBLE_BYTES: Final[bytes] = __encode(MESSAGE_PREAMBLE)
+
+    """
     The incoming header.
     """
     MESSAGE_INCOMING_HEADER: Final[str] = __get_header()
+
+     """
+    The incoming header in encoded bytes.
+    """
+    MESSAGE_INCOMING_HEADER_BYTES: Final[bytes] = __encode(MESSAGE_INCOMING_HEADER)
 
     """
     The outgoing header.
@@ -25,19 +35,9 @@ class MspMessage(object):
     MESSAGE_OUTGOING_HEADER: Final[str] = __get_header(incoming=False)
 
     """
-    The preamble in encoded bytes.
-    """
-    MESSAGE_SERIALIZED_PREAMBLE: Final[bytes] = __encode(MESSAGE_PREAMBLE)
-
-    """
-    The incoming header in encoded bytes.
-    """
-    MESSAGE_SERIALIZED_INCOMING_HEADER: Final[bytes] = __encode(MESSAGE_INCOMING_HEADER)
-    
-    """
     The outgoing header in encoded bytes.
     """
-    MESSAGE_SERIALIZED_OUTGOING_HEADER: Final[bytes] = __encode(MESSAGE_OUTGOING_HEADER)
+    MESSAGE_OUTGOING_HEADER_BYTES: Final[bytes] = __encode(MESSAGE_OUTGOING_HEADER)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
