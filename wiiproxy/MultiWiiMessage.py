@@ -25,19 +25,19 @@ class MultiWiiMessage(object):
     OUTGOING_HEADER: Final[str] = _get_outgoing_header()
 
     """
-    The preamble in encoded bytes.
+    The serialized preamble.
     """
-    PREAMBLE_BYTES: Final[bytes] = _encode(PREAMBLE)
+    SERIALIZED_PREAMBLE: Final[bytes] = _encode(PREAMBLE)
 
     """
-    The incoming header in encoded bytes.
+    The serialized incoming header.
     """
-    INCOMING_HEADER_BYTES: Final[bytes] = _encode(INCOMING_HEADER)
+    SERIALIZED_INCOMING_HEADER: Final[bytes] = _encode(INCOMING_HEADER)
 
     """
-    The outgoing header in encoded bytes.
+    The serialized outgoing header.
     """
-    OUTGOING_HEADER_BYTES: Final[bytes] = _encode(OUTGOING_HEADER)
+    SERIALIZED_OUTGOING_HEADER: Final[bytes] = _encode(OUTGOING_HEADER)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
