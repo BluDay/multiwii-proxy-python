@@ -24,21 +24,21 @@ class MspMessageDirection(object):
     """
     The error character as a byte.
     """
-    ERROR_BYTE: Final[int] = __serialize_to_int8(ERROR)
+    ERROR_BYTE: Final[int] = _serialize_to_int8(ERROR)
 
     """
     The incoming direction character as a byte.
     """
-    INCOMING_BYTE: Final[int] = __serialize_to_int8(INCOMING)
+    INCOMING_BYTE: Final[int] = _serialize_to_int8(INCOMING)
 
     """
     The outgoing direction character as a byte.
     """
-    OUTGOING_BYTE: Final[int] = __serialize_to_int8(OUTGOING)
+    OUTGOING_BYTE: Final[int] = _serialize_to_int8(OUTGOING)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
-    def __serialize_to_int8(value: str) -> int:
+    def _serialize_to_int8(value: str) -> int:
         """
         Gets the value of the first character as an 8-bit signed integer.
 

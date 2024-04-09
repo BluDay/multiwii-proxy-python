@@ -17,39 +17,39 @@ class MspMessage(object):
     """
     The incoming header.
     """
-    MESSAGE_INCOMING_HEADER: Final[str] = __get_incoming_header()
+    MESSAGE_INCOMING_HEADER: Final[str] = _get_incoming_header()
 
     """
     The outgoing header.
     """
-    MESSAGE_OUTGOING_HEADER: Final[str] = __get_outgoing_header()
+    MESSAGE_OUTGOING_HEADER: Final[str] = _get_outgoing_header()
 
     """
     The preamble in encoded bytes.
     """
-    MESSAGE_PREAMBLE_BYTES: Final[bytes] = __encode(MESSAGE_PREAMBLE)
+    MESSAGE_PREAMBLE_BYTES: Final[bytes] = _encode(MESSAGE_PREAMBLE)
 
     """
     The incoming header in encoded bytes.
     """
-    MESSAGE_INCOMING_HEADER_BYTES: Final[bytes] = __encode(MESSAGE_INCOMING_HEADER)
+    MESSAGE_INCOMING_HEADER_BYTES: Final[bytes] = _encode(MESSAGE_INCOMING_HEADER)
 
     """
     The outgoing header in encoded bytes.
     """
-    MESSAGE_OUTGOING_HEADER_BYTES: Final[bytes] = __encode(MESSAGE_OUTGOING_HEADER)
+    MESSAGE_OUTGOING_HEADER_BYTES: Final[bytes] = _encode(MESSAGE_OUTGOING_HEADER)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
     @classmethod
-    def __get_incoming_header(cls) -> str:
+    def _get_incoming_header(cls) -> str:
         """
         Gets the header for an incoming message.
         """
         return cls.MESSAGE_PREAMBLE + MspMessageDirection.INCOMING
 
     @classmethod
-    def __get_outgoing_header(cls) -> str:
+    def _get_outgoing_header(cls) -> str:
         """
         Gets the header for an outgoing message.
         """
@@ -58,7 +58,7 @@ class MspMessage(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
-    def __encode(value: str) -> bytes:
+    def _encode(value: str) -> bytes:
         """
         Converts a string to an ASCII-encoded byte array.
 
