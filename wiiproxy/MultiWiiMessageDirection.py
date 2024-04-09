@@ -1,6 +1,6 @@
 from typing import Final
 
-class MspMessageDirection(object):
+class MultiWiiMessageDirection(object):
     """
     An enum-like class for message direction characters. Includes additional methods
     for retrieving each direction character as a serialized value.

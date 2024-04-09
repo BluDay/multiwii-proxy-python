@@ -1,8 +1,8 @@
-from . import MspMessageDirection
+from . import MultiWiiMessageDirection
 
 from typing import Final
 
-class MspMessage(object):
+class MultiWiiMessage(object):
     """
     The class for managing and analyzing MultiWii messages.
     """
@@ -46,14 +46,14 @@ class MspMessage(object):
         """
         Gets the header for an incoming message.
         """
-        return cls.MESSAGE_PREAMBLE + MspMessageDirection.INCOMING
+        return cls.MESSAGE_PREAMBLE + MultiWiiMessageDirection.INCOMING
 
     @classmethod
     def _get_outgoing_header(cls) -> str:
         """
         Gets the header for an outgoing message.
         """
-        return cls.MESSAGE_PREAMBLE + MspMessageDirection.OUTGOING
+        return cls.MESSAGE_PREAMBLE + MultiWiiMessageDirection.OUTGOING
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
