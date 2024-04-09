@@ -1,4 +1,4 @@
-from .msp import MspDataValues, MspMessage
+from . import MspDataValues, MspMessage
 
 from serial    import Serial
 from threading import Thread
