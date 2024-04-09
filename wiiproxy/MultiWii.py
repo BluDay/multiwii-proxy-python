@@ -54,7 +54,7 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._write_delay = self.DEFAULT_WRITE_DELAY
 
-        self.reset_data()
+        self._reset_data()
 
     def __del__(self) -> None:
         """
