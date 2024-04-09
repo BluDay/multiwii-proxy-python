@@ -1,11 +1,7 @@
-from . import MultiWiiData
+from .base import MultiWiiDataStringValues
 
-from dataclasses import dataclass
-from typing      import Final
-
-@dataclass(slots=True)
-class BoxNames(MultiWiiData):
+class BoxNames(MultiWiiDataStringValues):
     """
     Represents data values for the MSP_BOXNAMES command.
     """
-    values: Final[Tuple[str]] = ()
+    pass

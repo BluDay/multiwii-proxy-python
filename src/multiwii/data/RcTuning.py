@@ -1,4 +1,4 @@
-from . import MultiWiiData
+from .base import MultiWiiData
 
 from dataclasses import dataclass
 from typing      import Final

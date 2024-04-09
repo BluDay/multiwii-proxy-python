@@ -1,11 +1,7 @@
-from . import MultiWiiData
+from .base import MultiWiiDataIntValues
 
-from dataclasses import dataclass
-from typing      import Final
-
-@dataclass(slots=True)
-class Servo(MultiWiiData):
+class Servo(MultiWiiDataIntValues):
     """
     Represents data values for the MSP_SERVO command.
     """
-    values: Final[Tuple[int]] = ()
+    pass
