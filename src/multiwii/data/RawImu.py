@@ -1,10 +1,10 @@
-from .base import MspDataType
+from .base import MspDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class RawImu(MspDataType):
+class RawImu(MspDataStructure):
     """
     Represents data values for the MSP_RAW_IMU command.
     """

@@ -1,6 +1,6 @@
-from .base import MspDataTypeIntValues
+from .base import MspDataStructureIntValues
 
-class MotorPins(MspDataTypeIntValues):
+class MotorPins(MspDataStructureIntValues):
     """
     Represents data values for the MSP_MOTOR_PINS command.
     """

@@ -1,6 +1,6 @@
-from .base import MspDataTypeIntValues
+from .base import MspDataStructureIntValues
 
-class Servo(MspDataTypeIntValues):
+class Servo(MspDataStructureIntValues):
     """
     Represents data values for the MSP_SERVO command.
     """

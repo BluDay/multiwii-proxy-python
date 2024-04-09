@@ -1,10 +1,10 @@
-from .base import MspDataType
+from .base import MspDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class CompGps(MspDataType):
+class CompGps(MspDataStructure):
     """
     Represents data values for the MSP_COMP_GPS command.
     """

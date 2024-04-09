@@ -1,6 +1,6 @@
-from .base import MspDataTypeIntValues
+from .base import MspDataStructureIntValues
 
-class Pid(MspDataTypeIntValues):
+class Pid(MspDataStructureIntValues):
     """
     Represents data values for the MSP_PID command.
     """
