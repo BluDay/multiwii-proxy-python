@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class VehicleType(IntEnum):
+class MspMultitypeType(IntEnum):
     """
     Represents different types of available vehicle configurations.
     """
