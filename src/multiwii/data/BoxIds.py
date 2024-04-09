@@ -1,11 +1,11 @@
-from .base    import MultiWiiData
+from .base    import MspDataType
 from ..config import BoxType
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class BoxIds(MultiWiiData):
+class BoxIds(MspDataType):
     """
     Represents data values for the MSP_BOXIDS command.
     """

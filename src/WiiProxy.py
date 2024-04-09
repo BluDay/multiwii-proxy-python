@@ -1,4 +1,4 @@
-from .multiwii import MultiWiiDataValues, MultiWiiMessageHandler
+from .multiwii import MspDataValues, MspMessage
 
 from serial    import Serial
 from threading import Thread

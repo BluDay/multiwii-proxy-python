@@ -1,10 +1,10 @@
-from .base import MultiWiiData
+from .base import MspDataType
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class Attitude(MultiWiiData):
+class Attitude(MspDataType):
     """
     Represents data values for the MSP_ATTITUDE command.
     """

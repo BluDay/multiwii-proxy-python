@@ -1,8 +1,8 @@
-from . import MultiWiiMessageDirectionType
+from . import MspMessageDirection
 
 from typing import Final
 
-class MultiWiiMessageHandler(object):
+class MspMessage(object):
     """
     The class for managing and analyzing MultiWii messages.
     """
@@ -55,9 +55,9 @@ class MultiWiiMessageHandler(object):
         direction: str
 
         if incoming:
-            direction = MultiWiiMessageDirectionType.INCOMING
+            direction = MspMessageDirection.INCOMING
         else:
-            direction = MultiWiiMessageDirectionType.OUTGOING
+            direction = MspMessageDirection.OUTGOING
 
         return cls.MESSAGE_PREAMBLE + direction
 

@@ -1,6 +1,6 @@
-from .base import MultiWiiDataIntValues
+from .base import MspDataTypeIntValues
 
-class Box(MultiWiiDataIntValues):
+class Box(MspDataTypeIntValues):
     """
     Represents data values for the MSP_BOX command.
     """
