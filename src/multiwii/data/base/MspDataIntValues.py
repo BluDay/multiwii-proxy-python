@@ -1,10 +1,10 @@
-from . import MultiWiiData
+from . import MspDataType
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class MultiWiiDataIntValues(MultiWiiData):
+class MspDataIntValues(MspDataType):
     """
     The base class for data values with a single, public int tuple member.
     """

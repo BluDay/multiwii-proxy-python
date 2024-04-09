@@ -1,10 +1,10 @@
-from .base import MultiWiiData
+from .base import MspDataType
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class Status(MultiWiiData):
+class Status(MspDataType):
     """
     Represents data values for the MSP_STATUS command.
     """

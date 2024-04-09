@@ -1,6 +1,6 @@
-from .base import MultiWiiDataStringValues
+from .base import MspDataTypeStringValues
 
-class PidNames(MultiWiiDataStringValues):
+class PidNames(MspDataTypeStringValues):
     """
     Represents data values for the MSP_PIDNAMES command.
     """
