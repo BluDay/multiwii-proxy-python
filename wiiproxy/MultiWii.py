@@ -62,6 +62,12 @@ class MultiWii(object, MultiWiiDataValues):
         """
         self.stop()
 
+        self._command_queue = None
+
+        self._serial = None
+
+        self._thread = None
+
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
