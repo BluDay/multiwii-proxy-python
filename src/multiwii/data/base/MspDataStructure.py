@@ -1,5 +1,5 @@
 class MspDataStructure(object):
     """
-    Represents the base class for MultiWii data types.
+    Represents the base class for MSP data structure classes.
     """
     pass
