@@ -56,7 +56,7 @@ class MultiWiiMessageHandler(object):
 
         if incoming:
             direction = MultiWiiMessageDirectionType.INCOMING
-        else
+        else:
             direction = MultiWiiMessageDirectionType.OUTGOING
 
         return cls.MESSAGE_PREAMBLE + direction
