@@ -22,19 +22,19 @@ class MultiWiiMessageDirection(object):
     OUTGOING: Final[str] = '>'
     
     """
-    The error character as a byte.
+    A serialized error character.
     """
-    ERROR_BYTE: Final[int] = _serialize_to_int8(ERROR)
+    SERIALIZED_ERROR: Final[int] = _serialize_to_int8(ERROR)
 
     """
-    The incoming direction character as a byte.
+    A serialized incoming direction character.
     """
-    INCOMING_BYTE: Final[int] = _serialize_to_int8(INCOMING)
+    SERIALIZED_INCOMING: Final[int] = _serialize_to_int8(INCOMING)
 
     """
-    The outgoing direction character as a byte.
+    A serialized outgoing direction character.
     """
-    OUTGOING_BYTE: Final[int] = _serialize_to_int8(OUTGOING)
+    SERIALIZED_OUTGOING: Final[int] = _serialize_to_int8(OUTGOING)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
