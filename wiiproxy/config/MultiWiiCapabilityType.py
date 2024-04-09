@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class MspCapabilityType(IntEnum):
+class MultiWiiCapabilityType(IntEnum):
     """
     Represents some capabilities that the flight controller has.
     """

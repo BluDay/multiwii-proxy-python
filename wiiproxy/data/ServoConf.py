@@ -1,6 +1,6 @@
-from .base import MspDataStructureIntValues
+from .base import MultiWiiDataIntegerValues
 
-class ServoConf(MspDataStructureIntValues):
+class ServoConf(MultiWiiDataIntegerValues):
     """
     Represents data values for the MSP_SERVO_CONF command.
     """

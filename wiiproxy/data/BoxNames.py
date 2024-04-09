@@ -1,6 +1,6 @@
-from .base import MspDataStructureStringValues
+from .base import MultiWiiDataStringValues
 
-class BoxNames(MspDataStructureStringValues):
+class BoxNames(MultiWiiDataStringValues):
     """
     Represents data values for the MSP_BOXNAMES command.
     """

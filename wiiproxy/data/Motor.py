@@ -1,6 +1,6 @@
-from .base import MspDataStructureIntValues
+from .base import MultiWiiDataIntegerValues
 
-class Motor(MspDataStructureIntValues):
+class Motor(MultiWiiDataIntegerValues):
     """
     Represents data values for the MSP_MOTOR command.
     """

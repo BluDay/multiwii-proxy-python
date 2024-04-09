@@ -1,10 +1,10 @@
-from .base import MspDataStructure
+from .base import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class Waypoint(MspDataStructure):
+class Waypoint(MultiWiiDataStructure):
     """
     Represents data values for the MSP_WP command.
     """

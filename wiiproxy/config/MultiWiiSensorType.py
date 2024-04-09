@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class MspSensorType(IntEnum):
+class MultiWiiSensorType(IntEnum):
     """
     Represents different sensor types.
     """
