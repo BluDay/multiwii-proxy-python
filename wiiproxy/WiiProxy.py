@@ -75,6 +75,16 @@ class WiiProxy(object, MultiWiiDataValues):
         return self._is_active
 
     @property
+    def serial(self) -> Serial:
+        """
+        Gets the provided serial connection instance.
+
+        Returns:
+            Serial: The instance.
+        """
+        return self._serial
+
+    @property
     def write_delay(self) -> float:
         """
         Gets the number of seconds to delay each write operation with in seconds.
