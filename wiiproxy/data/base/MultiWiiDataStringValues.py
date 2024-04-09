@@ -1,10 +1,10 @@
-from . import MspDataStructure
+from . import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class MspDataStructureStringValues(MspDataStructure):
+class MultiWiiDataStringValues(MultiWiiDataStructure):
     """
     The base class for data values with a single, public string tuple member.
     """
