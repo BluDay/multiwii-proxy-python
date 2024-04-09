@@ -12,32 +12,32 @@ class MultiWiiMessage(object):
     """
     The fixed MSP v1 preamble used for all messages.
     """
-    MESSAGE_PREAMBLE: Final[str] = '$M'
+    PREAMBLE: Final[str] = '$M'
 
     """
     The incoming header.
     """
-    MESSAGE_INCOMING_HEADER: Final[str] = _get_incoming_header()
+    INCOMING_HEADER: Final[str] = _get_incoming_header()
 
     """
     The outgoing header.
     """
-    MESSAGE_OUTGOING_HEADER: Final[str] = _get_outgoing_header()
+    OUTGOING_HEADER: Final[str] = _get_outgoing_header()
 
     """
     The preamble in encoded bytes.
     """
-    MESSAGE_PREAMBLE_BYTES: Final[bytes] = _encode(MESSAGE_PREAMBLE)
+    PREAMBLE_BYTES: Final[bytes] = _encode(PREAMBLE)
 
     """
     The incoming header in encoded bytes.
     """
-    MESSAGE_INCOMING_HEADER_BYTES: Final[bytes] = _encode(MESSAGE_INCOMING_HEADER)
+    INCOMING_HEADER_BYTES: Final[bytes] = _encode(INCOMING_HEADER)
 
     """
     The outgoing header in encoded bytes.
     """
-    MESSAGE_OUTGOING_HEADER_BYTES: Final[bytes] = _encode(MESSAGE_OUTGOING_HEADER)
+    OUTGOING_HEADER_BYTES: Final[bytes] = _encode(OUTGOING_HEADER)
 
     # ------------------------------------- CLASS METHODS --------------------------------------
 
@@ -46,14 +46,14 @@ class MultiWiiMessage(object):
         """
         Gets the header for an incoming message.
         """
-        return cls.MESSAGE_PREAMBLE + MultiWiiMessageDirection.INCOMING
+        return cls.PREAMBLE + MultiWiiMessageDirection.INCOMING
 
     @classmethod
     def _get_outgoing_header(cls) -> str:
         """
         Gets the header for an outgoing message.
         """
-        return cls.MESSAGE_PREAMBLE + MultiWiiMessageDirection.OUTGOING
+        return cls.PREAMBLE + MultiWiiMessageDirection.OUTGOING
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
