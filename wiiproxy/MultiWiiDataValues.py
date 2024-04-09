@@ -30,7 +30,7 @@ class MultiWiiDataValues(object):
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
-    def reset_data(self) -> None:
+    def _reset_data(self) -> None:
         """
         Resets all data value instances. defines each field if not already defined.
         """
