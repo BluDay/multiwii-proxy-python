@@ -25,7 +25,7 @@ from .data import (
 from dataclasses import dataclass
 
 @dataclass(slots=True)
-class MspDataValues(object):
+class MultiWiiDataValues(object):
     """
     The class used for initializing all MSP data value instances and creating
     corresponding private fields for an instance of this type, or of a derived type.
