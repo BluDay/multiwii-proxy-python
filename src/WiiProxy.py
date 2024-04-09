@@ -109,15 +109,18 @@ class WiiProxy(object, MultiWiiDataValues):
         This worker method runs continously in a thread and handles everything
         from enqueuing commands and sending messages to the flight controller, to
         receiving messages and updating their corresponding data value instances.
+
+        Control flow for each while iteration:
+
+            1. Fill command queue with prioritized commands if empty.
+            2. Dequeue the most prioritized command from the queue.
+            3. Reset the input/output buffer.
+            3. Send message with empty data values to receive a response.
+            4. Read response message.
+            5. Update corresponding instance for command with new values if not null.
+            6. Indicate that the command has been processed.
         """
         while True:
-            # TODO: Fill command queue with prioritized commands if empty.
-            # TODO: Dequeue the most prioritized command from the queue.
-            # TODO: Reset the input/output buffer.
-            # TODO: Send message with empty data values to receive a response.
-            # TODO: Read response message.
-            # TODO: Update corresponding instance for command with new values if not null.
-            # TODO: Indicate that the command has been processed.
             pass
 
     def __reset_input_output_buffer(self) -> None:
