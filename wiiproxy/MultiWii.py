@@ -6,7 +6,7 @@ from time      import sleep
 from typing    import Final
 from queue     import PriorityQueue
 
-class WiiProxy(object, MspDataValues):
+class MultiWii(object, MspDataValues):
     """
     The main class for wiiproxy that handles everything.
     
