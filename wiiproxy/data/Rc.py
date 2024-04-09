@@ -1,10 +1,10 @@
-from .base import MspDataStructure
+from .base import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class Rc(MspDataStructure):
+class Rc(MultiWiiDataStructure):
     """
     Represents data values for the MSP_RC command.
     """

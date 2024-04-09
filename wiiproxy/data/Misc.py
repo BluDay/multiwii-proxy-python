@@ -1,10 +1,10 @@
-from .base import MspDataStructure
+from .base import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
 
 @dataclass(slots=True)
-class Misc(MspDataStructure):
+class Misc(MultiWiiDataStructure):
     """
     Represents data values for the MSP_MISC command.
     """

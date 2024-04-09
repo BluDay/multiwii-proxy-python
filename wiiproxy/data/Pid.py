@@ -1,6 +1,6 @@
-from .base import MspDataStructureIntValues
+from .base import MultiWiiDataIntegerValues
 
-class Pid(MspDataStructureIntValues):
+class Pid(MultiWiiDataIntegerValues):
     """
     Represents data values for the MSP_PID command.
     """
