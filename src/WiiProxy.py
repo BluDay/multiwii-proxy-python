@@ -120,18 +120,6 @@ class WiiProxy(object, MultiWiiDataValues):
             # TODO: Indicate that the command has been processed.
             pass
 
-    # TODO: Get size and format for command.
-    # TODO: Create payload tuple.
-    # TODO: Assembly message using the format and payload.
-    # TODO: Write message to the serial port.
-    # TODO: Sleep for `write_delay` seconds.
-
-    # TODO: Read preamble, code and data size.
-    # TODO: Validate preamble.
-    # TODO: Read data value bytes and checksum value.
-    # TODO: Unpack the whole message.
-    # TODO: Return the unpacked message.
-
     def __reset_input_output_buffer(self) -> None:
         """
         Resets both the input and output buffer of the serial connection.
