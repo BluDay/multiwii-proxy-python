@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class MultiWiiBoxType(IntEnum):
+class MultiWiiBox(IntEnum):
     """Represents the various boxes that can be checked."""
     Arm       = 0
     Angle     = 1

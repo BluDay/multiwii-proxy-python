@@ -1,5 +1,5 @@
 from .base    import MultiWiiDataStructure
-from ..config import MultiWiiCapabilityType, MultiWiiMultitypeType
+from ..config import MultiWiiCapability, MultiWiiMultitype
 
 from dataclasses import dataclass
 from typing      import Final
@@ -9,8 +9,8 @@ class Ident(MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
     version: Final[float] = 0.0
 
-    multitype: Final[MultiWiiMultitypeType] = MultiWiiMultitypeType.Unidentified
+    multitype: Final[MultiWiiMultitype] = MultiWiiMultitype.Unidentified
 
-    capabilities: Final[Tuple[MultiWiiCapabilityType]] = ()
+    capabilities: Final[Tuple[MultiWiiCapability]] = ()
 
     navi_version: Final[int] = 0
