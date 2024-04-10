@@ -19,6 +19,10 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
+    _command_queue: ClassVar[PriorityQueue]
+
+    _thread: ClassVar[Thread]
+
     is_active: ClassVar[bool]
 
     serial: ClassVar[Serial]
