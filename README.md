@@ -16,5 +16,7 @@ serial = Serial('/dev/ttyUSB0', baudrate=115200)
 
 fc = MultiWii(serial)
 
+fc.start()
+
 print(f'{fc.indent.multitype}') # QuadX
 ```
