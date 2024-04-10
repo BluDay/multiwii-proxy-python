@@ -3,7 +3,7 @@ from .data.base.MultiWiiDataValues import MultiWiiDataValues
 from serial    import Serial
 from threading import Thread
 from time      import sleep
-from typing    import Final
+from typing    import ClassVar, Final
 from queue     import PriorityQueue
 
 class MultiWii(object, MultiWiiDataValues):
@@ -16,6 +16,14 @@ class MultiWii(object, MultiWiiDataValues):
 
     Supports MSP v1 and not any of the newer versions.
     """
+
+    # ------------------------------------ CLASS VARIABLES -------------------------------------
+
+    is_active: ClassVar[bool]
+
+    serial: ClassVar[Serial]
+
+    write_delay: ClassVar[int]
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
@@ -46,13 +54,13 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._command_queue = PriorityQueue(maxsize=self.DEFAULT_QUEUE_SIZE)
 
-        self._is_active = False
-
-        self._serial = serial
-
         self._thread = Thread(target=self._handle_command_queue)
 
-        self._write_delay = self.DEFAULT_WRITE_DELAY
+        self.is_active = False
+
+        self.serial = serial
+
+        self.write_delay = self.DEFAULT_WRITE_DELAY
 
         self._reset_data()
 
@@ -64,41 +72,11 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._command_queue = None
 
-        self._serial = None
-
         self._thread = None
 
+        self.serial = None
+
     # --------------------------------------- PROPERTIES ---------------------------------------
-
-    @property
-    def is_active(self) -> bool:
-        """
-        Gets a value indicating whether the module is communicating to the flight controller.
-
-        Returns:
-            bool: True or false value.
-        """
-        return self._is_active
-
-    @property
-    def serial(self) -> Serial:
-        """
-        Gets the provided serial connection instance.
-
-        Returns:
-            Serial: The instance.
-        """
-        return self._serial
-
-    @property
-    def write_delay(self) -> float:
-        """
-        Gets the number of seconds to delay each write operation with in seconds.
-
-        Returns:
-            float: The delay value as a floating-point.
-        """
-        return self._write_delay
 
     @write_delay.setter
     def write_delay(self, value: float) -> None:
@@ -114,7 +92,7 @@ class MultiWii(object, MultiWiiDataValues):
         if value < 0:
             raise ValueError
             
-        self._write_delay = value
+        self.write_delay = value
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
