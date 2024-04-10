@@ -119,7 +119,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    def _process_command_queue(self) -> None:
+    def _process_message_queue(self) -> None:
         """
         The thread worker method that performs the whole communication part.
 
