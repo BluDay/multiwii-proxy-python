@@ -9,10 +9,10 @@ class MultiWiiMessageHeader(object):
     PREAMBLE: Final[str] = '$M'
 
     """The incoming header."""
-    INCOMING: Final[str] = PREAMBLE + MultiWiiMessageDirection.INCOMING
+    INCOMING: Final[str] = f'{PREAMBLE}{MultiWiiMessageDirection.INCOMING}'
 
     """The outgoing header."""
-    OUTGOING: Final[str] = PREAMBLE + MultiWiiMessageDirection.OUTGOING
+    OUTGOING: Final[str] = f'{PREAMBLE}{MultiWiiMessageDirection.OUTGOING}'
 
     """ A serialized preamble."""
     SERIALIZED_PREAMBLE: Final[bytes] = 0 # encode(PREAMBLE)
