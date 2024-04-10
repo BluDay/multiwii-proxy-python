@@ -41,6 +41,11 @@ class MultiWii(object, MultiWiiDataValues):
     """
     DEFAULT_WRITE_DELAY: Final[float] = 0.005
 
+    """
+    The MSP version used.
+    """
+    MSP_VERSION: Final[str] = 'v1'
+
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
