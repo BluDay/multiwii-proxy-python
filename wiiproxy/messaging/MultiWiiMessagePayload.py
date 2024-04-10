@@ -4,7 +4,7 @@ class MultiWiiMessagePayload(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
-    def calculate_crc(payload: bytes) -> int:
+    def calculate_checksum(payload: bytes) -> int:
         """Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
 
         Parameters:
