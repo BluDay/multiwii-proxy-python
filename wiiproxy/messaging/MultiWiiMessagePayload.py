@@ -8,10 +8,10 @@ class MultiWiiMessagePayload(object):
         """Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
 
         Parameters:
-            payload (bytes): The serialized payload.
+            payload (bytes): The serialized message payload.
 
         Returns:
-            int: The calculated checksum value.
+            int: The checksum value.
         """
         checksum = 0
 
