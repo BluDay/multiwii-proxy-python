@@ -1,7 +1,5 @@
 from .base import MultiWiiDataIntegerValues
 
 class Box(MultiWiiDataIntegerValues):
-    """
-    Represents data values for the MSP_BOX command.
-    """
+    """Represents data values for the MSP_BOX command."""
     pass

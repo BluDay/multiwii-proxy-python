@@ -5,9 +5,7 @@ from typing      import Final
 
 @dataclass(slots=True)
 class Rc(MultiWiiDataStructure):
-    """
-    Represents data values for the MSP_RC command.
-    """
+    """Represents data values for the MSP_RC command."""
     roll:     Final[int] = 0
     pitch:    Final[int] = 0
     yaw:      Final[int] = 0

@@ -5,9 +5,7 @@ from typing      import Final
 
 @dataclass(slots=True)
 class RawGps(MultiWiiDataStructure):
-    """
-    Represents data values for the MSP_RAW_GPS command.
-    """
+    """Represents data values for the MSP_RAW_GPS command."""
     fix: Final[int] = 0
 
     satellites: Final[int] = 0

@@ -5,9 +5,7 @@ from typing      import Final
 
 @dataclass(slots=True)
 class Status(MultiWiiDataStructure):
-    """
-    Represents data values for the MSP_STATUS command.
-    """
+    """Represents data values for the MSP_STATUS command."""
     cycle_time: Final[int] = 0
 
     i2c_errors: Final[int] = 0

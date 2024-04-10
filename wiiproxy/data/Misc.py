@@ -5,9 +5,7 @@ from typing      import Final
 
 @dataclass(slots=True)
 class Misc(MultiWiiDataStructure):
-    """
-    Represents data values for the MSP_MISC command.
-    """
+    """Represents data values for the MSP_MISC command."""
     power_trigger: Final[int] = 0
 
     throttle_failsafe: Final[int] = 0
