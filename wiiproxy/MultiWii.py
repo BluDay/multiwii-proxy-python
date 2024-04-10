@@ -19,15 +19,15 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
-    _message_queue: ClassVar[PriorityQueue]
+    _is_active: ClassVar[bool]
 
     _message_processing_thread: ClassVar[Thread]
 
-    is_active: ClassVar[bool]
+    _message_queue: ClassVar[PriorityQueue]
 
-    message_write_delay: ClassVar[int]
+    _message_write_delay: ClassVar[int]
 
-    serial: ClassVar[Serial]
+    _serial: ClassVar[Serial]
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
@@ -61,15 +61,15 @@ class MultiWii(object, MultiWiiDataValues):
         if not isinstance(serial, Serial):
             raise TypeError
 
-        self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
+        self._is_active = False
 
         self._message_processing_thread = Thread(target=self._process_message_queue)
 
-        self.is_active = False
+        self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self.message_write_delay = self.DEFAULT_WRITE_DELAY
+        self._message_write_delay = self.DEFAULT_WRITE_DELAY
 
-        self.serial = serial
+        self._serial = serial
 
         self._reset_data()
 
@@ -79,13 +79,27 @@ class MultiWii(object, MultiWiiDataValues):
         """
         self.stop()
 
-        self._message_queue = None
-
         self._message_processing_thread = None
 
-        self.serial = None
+        self._message_queue = None
+
+        self._serial = None
 
     # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def is_active(self) -> bool:
+        """
+        Gets a value indicating whether the flight controller communication is active.
+        """
+        return self._is_active
+
+    @property
+    def serial(self) -> Serial:
+        """
+        Gets the used serial instance that was provided at instantiation.
+        """
+        return self._serial
 
     @message_write_delay.setter
     def message_write_delay(self, value: float) -> NoReturn:
@@ -101,7 +115,7 @@ class MultiWii(object, MultiWiiDataValues):
         if value < 0:
             raise ValueError
             
-        self.message_write_delay = value
+        self._message_write_delay = value
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
@@ -149,25 +163,25 @@ class MultiWii(object, MultiWiiDataValues):
         """
         Resets both the input and output buffer of the serial connection.
         """
-        self.serial.reset_input_buffer()
-        self.serial.reset_output_buffer()
+        self._serial.reset_input_buffer()
+        self._serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
         """
         Starts the worker thread and enables communication to the craft.
         """
-        if self.is_active: return
+        if self._is_active: return
         
         self._message_processing_thread.start()
         
-        self.is_active = True
+        self._is_active = True
 
     def stop(self) -> NoReturn:
         """
         Stops the worker thread and disables all communication.
         """
-        if not self.is_active: return
+        if not self._is_active: return
 
         self._message_processing_thread.join()
 
-        self.is_active = False
+        self._is_active = False
