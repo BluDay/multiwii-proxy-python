@@ -1,7 +1,7 @@
 from enum import IntEnum, unique
 
 @unique
-class MultiWiiSensorType(IntEnum):
+class MultiWiiSensor(IntEnum):
     """Represents different sensor types."""
     Acc   = 0
     Baro  = 1
