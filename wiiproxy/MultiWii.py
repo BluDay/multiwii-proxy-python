@@ -3,7 +3,7 @@ from .data.base.MultiWiiDataValues import MultiWiiDataValues
 from serial    import Serial
 from threading import Thread
 from time      import sleep
-from typing    import ClassVar, Final
+from typing    import ClassVar, Final, NoReturn
 from queue     import PriorityQueue
 
 class MultiWii(object, MultiWiiDataValues):
@@ -43,7 +43,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
-    def __init__(self, serial: Serial) -> None:
+    def __init__(self, serial: Serial) -> NoReturn:
         """
         Initializes an instance using the provided serial connection.
         
@@ -68,7 +68,7 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._reset_data()
 
-    def __del__(self) -> None:
+    def __del__(self) -> NoReturn:
         """
         Stops the worker and the thread at destruction.
         """
@@ -83,7 +83,7 @@ class MultiWii(object, MultiWiiDataValues):
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @message_write_delay.setter
-    def message_write_delay(self, value: float) -> None:
+    def message_write_delay(self, value: float) -> NoReturn:
         """
         Sets the write delay value.
 
@@ -119,7 +119,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    def _process_message_queue(self) -> None:
+    def _process_message_queue(self) -> NoReturn:
         """
         The thread worker method that performs the whole communication part.
 
@@ -140,14 +140,14 @@ class MultiWii(object, MultiWiiDataValues):
         while True:
             pass
 
-    def _reset_input_output_buffer(self) -> None:
+    def _reset_input_output_buffer(self) -> NoReturn:
         """
         Resets both the input and output buffer of the serial connection.
         """
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    def start(self) -> None:
+    def start(self) -> NoReturn:
         """
         Starts the worker thread and enables communication to the craft.
         """
@@ -158,7 +158,7 @@ class MultiWii(object, MultiWiiDataValues):
         
         self._is_active = True
 
-    def stop(self) -> None:
+    def stop(self) -> NoReturn:
         """
         Stops the worker thread and disables all communication.
         """
