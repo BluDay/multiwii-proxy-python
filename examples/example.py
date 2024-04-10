@@ -1,8 +1,12 @@
 #! /usr/bin/env python3
 
-from wiiproxy.messaging.MultiWiiMessageHeader import MultiWiiMessageHeader
+import os
+import sys
 
-from wiiproxy.messaging.MultiWiiCommands import MultiWiiCommands
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from wiiproxy.messaging.MultiWiiMessageHeader import MultiWiiMessageHeader
+from wiiproxy.messaging.MultiWiiCommands      import MultiWiiCommands
 
 print(MultiWiiMessageHeader.PREAMBLE)
 print(MultiWiiMessageHeader.INCOMING)
