@@ -17,4 +17,4 @@ class MultiWiiMessagePayload(object):
 
         for byte in payload: checksum ^= byte
 
-        return checksum
+        return checksum & 0xff
