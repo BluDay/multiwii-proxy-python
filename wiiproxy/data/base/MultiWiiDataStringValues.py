@@ -5,7 +5,5 @@ from typing      import Final
 
 @dataclass(slots=True)
 class MultiWiiDataStringValues(MultiWiiDataStructure):
-    """
-    The base class for data values with a single, public string tuple member.
-    """
+    """The base class for data values with a single, public string tuple member."""
     values: Final[Tuple[str]] = ()

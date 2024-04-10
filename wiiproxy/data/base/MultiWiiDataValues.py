@@ -22,18 +22,19 @@ from .. import (
     Waypoint
 )
 
+from typing import NoReturn
+
 class MultiWiiDataValues(object):
-    """
-    The class used for initializing all MSP data value instances and creating
-    corresponding private fields for an instance of this type, or of a derived type.
+    """The class used for initializing all MSP data value instances.
+
+    And for creating corresponding private fields for an instance of this type,
+    or of a derived type.
     """
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
-    def _reset_data(self) -> None:
-        """
-        Resets all data value instances. defines each field if not already defined.
-        """
+    def _reset_data(self) -> NoReturn:
+        """Resets all data value instances. defines each field if not already defined."""
         self.ident      = Ident()
         self.status     = Status()
         self.raw_imu    = RawImu()

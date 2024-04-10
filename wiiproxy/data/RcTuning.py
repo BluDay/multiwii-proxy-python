@@ -5,9 +5,7 @@ from typing      import Final
 
 @dataclass(slots=True)
 class RcTuning(MultiWiiDataStructure):
-    """
-    Represents data values for the MSP_RC_TUNING command.
-    """
+    """Represents data values for the MSP_RC_TUNING command."""
     rate: Final[int] = 0
     expo: Final[int] = 0
 

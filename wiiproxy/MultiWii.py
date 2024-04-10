@@ -7,8 +7,7 @@ from typing    import ClassVar, Final, NoReturn
 from queue     import PriorityQueue
 
 class MultiWii(object, MultiWiiDataValues):
-    """
-    The main class for wiiproxy that handles everything.
+    """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
     instantiation. Everything else—like the commands, the thread, each data instance—gets
@@ -31,26 +30,19 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
-    """
-    Default maximum size for the priority queue.
-    """
+    """Default maximum size for the priority queue."""
     DEFAULT_MESSAGE_QUEUE_MAXSIZE: Final[int] = 100
 
-    """
-    Default delay (in seconds) for serial writes.
-    """
+    """Default delay (in seconds) for serial writes."""
     DEFAULT_WRITE_DELAY: Final[float] = 0.005
 
-    """
-    The MSP version used.
-    """
+    """The MSP version used."""
     MSP_VERSION: Final[str] = 'v1'
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
-        """
-        Initializes an instance using the provided serial connection.
+        """Initializes an instance using the provided serial connection.
         
         The provided serial instance that presumably has been connected with a device
         with a baudrate of 115200.
@@ -74,9 +66,7 @@ class MultiWii(object, MultiWiiDataValues):
         self._reset_data()
 
     def __del__(self) -> NoReturn:
-        """
-        Stops the worker and the thread at destruction.
-        """
+        """Stops the worker and the thread at destruction."""
         self.stop()
 
         self._message_processing_thread = None
@@ -89,22 +79,17 @@ class MultiWii(object, MultiWiiDataValues):
 
     @property
     def is_active(self) -> bool:
-        """
-        Gets a value indicating whether the flight controller communication is active.
-        """
+        """Gets a value indicating whether the flight controller communication is active."""
         return self._is_active
 
     @property
     def serial(self) -> Serial:
-        """
-        Gets the used serial instance that was provided at instantiation.
-        """
+        """Gets the used serial instance that was provided at instantiation."""
         return self._serial
 
     @message_write_delay.setter
     def message_write_delay(self, value: float) -> NoReturn:
-        """
-        Sets the write delay value.
+        """Sets the write delay value.
 
         Parameters:
             value (float): A floating-point value in seconds.
@@ -121,8 +106,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     @staticmethod
     def _calculate_crc(payload: bytes) -> int:
-        """
-        Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
+        """Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
 
         Parameters:
             payload (bytes): The serialized payload.
@@ -139,8 +123,7 @@ class MultiWii(object, MultiWiiDataValues):
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
     def _process_message_queue(self) -> NoReturn:
-        """
-        The thread worker method that performs the whole communication part.
+        """The thread worker method that performs the whole communication part.
 
         This worker method runs continously in a thread and handles everything
         from enqueuing commands and sending messages to the flight controller, to
@@ -160,16 +143,12 @@ class MultiWii(object, MultiWiiDataValues):
             pass
 
     def _reset_input_output_buffer(self) -> NoReturn:
-        """
-        Resets both the input and output buffer of the serial connection.
-        """
+        """Resets both the input and output buffer of the serial connection."""
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
-        """
-        Starts the worker thread and enables communication to the craft.
-        """
+        """Starts the worker thread and enables communication to the craft."""
         if self._is_active: return
         
         self._message_processing_thread.start()
@@ -177,9 +156,7 @@ class MultiWii(object, MultiWiiDataValues):
         self._is_active = True
 
     def stop(self) -> NoReturn:
-        """
-        Stops the worker thread and disables all communication.
-        """
+        """Stops the worker thread and disables all communication."""
         if not self._is_active: return
 
         self._message_processing_thread.join()
