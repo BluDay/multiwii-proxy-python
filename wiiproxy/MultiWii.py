@@ -19,7 +19,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
-    _command_queue: ClassVar[PriorityQueue]
+    _message_queue: ClassVar[PriorityQueue]
 
     _thread: ClassVar[Thread]
 
@@ -34,7 +34,7 @@ class MultiWii(object, MultiWiiDataValues):
     """
     Default maximum size for the priority queue.
     """
-    DEFAULT_QUEUE_MAXSIZE: Final[int] = 100
+    DEFAULT_MESSAGE_QUEUE_MAXSIZE: Final[int] = 100
 
     """
     Default delay (in seconds) for serial writes.
@@ -56,9 +56,9 @@ class MultiWii(object, MultiWiiDataValues):
         if not isinstance(serial, Serial):
             raise TypeError
 
-        self._command_queue = PriorityQueue(maxsize=self.DEFAULT_QUEUE_SIZE)
+        self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self._thread = Thread(target=self._handle_command_queue)
+        self._thread = Thread(target=self._process_message_queue)
 
         self.is_active = False
 
@@ -74,7 +74,7 @@ class MultiWii(object, MultiWiiDataValues):
         """
         self.stop()
 
-        self._command_queue = None
+        self._message_queue = None
 
         self._thread = None
 
@@ -119,7 +119,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     # ------------------------------------ INSTANCE METHODS ------------------------------------
     
-    def _handle_command_queue(self) -> None:
+    def _process_command_queue(self) -> None:
         """
         The thread worker method that performs the whole communication part.
 
