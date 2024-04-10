@@ -151,8 +151,7 @@ class MultiWii(object, MultiWiiDataValues):
         """
         Starts the worker thread and enables communication to the craft.
         """
-        if self._is_active:
-            return
+        if self._is_active: return
         
         self._message_processing_thread.start()
         
@@ -162,8 +161,7 @@ class MultiWii(object, MultiWiiDataValues):
         """
         Stops the worker thread and disables all communication.
         """
-        if not self._is_active:
-            return
+        if not self._is_active: return
 
         self._message_processing_thread.join()
 
