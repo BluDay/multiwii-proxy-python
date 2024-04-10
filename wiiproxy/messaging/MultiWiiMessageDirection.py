@@ -1,10 +1,7 @@
 from typing import Final
 
 class MultiWiiMessageDirection(object):
-    """An enum-like class for message direction characters.
-
-    Includes additional methods for retrieving each direction character as a serialized value.
-    """
+    """An enum-like class for message direction characters."""
 
     """The error character."""
     ERROR: Final[str] = '!'
