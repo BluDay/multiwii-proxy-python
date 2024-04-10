@@ -144,25 +144,25 @@ class MultiWii(object, MultiWiiDataValues):
         """
         Resets both the input and output buffer of the serial connection.
         """
-        self._serial.reset_input_buffer()
-        self._serial.reset_output_buffer()
+        self.serial.reset_input_buffer()
+        self.serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
         """
         Starts the worker thread and enables communication to the craft.
         """
-        if self._is_active: return
+        if self.is_active: return
         
         self._message_processing_thread.start()
         
-        self._is_active = True
+        self.is_active = True
 
     def stop(self) -> NoReturn:
         """
         Stops the worker thread and disables all communication.
         """
-        if not self._is_active: return
+        if not self.is_active: return
 
         self._message_processing_thread.join()
 
-        self._is_active = False
+        self.is_active = False
