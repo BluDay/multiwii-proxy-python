@@ -25,9 +25,9 @@ class MultiWii(object, MultiWiiDataValues):
 
     is_active: ClassVar[bool]
 
-    serial: ClassVar[Serial]
+    message_write_delay: ClassVar[int]
 
-    write_delay: ClassVar[int]
+    serial: ClassVar[Serial]
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
@@ -62,9 +62,9 @@ class MultiWii(object, MultiWiiDataValues):
 
         self.is_active = False
 
-        self.serial = serial
+        self.message_write_delay = self.DEFAULT_WRITE_DELAY
 
-        self.write_delay = self.DEFAULT_WRITE_DELAY
+        self.serial = serial
 
         self._reset_data()
 
@@ -82,8 +82,8 @@ class MultiWii(object, MultiWiiDataValues):
 
     # --------------------------------------- PROPERTIES ---------------------------------------
 
-    @write_delay.setter
-    def write_delay(self, value: float) -> None:
+    @message_write_delay.setter
+    def message_write_delay(self, value: float) -> None:
         """
         Sets the write delay value.
 
@@ -96,7 +96,7 @@ class MultiWii(object, MultiWiiDataValues):
         if value < 0:
             raise ValueError
             
-        self.write_delay = value
+        self.message_write_delay = value
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
@@ -154,7 +154,7 @@ class MultiWii(object, MultiWiiDataValues):
         if self._is_active:
             return
         
-        self._thread.start()
+        self._message_processing_thread.start()
         
         self._is_active = True
 
@@ -165,6 +165,6 @@ class MultiWii(object, MultiWiiDataValues):
         if not self._is_active:
             return
 
-        self._thread.join()
+        self._message_processing_thread.join()
 
         self._is_active = False
