@@ -24,28 +24,14 @@ class MultiWiiMessageDirection(object):
     """
     A serialized error character.
     """
-    SERIALIZED_ERROR: Final[int] = _serialize_to_int8(ERROR)
+    SERIALIZED_ERROR: Final[int] = 0 # serialize_to_int8(ERROR)
 
     """
     A serialized incoming direction character.
     """
-    SERIALIZED_INCOMING: Final[int] = _serialize_to_int8(INCOMING)
+    SERIALIZED_INCOMING: Final[int] = 0 # serialize_to_int8(INCOMING)
 
     """
     A serialized outgoing direction character.
     """
-    SERIALIZED_OUTGOING: Final[int] = _serialize_to_int8(OUTGOING)
-
-    # ------------------------------------- CLASS METHODS --------------------------------------
-
-    def _serialize_to_int8(value: str) -> int:
-        """
-        Gets the value of the first character as an 8-bit signed integer.
-
-        Parameters:
-            value (str): The value to serialize.
-
-        Returns:
-            int: The serialized value.
-        """
-        return ord(value) & 0xff
+    SERIALIZED_OUTGOING: Final[int] = 0 # serialize_to_int8(OUTGOING)

@@ -1,4 +1,4 @@
-from .data import (
+from .. import (
     Altitude,
     Analog,
     Attitude,
