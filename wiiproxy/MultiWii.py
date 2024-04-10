@@ -21,7 +21,7 @@ class MultiWii(object, MultiWiiDataValues):
 
     _message_queue: ClassVar[PriorityQueue]
 
-    _thread: ClassVar[Thread]
+    _message_processing_thread: ClassVar[Thread]
 
     is_active: ClassVar[bool]
 
@@ -58,7 +58,7 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self._thread = Thread(target=self._process_message_queue)
+        self._message_processing_thread = Thread(target=self._process_message_queue)
 
         self.is_active = False
 
@@ -76,7 +76,7 @@ class MultiWii(object, MultiWiiDataValues):
 
         self._message_queue = None
 
-        self._thread = None
+        self._message_processing_thread = None
 
         self.serial = None
 
