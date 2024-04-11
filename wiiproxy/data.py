@@ -256,22 +256,22 @@ class MultiWiiDataValues(object):
         self.motor_pins = MotorPins(values=None)
 
         self.rc = Rc(
-		    roll=None,
+            roll=None,
             pitch=None,
             yaw=None,
             throttle=None,
             aux=None
-		)
+        )
 
         self.rc_tuning = RcTuning(
-		    rate=None,
+            rate=None,
             expo=None,
             roll_pitch_rate=None,
             yaw_rate=None,
             dynamic_throttle_pid=None,
             throttle_mid=None,
             throttle_expo=None
-		)
+        )
 
         self.attitude = Attitude(angle=None, heading=None)
 
@@ -281,35 +281,35 @@ class MultiWiiDataValues(object):
         )
 
         self.raw_gps = RawGps(
-		    fix=None,
+            fix=None,
             satellites=None,
             coordinates=None,
             altitude=None,
             speed=None,
             ground_course=None
-		)
+        )
 
         self.comp_gps = CompGps(
-		    distance_to_home=None,
-		    direction_to_home=None,
+            distance_to_home=None,
+            direction_to_home=None,
             update=None
-		)
+        )
 
         self.wp = Waypoint(
-	        number=None,
+            number=None,
             position=None,
             alt_hold=None,
             heading=None,
             time_to_stay=None,
             flag=None
-		)
+        )
 
         self.analog = Analog(
-		    voltage=None,
+            voltage=None,
             power_meter=None,
             rssi=None,
             amperage=None
-		)
+        )
 
         self.pid = Pid(values=None)
 
@@ -322,7 +322,7 @@ class MultiWiiDataValues(object):
         self.boxids = BoxIds(values=None)
 
         self.misc = Misc(
-		    power_trigger=None,
+            power_trigger=None,
             throttle_failsafe=None,
             throttle_idle=None,
             throttle_min=None,
@@ -334,4 +334,4 @@ class MultiWiiDataValues(object):
             battery_warn_1=None,
             battery_warn_2=None,
             battery_critical=None
-		)
+        )
