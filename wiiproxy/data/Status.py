@@ -1,7 +1,7 @@
 from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final, Tuple
+from typing      import Final
 
 @dataclass(slots=True)
 class Status(MultiWiiDataStructure):
@@ -10,7 +10,7 @@ class Status(MultiWiiDataStructure):
 
     i2c_errors: Final[int | None]
 
-    sensors: Final[Tuple[int] | None]
+    sensors: Final[tuple[int] | None]
 
     flag: Final[int | None]
 

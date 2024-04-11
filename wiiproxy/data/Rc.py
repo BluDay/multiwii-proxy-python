@@ -1,7 +1,7 @@
 from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final, Tuple
+from typing      import Final
 
 @dataclass(slots=True)
 class Rc(MultiWiiDataStructure):
@@ -11,4 +11,4 @@ class Rc(MultiWiiDataStructure):
     yaw:      Final[int | None]
     throttle: Final[int | None]
 
-    aux: Final[Tuple[int] | None]
+    aux: Final[tuple[int] | None]

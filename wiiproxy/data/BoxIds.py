@@ -7,4 +7,4 @@ from typing      import Final
 @dataclass(slots=True)
 class BoxIds(MultiWiiDataStructure):
     """Represents data values for the MSP_BOXIDS command."""
-    values: Final[Tuple[MultiWiiBox] | None]
+    values: Final[tuple[MultiWiiBox] | None]

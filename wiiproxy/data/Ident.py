@@ -2,7 +2,7 @@ from wiiproxy.config                          import MultiWiiCapability, MultiWi
 from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final, Tuple
+from typing      import Final
 
 @dataclass(slots=True)
 class Ident(MultiWiiDataStructure):
@@ -11,6 +11,6 @@ class Ident(MultiWiiDataStructure):
 
     multitype: Final[MultiWiiMultitype | None]
 
-    capabilities: Final[Tuple[MultiWiiCapability] | None]
+    capabilities: Final[tuple[MultiWiiCapability] | None]
 
     navi_version: Final[int | None]
