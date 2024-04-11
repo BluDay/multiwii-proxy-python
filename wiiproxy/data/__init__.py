@@ -1,7 +1,11 @@
-from wiiproxy.config import (
-    MultiWiiBox,
-    MultiWiiCapability,
-    MultiWiiMultitype
+from wiiproxy.config.box        import MultiWiiBox
+from wiiproxy.config.capability import MultiWiiCapability
+from wiiproxy.config.multitype  import MultiWiiMultitype
+
+from wiiproxy.data.base import (
+    _MultiWiiDataIntegerValues,
+    _MultiWiiDataStringValues,
+    _MultiWiiDataStructure
 )
 
 from dataclasses import dataclass
