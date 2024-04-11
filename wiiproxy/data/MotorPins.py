@@ -1,4 +1,4 @@
-from .base import MultiWiiDataIntegerValues
+from wiiproxy.data.base import MultiWiiDataIntegerValues
 
 class MotorPins(MultiWiiDataIntegerValues):
     """Represents data values for the MSP_MOTOR_PINS command."""

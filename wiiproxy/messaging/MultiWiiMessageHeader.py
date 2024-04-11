@@ -1,4 +1,4 @@
-from .MultiWiiMessageDirection import MultiWiiMessageDirection
+from wiiproxy.messaging.MultiWiiMessageDirection import MultiWiiMessageDirection
 
 from typing import Final
 

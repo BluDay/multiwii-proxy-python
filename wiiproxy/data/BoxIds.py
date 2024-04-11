@@ -1,5 +1,5 @@
-from .base    import MultiWiiDataStructure
-from ..config import MultiWiiBox
+from wiiproxy.config    import MultiWiiBox
+from wiiproxy.data.base import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final
