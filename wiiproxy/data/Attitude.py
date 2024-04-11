@@ -1,4 +1,4 @@
-from .base import MultiWiiDataStructure
+from wiiproxy.data.base import MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Final

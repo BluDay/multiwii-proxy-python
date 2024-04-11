@@ -1,4 +1,4 @@
-from .. import (
+from wiiproxy.data import (
     Altitude,
     Analog,
     Attitude,
