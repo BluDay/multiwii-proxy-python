@@ -1,4 +1,4 @@
-from wiiproxy.data import MultiWiiDataValues
+from wiiproxy.data.values import MultiWiiDataValues
 
 from serial    import Serial
 from threading import Thread

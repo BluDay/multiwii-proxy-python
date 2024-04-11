@@ -1,5 +1,27 @@
+from wiiproxy.data import (
+    Altitude,
+    Analog,
+    Attitude,
+    Box,
+    BoxIds,
+    BoxNames,
+    CompGps,
+    Ident,
+    Misc,
+    Motor,
+    MotorPins,
+    RawGps,
+    RawImu,
+    Rc,
+    RcTuning,
+    Servo,
+    ServoConf,
+    Status,
+    Waypoint
+)
+
 from dataclasses import dataclass
-from typing      import NoReturn, Optional
+from typing      import NoReturn
 
 @dataclass(slots=True)
 class MultiWiiDataValues(object):
