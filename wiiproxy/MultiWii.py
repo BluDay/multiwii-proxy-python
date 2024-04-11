@@ -3,7 +3,7 @@ from wiiproxy.data.base.MultiWiiDataValues import MultiWiiDataValues
 from serial    import Serial
 from threading import Thread
 from time      import sleep
-from typing    import ClassVar, Final, NoReturn
+from typing    import Final, NoReturn
 from queue     import PriorityQueue
 
 class MultiWii(MultiWiiDataValues):
@@ -18,15 +18,15 @@ class MultiWii(MultiWiiDataValues):
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
-    _is_active: ClassVar[bool]
+    _is_active: bool
 
-    _message_processing_thread: ClassVar[Thread | None]
+    _message_processing_thread: Thread | None
 
-    _message_queue: ClassVar[PriorityQueue | None]
+    _message_queue: PriorityQueue | None
 
-    _message_write_delay: ClassVar[int]
+    _message_write_delay: int
 
-    _serial: ClassVar[Serial | None]
+    _serial: Serial | None
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
