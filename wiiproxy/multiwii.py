@@ -27,7 +27,7 @@ class MultiWii(object):
     """The MSP version used."""
     MSP_VERSION: Final[str] = 'v1'
 
-    # ------------------------------------ CLASS VARIABLES -------------------------------------
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     _data: MultiWiiDataValues
 
@@ -61,7 +61,7 @@ class MultiWii(object):
         self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
         self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
-    
+
         if not isinstance(serial, Serial):
             raise TypeError
 
@@ -114,8 +114,8 @@ class MultiWii(object):
             
         self._message_write_delay = value
 
-    # ------------------------------------ INSTANCE METHODS ------------------------------------
-    
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
     def _process_message_queue(self) -> NoReturn:
         """The thread worker method that performs the whole communication part.
 

@@ -202,7 +202,7 @@ class Waypoint(_MultiWiiDataStructure):
 class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     
-    # ------------------------------------ CLASS VARIABLES -------------------------------------
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     ident:      Ident
     status:     Status
