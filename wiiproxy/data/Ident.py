@@ -9,7 +9,7 @@ class Ident(MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
     version: Final[float | None]
 
-    multitype: Final[MultiWiiMultitype | None]
+    multitype: Final[MultiWiiMultitype]
 
     capabilities: Final[tuple[MultiWiiCapability] | None]
 
