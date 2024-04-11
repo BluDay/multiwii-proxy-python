@@ -1,4 +1,4 @@
-from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataIntegerValues
+from wiiproxy.data.base.MultiWiiDataIntegerValues import MultiWiiDataIntegerValues
 
 class Box(MultiWiiDataIntegerValues):
     """Represents data values for the MSP_BOX command."""
