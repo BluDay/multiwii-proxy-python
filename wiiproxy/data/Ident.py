@@ -1,8 +1,8 @@
-from wiiproxy.config    import MultiWiiCapability, MultiWiiMultitype
-from wiiproxy.data.base import MultiWiiDataStructure
+from wiiproxy.config                          import MultiWiiCapability, MultiWiiMultitype
+from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final
+from typing      import Final, Tuple
 
 @dataclass(slots=True)
 class Ident(MultiWiiDataStructure):

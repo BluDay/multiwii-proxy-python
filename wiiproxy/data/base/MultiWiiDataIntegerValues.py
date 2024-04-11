@@ -1,9 +1,9 @@
-from wiiproxy.data.base import MultiWiiDataStructure
+from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final
+from typing      import Final, Tuple
 
 @dataclass(slots=True)
 class MultiWiiDataIntegerValues(MultiWiiDataStructure):
-    """The base class for data values with a single, public int tuple member."""
+    """The base MultiWii class for data values with a single, public int tuple member."""
     values: Final[Tuple[int] | None]
