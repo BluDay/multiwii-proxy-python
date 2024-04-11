@@ -58,7 +58,7 @@ class MultiWii(MultiWiiDataValues):
 
         self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
 
-        if isinstance(serial, Serial):
+        if not isinstance(serial, Serial):
             raise TypeError
 
         self._serial = serial
