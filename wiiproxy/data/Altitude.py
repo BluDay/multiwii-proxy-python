@@ -1,7 +1,7 @@
 from wiiproxy.data.base.MultiWiiDataStructure import MultiWiiDataStructure
 
 from dataclasses import dataclass
-from typing      import Final, Tuple
+from typing      import Final
 
 @dataclass(slots=True)
 class Altitude(MultiWiiDataStructure):

@@ -10,7 +10,7 @@ class RawGps(MultiWiiDataStructure):
 
     satellites: Final[int | None]
 
-    coordinates: Final[Tuple[int] | None]
+    coordinates: Final[tuple[int] | None]
 
     altitude: Final[int | None]
 
