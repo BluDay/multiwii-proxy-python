@@ -15,10 +15,10 @@ class MultiWiiMessageHeader(object):
     OUTGOING: Final[str] = f'{PREAMBLE}{MultiWiiMessageDirection.OUTGOING}'
 
     """ A serialized preamble."""
-    SERIALIZED_PREAMBLE: Final[bytes] = 0 # encode(PREAMBLE)
+    SERIALIZED_PREAMBLE: Final[bytes] = int() # encode(PREAMBLE)
 
     """A serialized incoming header."""
-    SERIALIZED_INCOMING: Final[bytes] = 0 # encode(INCOMING)
+    SERIALIZED_INCOMING: Final[bytes] = int() # encode(INCOMING)
 
     """A serialized outgoing header."""
-    SERIALIZED_OUTGOING: Final[bytes] = 0 # encode(OUTGOING)
+    SERIALIZED_OUTGOING: Final[bytes] = int() # encode(OUTGOING)
