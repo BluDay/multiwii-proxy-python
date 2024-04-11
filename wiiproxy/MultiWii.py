@@ -20,13 +20,13 @@ class MultiWii(object, MultiWiiDataValues):
 
     _is_active: ClassVar[bool]
 
-    _message_processing_thread: ClassVar[Thread]
+    _message_processing_thread: ClassVar[Thread | None]
 
-    _message_queue: ClassVar[PriorityQueue]
+    _message_queue: ClassVar[PriorityQueue | None]
 
     _message_write_delay: ClassVar[int]
 
-    _serial: ClassVar[Serial]
+    _serial: ClassVar[Serial | None]
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
