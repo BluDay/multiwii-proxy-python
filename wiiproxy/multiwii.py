@@ -6,7 +6,7 @@ from time      import sleep
 from typing    import Final, NoReturn
 from queue     import PriorityQueue
 
-class MultiWii(object):
+class MultiWii(MultiWiiDataValues):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
@@ -29,8 +29,6 @@ class MultiWii(object):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _data: MultiWiiDataValues
-
     _is_active: bool
 
     _message_processing_thread: Thread | None
@@ -52,8 +50,6 @@ class MultiWii(object):
         Parameters:
             serial (Serial): The serial connection instance.
         """
-        self._data = MultiWiiDataValues()
-
         self._is_active = False
 
         self._message_processing_thread = Thread(target=self._process_message_queue)
@@ -62,10 +58,12 @@ class MultiWii(object):
 
         self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
 
-        if not isinstance(serial, Serial):
+        if isinstance(serial, Serial):
             raise TypeError
 
         self._serial = serial
+
+        self._reset_data()
 
     def __del__(self) -> NoReturn:
         """Stops the worker and the thread at destruction."""

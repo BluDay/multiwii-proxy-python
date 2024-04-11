@@ -5,7 +5,7 @@ from wiiproxy.config import (
 )
 
 from dataclasses import dataclass
-from typing      import Final, NoReturn
+from typing      import NoReturn, Optional
 
 class _MultiWiiDataStructure(object):
     """Represents the base class for MSP data structure classes."""
@@ -14,37 +14,37 @@ class _MultiWiiDataStructure(object):
 @dataclass(slots=True)
 class _MultiWiiDataIntegerValues(_MultiWiiDataStructure):
     """The base MultiWii class for data values with a single, public int tuple member."""
-    values: Final[tuple[int] | None]
+    values: Optional[tuple[int]]
 
 @dataclass(slots=True)
 class _MultiWiiDataStringValues(_MultiWiiDataStructure):
     """The base class for data values with a single, public string tuple member."""
-    values: Final[tuple[str] | None]
+    values: Optional[tuple[str]]
 
 @dataclass(slots=True)
 class Altitude(_MultiWiiDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
-    estimation: Final[int | None]
+    estimation: Optional[int]
 
-    pressure_variation: Final[int | None]
+    pressure_variation: Optional[int]
 
 @dataclass(slots=True)
 class Analog(_MultiWiiDataStructure):
     """Represents data values for the MSP_ANALOG command."""
-    voltage: Final[int | None]
+    voltage: Optional[int]
 
-    power_meter: Final[int | None] # Unclear
+    power_meter: Optional[int] # Unclear
 
-    rssi: Final[int | None]
+    rssi: Optional[int]
 
-    amperage: Final[int | None]
+    amperage: Optional[int]
 
 @dataclass(slots=True)
 class Attitude(_MultiWiiDataStructure):
     """Represents data values for the MSP_ATTITUDE command."""
-    angle: Final[tuple[int] | None]
+    angle: Optional[tuple[int]]
 
-    heading: Final[int | None]
+    heading: Optional[int]
 
 class Box(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_BOX command."""
@@ -53,7 +53,7 @@ class Box(_MultiWiiDataIntegerValues):
 @dataclass(slots=True)
 class BoxIds(_MultiWiiDataStructure):
     """Represents data values for the MSP_BOXIDS command."""
-    values: Final[tuple[MultiWiiBox] | None]
+    values: Optional[tuple[MultiWiiBox]]
 
 class BoxNames(_MultiWiiDataStringValues):
     """Represents data values for the MSP_BOXNAMES command."""
@@ -62,42 +62,42 @@ class BoxNames(_MultiWiiDataStringValues):
 @dataclass(slots=True)
 class CompGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_COMP_GPS command."""
-    distance_to_home: Final[int | None]
+    distance_to_home: Optional[int]
 
-    direction_to_home: Final[int | None]
+    direction_to_home: Optional[int]
 
-    update: Final[int | None] # What?
+    update: Optional[int] # What?
 
 @dataclass(slots=True)
 class Ident(_MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
-    version: Final[float | None]
+    version: Optional[float]
 
-    multitype: Final[MultiWiiMultitype]
+    multitype: Optional[MultiWiiMultitype]
 
-    capabilities: Final[tuple[MultiWiiCapability] | None]
+    capabilities: Optional[tuple[MultiWiiCapability]]
 
-    navi_version: Final[int | None]
+    navi_version: Optional[int]
 
 @dataclass(slots=True)
 class Misc(_MultiWiiDataStructure):
     """Represents data values for the MSP_MISC command."""
-    power_trigger: Final[int | None]
+    power_trigger: Optional[int]
 
-    throttle_failsafe: Final[int | None]
-    throttle_idle:     Final[int | None]
-    throttle_min:      Final[int | None]
-    throttle_max:      Final[int | None]
+    throttle_failsafe: Optional[int]
+    throttle_idle:     Optional[int]
+    throttle_min:      Optional[int]
+    throttle_max:      Optional[int]
 
-    plog_arm:      Final[int | None]
-    plog_lifetime: Final[int | None]
+    plog_arm:      Optional[int]
+    plog_lifetime: Optional[int]
 
-    mag_declination: Final[int | None]
+    mag_declination: Optional[int]
 
-    battery_scale:    Final[int | None]
-    battery_warn_1:   Final[int | None]
-    battery_warn_2:   Final[int | None]
-    battery_critical: Final[int | None]
+    battery_scale:    Optional[int]
+    battery_warn_1:   Optional[int]
+    battery_warn_2:   Optional[int]
+    battery_critical: Optional[int]
 
 class Motor(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_MOTOR command."""
@@ -118,49 +118,49 @@ class PidNames(_MultiWiiDataStringValues):
 @dataclass(slots=True)
 class RawGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
-    fix: Final[int | None]
+    fix: Optional[int]
 
-    satellites: Final[int | None]
+    satellites: Optional[int]
 
-    coordinates: Final[tuple[int] | None]
+    coordinates: Optional[tuple[int]]
 
-    altitude: Final[int | None]
+    altitude: Optional[int]
 
-    speed: Final[int | None]
+    speed: Optional[int]
 
-    ground_course: Final[int | None]
+    ground_course: Optional[int]
 
 @dataclass(slots=True)
 class RawImu(_MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_IMU command."""
-    acc:  Final[tuple[int] | None]
-    gyro: Final[tuple[int] | None]
-    mag:  Final[tuple[int] | None]
+    acc:  Optional[tuple[int]]
+    gyro: Optional[tuple[int]]
+    mag:  Optional[tuple[int]]
 
 @dataclass(slots=True)
 class Rc(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC command."""
-    roll:     Final[int | None]
-    pitch:    Final[int | None]
-    yaw:      Final[int | None]
-    throttle: Final[int | None]
+    roll:     Optional[int]
+    pitch:    Optional[int]
+    yaw:      Optional[int]
+    throttle: Optional[int]
 
-    aux: Final[tuple[int] | None]
+    aux: Optional[tuple[int]]
 
 @dataclass(slots=True)
 class RcTuning(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
-    rate: Final[int | None]
-    expo: Final[int | None]
+    rate: Optional[int]
+    expo: Optional[int]
 
-    roll_pitch_rate: Final[int | None]
+    roll_pitch_rate: Optional[int]
 
-    yaw_rate: Final[int | None]
+    yaw_rate: Optional[int]
 
-    dynamic_throttle_pid: Final[int | None]
+    dynamic_throttle_pid: Optional[int]
 
-    throttle_mid:  Final[int | None]
-    throttle_expo: Final[int | None]
+    throttle_mid:  Optional[int]
+    throttle_expo: Optional[int]
 
 class Servo(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_SERVO command."""
@@ -173,30 +173,30 @@ class ServoConf(_MultiWiiDataIntegerValues):
 @dataclass(slots=True)
 class Status(_MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
-    cycle_time: Final[int | None]
+    cycle_time: Optional[int]
 
-    i2c_errors: Final[int | None]
+    i2c_errors: Optional[int]
 
-    sensors: Final[tuple[int] | None]
+    sensors: Optional[tuple[int]]
 
-    flag: Final[int | None]
+    flag: Optional[int]
 
-    global_conf: Final[int | None]
+    global_conf: Optional[int]
 
 @dataclass(slots=True)
 class Waypoint(_MultiWiiDataStructure):
     """Represents data values for the MSP_WP command."""
-    number: Final[int | None]
+    number: Optional[int]
 
-    position: Final[tuple[int] | None]
+    position: Optional[tuple[int]]
 
-    alt_hold: Final[int | None]
+    alt_hold: Optional[int]
 
-    heading: Final[int | None]
+    heading: Optional[int]
 
-    time_to_stay: Final[int | None]
+    time_to_stay: Optional[int]
 
-    flag: Final[int | None]
+    flag: Optional[int]
 
 @dataclass(slots=True)
 class MultiWiiDataValues(object):
@@ -226,34 +226,112 @@ class MultiWiiDataValues(object):
     boxids:     BoxIds
     misc:       Misc
 
-    # ------------------------------------- MAGIC METHODS --------------------------------------
-
-    def __init__(self) -> NoReturn:
-        """Initializes a new instance and creates default data values."""
-        self.reset()
-
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
-    def reset(self) -> NoReturn:
+    def _reset_data(self) -> NoReturn:
         """Resets all data value instances. defines each field if not already defined."""
-        self.ident      = Ident()
-        self.status     = Status()
-        self.raw_imu    = RawImu()
-        self.servo      = Servo()
-        self.servo_conf = ServoConf()
-        self.motor      = Motor()
-        self.motor_pins = MotorPins()
-        self.rc         = Rc()
-        self.rc_tuning  = RcTuning()
-        self.attitude   = Attitude()
-        self.altitude   = Altitude()
-        self.raw_gps    = RawGps()
-        self.comp_gps   = CompGps()
-        self.wp         = Waypoint()
-        self.analog     = Analog()
-        self.pid        = Pid()
-        self.pidnames   = PidNames()
-        self.box        = Box()
-        self.boxnames   = BoxNames()
-        self.boxids     = BoxIds()
-        self.misc       = Misc()
+        self.ident = Ident(
+            version=None,
+            multitype=None,
+            capabilities=None,
+            navi_version=None
+        )
+
+        self.status = Status(
+            cycle_time=None,
+            i2c_errors=None,
+            sensors=None,
+            flag=None,
+            global_conf=None
+        )
+
+        self.raw_imu = RawImu(acc=None, gyro=None, mag=None)
+
+        self.servo = Servo(values=None)
+
+        self.servo_conf = ServoConf(values=None)
+
+        self.motor = Motor(values=None)
+
+        self.motor_pins = MotorPins(values=None)
+
+        self.rc = Rc(
+		    roll=None,
+            pitch=None,
+            yaw=None,
+            throttle=None,
+            aux=None
+		)
+
+        self.rc_tuning = RcTuning(
+		    rate=None,
+            expo=None,
+            roll_pitch_rate=None,
+            yaw_rate=None,
+            dynamic_throttle_pid=None,
+            throttle_mid=None,
+            throttle_expo=None
+		)
+
+        self.attitude = Attitude(angle=None, heading=None)
+
+        self.altitude = Altitude(
+            estimation=None,
+            pressure_variation=None
+        )
+
+        self.raw_gps = RawGps(
+		    fix=None,
+            satellites=None,
+            coordinates=None,
+            altitude=None,
+            speed=None,
+            ground_course=None
+		)
+
+        self.comp_gps = CompGps(
+		    distance_to_home=None,
+		    direction_to_home=None,
+            update=None
+		)
+
+        self.wp = Waypoint(
+	        number=None,
+            position=None,
+            alt_hold=None,
+            heading=None,
+            time_to_stay=None,
+            flag=None
+		)
+
+        self.analog = Analog(
+		    voltage=None,
+            power_meter=None,
+            rssi=None,
+            amperage=None
+		)
+
+        self.pid = Pid(values=None)
+
+        self.pidnames = PidNames(values=None)
+
+        self.box = Box(values=None)
+
+        self.boxnames = BoxNames(values=None)
+
+        self.boxids = BoxIds(values=None)
+
+        self.misc = Misc(
+		    power_trigger=None,
+            throttle_failsafe=None,
+            throttle_idle=None,
+            throttle_min=None,
+            throttle_max=None,
+            plog_arm=None,
+            plog_lifetime=None,
+            mag_declination=None,
+            battery_scale=None,
+            battery_warn_1=None,
+            battery_warn_2=None,
+            battery_critical=None
+		)
