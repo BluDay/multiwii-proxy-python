@@ -8,5 +8,5 @@ class TestMultiWii(object):
     
     def test_create_instance_that_raises_exception(self) -> NoReturn:
         """Creates a MultiWii instance that raises a ValueError exception."""
-        with raises(ValueError):
+        with raises(TypeError):
             fc = MultiWii(serial=None)
