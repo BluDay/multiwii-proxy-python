@@ -9,5 +9,5 @@ setup(
     url='https://github.com/BluDay/wiiproxy',
     author='BluDay',
     license='MIT',
-    packages=('wiiproxy')
+    packages=('wiiproxy',)
 )
