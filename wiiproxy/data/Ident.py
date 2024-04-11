@@ -7,10 +7,10 @@ from typing      import Final
 @dataclass(slots=True)
 class Ident(MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
-    version: Final[float] = 0.0
+    version: Final[float | None]
 
-    multitype: Final[MultiWiiMultitype] = MultiWiiMultitype.Unidentified
+    multitype: Final[MultiWiiMultitype | None]
 
-    capabilities: Final[Tuple[MultiWiiCapability]] = ()
+    capabilities: Final[Tuple[MultiWiiCapability] | None]
 
-    navi_version: Final[int] = 0
+    navi_version: Final[int | None]
