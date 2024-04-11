@@ -201,6 +201,9 @@ class Waypoint(_MultiWiiDataStructure):
 @dataclass(slots=True)
 class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
+    
+    # ------------------------------------ CLASS VARIABLES -------------------------------------
+
     ident:      Ident
     status:     Status
     raw_imu:    RawImu
@@ -223,9 +226,15 @@ class MultiWiiDataValues(object):
     boxids:     BoxIds
     misc:       Misc
 
+    # ------------------------------------- MAGIC METHODS --------------------------------------
+
+    def __init__(self) -> NoReturn:
+        """Initializes a new instance and creates default data values."""
+        self.reset()
+
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
-    def reset_data(self) -> NoReturn:
+    def reset(self) -> NoReturn:
         """Resets all data value instances. defines each field if not already defined."""
         self.ident      = Ident()
         self.status     = Status()
