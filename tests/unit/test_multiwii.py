@@ -1,15 +1,12 @@
 from wiiproxy import MultiWii
 
-from typing   import NoReturn
-from unittest import main, TestCase
+from pytest import raises
+from typing import NoReturn
 
-class TestMultiWii(TestCase):
+class TestMultiWii(object):
     """Unit-test class for the MultiWii class."""
     
     def test_create_instance_that_raises_exception(self) -> NoReturn:
-        """Haha."""
-        with self.assertRaises(ValueError):
+        """Creates a MultiWii instance that raises a ValueError exception."""
+        with raises(ValueError):
             fc = MultiWii(serial=None)
-
-if __name__ == '__main__':
-    main()
