@@ -6,8 +6,8 @@ from typing      import Final
 @dataclass(slots=True)
 class CompGps(MultiWiiDataStructure):
     """Represents data values for the MSP_COMP_GPS command."""
-    distance_to_home: Final[int] = 0
+    distance_to_home: Final[int | None]
 
-    direction_to_home: Final[int] = 0
+    direction_to_home: Final[int | None]
 
-    update: Final[int] = 0 # What?
+    update: Final[int | None] # What?
