@@ -6,14 +6,14 @@ from typing      import Final
 @dataclass(slots=True)
 class RawGps(MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
-    fix: Final[int] = 0
+    fix: Final[int | None]
 
-    satellites: Final[int] = 0
+    satellites: Final[int | None]
 
-    coordinates: Final[Tuple[int]] = (0, 0)
+    coordinates: Final[Tuple[int] | None]
 
-    altitude: Final[int] = 0
+    altitude: Final[int | None]
 
-    speed: Final[int] = 0
+    speed: Final[int | None]
 
-    ground_course: Final[int] = 0
+    ground_course: Final[int | None]

@@ -6,12 +6,12 @@ from typing      import Final
 @dataclass(slots=True)
 class Status(MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
-    cycle_time: Final[int] = 0
+    cycle_time: Final[int | None]
 
-    i2c_errors: Final[int] = 0
+    i2c_errors: Final[int | None]
 
-    sensors: Final[Tuple[int]] = ()
+    sensors: Final[Tuple[int] | None]
 
-    flag: Final[int] = 0
+    flag: Final[int | None]
 
-    global_conf: Final[int] = 0
+    global_conf: Final[int | None]
