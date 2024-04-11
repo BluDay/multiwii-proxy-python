@@ -3,17 +3,17 @@ from wiiproxy.config import MultiWiiBox, MultiWiiCapability, MultiWiiMultitype
 from dataclasses import dataclass
 from typing      import Final, NoReturn
 
-class MultiWiiDataStructure(object):
+class _MultiWiiDataStructure(object):
     """Represents the base class for MSP data structure classes."""
     pass
 
 @dataclass(slots=True)
-class MultiWiiDataIntegerValues(MultiWiiDataStructure):
+class _MultiWiiDataIntegerValues(_MultiWiiDataStructure):
     """The base MultiWii class for data values with a single, public int tuple member."""
     values: Final[tuple[int] | None]
 
 @dataclass(slots=True)
-class MultiWiiDataStringValues(MultiWiiDataStructure):
+class _MultiWiiDataStringValues(_MultiWiiDataStructure):
     """The base class for data values with a single, public string tuple member."""
     values: Final[tuple[str] | None]
 
@@ -51,14 +51,14 @@ class MultiWiiDataValues(object):
         self.misc       = Misc()
 
 @dataclass(slots=True)
-class Altitude(MultiWiiDataStructure):
+class Altitude(_MultiWiiDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
     estimation: Final[int | None]
 
     pressure_variation: Final[int | None]
 
 @dataclass(slots=True)
-class Analog(MultiWiiDataStructure):
+class Analog(_MultiWiiDataStructure):
     """Represents data values for the MSP_ANALOG command."""
     voltage: Final[int | None]
 
@@ -69,27 +69,27 @@ class Analog(MultiWiiDataStructure):
     amperage: Final[int | None]
 
 @dataclass(slots=True)
-class Attitude(MultiWiiDataStructure):
+class Attitude(_MultiWiiDataStructure):
     """Represents data values for the MSP_ATTITUDE command."""
     angle: Final[tuple[int] | None]
 
     heading: Final[int | None]
 
-class Box(MultiWiiDataIntegerValues):
+class Box(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_BOX command."""
     pass
 
 @dataclass(slots=True)
-class BoxIds(MultiWiiDataStructure):
+class BoxIds(_MultiWiiDataStructure):
     """Represents data values for the MSP_BOXIDS command."""
     values: Final[tuple[MultiWiiBox] | None]
 
-class BoxNames(MultiWiiDataStringValues):
+class BoxNames(_MultiWiiDataStringValues):
     """Represents data values for the MSP_BOXNAMES command."""
     pass
 
 @dataclass(slots=True)
-class CompGps(MultiWiiDataStructure):
+class CompGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_COMP_GPS command."""
     distance_to_home: Final[int | None]
 
@@ -98,7 +98,7 @@ class CompGps(MultiWiiDataStructure):
     update: Final[int | None] # What?
 
 @dataclass(slots=True)
-class Ident(MultiWiiDataStructure):
+class Ident(_MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
     version: Final[float | None]
 
@@ -109,7 +109,7 @@ class Ident(MultiWiiDataStructure):
     navi_version: Final[int | None]
 
 @dataclass(slots=True)
-class Misc(MultiWiiDataStructure):
+class Misc(_MultiWiiDataStructure):
     """Represents data values for the MSP_MISC command."""
     power_trigger: Final[int | None]
 
@@ -128,24 +128,24 @@ class Misc(MultiWiiDataStructure):
     battery_warn_2:   Final[int | None]
     battery_critical: Final[int | None]
 
-class Motor(MultiWiiDataIntegerValues):
+class Motor(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_MOTOR command."""
     pass
 
-class MotorPins(MultiWiiDataIntegerValues):
+class MotorPins(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_MOTOR_PINS command."""
     pass
 
-class Pid(MultiWiiDataIntegerValues):
+class Pid(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_PID command."""
     pass
 
-class PidNames(MultiWiiDataStringValues):
+class PidNames(_MultiWiiDataStringValues):
     """Represents data values for the MSP_PIDNAMES command."""
     pass
 
 @dataclass(slots=True)
-class RawGps(MultiWiiDataStructure):
+class RawGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
     fix: Final[int | None]
 
@@ -160,14 +160,14 @@ class RawGps(MultiWiiDataStructure):
     ground_course: Final[int | None]
 
 @dataclass(slots=True)
-class RawImu(MultiWiiDataStructure):
+class RawImu(_MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_IMU command."""
     acc:  Final[tuple[int] | None]
     gyro: Final[tuple[int] | None]
     mag:  Final[tuple[int] | None]
 
 @dataclass(slots=True)
-class Rc(MultiWiiDataStructure):
+class Rc(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC command."""
     roll:     Final[int | None]
     pitch:    Final[int | None]
@@ -177,7 +177,7 @@ class Rc(MultiWiiDataStructure):
     aux: Final[tuple[int] | None]
 
 @dataclass(slots=True)
-class RcTuning(MultiWiiDataStructure):
+class RcTuning(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
     rate: Final[int | None]
     expo: Final[int | None]
@@ -191,16 +191,16 @@ class RcTuning(MultiWiiDataStructure):
     throttle_mid:  Final[int | None]
     throttle_expo: Final[int | None]
 
-class Servo(MultiWiiDataIntegerValues):
+class Servo(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_SERVO command."""
     pass
 
-class ServoConf(MultiWiiDataIntegerValues):
+class ServoConf(_MultiWiiDataIntegerValues):
     """Represents data values for the MSP_SERVO_CONF command."""
     pass
 
 @dataclass(slots=True)
-class Status(MultiWiiDataStructure):
+class Status(_MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
     cycle_time: Final[int | None]
 
@@ -213,7 +213,7 @@ class Status(MultiWiiDataStructure):
     global_conf: Final[int | None]
 
 @dataclass(slots=True)
-class Waypoint(MultiWiiDataStructure):
+class Waypoint(_MultiWiiDataStructure):
     """Represents data values for the MSP_WP command."""
     number: Final[int | None]
 
