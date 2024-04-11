@@ -5,8 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from wiiproxy.messaging.MultiWiiMessageHeader import MultiWiiMessageHeader
-from wiiproxy.messaging.MultiWiiCommands      import MultiWiiCommands
+from wiiproxy.messaging import MultiWiiCommands, MultiWiiMessageHeader
 
 print(MultiWiiMessageHeader.PREAMBLE)
 print(MultiWiiMessageHeader.INCOMING)
