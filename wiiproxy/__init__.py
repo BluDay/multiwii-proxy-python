@@ -4,7 +4,29 @@ __author__  = 'BluDay'
 
 __version__ = '1.0'
 
-from wiiproxy.data import MultiWiiDataValues
+from wiiproxy.data import (
+    Ident,
+    Status,
+    RawImu,
+    Servo,
+    ServoConf,
+    Motor,
+    MotorPins,
+    Rc,
+    RcTuning,
+    Attitude,
+    Altitude,
+    RawGps,
+    CompGps,
+    Waypoint,
+    Analog,
+    Pid,
+    PidNames,
+    Box,
+    BoxNames,
+    BoxIds,
+    Misc
+)
 
 from serial    import Serial
 from threading import Thread
@@ -12,7 +34,7 @@ from time      import sleep
 from typing    import Final, NoReturn
 from queue     import PriorityQueue
 
-class MultiWii(MultiWiiDataValues):
+class MultiWii(object):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
@@ -44,6 +66,28 @@ class MultiWii(MultiWiiDataValues):
     _message_write_delay: int
 
     _serial: Serial | None
+
+    ident:      Ident
+    status:     Status
+    raw_imu:    RawImu
+    servo:      Servo
+    servo_conf: ServoConf
+    motor:      Motor
+    motor_pins: MotorPins
+    rc:         Rc
+    rc_tuning:  RcTuning
+    attitude:   Attitude
+    altitude:   Altitude
+    raw_gps:    RawGps
+    comp_gps:   CompGps
+    wp:         Waypoint
+    analog:     Analog
+    pid:        Pid
+    pidnames:   PidNames
+    box:        Box
+    boxnames:   BoxNames
+    boxids:     BoxIds
+    misc:       Misc
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
@@ -134,6 +178,30 @@ class MultiWii(MultiWiiDataValues):
         """
         while True:
             pass
+
+    def _reset_data(self) -> NoReturn:
+        """Resets all data value instances. defines each field if not already defined."""
+        self.ident      = Ident()
+        self.status     = Status()
+        self.raw_imu    = RawImu()
+        self.servo      = Servo()
+        self.servo_conf = ServoConf()
+        self.motor      = Motor()
+        self.motor_pins = MotorPins()
+        self.rc         = Rc()
+        self.rc_tuning  = RcTuning()
+        self.attitude   = Attitude()
+        self.altitude   = Altitude()
+        self.raw_gps    = RawGps()
+        self.comp_gps   = CompGps()
+        self.wp         = Waypoint()
+        self.analog     = Analog()
+        self.pid        = Pid()
+        self.pidnames   = PidNames()
+        self.box        = Box()
+        self.boxnames   = BoxNames()
+        self.boxids     = BoxIds()
+        self.misc       = Misc()
 
     def _reset_input_output_buffer(self) -> NoReturn:
         """Resets both the input and output buffer of the serial connection."""
