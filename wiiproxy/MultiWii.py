@@ -83,11 +83,16 @@ class MultiWii(object, MultiWiiDataValues):
         return self._is_active
 
     @property
+    def message_write_delay(self) -> float:
+        """Gets the message write delay."""
+        return self._message_write_delay
+
+    @property
     def serial(self) -> Serial:
         """Gets the used serial instance that was provided at instantiation."""
         return self._serial
 
-    @_message_write_delay.setter
+    @message_write_delay.setter
     def message_write_delay(self, value: float) -> NoReturn:
         """Sets the write delay value.
 
