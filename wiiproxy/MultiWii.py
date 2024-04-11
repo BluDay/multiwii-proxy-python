@@ -15,6 +15,17 @@ class MultiWii(MultiWiiDataValues):
 
     Supports MSP v1 and not any of the newer versions.
     """
+    
+    # ------------------------------------ CLASS CONSTANTS -------------------------------------
+
+    """Default maximum size for the priority queue."""
+    DEFAULT_MESSAGE_QUEUE_MAXSIZE: Final[int] = 100
+
+    """Default delay (in seconds) for serial writes."""
+    DEFAULT_MESSAGE_WRITE_DELAY: Final[float] = 0.005
+
+    """The MSP version used."""
+    MSP_VERSION: Final[str] = 'v1'
 
     # ------------------------------------ CLASS VARIABLES -------------------------------------
 
@@ -28,17 +39,6 @@ class MultiWii(MultiWiiDataValues):
 
     _serial: Serial | None
 
-    # ------------------------------------ CLASS CONSTANTS -------------------------------------
-
-    """Default maximum size for the priority queue."""
-    DEFAULT_MESSAGE_QUEUE_MAXSIZE: Final[int] = 100
-
-    """Default delay (in seconds) for serial writes."""
-    DEFAULT_WRITE_DELAY: Final[float] = 0.005
-
-    """The MSP version used."""
-    MSP_VERSION: Final[str] = 'v1'
-
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
@@ -50,16 +50,16 @@ class MultiWii(MultiWiiDataValues):
         Parameters:
             serial (Serial): The serial connection instance.
         """
-        if not isinstance(serial, Serial):
-            raise TypeError
-
         self._is_active = False
 
         self._message_processing_thread = Thread(target=self._process_message_queue)
 
         self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self._message_write_delay = self.DEFAULT_WRITE_DELAY
+        self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
+    
+        if not isinstance(serial, Serial):
+            raise TypeError
 
         self._serial = serial
 
