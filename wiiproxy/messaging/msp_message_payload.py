@@ -1,4 +1,4 @@
-class MultiWiiMessagePayload(object):
+class MspMessagePayload(object):
     """A utility with various payload-related methods."""
 
     # ------------------------------------- STATIC METHODS -------------------------------------

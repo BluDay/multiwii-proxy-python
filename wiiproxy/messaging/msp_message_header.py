@@ -1,18 +1,18 @@
-from .direction import MultiWiiMessageDirection
+from .msp_message_direction import MspMessageDirection
 
 from typing import Final
 
-class MultiWiiMessageHeader(object):
+class MspMessageHeader(object):
     """The class for managing and analyzing MultiWii messages."""
 
     """The fixed MSP v1 preamble used for all messages."""
     PREAMBLE: Final[str] = '$M'
 
     """The incoming header."""
-    INCOMING: Final[str] = f'{PREAMBLE}{MultiWiiMessageDirection.INCOMING}'
+    INCOMING: Final[str] = f'{PREAMBLE}{MspMessageDirection.INCOMING}'
 
     """The outgoing header."""
-    OUTGOING: Final[str] = f'{PREAMBLE}{MultiWiiMessageDirection.OUTGOING}'
+    OUTGOING: Final[str] = f'{PREAMBLE}{MspMessageDirection.OUTGOING}'
 
     """ A serialized preamble."""
     SERIALIZED_PREAMBLE: Final[bytes] = int() # encode(PREAMBLE)

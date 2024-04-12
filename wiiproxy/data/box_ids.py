@@ -1,6 +1,6 @@
 from ._base import _MultiWiiDataStructure
 
-from ..config.box import MultiWiiBox
+from ..config.multiwii_box import MultiWiiBox
 
 from dataclasses import dataclass
 from typing      import Optional
