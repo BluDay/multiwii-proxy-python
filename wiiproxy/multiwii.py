@@ -1,4 +1,4 @@
-from wiiproxy.data.values import MultiWiiDataValues
+from wiiproxy.data import _MultiWiiDataValues
 
 from serial    import Serial
 from threading import Thread
@@ -6,7 +6,7 @@ from time      import sleep
 from typing    import Final, NoReturn
 from queue     import PriorityQueue
 
-class MultiWii(MultiWiiDataValues):
+class MultiWii(_MultiWiiDataValues):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
