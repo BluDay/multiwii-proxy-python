@@ -1,6 +1,6 @@
-from wiiproxy.config.box import MultiWiiBox
-from wiiproxy.data._base import _MultiWiiDataStructure
+from ._base import _MultiWiiDataStructure
 
+from ..config.box import MultiWiiBox
 
 from dataclasses import dataclass
 from typing      import Optional

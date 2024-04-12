@@ -1,6 +1,7 @@
-from wiiproxy.config.capability import MultiWiiCapability
-from wiiproxy.config.multitype  import MultiWiiMultitype
-from wiiproxy.data._base        import _MultiWiiDataStructure
+from ._base import _MultiWiiDataStructure
+
+from ..config.capability import MultiWiiCapability
+from ..config.multitype  import MultiWiiMultitype
 
 from dataclasses import dataclass
 from typing      import Optional
