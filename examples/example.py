@@ -5,16 +5,16 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from wiiproxy.commands         import MultiWiiCommands
-from wiiproxy.messaging.header import MultiWiiMessageHeader
+from wiiproxy.messaging.msp_commands       import MspCommands
+from wiiproxy.messaging.msp_message_header import MspMessageHeader
 
-print(MultiWiiMessageHeader.PREAMBLE)
-print(MultiWiiMessageHeader.INCOMING)
-print(MultiWiiMessageHeader.OUTGOING)
+print(MspMessageHeader.PREAMBLE)
+print(MspMessageHeader.INCOMING)
+print(MspMessageHeader.OUTGOING)
 
-print(MultiWiiMessageHeader.SERIALIZED_PREAMBLE)
-print(MultiWiiMessageHeader.SERIALIZED_INCOMING)
-print(MultiWiiMessageHeader.SERIALIZED_OUTGOING)
+print(MspMessageHeader.SERIALIZED_PREAMBLE)
+print(MspMessageHeader.SERIALIZED_INCOMING)
+print(MspMessageHeader.SERIALIZED_OUTGOING)
 
 print(MultiWiiCommands.MSP_IDENT)
 
