@@ -1,6 +1,9 @@
 from wiiproxy.config.box import MultiWiiBox
-
 from wiiproxy.data._base import _MultiWiiDataStructure
+
+
+from dataclasses import dataclass
+from typing      import Optional
 
 @dataclass(slots=True)
 class BoxIds(_MultiWiiDataStructure):
