@@ -10,6 +10,8 @@ from wiiproxy.data import (
     Misc,
     Motor,
     MotorPins,
+    Pid,
+    PidNames,
     RawGps,
     RawImu,
     Rc,
