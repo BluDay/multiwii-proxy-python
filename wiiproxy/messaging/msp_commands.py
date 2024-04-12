@@ -1,6 +1,6 @@
 from typing import Final
 
-class MultiWiiCommands(object):
+class MspCommands(object):
     """An enum-like class with all MSP command codes."""
 
     # Get commands.
