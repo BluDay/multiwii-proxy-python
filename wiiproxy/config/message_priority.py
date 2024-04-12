@@ -1,8 +1,8 @@
 from enum import IntEnum, unique
 
 @unique
-class Priority(IntEnum):
-    """Represents the priority level of an enqueued command."""
+class MessagePriority(IntEnum):
+    """Represents the priority level of an enqueued message."""
     Inactive = 0
     Low      = 1
     Normal   = 2

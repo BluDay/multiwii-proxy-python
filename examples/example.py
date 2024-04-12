@@ -16,7 +16,7 @@ print(MspMessageHeader.SERIALIZED_PREAMBLE)
 print(MspMessageHeader.SERIALIZED_INCOMING)
 print(MspMessageHeader.SERIALIZED_OUTGOING)
 
-print(MultiWiiCommands.MSP_IDENT)
+print(MspCommands.IDENT)
 
 """
 from serial   import Serial
