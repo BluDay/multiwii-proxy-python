@@ -1,4 +1,4 @@
-from wiiproxy.config.multiwii.box import MultiWiiBox
+from wiiproxy.config.box import MultiWiiBox
 
 from wiiproxy.data._base import _MultiWiiDataStructure
 
