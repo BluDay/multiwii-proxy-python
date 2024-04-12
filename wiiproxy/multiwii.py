@@ -78,11 +78,6 @@ class MultiWii(_MultiWiiDataValues):
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
-    def data(self) -> MultiWiiDataValues:
-        """Gets the data value collection instance."""
-        return self._data
-
-    @property
     def is_active(self) -> bool:
         """Gets a value indicating whether the flight controller communication is active."""
         return self._is_active
