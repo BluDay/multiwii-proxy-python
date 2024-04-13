@@ -103,7 +103,7 @@ class MultiWii(_MultiWiiDataValues):
             raise TypeError
 
         if value < 0:
-            raise ValueError
+            raise ValueError('Must be a positive number.')
             
         self._message_write_delay = value
 
