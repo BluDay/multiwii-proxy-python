@@ -7,6 +7,7 @@ from typing      import Optional
 class RcTuning(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
     rate: Optional[int]
+
     expo: Optional[int]
 
     roll_pitch_rate: Optional[int]
@@ -15,5 +16,6 @@ class RcTuning(_MultiWiiDataStructure):
 
     dynamic_throttle_pid: Optional[int]
 
-    throttle_mid:  Optional[int]
+    throttle_mid: Optional[int]
+
     throttle_expo: Optional[int]
