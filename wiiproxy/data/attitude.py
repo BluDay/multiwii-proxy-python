@@ -1,4 +1,4 @@
-from wiiproxy.data._base import _MultiWiiDataStructure
+from . import _MultiWiiDataStructure
 
 from dataclasses import dataclass
 from typing      import Optional
