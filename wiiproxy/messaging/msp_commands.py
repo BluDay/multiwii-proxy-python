@@ -41,3 +41,11 @@ class MspCommands(object):
     SET_MOTOR:       Final[int] = 214
     BIND:            Final[int] = 240
     EEPROM_WRITE:    Final[int] = 250
+
+    @staticmethod
+    def get_codes() -> tuple[int]:
+        """Gets an immutable list of all command codes."""
+        for member in vars(MspCommands):
+            if '_' in member: continue
+
+            yield member
