@@ -10,6 +10,11 @@ class _MultiWiiDataStructure(object):
         """Serializes the data structure to encoded bytes."""
         pass
 
+    @abstractmethod
+    def deserialize(self, data: bytes) -> Any:
+        """Deserialize bytes to a derived data structure type."""
+        pass
+
 @dataclass(slots=True)
 class _MultiWiiDataIntegerValues(_MultiWiiDataStructure):
     """The base MultiWii class for data values with a single, public int tuple member."""
