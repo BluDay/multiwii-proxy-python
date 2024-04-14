@@ -1,3 +1,5 @@
+from ._base import _MultiWiiDataStructure
+
 from .altitude   import Altitude
 from .analog     import Analog
 from .attitude   import Attitude
@@ -24,7 +26,7 @@ from ..messaging.msp_commands import MspCommands
 
 from collections.abc import MutableMapping
 from dataclasses     import dataclass
-from typing          import NoReturn
+from typing          import Any, NoReturn
 
 @dataclass(slots=True)
 class _MultiWiiDataValues(object):
@@ -56,114 +58,119 @@ class _MultiWiiDataValues(object):
     boxids:     BoxIds
     misc:       Misc
 
+    # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def ident(self) -> Ident:
+        """Deserializes the retrieved MSP_IDENT message."""
+        return self._deserialize(MspCommands.IDENT, Ident)
+
+    @property
+    def status(self) -> Status:
+        """Deserializes the retrieved MSP_STATUS message."""
+        return self._deserialize(MspCommands.STATUS, Status)
+
+    @property
+    def raw_imu(self) -> RawImu:
+        """Deserializes the retrieved MSP_RAW_IMU message."""
+        return self._deserialize(MspCommands.RAW_IMU, RawImu)
+
+    @property
+    def servo(self) -> Servo:
+        """Deserializes the retrieved MSP_SERVO message."""
+        return self._deserialize(MspCommands.SERVO, Servo)
+
+    @property
+    def servo_conf(self) -> ServoConf:
+        """Deserializes the retrieved MSP_SERVO_CONF message."""
+        return self._deserialize(MspCommands.SERVO_CONF, ServoConf)
+
+    @property
+    def motor(self) -> Motor:
+        """Deserializes the retrieved MSP_MOTOR message."""
+        return self._deserialize(MspCommands.MOTOR, Motor)
+
+    @property
+    def motor_pins(self) -> MotorPins:
+        """Deserializes the retrieved MSP_MOTOR_PINS message."""
+        return self._deserialize(MspCommands.MOTOR_PINS, MotorPins)
+
+    @property
+    def rc(self) -> Rc:
+        """Deserializes the retrieved MSP_RC message."""
+        return self._deserialize(MspCommands.RC, Rc)
+
+    @property
+    def rc_tuning(self) -> RcTuning:
+        """Deserializes the retrieved MSP_RC_TUNING message."""
+        return self._deserialize(MspCommands.RC_TUNING, RcTuning)
+    
+    @property
+    def attitude(self) -> Attitude:
+        """Deserializes the retrieved MSP_ATTITUDE message."""
+        return self._deserialize(MspCommands.ATTITUDE, Attitude)
+
+    @property
+    def altitude(self) -> Altitude:
+        """Deserializes the retrieved MSP_ALTITUDE message."""
+        return self._deserialize(MspCommands.ALTITUDE, Altitude)
+
+    @property
+    def raw_gps(self) -> RawGps:
+        """Deserializes the retrieved MSP_RAW_GPS message."""
+        return self._deserialize(MspCommands.RAW_GPS, RawGps)
+
+    @property
+    def comp_gps(self) -> CompGps:
+        """Deserializes the retrieved MSP_COMP_GPS message."""
+        return self._deserialize(MspCommands.COMP_GPS, CompGps)
+
+    @property
+    def wp(self) -> Waypoint:
+        """Deserializes the retrieved MSP_WP message."""
+        return self._deserialize(MspCommands.WP, Waypoint)
+
+    @property
+    def analog(self) -> Analog:
+        """Deserializes the retrieved MSP_ANALOG message."""
+        return self._deserialize(MspCommands.ANALOG, Analog)
+
+    @property
+    def pid(self) -> Pid:
+        """Deserializes the retrieved MSP_PID message."""
+        return self._deserialize(MspCommands.PID, Pid)
+
+    @property
+    def pidnames(self) -> PidNames:
+        """Deserializes the retrieved MSP_PIDNAMES message."""
+        return self._deserialize(MspCommands.PIDNAMES, PidNames)
+
+    @property
+    def box(self) -> Box:
+        """Deserializes the retrieved MSP_BOX message."""
+        return self._deserialize(MspCommands.BOX, Box)
+
+    @property
+    def boxnames(self) -> BoxNames:
+        """Deserializes the retrieved MSP_BOXNAMES message."""
+        return self._deserialize(MspCommands.BOXNAMES, BoxNames)
+
+    @property
+    def boxids(self) -> BoxIds:
+        """Deserializes the retrieved MSP_BOXIDS message."""
+        return self._deserialize(MspCommands.BOXIDS, BoxIds)
+
+    @property
+    def misc(self) -> Misc:
+        """Deserializes the retrieved MSP_MISC message."""
+        return self._deserialize(MspCommands.MISC, Misc)
+
     # ------------------------------------ INSTANCE METHODS ------------------------------------
 
-    def _reset_data(self) -> NoReturn:
+    def _deserialize(self, structure: _MultiWiiDataStructure, command_code: int) -> Any:
+        """Deserializes a stored message to a corresponding data value instance."""
+        return structure.deserialize(self._raw_data[command_code])
+
+    def _reset_raw_data(self) -> NoReturn:
         """Resets all data value instances. defines each field if not already defined."""
         self._raw_data = {code: None for code in MspCommands.get_codes()}
-
-        self.ident = Ident(
-            version=None,
-            multitype=None,
-            capabilities=None,
-            navi_version=None
-        )
-
-        self.status = Status(
-            cycle_time=None,
-            i2c_errors=None,
-            sensors=None,
-            flag=None,
-            global_conf=None
-        )
-
-        self.raw_imu = RawImu(acc=None, gyro=None, mag=None)
-
-        self.servo = Servo(values=None)
-
-        self.servo_conf = ServoConf(values=None)
-
-        self.motor = Motor(values=None)
-
-        self.motor_pins = MotorPins(values=None)
-
-        self.rc = Rc(
-            roll=None,
-            pitch=None,
-            yaw=None,
-            throttle=None,
-            aux=None
-        )
-
-        self.rc_tuning = RcTuning(
-            rate=None,
-            expo=None,
-            roll_pitch_rate=None,
-            yaw_rate=None,
-            dynamic_throttle_pid=None,
-            throttle_mid=None,
-            throttle_expo=None
-        )
-
-        self.attitude = Attitude(angle=None, heading=None)
-
-        self.altitude = Altitude(
-            estimation=None,
-            pressure_variation=None
-        )
-
-        self.raw_gps = RawGps(
-            fix=None,
-            satellites=None,
-            coordinates=None,
-            altitude=None,
-            speed=None,
-            ground_course=None
-        )
-
-        self.comp_gps = CompGps(
-            distance_to_home=None,
-            direction_to_home=None,
-            update=None
-        )
-
-        self.wp = Waypoint(
-            number=None,
-            position=None,
-            alt_hold=None,
-            heading=None,
-            time_to_stay=None,
-            flag=None
-        )
-
-        self.analog = Analog(
-            voltage=None,
-            power_meter=None,
-            rssi=None,
-            amperage=None
-        )
-
-        self.pid = Pid(values=None)
-
-        self.pidnames = PidNames(values=None)
-
-        self.box = Box(values=None)
-
-        self.boxnames = BoxNames(values=None)
-
-        self.boxids = BoxIds(values=None)
-
-        self.misc = Misc(
-            power_trigger=None,
-            throttle_failsafe=None,
-            throttle_idle=None,
-            throttle_min=None,
-            throttle_max=None,
-            plog_arm=None,
-            plog_lifetime=None,
-            mag_declination=None,
-            battery_scale=None,
-            battery_warn_1=None,
-            battery_warn_2=None,
-            battery_critical=None
-        )
