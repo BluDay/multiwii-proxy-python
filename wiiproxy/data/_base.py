@@ -1,6 +1,6 @@
 from abc         import ABC, abstractmethod
 from dataclasses import dataclass
-from typing      import Optional
+from typing      import Any, Optional
 
 class _MultiWiiDataStructure(object):
     """Represents the base class for MSP data structure classes."""
