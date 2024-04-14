@@ -35,13 +35,13 @@ class MultiWii(_MultiWiiDataValues):
 
     _is_active: bool
 
-    _message_processing_thread: Thread | None
+    _message_processing_thread: Thread
 
-    _message_queue: PriorityQueue | None
+    _message_queue: PriorityQueue 
 
     _message_write_delay: int
 
-    _serial: Serial | None
+    _serial: Serial
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
