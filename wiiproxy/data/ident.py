@@ -1,7 +1,6 @@
 from ._base import _MultiWiiDataStructure
 
-from ..config.multiwii_capability import MultiWiiCapability
-from ..config.multiwii_multitype  import MultiWiiMultitype
+from ..config import MultiWiiCapability, MultiWiiMultitype
 
 from dataclasses import dataclass
 from typing      import Optional
