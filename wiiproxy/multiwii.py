@@ -119,6 +119,10 @@ class MultiWii(_MultiWiiDataValues):
 
             self._message_processing_queue.task_done()
 
+    def _fill_message_queue(self) -> NoReturn:
+        """Fill the message queue with commands of a non-inactive priority value."""
+        pass
+
     def _process_message_queue(self) -> NoReturn:
         """The thread worker method that performs the whole communication part.
 
