@@ -5,10 +5,7 @@ from threading import Thread
 from time      import sleep
 from typing    import Final, NoReturn
 
-from queue import (
-    Empty as QueueEmpty,
-    PriorityQueue
-)
+from queue import (Empty as QueueEmpty, PriorityQueue)
 
 class MultiWii(_MultiWiiDataValues):
     """The main class for wiiproxy that handles everything.
