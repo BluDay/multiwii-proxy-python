@@ -1,17 +1,12 @@
 from abc         import ABC, abstractmethod
 from dataclasses import dataclass
-from typing      import Any, Optional
+from typing      import NoReturn, Optional
 
 class _MultiWiiDataStructure(object):
     """Represents the base class for MSP data structure classes."""
     
     @abstractmethod
-    def serialize(self) -> bytes:
-        """Serializes the data structure to encoded bytes."""
-        pass
-
-    @abstractmethod
-    def deserialize(self, data: bytes) -> Any:
+    def _update(self, data: bytes) -> NoReturn:
         """Deserialize bytes to a derived data structure type."""
         pass
 
