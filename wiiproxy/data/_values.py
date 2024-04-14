@@ -20,14 +20,19 @@ from .servo_conf import ServoConf
 from .status     import Status
 from .waypoint   import Waypoint
 
-from dataclasses import dataclass
-from typing      import NoReturn
+from ..messaging.msp_commands import MspCommands
+
+from collections.abc import MutableMapping
+from dataclasses     import dataclass
+from typing          import NoReturn
 
 @dataclass(slots=True)
 class _MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
+    _raw_data: MutableMapping[int, bytes]
 
     ident:      Ident
     status:     Status
@@ -55,6 +60,8 @@ class _MultiWiiDataValues(object):
 
     def _reset_data(self) -> NoReturn:
         """Resets all data value instances. defines each field if not already defined."""
+        self._raw_data = {code: None for code in MspCommands.get_codes()}
+
         self.ident = Ident(
             version=None,
             multitype=None,
