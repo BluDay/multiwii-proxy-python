@@ -4,7 +4,11 @@ from serial    import Serial
 from threading import Thread
 from time      import sleep
 from typing    import Final, NoReturn
-from queue     import PriorityQueue
+
+from queue import (
+    Empty as QueueEmpty,
+    PriorityQueue
+)
 
 class MultiWii(_MultiWiiDataValues):
     """The main class for wiiproxy that handles everything.
@@ -69,10 +73,6 @@ class MultiWii(_MultiWiiDataValues):
         """Stops the worker and the thread at destruction."""
         self.stop()
 
-        self._message_processing_thread = None
-
-        self._message_queue = None
-
         self._serial = None
 
     # --------------------------------------- PROPERTIES ---------------------------------------
@@ -108,6 +108,16 @@ class MultiWii(_MultiWiiDataValues):
         self._message_write_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def _clear_message_queue(self) -> NoReturn:
+        """Clears the message queue completely."""
+        while not self._message_processing_queue.empty():
+            try:
+                self._message_processing_queue.get(block=False)
+            except QueueEmpty:
+                continue
+
+            self._message_processing_queue.task_done()
 
     def _process_message_queue(self) -> NoReturn:
         """The thread worker method that performs the whole communication part.
@@ -147,5 +157,7 @@ class MultiWii(_MultiWiiDataValues):
         if not self._is_active: return
 
         self._message_processing_thread.join()
+
+        self._clear_message_queue()
 
         self._is_active = False
