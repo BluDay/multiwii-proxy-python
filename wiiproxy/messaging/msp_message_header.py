@@ -15,10 +15,10 @@ class MspMessageHeader(object):
     OUTGOING: Final[str] = f'{PREAMBLE}{MspMessageDirection.OUTGOING}'
 
     """ A serialized preamble."""
-    SERIALIZED_PREAMBLE: Final[bytes] = int() # encode(PREAMBLE)
+    SERIALIZED_PREAMBLE: Final[bytes] = int()
 
     """A serialized incoming header."""
-    SERIALIZED_INCOMING: Final[bytes] = int() # encode(INCOMING)
+    SERIALIZED_INCOMING: Final[bytes] = int()
 
     """A serialized outgoing header."""
-    SERIALIZED_OUTGOING: Final[bytes] = int() # encode(OUTGOING)
+    SERIALIZED_OUTGOING: Final[bytes] = int()
