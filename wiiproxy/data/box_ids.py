@@ -1,4 +1,4 @@
-from . import _MultiWiiDataStructure
+from ._base import _MultiWiiDataStructure
 
 from ..config.multiwii_box import MultiWiiBox
 
