@@ -1,9 +1,9 @@
-from ._base import MultiWiiDataStructure
+from ._base import command_code, struct_format, MultiWiiDataStructure
 
 from ..messaging.msp_commands import MspCommands
 
-@MultiWiiDataStructure.command_code(MspCommands.RC_TUNING)
-@MultiWiiDataStructure.struct_format('7B')
+@command_code(MspCommands.RC_TUNING)
+@struct_format('7B')
 class RcTuning(MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
 

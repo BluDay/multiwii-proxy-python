@@ -1,9 +1,9 @@
-from ._base import MultiWiiDataStructure
+from ._base import command_code, struct_format, MultiWiiDataStructure
 
 from ..messaging.msp_commands import MspCommands
 
-@MultiWiiDataStructure.command_code(MspCommands.ANALOG)
-@MultiWiiDataStructure.struct_format('B3H')
+@command_code(MspCommands.ANALOG)
+@struct_format('B3H')
 class Analog(MultiWiiDataStructure):
     """Represents data values for the MSP_ANALOG command."""
 
