@@ -53,8 +53,12 @@ class Ident(MultiWiiDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _update(self, data: tuple[int]) -> NoReturn:
-        """Updates the current values by the provided unserialized data bytes."""
+    def _update(self, data: bytes) -> NoReturn:
+        """Updates the current values by the provided unserialized data bytes.
+
+        Parameters:
+            data (bytes): A buffer with the raw data values.
+        """
         self._version = data[0] / 100
 
         self._multitype = MultiWiiMultitype(data[1])
