@@ -1,8 +1,10 @@
 from ._base import msp_command_code, msp_data_struct_format, MultiWiiDataStructure
 
+from ..messaging.msp_commands import MspCommands
+
 from typing import NoReturn
 
-@msp_command_code(109)
+@msp_command_code(MspCommands.ALTITUDE)
 @msp_data_struct_format('ih')
 class Altitude(MultiWiiDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
