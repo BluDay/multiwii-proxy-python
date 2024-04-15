@@ -1,8 +1,6 @@
-from . import Point3D
+from . import command_code, struct_format, MultiWiiData, Point3D
 
-from ._base import command_code, struct_format, MultiWiiData
-
-from ..messaging.msp_commands import MspCommands
+from ..messaging import MspCommands
 
 @command_code(MspCommands.RAW_IMU)
 @struct_format('9h')

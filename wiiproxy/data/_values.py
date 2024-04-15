@@ -1,24 +1,26 @@
-from .altitude   import Altitude
-from .analog     import Analog
-from .attitude   import Attitude
-from .box        import Box
-from .box_ids    import BoxIds
-from .box_names  import BoxNames
-from .comp_gps   import CompGps
-from .ident      import Ident
-from .misc       import Misc
-from .motor      import Motor
-from .motor_pins import MotorPins
-from .pid        import Pid
-from .pid_names  import PidNames
-from .raw_gps    import RawGps
-from .raw_imu    import RawImu
-from .rc         import Rc
-from .rc_tuning  import RcTuning
-from .servo      import Servo
-from .servo_conf import ServoConf
-from .status     import Status
-from .waypoint   import Waypoint
+from . import (
+    Altitude,
+    Analog,
+    Attitude,
+    Box,
+    BoxIds,
+    BoxNames,
+    CompGps,
+    Ident,
+    Misc,
+    Motor,
+    MotorPins,
+    Pid,
+    PidNames,
+    RawGps,
+    RawImu,
+    Rc,
+    RcTuning,
+    Servo,
+    ServoConf,
+    Status,
+    Waypoint
+)
 
 class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
