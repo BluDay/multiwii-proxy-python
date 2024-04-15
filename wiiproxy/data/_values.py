@@ -22,8 +22,6 @@ from .servo_conf import ServoConf
 from .status     import Status
 from .waypoint   import Waypoint
 
-from ..messaging.msp_commands import MspCommands
-
 class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     

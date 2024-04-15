@@ -1,7 +1,9 @@
-from ._base import MultiWiiDataStructure
+from ._base import msp_command_code, msp_data_struct_format, MultiWiiDataStructure
 
 from typing import NoReturn
 
+@msp_command_code(109)
+@msp_data_struct_format('ih')
 class Altitude(MultiWiiDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
 
