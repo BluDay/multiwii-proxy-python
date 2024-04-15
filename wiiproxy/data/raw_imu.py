@@ -1,12 +1,12 @@
 from . import Point3D
 
-from ._base import command_code, struct_format, MultiWiiDataStructure
+from ._base import command_code, struct_format, MultiWiiData
 
 from ..messaging.msp_commands import MspCommands
 
 @command_code(MspCommands.RAW_IMU)
 @struct_format('9h')
-class RawImu(MultiWiiDataStructure):
+class RawImu(MultiWiiData):
     """Represents data values for the MSP_RAW_IMU command."""
 
     acc: Point3D[float]
