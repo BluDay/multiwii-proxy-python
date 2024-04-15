@@ -1,9 +1,9 @@
-from ._base import msp_command_code, msp_data_struct_format, MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
 from ..messaging.msp_commands import MspCommands
 
-@msp_command_code(MspCommands.STATUS)
-@msp_data_struct_format('3HIB')
+@MultiWiiDataStructure.command_code(MspCommands.STATUS)
+@MultiWiiDataStructure.struct_format('3HIB')
 class Status(MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
 
