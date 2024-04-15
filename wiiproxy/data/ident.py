@@ -29,7 +29,7 @@ class Ident(MultiWiiData):
         self._capabilities = None
         self._navi_version = None
 
-    # --------------------------------------- PROPERTIES ---------------------------------------
+    # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def version(self) -> float:
