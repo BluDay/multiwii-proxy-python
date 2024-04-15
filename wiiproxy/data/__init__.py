@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing      import NamedTuple, TypeVar
+from typing      import Generic, NamedTuple, TypeVar
 
 T = TypeVar('T')
 
