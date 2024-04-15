@@ -26,15 +26,21 @@ class MultiWiiDataStructure(ABC):
         self._raw_data = None
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
-    
+
     @abstractmethod
-    def _update(self, data: bytes) -> NoReturn:
+    def _evaluate_data(self) -> NoReturn:
+        """Evaluates received raw data values and updates derived instance members."""
+        pass
+    
+    def update(self, data: bytes) -> NoReturn:
         """Deserialize bytes to a derived data structure type.
 
         Parameters:
             data (bytes): A buffer with the raw data values.
         """
         self._raw_data = data
+
+        self._evaluate_data()
 
 def command_code(code: int) -> Callable[[int], Type]:
     """Decorator for setting the command code of a data structure.
