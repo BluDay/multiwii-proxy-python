@@ -1,4 +1,4 @@
-from .msp_message_direction import MspMessageDirection
+from . import MspMessageDirectionCharacter
 
 from typing import Final
 
@@ -9,10 +9,10 @@ class MspMessageHeader(object):
     PREAMBLE: Final[str] = '$M'
 
     """The incoming header."""
-    INCOMING: Final[str] = f'{PREAMBLE}{MspMessageDirection.INCOMING}'
+    INCOMING: Final[str] = f'{PREAMBLE}{MspMessageDirectionCharacter.INCOMING}'
 
     """The outgoing header."""
-    OUTGOING: Final[str] = f'{PREAMBLE}{MspMessageDirection.OUTGOING}'
+    OUTGOING: Final[str] = f'{PREAMBLE}{MspMessageDirectionCharacter.OUTGOING}'
 
     """ A serialized preamble."""
     SERIALIZED_PREAMBLE: Final[bytes] = int()
