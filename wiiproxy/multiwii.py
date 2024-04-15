@@ -1,4 +1,4 @@
-from .data._values import MultiWiiDataValues
+from .data import MultiWiiDataValues
 
 from serial    import Serial
 from threading import Thread

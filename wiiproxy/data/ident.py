@@ -1,7 +1,7 @@
-from ._base import command_code, struct_format, MultiWiiData
+from . import command_code, struct_format, MultiWiiData
 
-from ..config                 import MultiWiiCapability, MultiWiiMultitype
-from ..messaging.msp_commands import MspCommands
+from ..config    import MultiWiiCapability, MultiWiiMultitype
+from ..messaging import MspCommands
 
 from typing import Final, NoReturn
 

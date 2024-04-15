@@ -1,7 +1,7 @@
-from ._base import command_code, struct_format, MultiWiiData
+from . import command_code, struct_format, MultiWiiData
 
-from ..config                 import MultiWiiBox
-from ..messaging.msp_commands import MspCommands
+from ..config    import MultiWiiBox
+from ..messaging import MspCommands
 
 @command_code(MspCommands.BOXIDS)
 @struct_format('B', has_variable_size=True)
