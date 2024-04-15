@@ -13,10 +13,10 @@ class MspMessageDirectionCharacter(object):
     OUTGOING: Final[str] = '>'
     
     """A serialized error character."""
-    SERIALIZED_ERROR: Final[int] = int()
+    SERIALIZED_ERROR: Final[int] = None
 
     """A serialized incoming direction character."""
-    SERIALIZED_INCOMING: Final[int] = int()
+    SERIALIZED_INCOMING: Final[int] = None
 
     """A serialized outgoing direction character."""
-    SERIALIZED_OUTGOING: Final[int] = int()
+    SERIALIZED_OUTGOING: Final[int] = None
