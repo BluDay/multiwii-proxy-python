@@ -4,7 +4,7 @@ from ..messaging import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.RAW_GPS)
+@command_code(MspCommands.MSP_RAW_GPS)
 @struct_format('2B2I3H')
 class RawGps(MultiWiiData):
     """Represents data values for the MSP_RAW_GPS command."""

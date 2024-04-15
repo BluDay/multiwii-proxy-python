@@ -4,7 +4,7 @@ from ..messaging import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.PID)
+@command_code(MspCommands.MSP_PID)
 @struct_format('30B')
 class Pid(MultiWiiData):
     """Represents data values for the MSP_PID command."""

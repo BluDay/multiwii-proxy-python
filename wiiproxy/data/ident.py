@@ -5,7 +5,7 @@ from ..messaging import MspCommands
 
 from typing import Final, NoReturn
 
-@command_code(MspCommands.IDENT)
+@command_code(MspCommands.MSP_IDENT)
 @struct_format('3BI')
 class Ident(MultiWiiData):
     """Represents data values for the MSP_IDENT command."""
