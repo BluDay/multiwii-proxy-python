@@ -1,10 +1,12 @@
+from . import Point3D
+
 from ._base import MultiWiiDataStructure
 
 class RawImu(MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_IMU command."""
 
-    acc: tuple[int]
+    acc: Point3D
 
-    gyro: tuple[int]
+    gyro: Point3D
 
-    mag: tuple[int]
+    mag: Point3D
