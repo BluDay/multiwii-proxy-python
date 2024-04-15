@@ -117,7 +117,7 @@ class MultiWiiDataValues(object):
         return self._comp_gps
 
     @property
-    def wp(self) -> Waypoint:
+    def waypoint(self) -> Waypoint:
         """Gets the data instance for MSP_WP."""
         return self._waypoint
 
