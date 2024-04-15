@@ -1,6 +1,8 @@
-from ._base import _MultiWiiDataStructure, msp_data_struct_format
+from ._base import _MultiWiiDataStructure
 
 from ..config import MultiWiiCapability, MultiWiiMultitype
+
+from ..messaging.msp_commands import MspCommands
 
 from typing import Final, NoReturn
 
@@ -62,8 +64,12 @@ class Ident(_MultiWiiDataStructure):
 
         self._multitype = MultiWiiMultitype(data[1])
 
-        self._capabilities = (
-            value if value & data[2] for value in Capability
-        )
+        capabilities = ()
+
+        for capability in Capability:
+            if capability & data[2]:
+                capabilities += (capability,)
+
+        self._capabilities = capabilities
 
         self._navi_version = data[3] << 28

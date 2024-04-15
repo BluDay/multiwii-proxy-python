@@ -1,21 +1,17 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class RcTuning(_MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
-    rate: Optional[int]
+    rate: int
 
-    expo: Optional[int]
+    expo: int
 
-    roll_pitch_rate: Optional[int]
+    roll_pitch_rate: int
 
-    yaw_rate: Optional[int]
+    yaw_rate: int
 
-    dynamic_throttle_pid: Optional[int]
+    dynamic_throttle_pid: int
 
-    throttle_mid: Optional[int]
+    throttle_mid: int
 
-    throttle_expo: Optional[int]
+    throttle_expo: int

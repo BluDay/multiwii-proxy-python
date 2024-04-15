@@ -1,19 +1,15 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class RawGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
-    fix: Optional[int]
+    fix: int
 
-    satellites: Optional[int]
+    satellites: int
 
-    coordinates: Optional[tuple[int]]
+    coordinates: tuple[int]
 
-    altitude: Optional[int]
+    altitude: int
 
-    speed: Optional[int]
+    speed: int
 
-    ground_course: Optional[int]
+    ground_course: int

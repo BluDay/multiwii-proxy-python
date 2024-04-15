@@ -1,13 +1,9 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class CompGps(_MultiWiiDataStructure):
     """Represents data values for the MSP_COMP_GPS command."""
-    distance_to_home: Optional[int]
+    distance_to_home: int
 
-    direction_to_home: Optional[int]
+    direction_to_home: int
 
-    update: Optional[int] # What?
+    update: int # What?

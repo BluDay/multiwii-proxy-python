@@ -1,5 +1,5 @@
-from collections.abc import ABC, abstractmethod
-from typing          import Final, NoReturn
+from abc    import ABC, abstractmethod
+from typing import Final, NoReturn
 
 class _MultiWiiDataStructure(ABC):
     """Represents the base class for MSP data structure classes."""

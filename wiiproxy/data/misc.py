@@ -1,31 +1,27 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class Misc(_MultiWiiDataStructure):
     """Represents data values for the MSP_MISC command."""
-    power_trigger: Optional[int]
+    power_trigger: int
 
-    throttle_failsafe: Optional[int]
+    throttle_failsafe: int
 
-    throttle_idle: Optional[int]
+    throttle_idle: int
 
-    throttle_min: Optional[int]
+    throttle_min: int
 
-    throttle_max: Optional[int]
+    throttle_max: int
 
-    plog_arm: Optional[int]
+    plog_arm: int
 
-    plog_lifetime: Optional[int]
+    plog_lifetime: int
 
-    mag_declination: Optional[int]
+    mag_declination: int
 
-    battery_scale: Optional[int]
+    battery_scale: int
 
-    battery_warn_1: Optional[int]
+    battery_warn_1: int
 
-    battery_warn_2: Optional[int]
+    battery_warn_2: int
 
-    battery_critical: Optional[int]
+    battery_critical: int

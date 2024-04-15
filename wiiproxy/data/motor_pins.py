@@ -1,5 +1,5 @@
-from ._base import _MultiWiiDataIntegerValues
+from ._base import _MultiWiiDataStructure
 
-class MotorPins(_MultiWiiDataIntegerValues):
+class MotorPins(_MultiWiiDataStructure):
     """Represents data values for the MSP_MOTOR_PINS command."""
     pass
