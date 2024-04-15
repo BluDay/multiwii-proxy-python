@@ -9,8 +9,8 @@ from ..messaging.msp_commands import MspCommands
 class RawImu(MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_IMU command."""
 
-    acc: Point3D
+    acc: Point3D[float]
 
-    gyro: Point3D
+    gyro: Point3D[float]
 
-    mag: Point3D
+    mag: Point3D[float]
