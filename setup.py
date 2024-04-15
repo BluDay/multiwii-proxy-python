@@ -2,12 +2,18 @@
 
 from setuptools import setup
 
+from wiiproxy import (
+    __author__,
+    __license__,
+    __version
+)
+
 setup(
     name='wiiproxy',
-    version='1.0',
+    version=__version__,
     description='User-friendly Python 3 module for MultiWii-based drones',
     url='https://github.com/BluDay/wiiproxy',
-    author='BluDay',
-    license='MIT',
+    author=__author__,
+    license=__license__,
     packages=('wiiproxy',)
 )
