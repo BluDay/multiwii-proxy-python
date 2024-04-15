@@ -5,18 +5,17 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from wiiproxy.messaging.msp_commands       import MspCommands
+from wiiproxy.data.ident   import Ident
+from wiiproxy.data.raw_imu import RawImu
+
 from wiiproxy.messaging.msp_message_header import MspMessageHeader
 
-print(MspMessageHeader.PREAMBLE)
-print(MspMessageHeader.INCOMING)
-print(MspMessageHeader.OUTGOING)
+print(f'Header preamble: "{MspMessageHeader.PREAMBLE}" ({MspMessageHeader.SERIALIZED_PREAMBLE})')
+print(f'Incoming header: "{MspMessageHeader.INCOMING}" ({MspMessageHeader.SERIALIZED_INCOMING})')
+print(f'Outgoing header: "{MspMessageHeader.OUTGOING}" ({MspMessageHeader.SERIALIZED_OUTGOING})')
 
-print(MspMessageHeader.SERIALIZED_PREAMBLE)
-print(MspMessageHeader.SERIALIZED_INCOMING)
-print(MspMessageHeader.SERIALIZED_OUTGOING)
-
-print(MspCommands.IDENT)
+print(f'MSP_IDENT ({Ident.COMMAND_CODE})')
+print(f'MSP_RAW_IMU ({RawImu.COMMAND_CODE})')
 
 """
 from serial   import Serial
