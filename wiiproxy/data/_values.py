@@ -147,11 +147,11 @@ class MultiWiiDataValues(object):
         return self._servo_conf
 
     @property
-    def waypoint(self) -> Waypoint:
-        """Gets the data instance for MSP_WP."""
-        return self._waypoint
-
-    @property
     def status(self) -> Status:
         """Gets the data instance for MSP_STATUS."""
         return self._status
+
+    @property
+    def waypoint(self) -> Waypoint:
+        """Gets the data instance for MSP_WP."""
+        return self._waypoint
