@@ -9,6 +9,6 @@ from ..messaging.msp_commands import MspCommands
 class Attitude(MultiWiiDataStructure):
     """Represents data values for the MSP_ATTITUDE command."""
 
-    angle: Point2D
+    angle: Point2D[float]
 
     heading: int

@@ -11,7 +11,7 @@ class Waypoint(MultiWiiDataStructure):
 
     number: int
 
-    position: Point2D
+    position: Point2D[float]
 
     alt_hold: int
 

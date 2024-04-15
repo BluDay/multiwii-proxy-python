@@ -13,7 +13,7 @@ class RawGps(MultiWiiDataStructure):
 
     satellites: int
 
-    coordinates: Point2D
+    coordinates: Point2D[float]
 
     altitude: int
 
