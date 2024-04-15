@@ -40,118 +40,118 @@ class MultiWiiDataValues(object):
     _altitude:   Altitude
     _raw_gps:    RawGps
     _comp_gps:   CompGps
-    _wp:         Waypoint
+    _waypoint:   Waypoint
     _analog:     Analog
     _pid:        Pid
-    _pidnames:   PidNames
+    _pid_names:  PidNames
     _box:        Box
-    _boxnames:   BoxNames
-    _boxids:     BoxIds
+    _box_names:  BoxNames
+    _box_ids:    BoxIds
     _misc:       Misc
 
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
     def ident(self) -> Ident:
-        """Deserializes the retrieved MSP_IDENT message."""
+        """Gets the data instance for MSP_IDENT."""
         return self._ident
 
     @property
     def status(self) -> Status:
-        """Deserializes the retrieved MSP_STATUS message."""
+        """Gets the data instance for MSP_STATUS."""
         return self._status
 
     @property
     def raw_imu(self) -> RawImu:
-        """Deserializes the retrieved MSP_RAW_IMU message."""
+        """Gets the data instance for MSP_RAW_IMU."""
         return self._raw_imu
 
     @property
     def servo(self) -> Servo:
-        """Deserializes the retrieved MSP_SERVO message."""
+        """Gets the data instance for MSP_SERVO."""
         return self._servo
 
     @property
     def servo_conf(self) -> ServoConf:
-        """Deserializes the retrieved MSP_SERVO_CONF message."""
+        """Gets the data instance for MSP_SERVO_CONF."""
         return self._servo_conf
 
     @property
     def motor(self) -> Motor:
-        """Deserializes the retrieved MSP_MOTOR message."""
+        """Gets the data instance for MSP_MOTOR."""
         return self._motor
 
     @property
     def motor_pins(self) -> MotorPins:
-        """Deserializes the retrieved MSP_MOTOR_PINS message."""
+        """Gets the data instance for MSP_MOTOR_PINS."""
         return self._motor_pins
 
     @property
     def rc(self) -> Rc:
-        """Deserializes the retrieved MSP_RC message."""
+        """Gets the data instance for MSP_RC."""
         return self._rc
 
     @property
     def rc_tuning(self) -> RcTuning:
-        """Deserializes the retrieved MSP_RC_TUNING message."""
+        """Gets the data instance for MSP_RC_TUNING."""
         return self._rc_tuning
     
     @property
     def attitude(self) -> Attitude:
-        """Deserializes the retrieved MSP_ATTITUDE message."""
+        """Gets the data instance for MSP_ATTITUDE."""
         return self._attitude
 
     @property
     def altitude(self) -> Altitude:
-        """Deserializes the retrieved MSP_ALTITUDE message."""
+        """Gets the data instance for MSP_ALTITUDE."""
         return self._altitude
 
     @property
     def raw_gps(self) -> RawGps:
-        """Deserializes the retrieved MSP_RAW_GPS message."""
+        """Gets the data instance for MSP_RAW_GPS."""
         return self._raw_gps
 
     @property
     def comp_gps(self) -> CompGps:
-        """Deserializes the retrieved MSP_COMP_GPS message."""
+        """Gets the data instance for MSP_COMP_GPS."""
         return self._comp_gps
 
     @property
     def wp(self) -> Waypoint:
-        """Deserializes the retrieved MSP_WP message."""
-        return self._wp
+        """Gets the data instance for MSP_WP."""
+        return self._waypoint
 
     @property
     def analog(self) -> Analog:
-        """Deserializes the retrieved MSP_ANALOG message."""
+        """Gets the data instance for MSP_ANALOG."""
         return self._analog
 
     @property
     def pid(self) -> Pid:
-        """Deserializes the retrieved MSP_PID message."""
+        """Gets the data instance for MSP_PID."""
         return self._pid
 
     @property
     def pidnames(self) -> PidNames:
-        """Deserializes the retrieved MSP_PIDNAMES message."""
-        return self._pidnames
+        """Gets the data instance for MSP_PIDNAMES."""
+        return self._pid_names
 
     @property
     def box(self) -> Box:
-        """Deserializes the retrieved MSP_BOX message."""
+        """Gets the data instance for MSP_BOX."""
         return self._box
 
     @property
     def boxnames(self) -> BoxNames:
-        """Deserializes the retrieved MSP_BOXNAMES message."""
-        return self._boxnames
+        """Gets the data instance for MSP_BOXNAMES."""
+        return self._box_names
 
     @property
     def boxids(self) -> BoxIds:
-        """Deserializes the retrieved MSP_BOXIDS message."""
-        return self._boxids
+        """Gets the data instance for MSP_BOXIDS."""
+        return self._box_ids
 
     @property
     def misc(self) -> Misc:
-        """Deserializes the retrieved MSP_MISC message."""
+        """Gets the data instance for MSP_MISC."""
         return self._misc
