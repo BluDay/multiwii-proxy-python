@@ -1,11 +1,11 @@
 from . import Point2D
 
-from ._base import MultiWiiDataStructure
+from ._base import command_code, struct_format, MultiWiiDataStructure
 
 from ..messaging.msp_commands import MspCommands
 
-@MultiWiiDataStructure.command_code(MspCommands.RAW_GPS)
-@MultiWiiDataStructure.struct_format('2B2I3H')
+@command_code(MspCommands.RAW_GPS)
+@struct_format('2B2I3H')
 class RawGps(MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
 

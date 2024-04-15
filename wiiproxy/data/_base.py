@@ -19,24 +19,24 @@ class MultiWiiDataStructure(ABC):
         """Deserialize bytes to a derived data structure type."""
         pass
 
-    def command_code(code: int) -> Callable[[int], Type]:
-        """Decorator for setting the command code of a data structure."""
-        def set_code(cls: Type) -> Type:
-            """Sets the command code."""
-            cls.COMMAND_CODE = code
+def command_code(code: int) -> Callable[[int], Type]:
+    """Decorator for setting the command code of a data structure."""
+    def set_code(cls: Type) -> Type:
+        """Sets the command code."""
+        cls.COMMAND_CODE = code
 
-            return cls
+        return cls
 
-        return set_code
+    return set_code
 
-    def struct_format(format: str, has_variable_size: bool = False) -> Callable[[str], Type]:
-        """Decorator for setting the struct format for data values."""
-        def set_format(cls: Type) -> Type:
-            """Sets the data format."""
-            cls.HAS_VARIABLE_SIZE = has_variable_size
+def struct_format(format: str, has_variable_size: bool = False) -> Callable[[str], Type]:
+    """Decorator for setting the struct format for data values."""
+    def set_format(cls: Type) -> Type:
+        """Sets the data format."""
+        cls.HAS_VARIABLE_SIZE = has_variable_size
 
-            cls.STRUCT_FORMAT = format
+        cls.STRUCT_FORMAT = format
 
-            return cls
+        return cls
 
-        return set_format
+    return set_format
