@@ -4,7 +4,7 @@ from ..messaging import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.RC)
+@command_code(MspCommands.MSP_RC)
 @struct_format('8H')
 class Rc(MultiWiiData):
     """Represents data values for the MSP_RC command."""

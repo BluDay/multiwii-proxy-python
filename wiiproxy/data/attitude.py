@@ -4,7 +4,7 @@ from ..messaging import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.ATTITUDE)
+@command_code(MspCommands.MSP_ATTITUDE)
 @struct_format('3h')
 class Attitude(MultiWiiData):
     """Represents data values for the MSP_ATTITUDE command."""

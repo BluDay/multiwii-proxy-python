@@ -4,7 +4,7 @@ from ..messaging import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.SERVO_CONF)
+@command_code(MspCommands.MSP_SERVO_CONF)
 @struct_format('3HB', has_variable_size=True)
 class ServoConf(MultiWiiData):
     """Represents data values for the MSP_SERVO_CONF command."""
