@@ -1,10 +1,11 @@
 from ._base import msp_command_code, msp_data_struct_format, MultiWiiDataStructure
 
-from ..config import MultiWiiCapability, MultiWiiMultitype
+from ..config                 import MultiWiiCapability, MultiWiiMultitype
+from ..messaging.msp_commands import MspCommands
 
 from typing import Final, NoReturn
 
-@msp_command_code(100)
+@msp_command_code(MspCommands.IDENT)
 @msp_data_struct_format('3BI')
 class Ident(MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
