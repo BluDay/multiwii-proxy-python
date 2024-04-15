@@ -1,5 +1,5 @@
-from ._base import _MultiWiiDataIntegerValues
+from ._base import _MultiWiiDataStructure
 
-class Servo(_MultiWiiDataIntegerValues):
+class Servo(_MultiWiiDataStructure):
     """Represents data values for the MSP_SERVO command."""
     pass

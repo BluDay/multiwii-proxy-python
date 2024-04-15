@@ -1,19 +1,15 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class Waypoint(_MultiWiiDataStructure):
     """Represents data values for the MSP_WP command."""
-    number: Optional[int]
+    number: int
 
-    position: Optional[tuple[int]]
+    position: tuple[int]
 
-    alt_hold: Optional[int]
+    alt_hold: int
 
-    heading: Optional[int]
+    heading: int
 
-    time_to_stay: Optional[int]
+    time_to_stay: int
 
-    flag: Optional[int]
+    flag: int

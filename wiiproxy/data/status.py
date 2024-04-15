@@ -1,17 +1,13 @@
 from ._base import _MultiWiiDataStructure
 
-from dataclasses import dataclass
-from typing      import Optional
-
-@dataclass(slots=True)
 class Status(_MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
-    cycle_time: Optional[int]
+    cycle_time: int
 
-    i2c_errors: Optional[int]
+    i2c_errors: int
 
-    sensors: Optional[tuple[int]]
+    sensors: tuple[int]
 
-    flag: Optional[int]
+    flag: int
 
-    global_conf: Optional[int]
+    global_conf: int
