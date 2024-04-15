@@ -2,13 +2,48 @@ from . import command_code, struct_format, MultiWiiData
 
 from ..messaging import MspCommands
 
+from typing import NoReturn
+
 @command_code(MspCommands.COMP_GPS)
 @struct_format('2HB')
 class CompGps(MultiWiiData):
     """Represents data values for the MSP_COMP_GPS command."""
 
-    distance_to_home: int
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    direction_to_home: int
+    _distance_to_home: int
 
-    update: int # What?
+    _direction_to_home: int
+
+    _update: int # What?
+
+    # ------------------------------------- MAGIC METHODS --------------------------------------
+
+    def __init__(self) -> NoReturn:
+        """Initializes a new instance with default values."""
+        self._distance_to_home  = None
+        self._direction_to_home = None
+        self._update            = None
+
+    # --------------------------------------- PROPERTIES ---------------------------------------
+    
+    @property
+    def distance_to_home(self) -> int:
+        """Gets the distance to home value."""
+        return self._distance_to_home
+
+    @property
+    def direction_to_home(self) -> int:
+        """Gets the direction to home value."""
+        return self._direction_to_home
+
+    @property
+    def update(self) -> int:
+        """Gets the update value."""
+        return self._update
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def _evaluate_raw_data(self) -> NoReturn:
+        """Updates the current values by the provided unserialized data bytes."""
+        pass

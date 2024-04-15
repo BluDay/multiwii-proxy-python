@@ -2,19 +2,72 @@ from . import command_code, struct_format, MultiWiiData, Point2D
 
 from ..messaging import MspCommands
 
+from typing import NoReturn
+
 @command_code(MspCommands.RAW_GPS)
 @struct_format('2B2I3H')
 class RawGps(MultiWiiData):
     """Represents data values for the MSP_RAW_GPS command."""
 
-    fix: int
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    satellites: int
+    _fix: int
 
-    coordinates: Point2D[float]
+    _satellites: int
 
-    altitude: int
+    _coordinates: Point2D[float]
 
-    speed: int
+    _altitude: int
 
-    ground_course: int
+    _speed: int
+
+    _ground_course: int
+
+    # ------------------------------------- MAGIC METHODS --------------------------------------
+
+    def __init__(self) -> NoReturn:
+        """Initializes a new instance with default values."""
+        self._fix           = None
+        self._satellites    = None
+        self._coordinates   = None
+        self._altitude      = None
+        self._speed         = None
+        self._ground_course = None
+
+    # -------------------------------------- PROPERTIES ----------------------------------------
+
+    @property
+    def fix(self) -> int:
+        """Gets the fix value."""
+        return self._fix
+
+    @property
+    def satellites(self) -> int:
+        """Gets the satellites value."""
+        return self._satellites
+
+    @property
+    def coordinates(self) -> Point2D[float]:
+        """Gets the current coordinates."""
+        return self._coordinates
+
+    @property
+    def altitude(self) -> int:
+        """Gets the current altitude."""
+        return self._altitude
+
+    @property
+    def speed(self) -> int:
+        """Gets the current speed."""
+        return self._speed
+
+    @property
+    def ground_course(self) -> int:
+        """Gets the ground course value."""
+        return self._ground_course
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def _evaluate_raw_data(self) -> NoReturn:
+        """Updates the current values by the provided unserialized data bytes."""
+        pass

@@ -22,7 +22,7 @@ class Altitude(MultiWiiData):
         self._estimation         = None
         self._pressure_variation = None
 
-    # --------------------------------------- PROPERTIES ---------------------------------------
+    # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def estimation(self) -> int:
@@ -36,8 +36,10 @@ class Altitude(MultiWiiData):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _update(data: bytes) -> NoReturn:
+    def _evaluate_raw_data(self) -> NoReturn:
         """Updates the current values by the provided unserialized data bytes."""
+        data = self._raw_data
+
         self._estimation = data[0] # int32
 
         self._pressure_variation = data[1] # int16
