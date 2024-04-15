@@ -1,3 +1,5 @@
+from . import Point2D
+
 from ._base import MultiWiiDataStructure
 
 class RawGps(MultiWiiDataStructure):
@@ -7,7 +9,7 @@ class RawGps(MultiWiiDataStructure):
 
     satellites: int
 
-    coordinates: tuple[int]
+    coordinates: Point2D
 
     altitude: int
 

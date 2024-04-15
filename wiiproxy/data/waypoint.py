@@ -1,3 +1,5 @@
+from . import Point2D
+
 from ._base import MultiWiiDataStructure
 
 class Waypoint(MultiWiiDataStructure):
@@ -5,7 +7,7 @@ class Waypoint(MultiWiiDataStructure):
 
     number: int
 
-    position: tuple[int]
+    position: Point2D
 
     alt_hold: int
 
