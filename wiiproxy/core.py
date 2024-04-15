@@ -57,14 +57,14 @@ class MultiWii(MultiWiiDataValues):
         """
         self._is_active = False
 
+        if not isinstance(serial, Serial):
+            raise TypeError
+
         self._message_processing_thread = Thread(target=self._process_message_queue)
 
         self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
         self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
-
-        if not isinstance(serial, Serial):
-            raise TypeError
 
         self._serial = serial
 
