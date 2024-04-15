@@ -5,10 +5,9 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from wiiproxy.data.ident   import Ident
-from wiiproxy.data.raw_imu import RawImu
+from wiiproxy.data import Ident, RawImu
 
-from wiiproxy.messaging.msp_message_header import MspMessageHeader
+from wiiproxy.messaging import MspMessageHeader
 
 print(f'Header preamble: "{MspMessageHeader.PREAMBLE}" ({MspMessageHeader.SERIALIZED_PREAMBLE})')
 print(f'Incoming header: "{MspMessageHeader.INCOMING}" ({MspMessageHeader.SERIALIZED_INCOMING})')
