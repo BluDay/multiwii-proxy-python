@@ -24,17 +24,10 @@ from .waypoint   import Waypoint
 
 from ..messaging.msp_commands import MspCommands
 
-from collections.abc import MutableMapping
-from dataclasses     import dataclass
-from typing          import Any, NoReturn
-
-@dataclass(slots=True)
 class _MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
-    _raw_data: MutableMapping[int, bytes]
 
     ident:      Ident
     status:     Status
@@ -164,13 +157,3 @@ class _MultiWiiDataValues(object):
     def misc(self) -> Misc:
         """Deserializes the retrieved MSP_MISC message."""
         return self._deserialize(MspCommands.MISC, Misc)
-
-    # ------------------------------------ INSTANCE METHODS ------------------------------------
-
-    def _deserialize(self, structure: _MultiWiiDataStructure, command_code: int) -> Any:
-        """Deserializes a stored message to a corresponding data value instance."""
-        return structure.deserialize(self._raw_data[command_code])
-
-    def _reset_raw_data(self) -> NoReturn:
-        """Resets all data value instances. defines each field if not already defined."""
-        self._raw_data = {code: None for code in MspCommands.get_codes()}
