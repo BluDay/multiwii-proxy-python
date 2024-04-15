@@ -1,7 +1,7 @@
 from abc    import ABC, abstractmethod
 from typing import Callable, Final, NoReturn, Type
 
-class MultiWiiDataStructure(ABC):
+class MultiWiiData(ABC):
     """Represents the base class for MSP data structure classes."""
 
     # ----------------------------------- CLASS CONSTANTS --------------------------------------
