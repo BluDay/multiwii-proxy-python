@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class RawGps(_MultiWiiDataStructure):
+class RawGps(MultiWiiDataStructure):
     """Represents data values for the MSP_RAW_GPS command."""
+
     fix: int
 
     satellites: int

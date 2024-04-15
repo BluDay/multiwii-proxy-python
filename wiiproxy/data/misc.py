@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Misc(_MultiWiiDataStructure):
+class Misc(MultiWiiDataStructure):
     """Represents data values for the MSP_MISC command."""
+
     power_trigger: int
 
     throttle_failsafe: int

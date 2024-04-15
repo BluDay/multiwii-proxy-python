@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class RcTuning(_MultiWiiDataStructure):
+class RcTuning(MultiWiiDataStructure):
     """Represents data values for the MSP_RC_TUNING command."""
+
     rate: int
 
     expo: int

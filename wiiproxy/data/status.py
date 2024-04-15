@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Status(_MultiWiiDataStructure):
+class Status(MultiWiiDataStructure):
     """Represents data values for the MSP_STATUS command."""
+
     cycle_time: int
 
     i2c_errors: int

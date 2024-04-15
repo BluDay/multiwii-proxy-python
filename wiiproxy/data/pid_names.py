@@ -1,5 +1,5 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class PidNames(_MultiWiiDataStructure):
+class PidNames(MultiWiiDataStructure):
     """Represents data values for the MSP_PIDNAMES command."""
     pass
