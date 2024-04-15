@@ -1,5 +1,3 @@
-from ._base import MultiWiiDataStructure
-
 from .altitude   import Altitude
 from .analog     import Analog
 from .attitude   import Attitude
