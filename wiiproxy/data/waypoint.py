@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Waypoint(_MultiWiiDataStructure):
+class Waypoint(MultiWiiDataStructure):
     """Represents data values for the MSP_WP command."""
+
     number: int
 
     position: tuple[int]

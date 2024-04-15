@@ -1,7 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Rc(_MultiWiiDataStructure):
+class Rc(MultiWiiDataStructure):
     """Represents data values for the MSP_RC command."""
+
     roll: int
 
     pitch: int

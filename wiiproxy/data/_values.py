@@ -1,4 +1,4 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
 from .altitude   import Altitude
 from .analog     import Analog
@@ -24,7 +24,7 @@ from .waypoint   import Waypoint
 
 from ..messaging.msp_commands import MspCommands
 
-class _MultiWiiDataValues(object):
+class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

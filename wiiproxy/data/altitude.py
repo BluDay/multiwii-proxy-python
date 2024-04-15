@@ -1,8 +1,8 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
 from typing import NoReturn
 
-class Altitude(_MultiWiiDataStructure):
+class Altitude(MultiWiiDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

@@ -1,5 +1,5 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Box(_MultiWiiDataStructure):
+class Box(MultiWiiDataStructure):
     """Represents data values for the MSP_BOX command."""
     pass

@@ -1,7 +1,7 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
 from ..config import MultiWiiBox
 
-class BoxIds(_MultiWiiDataStructure):
+class BoxIds(MultiWiiDataStructure):
     """Represents data values for the MSP_BOXIDS command."""
     pass

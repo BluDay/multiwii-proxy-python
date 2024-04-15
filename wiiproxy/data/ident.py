@@ -1,4 +1,4 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
 from ..config import MultiWiiCapability, MultiWiiMultitype
 
@@ -6,7 +6,7 @@ from ..messaging.msp_commands import MspCommands
 
 from typing import Final, NoReturn
 
-class Ident(_MultiWiiDataStructure):
+class Ident(MultiWiiDataStructure):
     """Represents data values for the MSP_IDENT command."""
     
     # ----------------------------------- CLASS CONSTANTS --------------------------------------

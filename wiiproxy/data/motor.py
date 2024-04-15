@@ -1,5 +1,5 @@
-from ._base import _MultiWiiDataStructure
+from ._base import MultiWiiDataStructure
 
-class Motor(_MultiWiiDataStructure):
+class Motor(MultiWiiDataStructure):
     """Represents data values for the MSP_MOTOR command."""
     pass
