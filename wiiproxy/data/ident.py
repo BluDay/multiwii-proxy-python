@@ -53,7 +53,7 @@ class Ident(MultiWiiDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _evaluate_data(self) -> NoReturn:
+    def _evaluate_raw_data(self) -> NoReturn:
         """Updates the current values by the provided unserialized data bytes."""
         data = self._raw_data
 
