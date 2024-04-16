@@ -68,7 +68,7 @@ class MultiWii(MultiWiiDataValues):
 
         self._serial = serial
 
-        self._reset_data()
+        self._reset_all_data_values()
 
     def __del__(self) -> NoReturn:
         """Stops the worker and the thread at destruction."""

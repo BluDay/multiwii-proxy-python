@@ -22,6 +22,8 @@ from . import (
     Waypoint
 )
 
+from typing import NoReturn
+
 class MultiWiiDataValues(object):
     """Represents a collection of data values for all MultiWii structures."""
     
@@ -155,3 +157,29 @@ class MultiWiiDataValues(object):
     def waypoint(self) -> Waypoint:
         """Gets the data instance for MSP_WP."""
         return self._waypoint
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def _reset_all_data_values(self) -> NoReturn:
+        """Resets all data instances."""
+        self._altitude   = Altitude()
+        self._analog     = Analog()
+        self._attitude   = Attitude()
+        self._box        = Box()
+        self._box_ids    = BoxIds()
+        self._box_names  = BoxNames()
+        self._comp_gps   = CompGps()
+        self._ident      = Ident()
+        self._misc       = Misc()
+        self._motor      = Motor()
+        self._motor_pins = MotorPins()
+        self._pid        = Pid()
+        self._pid_names  = PidNames()
+        self._raw_gps    = RawGps()
+        self._raw_imu    = RawImu()
+        self._rc         = Rc()
+        self._rc_tuning  = RcTuning()
+        self._servo      = Servo()
+        self._servo_conf = ServoConf()
+        self._status     = Status()
+        self._waypoint   = Waypoint()
