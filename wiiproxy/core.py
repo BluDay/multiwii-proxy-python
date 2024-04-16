@@ -62,9 +62,9 @@ class MultiWii(MultiWiiDataValues):
 
         self._message_processing_thread = Thread(target=self._process_message_queue)
 
-        self._message_queue = PriorityQueue(maxsize=self.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
+        self._message_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self._message_write_delay = self.DEFAULT_MESSAGE_WRITE_DELAY
+        self._message_write_delay = MultiWii.DEFAULT_MESSAGE_WRITE_DELAY
 
         self._serial = serial
 
