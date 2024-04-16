@@ -40,6 +40,6 @@ class Altitude(MultiWiiData):
         """Updates the current values by the provided unserialized data bytes."""
         data = self._raw_data
 
-        self._estimation = data[0] # int32
+        self._estimation = data[0]
 
-        self._pressure_variation = data[1] # int16
+        self._pressure_variation = data[1]
