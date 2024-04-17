@@ -11,14 +11,16 @@ from wiiproxy import (
     __version__
 )
 
+name = __title__
+
 setup(
-    name=__title__,
+    name=name,
     version=__version__,
     description=__description__,
     url=__url__,
     author=__author__,
     license=__license__,
-    packages=['wiiproxy'],
+    packages=[name],
     requires=(
         'pyserial==3.4,3.5',
         'pytest>=8.1.1'

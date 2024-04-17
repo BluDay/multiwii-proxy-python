@@ -2,7 +2,7 @@
 
 _Not functional at this time. The codebase is currently being revamped and improved._
 
-WiiProxy is a user-friendly and multithreaded Python 3 module for controlling _MultiWii_-based drones.
+A user-friendly and multithreaded Python 3 module for controlling _MultiWii_-based drones.
 
 Supports only v1 of the [MultiWi Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol)—and not v2 or any of the newer versions.
 
