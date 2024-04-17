@@ -14,7 +14,7 @@ from queue import (
 class MultiWii(MultiWiiBase):
     """The main class for wiiproxy that handles everything.
     
-    This class merely requires an open serial connection—at baudrate 115200—to be passed at
+    This class merely requires an open serial port—with a baudrate of 115200—to be passed at
     instantiation. Everything else—like the commands, the thread, each data instance—gets
     created automatically.
 
@@ -46,11 +46,8 @@ class MultiWii(MultiWiiBase):
     def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial connection.
         
-        The provided serial instance that presumably has been connected with a device
-        with a baudrate of 115200.
-
         Parameters:
-            serial (Serial): The serial connection instance.
+            serial (Serial): The serial port.
         """
         self._is_active = False
 
