@@ -138,7 +138,7 @@ class MultiWii(MultiWiiBase):
             5. Update corresponding instance for command with new values if not null.
             6. Indicate that the command has been processed.
         """
-        while True:
+        while self._is_active:
             pass
 
     def _reset_serial_io_buffers(self) -> NoReturn:
