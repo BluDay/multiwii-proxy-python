@@ -44,7 +44,7 @@ class MultiWii(MultiWiiBase):
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
-        """Initializes an instance using the provided serial connection.
+        """Initializes an instance using the provided serial port.
         
         Parameters:
             serial (Serial): The serial port.
@@ -139,7 +139,7 @@ class MultiWii(MultiWiiBase):
             pass
 
     def _reset_serial_io_buffers(self) -> NoReturn:
-        """Resets both the input and output buffer of the serial connection."""
+        """Resets both the input and output buffer of the serial port."""
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
