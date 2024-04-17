@@ -11,10 +11,10 @@ from wiiproxy import (
     __version__
 )
 
-name = __title__
+name = __title__.lower()
 
 setup(
-    name=name,
+    name=__title__,
     version=__version__,
     description=__description__,
     url=__url__,
