@@ -24,4 +24,4 @@ from .servo_conf import ServoConf
 from .status     import Status
 from .waypoint   import Waypoint
 
-from ._values import MultiWiiDataValues
+# from ._values import MultiWiiDataValues
