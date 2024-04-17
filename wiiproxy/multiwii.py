@@ -127,13 +127,13 @@ class MultiWii(MultiWiiBase):
 
         Control flow for each while iteration:
 
-            1. Fill command queue with prioritized commands if empty.
-            2. Dequeue the most prioritized command from the queue.
-            3. Reset the input/output buffer.
+            1. Fill command queue with prioritized messages if empty.
+            2. Dequeue the most prioritized message from the queue.
+            3. Reset the input/output buffer of the serial port.
             3. Send message with empty data values to receive a response.
-            4. Read response message.
+            4. Read response message with received data values.
             5. Update corresponding instance for command with new values if not null.
-            6. Indicate that the command has been processed.
+            6. Indicate that the message has been processed.
         """
         while self._is_active:
             pass
