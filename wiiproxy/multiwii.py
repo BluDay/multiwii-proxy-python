@@ -1,4 +1,4 @@
-from .data import MultiWiiDataValues
+from .multiwii_base import MultiWiiBase
 
 from serial    import Serial
 from threading import Thread
@@ -11,7 +11,7 @@ from queue import (
     PriorityQueue
 )
 
-class MultiWii(MultiWiiDataValues):
+class MultiWii(MultiWiiBase):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial connection—at baudrate 115200—to be passed at
@@ -28,9 +28,6 @@ class MultiWii(MultiWiiDataValues):
 
     """Default delay (in seconds) for serial writes."""
     DEFAULT_MESSAGE_WRITE_DELAY: Final[float] = 0.005
-
-    """The MSP version used."""
-    MSP_VERSION: Final[str] = 'v1'
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 

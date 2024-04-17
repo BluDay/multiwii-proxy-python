@@ -1,4 +1,4 @@
-from . import (
+from .data import (
     Altitude,
     Analog,
     Attitude,
@@ -22,10 +22,15 @@ from . import (
     Waypoint
 )
 
-from typing import NoReturn
+from typing import Final, NoReturn
 
-class MultiWiiDataValues(object):
+class MultiWiiBase(object):
     """Represents a collection of data values for all MultiWii structures."""
+
+    # ------------------------------------ CLASS CONSTANTS -------------------------------------
+
+    """The MSP version used."""
+    MSP_VERSION: Final[str] = 'v1'
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
@@ -160,8 +165,8 @@ class MultiWiiDataValues(object):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _reset_all_data_values(self) -> NoReturn:
-        """Resets all data instances."""
+    def _reset_data_values(self) -> NoReturn:
+        """Resets all data values."""
         self._altitude   = Altitude()
         self._analog     = Analog()
         self._attitude   = Attitude()
