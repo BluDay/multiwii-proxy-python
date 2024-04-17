@@ -141,7 +141,7 @@ class MultiWii(MultiWiiBase):
         while True:
             pass
 
-    def _reset_input_output_buffer(self) -> NoReturn:
+    def _reset_serial_io_buffers(self) -> NoReturn:
         """Resets both the input and output buffer of the serial connection."""
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
