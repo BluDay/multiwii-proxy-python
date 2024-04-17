@@ -1,4 +1,4 @@
-from .multiwii_base import MultiWiiBase
+from . import MultiWiiBase
 
 from serial    import Serial
 from threading import Thread
@@ -57,6 +57,8 @@ class MultiWii(MultiWiiBase):
         if not isinstance(serial, Serial):
             raise TypeError
 
+        super().__init__()
+
         self._message_processing_thread = Thread(target=self._process_message_queue)
 
         self._message_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
@@ -64,8 +66,6 @@ class MultiWii(MultiWiiBase):
         self._message_write_delay = MultiWii.DEFAULT_MESSAGE_WRITE_DELAY
 
         self._serial = serial
-
-        self._reset_all_data_values()
 
     def __del__(self) -> NoReturn:
         """Stops the worker and the thread at destruction."""
