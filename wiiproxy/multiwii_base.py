@@ -56,6 +56,12 @@ class MultiWiiBase(object):
     _status:     Status
     _waypoint:   Waypoint
 
+    # ------------------------------------- MAGIC METHODS --------------------------------------
+
+    def __init__(self) -> NoReturn:
+        """Initializes an instance and resets data values."""
+        self._reset_data_values()
+
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
