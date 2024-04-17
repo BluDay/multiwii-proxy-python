@@ -14,7 +14,7 @@ from wiiproxy import (
 name = __title__.lower()
 
 setup(
-    name=__title__,
+    name=name,
     version=__version__,
     description=__description__,
     url=__url__,
