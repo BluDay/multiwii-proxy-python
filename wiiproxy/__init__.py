@@ -6,7 +6,7 @@ __credits__     = 'BluDay'
 __description__ = 'A user-friendly and multithreaded Python 3 module for controlling MultiWii-based drones.'
 __license__     = 'MIT'
 __maintainer__  = 'BluDay'
-__title__       = 'wiiproxy'
+__title__       = 'WiiProxy'
 __url__         = 'https://github.com/BluDay/wiiproxy'
 __version__     = '1.0'
 
