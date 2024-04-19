@@ -145,7 +145,7 @@ class MultiWii(MultiWiiBase):
         while self._is_active:
             pass
 
-    def _reset_serial_io_buffers(self) -> NoReturn:
+    def _reset_serial_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
 
         This method clears both the input and output buffers of the serial port,
