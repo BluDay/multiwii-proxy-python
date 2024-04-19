@@ -139,12 +139,26 @@ class MultiWii(MultiWiiBase):
             pass
 
     def _reset_serial_io_buffers(self) -> NoReturn:
-        """Resets both the input and output buffer of the serial port."""
+        """Reset the input and output buffers of the serial port.
+
+        This method clears both the input and output buffers of the serial port,
+        ensuring that any residual or incomplete data is discarded. It can be
+        useful to call this method before initiaing new communication sessions
+        or when the integrity of the data transfer needs to be ensured.
+
+        Note:
+            This method directly accesses the underlying serial port object
+            (_serial). Ensure that the serial port has been properly initialized
+            before calling this method.
+
+        Raises:
+            SerialException: If an error occurs while resetting the buffers.
+        """
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
-        """Starts the worker thread and enables communication to the craft."""
+        """Start the communication thread."""
         if self._is_active: return
         
         self._command_processing_thread.start()
@@ -152,7 +166,7 @@ class MultiWii(MultiWiiBase):
         self._is_active = True
 
     def stop(self) -> NoReturn:
-        """Stops the worker thread and disables all communication."""
+        """Stop the communication thread."""
         if not self._is_active: return
 
         self._command_processing_thread.join()
