@@ -105,7 +105,10 @@ class MultiWii(MultiWiiBase):
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def _clear_command_queue(self) -> NoReturn:
-        """Clears the command queue completely."""
+        """Clears the command queue completely.
+
+        This method empties the command queue by removing all pending commands.
+        """
         while not self._command_processing_queue.empty():
             try:
                 self._command_processing_queue.get(block=False)
