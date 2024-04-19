@@ -52,7 +52,7 @@ class MultiWii(MultiWiiBase):
         self._is_active = False
 
         if not isinstance(serial, Serial):
-            raise TypeError
+            raise TypeError(f'Argument "serial" must be an instance of "serial.Serial".')
 
         super().__init__()
 
@@ -95,10 +95,10 @@ class MultiWii(MultiWiiBase):
             value (float): A floating-point value in seconds.
         """
         if not isinstance(value, float):
-            raise TypeError
+            raise TypeError('Value must be a float.')
 
         if value < 0:
-            raise ValueError('Must be a positive number.')
+            raise ValueError('Value must be a non-negative number.')
             
         self._command_write_delay = value
 
