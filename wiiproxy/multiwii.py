@@ -115,7 +115,12 @@ class MultiWii(MultiWiiBase):
             self._command_processing_queue.task_done()
 
     def _fill_command_queue(self) -> NoReturn:
-        """Fills the command queue with commands of a non-inactive priority value."""
+        """Fills the command queue with prioritized commands if empty.
+
+        This method checks if the command queue is empty and fills it with prioritized
+        commands if necessary. Prioritized commands are added to ensure that higher-priority
+        commands are processed first.
+        """
         pass
 
     def _process_command_queue(self) -> NoReturn:
@@ -131,19 +136,26 @@ class MultiWii(MultiWiiBase):
             3. Reset the input and output buffers of the serial port for clean communication.
             3. Send the command with empty data values to receive a response.
             4. Read the response command with received data values.
-            5. Update the corresponding instance for command with new values if they are not null.
+            5. Update the corresponding instance for the command with new values.
             6. Indicate that the command has been processed.
         
         Note:
-            - Commands should be properly enqueued into the command queue before invoking this method.
-            - Each command should be prioritized based on its importance or urgency for proper processing.
-
-        Raises:
-            Any exceptions raised during the processing of individual commands will propagate to the caller.
-            Proper error handling should be implemented when calling the method.
+            - Commands should be properly enqueued into the command queue before invoking this
+              method.
+            - Each command should be prioritized based on its importance or urgency for proper
+              processing.
         """
         while self._is_active:
             pass
+
+    def _process_commands(self) -> NoReturn:
+        """Processes all enqueued commands.
+
+        This method dequeues and processes all commands currently in the command queue.
+        For each command, it sends the command to the flight controller, reads the
+        response, and updates the corresponding data values if new values are receieved.
+        """
+        pass
 
     def _reset_serial_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
