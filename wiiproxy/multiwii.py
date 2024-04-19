@@ -189,6 +189,7 @@ class MultiWii(MultiWiiBase):
 
         Raises:
             RuntimeError: If the thread has already been started.
+
             Any other exceptions raised during the start operation are logged.
         """
         if self._is_active: return
@@ -198,16 +199,32 @@ class MultiWii(MultiWiiBase):
 
             self._is_active = True
         except RuntimeError as e:
-            print(f'Communication thread is already started: {e}')
+            print(f'Communication thread has already been started: {e}')
         except Exception as e:
-            print(f'Exception occured while starting communication thread: {e}')
+            print(f'Exception occured while starting the communication thread: {e}')
 
     def stop(self) -> NoReturn:
-        """Stops the communication thread."""
+        """Stops the communication thread.
+
+        This method stops the communication thread and performs necessary cleanup tasks.
+        If the thread is not active, this method returns immediately without taking any
+        action.
+
+        Raises:
+            RuntimeError: If the thread has not been started.
+
+            Any other exceptions raised during the join operation or command queue
+            clearance are logged
+        """
         if not self._is_active: return
 
-        self._command_processing_thread.join()
+        try:
+            self._command_processing_thread.join()
 
-        self._clear_command_queue()
+            self._clear_command_queue()
 
-        self._is_active = False
+            self._is_active = False
+        except RuntimeError as e:
+            print(f'Communication thread has not been started: {e}')
+        except Exception as e:
+            print(f'Exception occured while stopping the communication thread: {e}')
