@@ -46,8 +46,10 @@ class MultiWii(MultiWiiBase):
     def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port.
         
-        Parameters:
-            serial (Serial): The serial port.
+        Parameters
+        ----------
+        serial: Serial
+            The serial port used for the communication with the flight controller.
         """
         self._is_active = False
 
@@ -65,7 +67,11 @@ class MultiWii(MultiWiiBase):
         self._serial = serial
 
     def __del__(self) -> NoReturn:
-        """Stops the worker and the thread at destruction."""
+        """Stops the worker and thread upon destruction.
+
+        This destructor stops the worker thread and cleans up resources before the instance
+        is destroyed.
+        """
         self.stop()
 
         self._serial = None
@@ -91,8 +97,10 @@ class MultiWii(MultiWiiBase):
     def command_write_delay(self, value: float) -> NoReturn:
         """Sets the write delay value.
 
-        Parameters:
-            value (float): A floating-point value in seconds.
+        Parameters
+        ----------
+        value: float
+            A floating-point value in seconds.
         """
         if not isinstance(value, float):
             raise TypeError('Value must be a float.')
@@ -133,20 +141,22 @@ class MultiWii(MultiWiiBase):
         communication process with the flight controller. It runs continously in a thread,
         ensuring that commands are enqueued, sent, and processed efficiently.
 
-        Control Flow:
-            1. Fill the command queue with prioritized commands if it is empty.
-            2. Dequeue the most prioritized command from the queue.
-            3. Reset the input and output buffers of the serial port for clean communication.
-            3. Send the command with empty data values to receive a response.
-            4. Read the response command with received data values.
-            5. Update the corresponding instance for the command with new values.
-            6. Indicate that the command has been processed.
+        Control Flow
+        ------------
+        1. Fill the command queue with prioritized commands if it is empty.
+        2. Dequeue the most prioritized command from the queue.
+        3. Reset the input and output buffers of the serial port for clean communication.
+        3. Send the command with empty data values to receive a response.
+        4. Read the response command with received data values.
+        5. Update the corresponding instance for the command with new values.
+        6. Indicate that the command has been processed.
         
-        Note:
-            - Commands should be properly enqueued into the command queue before invoking this
-              method.
-            - Each command should be prioritized based on its importance or urgency for proper
-              processing.
+        Note
+        ----
+        - Commands should be properly enqueued into the command queue before invoking this
+          method.
+        - Each command should be prioritized based on its importance or urgency for proper
+          processing.
         """
         while self._is_active:
             self._fill_command_queue()
@@ -155,12 +165,29 @@ class MultiWii(MultiWiiBase):
 
             sleep(0.1)
 
+    def _process_command(self, command: int, data: tuple) -> NoReturn:
+        """Processes the provided command.
+
+        This method send the provided command with associated data to the flight controller
+        and handles the response, if any. It updates corresponding data values based on the
+        received response.
+
+        Parameters
+        ----------
+        command: int
+            The command to be processed.
+        data: tuple
+            Tuple of data values to send to the flight controller.
+        """
+        pass
+
     def _process_commands(self) -> NoReturn:
         """Processes all enqueued commands.
 
         This method dequeues and processes all commands currently in the command queue.
-        For each command, it sends the command to the flight controller, reads the
-        response, and updates the corresponding data values if new values are receieved.
+        For each command, it calls the _process_command method to send the command to the
+        flight controller, reads the response, and updates the corresponding data values
+        if new values have been receieved.
         """
         pass
 
@@ -172,13 +199,16 @@ class MultiWii(MultiWiiBase):
         useful to call this method before initiaing new communication sessions
         or when the integrity of the data transfer needs to be ensured.
 
-        Note:
-            This method directly accesses the underlying serial port object
-            (_serial). Ensure that the serial port has been properly initialized
-            before calling this method.
+        Note
+        ----
+        This method directly accesses the underlying serial port object (_serial).
+        Ensure that the serial port has been properly initialized before calling
+        this method.
 
-        Raises:
-            SerialException: If an error occurs while resetting the buffers.
+        Raises
+        ------
+        SerialException
+            If an error occurs while resetting the buffers.
         """
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
@@ -190,10 +220,12 @@ class MultiWii(MultiWiiBase):
         If the thread is already active, this method returns immediately without taking
         any action.
 
-        Raises:
-            RuntimeError: If the thread has already been started.
+        Raises
+        ------
+        RuntimeError
+            If the thread has already been started.
 
-            Any other exceptions raised during the start operation are logged.
+        Any other exceptions raised during the start operation are logged.
         """
         if self._is_active: return
         
@@ -213,11 +245,13 @@ class MultiWii(MultiWiiBase):
         If the thread is not active, this method returns immediately without taking any
         action.
 
-        Raises:
-            RuntimeError: If the thread has not been started.
+        Raises
+        ------
+        RuntimeError
+            If the thread has not been started.
 
-            Any other exceptions raised during the join operation or command queue
-            clearance are logged
+        Any other exceptions raised during the join operation or command queue clearance
+        are logged.
         """
         if not self._is_active: return
 
