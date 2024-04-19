@@ -181,12 +181,26 @@ class MultiWii(MultiWiiBase):
         self._serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
-        """Starts the communication thread."""
+        """Starts the communication thread.
+        
+        This method starts the communication thread responsible for processing commands.
+        If the thread is already active, this method returns immediately without taking
+        any action.
+
+        Raises:
+            RuntimeError: If the thread has already been started.
+            Any other exceptions raised during the start operation are logged.
+        """
         if self._is_active: return
         
-        self._command_processing_thread.start()
-        
-        self._is_active = True
+        try:
+            self._command_processing_thread.start()
+
+            self._is_active = True
+        except RuntimeError as e:
+            print(f'Communication thread is already started: {e}')
+        except Exception as e:
+            print(f'Exception occured while starting communication thread: {e}')
 
     def stop(self) -> NoReturn:
         """Stops the communication thread."""
