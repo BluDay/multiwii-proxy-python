@@ -33,11 +33,11 @@ class MultiWii(MultiWiiBase):
 
     _is_active: bool
 
-    _message_processing_thread: Thread
+    _command_processing_thread: Thread
 
-    _message_queue: PriorityQueue 
+    _command_queue: PriorityQueue 
 
-    _message_write_delay: int
+    _command_write_delay: int
 
     _serial: Serial
 
@@ -56,11 +56,11 @@ class MultiWii(MultiWiiBase):
 
         super().__init__()
 
-        self._message_processing_thread = Thread(target=self._process_message_queue)
+        self._command_processing_thread = Thread(target=self._process_command_queue)
 
-        self._message_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
+        self._command_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
 
-        self._message_write_delay = MultiWii.DEFAULT_MESSAGE_WRITE_DELAY
+        self._command_write_delay = MultiWii.DEFAULT_MESSAGE_WRITE_DELAY
 
         self._serial = serial
 
@@ -78,17 +78,17 @@ class MultiWii(MultiWiiBase):
         return self._is_active
 
     @property
-    def message_write_delay(self) -> float:
-        """Gets the message write delay."""
-        return self._message_write_delay
+    def command_write_delay(self) -> float:
+        """Gets the command write delay."""
+        return self._command_write_delay
 
     @property
     def serial(self) -> Serial:
         """Gets the used serial instance that was provided at instantiation."""
         return self._serial
 
-    @message_write_delay.setter
-    def message_write_delay(self, value: float) -> NoReturn:
+    @command_write_delay.setter
+    def command_write_delay(self, value: float) -> NoReturn:
         """Sets the write delay value.
 
         Parameters:
@@ -100,40 +100,40 @@ class MultiWii(MultiWiiBase):
         if value < 0:
             raise ValueError('Must be a positive number.')
             
-        self._message_write_delay = value
+        self._command_write_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _clear_message_queue(self) -> NoReturn:
-        """Clears the message queue completely."""
-        while not self._message_processing_queue.empty():
+    def _clear_command_queue(self) -> NoReturn:
+        """Clears the command queue completely."""
+        while not self._command_processing_queue.empty():
             try:
-                self._message_processing_queue.get(block=False)
+                self._command_processing_queue.get(block=False)
             except QueueEmpty:
                 continue
 
-            self._message_processing_queue.task_done()
+            self._command_processing_queue.task_done()
 
-    def _fill_message_queue(self) -> NoReturn:
-        """Fill the message queue with commands of a non-inactive priority value."""
+    def _fill_command_queue(self) -> NoReturn:
+        """Fill the command queue with commands of a non-inactive priority value."""
         pass
 
-    def _process_message_queue(self) -> NoReturn:
+    def _process_command_queue(self) -> NoReturn:
         """The thread worker method that performs the whole communication part.
 
         This worker method runs continously in a thread and handles everything
-        from enqueuing commands and sending messages to the flight controller, to
-        receiving messages and updating their corresponding data value instances.
+        from enqueuing commands and sending commands to the flight controller, to
+        receiving commands and updating their corresponding data value instances.
 
         Control flow for each while iteration:
 
-            1. Fill command queue with prioritized messages if empty.
-            2. Dequeue the most prioritized message from the queue.
+            1. Fill command queue with prioritized commands if empty.
+            2. Dequeue the most prioritized command from the queue.
             3. Reset the input/output buffer of the serial port.
-            3. Send message with empty data values to receive a response.
-            4. Read response message with received data values.
+            3. Send command with empty data values to receive a response.
+            4. Read response command with received data values.
             5. Update corresponding instance for command with new values if not null.
-            6. Indicate that the message has been processed.
+            6. Indicate that the command has been processed.
         """
         while self._is_active:
             pass
@@ -147,7 +147,7 @@ class MultiWii(MultiWiiBase):
         """Starts the worker thread and enables communication to the craft."""
         if self._is_active: return
         
-        self._message_processing_thread.start()
+        self._command_processing_thread.start()
         
         self._is_active = True
 
@@ -155,8 +155,8 @@ class MultiWii(MultiWiiBase):
         """Stops the worker thread and disables all communication."""
         if not self._is_active: return
 
-        self._message_processing_thread.join()
+        self._command_processing_thread.join()
 
-        self._clear_message_queue()
+        self._clear_command_queue()
 
         self._is_active = False
