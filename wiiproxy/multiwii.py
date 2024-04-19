@@ -115,31 +115,38 @@ class MultiWii(MultiWiiBase):
             self._command_processing_queue.task_done()
 
     def _fill_command_queue(self) -> NoReturn:
-        """Fill the command queue with commands of a non-inactive priority value."""
+        """Fills the command queue with commands of a non-inactive priority value."""
         pass
 
     def _process_command_queue(self) -> NoReturn:
-        """The thread worker method that performs the whole communication part.
+        """Worker method responsible for managing communication with the flight controller.
 
-        This worker method runs continously in a thread and handles everything
-        from enqueuing commands and sending commands to the flight controller, to
-        receiving commands and updating their corresponding data value instances.
+        This method continously processes commands queued for execution, handling the entire
+        communication process with the flight controller. It runs continously in a thread,
+        ensuring that commands are enqueued, sent, and processed efficiently.
 
-        Control flow for each while iteration:
-
-            1. Fill command queue with prioritized commands if empty.
+        Control Flow:
+            1. Fill the command queue with prioritized commands if it is empty.
             2. Dequeue the most prioritized command from the queue.
-            3. Reset the input/output buffer of the serial port.
-            3. Send command with empty data values to receive a response.
-            4. Read response command with received data values.
-            5. Update corresponding instance for command with new values if not null.
+            3. Reset the input and output buffers of the serial port for clean communication.
+            3. Send the command with empty data values to receive a response.
+            4. Read the response command with received data values.
+            5. Update the corresponding instance for command with new values if they are not null.
             6. Indicate that the command has been processed.
+        
+        Note:
+            - Commands should be properly enqueued into the command queue before invoking this method.
+            - Each command should be prioritized based on its importance or urgency for proper processing.
+
+        Raises:
+            Any exceptions raised during the processing of individual commands will propagate to the caller.
+            Proper error handling should be implemented when calling the method.
         """
         while self._is_active:
             pass
 
     def _reset_serial_io_buffers(self) -> NoReturn:
-        """Reset the input and output buffers of the serial port.
+        """Resets the input and output buffers of the serial port.
 
         This method clears both the input and output buffers of the serial port,
         ensuring that any residual or incomplete data is discarded. It can be
@@ -158,7 +165,7 @@ class MultiWii(MultiWiiBase):
         self._serial.reset_output_buffer()
 
     def start(self) -> NoReturn:
-        """Start the communication thread."""
+        """Starts the communication thread."""
         if self._is_active: return
         
         self._command_processing_thread.start()
@@ -166,7 +173,7 @@ class MultiWii(MultiWiiBase):
         self._is_active = True
 
     def stop(self) -> NoReturn:
-        """Stop the communication thread."""
+        """Stops the communication thread."""
         if not self._is_active: return
 
         self._command_processing_thread.join()
