@@ -146,7 +146,11 @@ class MultiWii(MultiWiiBase):
               processing.
         """
         while self._is_active:
-            pass
+            self._fill_command_queue()
+
+            self._process_commands()
+
+            sleep(0.1)
 
     def _process_commands(self) -> NoReturn:
         """Processes all enqueued commands.
