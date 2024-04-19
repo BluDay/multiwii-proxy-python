@@ -24,10 +24,10 @@ class MultiWii(MultiWiiBase):
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
     """Default maximum size for the priority queue."""
-    DEFAULT_MESSAGE_QUEUE_MAXSIZE: Final[int] = 100
+    DEFAULT_COMMAND_QUEUE_MAXSIZE: Final[int] = 100
 
     """Default delay (in seconds) for serial writes."""
-    DEFAULT_MESSAGE_WRITE_DELAY: Final[float] = 0.005
+    DEFAULT_COMMAND_WRITE_DELAY: Final[float] = 0.005
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
@@ -58,9 +58,9 @@ class MultiWii(MultiWiiBase):
 
         self._command_processing_thread = Thread(target=self._process_command_queue)
 
-        self._command_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_MESSAGE_QUEUE_MAXSIZE)
+        self._command_queue = PriorityQueue(maxsize=MultiWii.DEFAULT_COMMAND_QUEUE_MAXSIZE)
 
-        self._command_write_delay = MultiWii.DEFAULT_MESSAGE_WRITE_DELAY
+        self._command_write_delay = MultiWii.DEFAULT_COMMAND_WRITE_DELAY
 
         self._serial = serial
 
