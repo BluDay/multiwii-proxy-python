@@ -44,17 +44,11 @@ class MultiWii(MultiWiiBase):
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
-        """Initializes an instance using the provided serial port.
-        
-        Parameters
-        ----------
-        serial: Serial
-            The serial port used for the communication with the flight controller.
-        """
+        """Initializes an instance using the provided serial port."""
         self._is_active = False
 
         if not isinstance(serial, Serial):
-            raise TypeError(f'Argument "serial" must be an instance of "serial.Serial".')
+            raise TypeError('Argument "serial" must be an instance of "serial.Serial".')
 
         super().__init__()
 
@@ -171,13 +165,6 @@ class MultiWii(MultiWiiBase):
         This method send the provided command with associated data to the flight controller
         and handles the response, if any. It updates corresponding data values based on the
         received response.
-
-        Parameters
-        ----------
-        command: int
-            The command to be processed.
-        data: tuple
-            Tuple of data values to send to the flight controller.
         """
         pass
 
