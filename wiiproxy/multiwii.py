@@ -205,8 +205,8 @@ class MultiWii(MultiWiiBase):
         ------
         RuntimeError
             If the thread has already been started.
-
-        Any other exceptions raised during the start operation are logged.
+        Exception
+            Any other exceptions raised during the start operation are logged.
         """
         if self._is_active: return
         
@@ -230,9 +230,9 @@ class MultiWii(MultiWiiBase):
         ------
         RuntimeError
             If the thread has not been started.
-
-        Any other exceptions raised during the join operation or command queue clearance
-        are logged.
+        Exception
+            Any other exceptions raised during the join operation or command queue
+            clearance are logged.
         """
         if not self._is_active: return
 
