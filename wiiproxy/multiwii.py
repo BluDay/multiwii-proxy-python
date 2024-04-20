@@ -89,13 +89,7 @@ class MultiWii(MultiWiiBase):
 
     @command_write_delay.setter
     def command_write_delay(self, value: float) -> NoReturn:
-        """Sets the write delay value.
-
-        Parameters
-        ----------
-        value: float
-            A floating-point value in seconds.
-        """
+        """Sets the write delay value."""
         if not isinstance(value, float):
             raise TypeError('Value must be a float.')
 
