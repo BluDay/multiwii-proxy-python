@@ -5,14 +5,7 @@ class MspMessagePayload(object):
 
     @staticmethod
     def calculate_checksum(payload: bytes) -> int:
-        """Calculates the checksum for the payload using an XOR CRC (cyclic redundancy check).
-
-        Parameters:
-            payload (bytes): The serialized message payload.
-
-        Returns:
-            int: The checksum value.
-        """
+        """Calculates the checksum for the payload using an XOR CRC."""
         checksum = 0
 
         for byte in payload: checksum ^= byte
