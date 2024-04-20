@@ -149,7 +149,7 @@ class MultiWii(MultiWiiBase):
         while self._is_active:
             self._fill_command_queue()
 
-            self._process_commands()
+            # TODO: Process commands through self._process_commands().
 
             sleep(0.1)
 
@@ -159,16 +159,6 @@ class MultiWii(MultiWiiBase):
         This method send the provided command with associated data to the flight controller
         and handles the response, if any. It updates corresponding data values based on the
         received response.
-        """
-        pass
-
-    def _process_commands(self) -> NoReturn:
-        """Processes all enqueued commands.
-
-        This method dequeues and processes all commands currently in the command queue.
-        For each command, it calls the _process_command method to send the command to the
-        flight controller, reads the response, and updates the corresponding data values
-        if new values have been receieved.
         """
         pass
 
