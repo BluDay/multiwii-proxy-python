@@ -1,10 +1,32 @@
-from . import MultiWiiBase
+from .data import (
+    Altitude,
+    Analog,
+    Attitude,
+    Box,
+    BoxIds,
+    BoxNames,
+    CompGps,
+    Ident,
+    Misc,
+    Motor,
+    MotorPins,
+    Pid,
+    PidNames,
+    RawGps,
+    RawImu,
+    Rc,
+    RcTuning,
+    Servo,
+    ServoConf,
+    Status,
+    Waypoint
+)
 
 from serial import Serial
 from time   import sleep
 from typing import Final, NoReturn
 
-class MultiWii(MultiWiiBase):
+class MultiWii(object):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial port—with a baudrate of 115200—to be passed at
@@ -19,7 +41,32 @@ class MultiWii(MultiWiiBase):
     """Default delay (in seconds) for serial writes."""
     DEFAULT_COMMAND_WRITE_DELAY: Final[float] = 0.005
 
+    """The MSP version used."""
+    MSP_VERSION: Final[str] = 'v1'
+
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
+    _altitude:   Altitude
+    _analog:     Analog
+    _attitude:   Attitude
+    _box:        Box
+    _box_ids:    BoxIds
+    _box_names:  BoxNames
+    _comp_gps:   CompGps
+    _ident:      Ident
+    _misc:       Misc
+    _motor:      Motor
+    _motor_pins: MotorPins
+    _pid:        Pid
+    _pid_names:  PidNames
+    _raw_gps:    RawGps
+    _raw_imu:    RawImu
+    _rc:         Rc
+    _rc_tuning:  RcTuning
+    _servo:      Servo
+    _servo_conf: ServoConf
+    _status:     Status
+    _waypoint:   Waypoint
 
     _command_write_delay: int
 
@@ -34,11 +81,116 @@ class MultiWii(MultiWiiBase):
         if not isinstance(serial, Serial):
             raise TypeError('Argument "serial" must be an instance of "serial.Serial".')
 
-        super().__init__()
+        self._reset_data_values()
 
         self._serial = serial
 
     # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def altitude(self) -> Altitude:
+        """Sends the MSP_ALTITUDE command and gets the data instance."""
+        return self._altitude
+
+    @property
+    def analog(self) -> Analog:
+        """Sends the MSP_ANALOG command and gets the data instance."""
+        return self._analog
+
+    @property
+    def attitude(self) -> Attitude:
+        """Sends the MSP_ATTITUDE command and gets the data instance."""
+        return self._attitude
+    
+    @property
+    def box(self) -> Box:
+        """Sends the MSP_BOX command and gets the data instance."""
+        return self._box
+
+    @property
+    def boxids(self) -> BoxIds:
+        """Sends the MSP_BOXIDS command and gets the data instance."""
+        return self._box_ids
+
+    @property
+    def boxnames(self) -> BoxNames:
+        """Sends the MSP_BOXNAMES command and gets the data instance."""
+        return self._box_names
+    
+    @property
+    def comp_gps(self) -> CompGps:
+        """Sends the MSP_COMP_GPS command and gets the data instance."""
+        return self._comp_gps
+
+    @property
+    def ident(self) -> Ident:
+        """Sends the MSP_IDENT command and gets the data instance."""
+        return self._ident
+
+    @property
+    def misc(self) -> Misc:
+        """Sends the MSP_MISC command and gets the data instance."""
+        return self._misc
+
+    @property
+    def motor(self) -> Motor:
+        """Sends the MSP_MOTOR command and gets the data instance."""
+        return self._motor
+
+    @property
+    def motor_pins(self) -> MotorPins:
+        """Sends the MSP_MOTOR_PINS command and gets the data instance."""
+        return self._motor_pins
+    
+    @property
+    def pid(self) -> Pid:
+        """Sends the MSP_PID command and gets the data instance."""
+        return self._pid
+
+    @property
+    def pidnames(self) -> PidNames:
+        """Sends the MSP_PIDNAMES command and gets the data instance."""
+        return self._pid_names
+
+    @property
+    def raw_gps(self) -> RawGps:
+        """Sends the MSP_RAW_GPS command and gets the data instance."""
+        return self._raw_gps
+
+    @property
+    def raw_imu(self) -> RawImu:
+        """Sends the MSP_RAW_IMU command and gets the data instance."""
+        return self._raw_imu
+
+    @property
+    def rc(self) -> Rc:
+        """Sends the MSP_RC command and gets the data instance."""
+        return self._rc
+
+    @property
+    def rc_tuning(self) -> RcTuning:
+        """Sends the MSP_RC_TUNING command and gets the data instance."""
+        return self._rc_tuning
+
+    @property
+    def servo(self) -> Servo:
+        """Sends the MSP_SERVO command and gets the data instance."""
+        return self._servo
+
+    @property
+    def servo_conf(self) -> ServoConf:
+        """Sends the MSP_SERVO_CONF command and gets the data instance."""
+        return self._servo_conf
+
+    @property
+    def status(self) -> Status:
+        """Sends the MSP_STATUS command and gets the data instance."""
+        return self._status
+
+    @property
+    def waypoint(self) -> Waypoint:
+        """Sends the MSP_WP command and gets the data instance."""
+        return self._waypoint
 
     @property
     def command_write_delay(self) -> float:
@@ -62,6 +214,30 @@ class MultiWii(MultiWiiBase):
         self._command_write_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def _reset_data_values(self) -> NoReturn:
+        """Resets all data values."""
+        self._altitude   = Altitude()
+        self._analog     = Analog()
+        self._attitude   = Attitude()
+        self._box        = Box()
+        self._box_ids    = BoxIds()
+        self._box_names  = BoxNames()
+        self._comp_gps   = CompGps()
+        self._ident      = Ident()
+        self._misc       = Misc()
+        self._motor      = Motor()
+        self._motor_pins = MotorPins()
+        self._pid        = Pid()
+        self._pid_names  = PidNames()
+        self._raw_gps    = RawGps()
+        self._raw_imu    = RawImu()
+        self._rc         = Rc()
+        self._rc_tuning  = RcTuning()
+        self._servo      = Servo()
+        self._servo_conf = ServoConf()
+        self._status     = Status()
+        self._waypoint   = Waypoint()
 
     def _reset_serial_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
