@@ -10,5 +10,6 @@ __title__       = 'WiiProxy'
 __url__         = 'https://github.com/BluDay/wiiproxy'
 __version__     = '1.0'
 
-from .multiwii_base import MultiWiiBase
-from .multiwii      import MultiWii
+from .msp_commands import MspCommands
+
+from .multiwii import MultiWii

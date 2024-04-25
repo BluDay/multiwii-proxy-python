@@ -41,3 +41,7 @@ class MspCommands(object):
     MSP_SET_MOTOR:       Final[int] = 214
     MSP_BIND:            Final[int] = 240
     MSP_EEPROM_WRITE:    Final[int] = 250
+
+def get_command_codes() -> tuple[int]:
+    """Gets an immutable list of all command codes."""
+    return (value for value in vars(MspCommands) if 'MSP' in value[:3])
