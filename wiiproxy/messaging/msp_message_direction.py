@@ -1,6 +1,6 @@
 from typing import Final
 
-class MspMessageDirectionCharacter(object):
+class MspMessageDirection(object):
     """An enum-like class for message direction characters."""
 
     """The error character."""
