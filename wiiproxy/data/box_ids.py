@@ -1,7 +1,8 @@
 from . import command_code, struct_format, MultiWiiData
 
-from ..config    import MultiWiiBox
-from ..messaging import MspCommands
+from .. import MspCommands
+
+from ..config import MultiWiiBox
 
 from typing import NoReturn
 

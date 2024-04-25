@@ -1,6 +1,6 @@
 from . import command_code, struct_format, MultiWiiData
 
-from ..messaging import MspCommands
+from .. import MspCommands
 
 from typing import NoReturn
 
