@@ -1,4 +1,4 @@
-from .  import _MultiWiiData, command_code, struct_format, Point3D
+from .  import _MultiWiiData, _Point3D, command_code, struct_format
 from .. import MSP_RAW_IMU
 
 from typing import NoReturn
@@ -10,11 +10,11 @@ class RawImu(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _acc: Point3D[float]
+    _acc: _Point3D[float]
 
-    _gyro: Point3D[float]
+    _gyro: _Point3D[float]
 
-    _mag: Point3D[float]
+    _mag: _Point3D[float]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
@@ -27,17 +27,17 @@ class RawImu(_MultiWiiData):
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
-    def acc(self) -> Point3D[float]:
+    def acc(self) -> _Point3D[float]:
         """Gets the current 3D point value of the accelerometer."""
         return self._acc
 
     @property
-    def gyro(self) -> Point3D[float]:
+    def gyro(self) -> _Point3D[float]:
         """Gets the current 3D point value of the gyroscope."""
         return self._gyro
 
     @property
-    def mag(self) -> Point3D[float]:
+    def mag(self) -> _Point3D[float]:
         """Gets the current 3D point value of the magnetometer."""
         return self._mag
 

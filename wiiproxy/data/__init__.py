@@ -1,6 +1,6 @@
 from ._base import _MultiWiiData, command_code, struct_format
 
-from ._point import Point2D, Point3D
+from ._point import _Point2D, _Point3D
 
 from .altitude   import Altitude
 from .analog     import Analog
