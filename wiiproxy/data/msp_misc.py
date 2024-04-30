@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_MISC)
 @struct_format('6HIH4B')
-class Misc(_MultiWiiData):
+class MspMisc(_MultiWiiData):
     """Represents data values for the MSP_MISC command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_ANALOG)
 @struct_format('B3H')
-class Analog(_MultiWiiData):
+class MspAnalog(_MultiWiiData):
     """Represents data values for the MSP_ANALOG command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

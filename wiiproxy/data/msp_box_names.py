@@ -5,6 +5,6 @@ from typing import NoReturn
 
 @command_code(MSP_BOXNAMES)
 @struct_format('s', has_variable_size=True)
-class BoxNames(_MultiWiiData):
+class MspBoxNames(_MultiWiiData):
     """Represents data values for the MSP_BOXNAMES command."""
     pass

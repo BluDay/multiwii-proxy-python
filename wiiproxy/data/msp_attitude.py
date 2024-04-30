@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_ATTITUDE)
 @struct_format('3h')
-class Attitude(_MultiWiiData):
+class MspAttitude(_MultiWiiData):
     """Represents data values for the MSP_ATTITUDE command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

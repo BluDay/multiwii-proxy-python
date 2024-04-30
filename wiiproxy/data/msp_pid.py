@@ -5,6 +5,6 @@ from typing import NoReturn
 
 @command_code(MSP_PID)
 @struct_format('30B')
-class Pid(_MultiWiiData):
+class MspPid(_MultiWiiData):
     """Represents data values for the MSP_PID command."""
     pass

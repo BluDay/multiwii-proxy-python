@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_COMP_GPS)
 @struct_format('2HB')
-class CompGps(_MultiWiiData):
+class MspCompGps(_MultiWiiData):
     """Represents data values for the MSP_COMP_GPS command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

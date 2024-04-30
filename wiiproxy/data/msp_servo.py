@@ -5,6 +5,6 @@ from typing import NoReturn
 
 @command_code(MSP_SERVO)
 @struct_format('8H')
-class Servo(_MultiWiiData):
+class MspServo(_MultiWiiData):
     """Represents data values for the MSP_SERVO command."""
     pass

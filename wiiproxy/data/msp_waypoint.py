@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_WP)
 @struct_format('B3I2HB')
-class Waypoint(_MultiWiiData):
+class MspWaypoint(_MultiWiiData):
     """Represents data values for the MSP_WP command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

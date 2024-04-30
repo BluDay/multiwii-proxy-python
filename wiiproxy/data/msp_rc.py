@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_RC)
 @struct_format('8H')
-class Rc(_MultiWiiData):
+class MspRc(_MultiWiiData):
     """Represents data values for the MSP_RC command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
