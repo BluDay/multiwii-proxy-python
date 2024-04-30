@@ -37,27 +37,27 @@ from . import (
 )
 
 from .data import (
-	MspAltitude,
-	MspAnalog,
-	MspAttitude,
-	MspBox,
-	MspBoxIds,
-	MspBoxNames,
-	MspCompGps,
-	MspIdent,
-	MspMisc,
-	MspMotor,
-	MspMotorPins,
-	MspPid,
-	MspPidNames,
-	MspRawGps,
-	MspRawImu,
-	MspRc,
-	MspRcTuning,
-	MspServo,
-	MspServoConf,
-	MspStatus,
-	MspWaypoint
+    MspAltitude,
+    MspAnalog,
+    MspAttitude,
+    MspBox,
+    MspBoxIds,
+    MspBoxNames,
+    MspCompGps,
+    MspIdent,
+    MspMisc,
+    MspMotor,
+    MspMotorPins,
+    MspPid,
+    MspPidNames,
+    MspRawGps,
+    MspRawImu,
+    MspRc,
+    MspRcTuning,
+    MspServo,
+    MspServoConf,
+    MspStatus,
+    MspWaypoint
 )
 
 from serial import Serial
