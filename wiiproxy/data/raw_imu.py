@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_RAW_IMU)
+@command_code(MspCommands.RAW_IMU)
 @struct_format('9h')
 class RawImu(MultiWiiData):
     """Represents data values for the MSP_RAW_IMU command."""

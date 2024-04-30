@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_COMP_GPS)
+@command_code(MspCommands.COMP_GPS)
 @struct_format('2HB')
 class CompGps(MultiWiiData):
     """Represents data values for the MSP_COMP_GPS command."""

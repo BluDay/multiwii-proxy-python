@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_RC_TUNING)
+@command_code(MspCommands.RC_TUNING)
 @struct_format('7B')
 class RcTuning(MultiWiiData):
     """Represents data values for the MSP_RC_TUNING command."""

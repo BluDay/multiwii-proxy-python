@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_ANALOG)
+@command_code(MspCommands.ANALOG)
 @struct_format('B3H')
 class Analog(MultiWiiData):
     """Represents data values for the MSP_ANALOG command."""

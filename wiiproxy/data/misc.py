@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_MISC)
+@command_code(MspCommands.MISC)
 @struct_format('6HIH4B')
 class Misc(MultiWiiData):
     """Represents data values for the MSP_MISC command."""

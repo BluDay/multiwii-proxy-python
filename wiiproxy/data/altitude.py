@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_ALTITUDE)
+@command_code(MspCommands.ALTITUDE)
 @struct_format('ih')
 class Altitude(MultiWiiData):
     """Represents data values for the MSP_ALTITUDE command."""
