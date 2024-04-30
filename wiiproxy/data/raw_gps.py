@@ -1,4 +1,4 @@
-from .  import _MultiWiiData, command_code, struct_format, Point2D
+from .  import _MultiWiiData, _Point2D, command_code, struct_format
 from .. import MSP_RAW_GPS
 
 from typing import NoReturn
@@ -14,7 +14,7 @@ class RawGps(_MultiWiiData):
 
     _satellites: int
 
-    _coordinates: Point2D[float]
+    _coordinates: _Point2D[float]
 
     _altitude: int
 
@@ -46,7 +46,7 @@ class RawGps(_MultiWiiData):
         return self._satellites
 
     @property
-    def coordinates(self) -> Point2D[float]:
+    def coordinates(self) -> _Point2D[float]:
         """Gets the current coordinates."""
         return self._coordinates
 

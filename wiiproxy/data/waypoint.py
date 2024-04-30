@@ -1,4 +1,4 @@
-from .  import _MultiWiiData, command_code, struct_format, Point2D
+from .  import _MultiWiiData, _Point2D, command_code, struct_format
 from .. import MSP_WP
 
 from typing import NoReturn
@@ -12,7 +12,7 @@ class Waypoint(_MultiWiiData):
 
     _number: int
 
-    _position: Point2D[float]
+    _position: _Point2D[float]
 
     _alt_hold: int
 
@@ -41,7 +41,7 @@ class Waypoint(_MultiWiiData):
         return self._number
 
     @property
-    def position(self) -> Point2D[float]:
+    def position(self) -> _Point2D[float]:
         """Gets a 2D point value of the current position."""
         return self._position
 

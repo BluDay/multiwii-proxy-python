@@ -1,4 +1,4 @@
-from .  import _MultiWiiData, command_code, struct_format, Point2D
+from .  import _MultiWiiData, _Point2D, command_code, struct_format
 from .. import MSP_ATTITUDE
 
 from typing import NoReturn
@@ -10,7 +10,7 @@ class Attitude(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _angle: Point2D[float]
+    _angle: _Point2D[float]
 
     _heading: int
 
@@ -24,7 +24,7 @@ class Attitude(_MultiWiiData):
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
-    def angle(self) -> Point2D[float]:
+    def angle(self) -> _Point2D[float]:
         """Gets the angle values."""
         return self._angle
 
