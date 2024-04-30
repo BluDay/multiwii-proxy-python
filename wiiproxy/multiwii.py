@@ -114,133 +114,133 @@ class MultiWii(object):
 
     def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port."""
-        self._is_active = False
-
         if not isinstance(serial, Serial):
             raise TypeError('Argument "serial" must be an instance of "serial.Serial".')
 
-        self._reset_data_values()
+        self.__is_active = False
 
-        self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
+        self.__command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
 
-        self._serial = serial
+        self.__serial = serial
+
+        self.reset_data_values()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
     def altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        return self._altitude
+        return self.__altitude
 
     @property
     def analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        return self._analog
+        return self.__analog
 
     @property
     def attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        return self._attitude
+        return self.__attitude
     
     @property
     def box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        return self._box
+        return self.__box
 
     @property
     def boxids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        return self._box_ids
+        return self.__box_ids
 
     @property
     def boxnames(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        return self._box_names
+        return self.__box_names
     
     @property
     def comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        return self._comp_gps
+        return self.__comp_gps
 
     @property
     def ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        return self._ident
+        return self.__ident
 
     @property
     def misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        return self._misc
+        return self.__misc
 
     @property
     def motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        return self._motor
+        return self.__motor
 
     @property
     def motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        return self._motor_pins
+        return self.__motor_pins
     
     @property
     def pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        return self._pid
+        return self.__pid
 
     @property
     def pidnames(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        return self._pid_names
+        return self.__pid_names
 
     @property
     def raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        return self._raw_gps
+        return self.__raw_gps
 
     @property
     def raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        return self._raw_imu
+        return self.__raw_imu
 
     @property
     def rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        return self._rc
+        return self.__rc
 
     @property
     def rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        return self._rc_tuning
+        return self.__rc_tuning
 
     @property
     def servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        return self._servo
+        return self.__servo
 
     @property
     def servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        return self._servo_conf
+        return self.__servo_conf
 
     @property
     def status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        return self._status
+        return self.__status
 
     @property
     def waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        return self._waypoint
+        return self.__waypoint
 
     @property
     def command_write_read_delay(self) -> float:
         """Gets the delay (in seconds) between each write and read command."""
-        return self._command_write_read_delay
+        return self.__command_write_read_delay
 
     @property
     def serial(self) -> Serial:
         """Gets the used serial instance that was provided at instantiation."""
-        return self._serial
+        return self.__serial
 
     @command_write_read_delay.setter
     def command_write_read_delay(self, value: float) -> NoReturn:
@@ -264,35 +264,11 @@ class MultiWii(object):
         if value < 0:
             raise ValueError('Value must be a non-negative number.')
             
-        self._command_write_read_delay = value
+        self.__command_write_read_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _reset_data_values(self) -> NoReturn:
-        """Resets all data values."""
-        self._altitude   = MspAltitude()
-        self._analog     = MspAnalog()
-        self._attitude   = MspAttitude()
-        self._box        = MspBox()
-        self._box_ids    = MspBoxIds()
-        self._box_names  = MspBoxNames()
-        self._comp_gps   = MspCompGps()
-        self._ident      = MspIdent()
-        self._misc       = MspMisc()
-        self._motor      = MspMotor()
-        self._motor_pins = MspMotorPins()
-        self._pid        = MspPid()
-        self._pid_names  = MspPidNames()
-        self._raw_gps    = MspRawGps()
-        self._raw_imu    = MspRawImu()
-        self._rc         = MspRc()
-        self._rc_tuning  = MspRcTuning()
-        self._servo      = MspServo()
-        self._servo_conf = MspServoConf()
-        self._status     = MspStatus()
-        self._waypoint   = MspWaypoint()
-
-    def _reset_serial_buffers(self) -> NoReturn:
+    def __reset_serial_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
 
         This method clears both the input and output buffers of the serial port,
@@ -311,16 +287,40 @@ class MultiWii(object):
         SerialException
             If an error occurs while resetting the buffers.
         """
-        self._serial.reset_input_buffer()
-        self._serial.reset_output_buffer()
+        self.__serial.reset_input_buffer()
+        self.__serial.reset_output_buffer()
 
-    def _read_message(self, command: int) -> NoReturn:
+    def __read_message(self, command: int) -> NoReturn:
         """Reads a message of a command code from the FC."""
         pass
 
-    def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
+    def __send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
         """Sends a message of a specified command and data values to the FC."""
         pass
+
+    def reset_data_values(self) -> NoReturn:
+        """Resets all data values."""
+        self.__altitude   = MspAltitude()
+        self.__analog     = MspAnalog()
+        self.__attitude   = MspAttitude()
+        self.__box        = MspBox()
+        self.__box_ids    = MspBoxIds()
+        self.__box_names  = MspBoxNames()
+        self.__comp_gps   = MspCompGps()
+        self.__ident      = MspIdent()
+        self.__misc       = MspMisc()
+        self.__motor      = MspMotor()
+        self.__motor_pins = MspMotorPins()
+        self.__pid        = MspPid()
+        self.__pid_names  = MspPidNames()
+        self.__raw_gps    = MspRawGps()
+        self.__raw_imu    = MspRawImu()
+        self.__rc         = MspRc()
+        self.__rc_tuning  = MspRcTuning()
+        self.__servo      = MspServo()
+        self.__servo_conf = MspServoConf()
+        self.__status     = MspStatus()
+        self.__waypoint   = MspWaypoint()
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
@@ -336,7 +336,7 @@ class MultiWii(object):
         Ensure that the FC is ready to receive the bind command and that the transmitter is in
         binding mode before calling this method.
         """
-        self._send_message(MSP_BIND)
+        self.__send_message(MSP_BIND)
 
     def calibrate_accelerometer(self) -> NoReturn:
         """Sends the MSP_ACC_CALIBRATION command.
@@ -350,7 +350,7 @@ class MultiWii(object):
         The FC should be placed on a level surface during the calibration to ensure accurate
         results. Avoid moving or disturbing the FC during the process.
         """
-        self._send_message(MSP_ACC_CALIBRATION)
+        self.__send_message(MSP_ACC_CALIBRATION)
 
     def calibrate_magnetometer(self) -> NoReturn:
         """Sends the MSP_MAG_CALIBRATION command.
@@ -365,7 +365,7 @@ class MultiWii(object):
         consistent manner to ensure accurate results. Avoid any magnetic interference or
         disturbances during the process.
         """
-        self._send_message(MSP_ACC_CALIBRATION)
+        self.__send_message(MSP_ACC_CALIBRATION)
 
     def reset_config(self) -> NoReturn:
         """Sends the MSP_RESET_CONF command.
@@ -380,7 +380,7 @@ class MultiWii(object):
         their defaults. Make sure to reconfigure the FC according to your requirements after
         executing this command.
         """
-        self._send_message(MSP_RESET_CONF)
+        self.__send_message(MSP_RESET_CONF)
 
     def save_config_to_eeprom(self) -> NoReturn:
         """Sends the MSP_EEPROM_WRITE command.
@@ -393,7 +393,7 @@ class MultiWii(object):
         directly. Ensure that the values written are valid and intended, as incorrect
         values could lead to unexpected behavior or instability.
         """
-        self._send_message(MSP_EEPROM_WRITE)
+        self.__send_message(MSP_EEPROM_WRITE)
 
     def set_box(self) -> NoReturn:
         """Sends the MSP_SET_BOX
@@ -401,7 +401,7 @@ class MultiWii(object):
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
         of the aircraft based on various inputs from the transmitter or other sources.
         """
-        self._send_message(MSP_SET_BOX)
+        self.__send_message(MSP_SET_BOX)
 
     def set_head(self) -> NoReturn:
         """Sends the MSP_SET_HEAD command.
@@ -409,7 +409,7 @@ class MultiWii(object):
         Sets the heading (yaw) direction reference on the FC. It is used to define the forward
         direction of the aircraft relative to its orientation.
         """
-        self._send_message(MSP_SET_HEAD)
+        self.__send_message(MSP_SET_HEAD)
 
     def set_misc(self) -> NoReturn:
         """Sends the MSP_SET_MISC command.
@@ -417,7 +417,7 @@ class MultiWii(object):
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
         behavior, or other settings not covered by specific MSP commands.
         """
-        self._send_message(MSP_SET_MISC)
+        self.__send_message(MSP_SET_MISC)
 
     def set_motor(self) -> NoReturn:
         """Sends the MSP_SET_MOTOR command.
@@ -425,7 +425,7 @@ class MultiWii(object):
         Sets the motor output values on the FC. Motor output values determine the throttle level
         for each motor, controlling the rotation speed and thrust generated by the motors.
         """
-        self._send_message(MSP_SET_MOTOR)
+        self.__send_message(MSP_SET_MOTOR)
 
     def set_pid(self) -> NoReturn:
         """Sends the MSP_SET_PID command.
@@ -433,7 +433,7 @@ class MultiWii(object):
         Sets the PID values on the FC. PID values are used to adjust the stability and response
         characteristics of the aircraft.
         """
-        self._send_message(MSP_SET_PID)
+        self.__send_message(MSP_SET_PID)
 
     def set_raw_gps(self) -> NoReturn:
         """Sends the MSP_SET_RAW_GPS command.
@@ -441,7 +441,7 @@ class MultiWii(object):
         Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other
         GPS-related information.
         """
-        self._send_message(MSP_SET_RAW_GPS)
+        self.__send_message(MSP_SET_RAW_GPS)
 
     def set_raw_rc(self) -> NoReturn:
         """Sends the MSP_SET_RAW_RC command.
@@ -450,7 +450,7 @@ class MultiWii(object):
         width values received from the transmitter for each channel, typically representing
         control inputs such as throttle, pitch, roll, and yaw.
         """
-        self._send_message(MSP_SET_RAW_RC)
+        self.__send_message(MSP_SET_RAW_RC)
     
     def set_rc_tuning(self) -> NoReturn:
         """Sends the MSP_SET_RC_TUNING command.
@@ -458,7 +458,7 @@ class MultiWii(object):
         Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to
         RC control response and behavior.
         """
-        self._send_message(MSP_SET_RC_TUNING)
+        self.__send_message(MSP_SET_RC_TUNING)
 
     def set_servo_conf(self) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
@@ -466,4 +466,4 @@ class MultiWii(object):
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
         other settings related to servo control.
         """
-        self._send_message(MSP_SET_SERVO_CONF)
+        self.__send_message(MSP_SET_SERVO_CONF)
