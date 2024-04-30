@@ -1,10 +1,9 @@
-from . import command_code, struct_format, MultiWiiData
-
-from .. import MspCommands
+from .  import command_code, struct_format, MultiWiiData
+from .. import MSP_COMP_GPS
 
 from typing import NoReturn
 
-@command_code(MspCommands.COMP_GPS)
+@command_code(MSP_COMP_GPS)
 @struct_format('2HB')
 class CompGps(MultiWiiData):
     """Represents data values for the MSP_COMP_GPS command."""
