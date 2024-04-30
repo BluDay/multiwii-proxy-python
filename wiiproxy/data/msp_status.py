@@ -10,52 +10,52 @@ class MspStatus(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _cycle_time: int
+    __cycle_time: int
 
-    _i2c_errors: int
+    __i2c_errors: int
 
-    _sensors: tuple[int]
+    __sensors: tuple[int]
 
-    _flag: int
+    __flag: int
 
-    _global_conf: int
+    __global_conf: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self._cycle_time  = None
-        self._i2c_errors  = None
-        self._sensors     = None
-        self._flag        = None
-        self._global_conf = None
+        self.__cycle_time  = None
+        self.__i2c_errors  = None
+        self.__sensors     = None
+        self.__flag        = None
+        self.__global_conf = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
     
     @property
     def cycle_time(self) -> int:
         """Gets the cycle time value."""
-        return self._cycle_time
+        return self.__cycle_time
 
     @property
     def i2c_errors(self) -> int:
         """Gets the I2C errors value."""
-        return self._i2c_errors
+        return self.__i2c_errors
 
     @property
     def sensors(self) -> tuple[int]:
         """Gets a list of available sensors."""
-        return self._sensors
+        return self.__sensors
 
     @property
     def flag(self) -> int:
         """Gets the flag value."""
-        return self._flag
+        return self.__flag
 
     @property
     def global_conf(self) -> int:
         """Gets the global conf value."""
-        return self._global_conf
+        return self.__global_conf
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
