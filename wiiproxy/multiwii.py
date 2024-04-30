@@ -106,7 +106,7 @@ class MultiWii(object):
     _status:     MspStatus
     _waypoint:   MspWaypoint
 
-    _command_write_delay: int
+    _command_write_read_delay: int
 
     _serial: Serial
 
@@ -231,25 +231,38 @@ class MultiWii(object):
         return self._waypoint
 
     @property
-    def command_write_delay(self) -> float:
+    def command_write_read_delay(self) -> float:
         """Gets the command write delay."""
-        return self._command_write_delay
+        return self._command_write_read_delay
 
     @property
     def serial(self) -> Serial:
         """Gets the used serial instance that was provided at instantiation."""
         return self._serial
 
-    @command_write_delay.setter
-    def command_write_delay(self, value: float) -> NoReturn:
-        """Sends the write delay value."""
+    @command_write_read_delay.setter
+    def command_write_read_delay(self, value: float) -> NoReturn:
+        """Sets the delay (in seconds) between each write and read command.
+
+        This property controls the delay between each write command followed by a read command
+        sent to the FC. A write command with empty data values is sent first to prepare the FC,
+        followed by a delay, and then a read command to retrieve information from the FC.
+
+        Raises
+        ------
+        TypeError
+            If the value is not a float.
+
+        ValueError
+            If the value is a negative number.
+        """
         if not isinstance(value, float):
             raise TypeError('Value must be a float.')
 
         if value < 0:
             raise ValueError('Value must be a non-negative number.')
             
-        self._command_write_delay = value
+        self._command_write_read_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
