@@ -301,7 +301,7 @@ class MultiWii(object):
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
-    def bind_rxtx(self) -> NoReturn:
+    def bind_transmitter_receiver(self) -> NoReturn:
         """Sends the MSP_BIND command.
 
         This command initiates the binding process between the transmitter (radio controller)
