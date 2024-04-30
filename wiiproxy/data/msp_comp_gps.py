@@ -10,36 +10,36 @@ class MspCompGps(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    __distance_to_home: int
+    _distance_to_home: int
 
-    __direction_to_home: int
+    _direction_to_home: int
 
-    __update: int # What?
+    _update: int # What?
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self.__distance_to_home  = None
-        self.__direction_to_home = None
-        self.__update            = None
+        self._distance_to_home  = None
+        self._direction_to_home = None
+        self._update            = None
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
     @property
     def distance_to_home(self) -> int:
         """Gets the distance to home value."""
-        return self.__distance_to_home
+        return self._distance_to_home
 
     @property
     def direction_to_home(self) -> int:
         """Gets the direction to home value."""
-        return self.__direction_to_home
+        return self._direction_to_home
 
     @property
     def update(self) -> int:
         """Gets the update value."""
-        return self.__update
+        return self._update
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
