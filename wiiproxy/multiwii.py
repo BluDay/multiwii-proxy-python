@@ -77,7 +77,7 @@ class MultiWii(object):
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
     """Default delay (in seconds) for serial writes."""
-    DEFAULT_COMMAND_WRITE_DELAY: Final[float] = 0.005
+    DEFAULT_COMMAND_WRITE_READ_DELAY: Final[float] = 0.005
 
     """The MSP version used."""
     MSP_VERSION: Final[str] = 'v1'
@@ -120,6 +120,8 @@ class MultiWii(object):
             raise TypeError('Argument "serial" must be an instance of "serial.Serial".')
 
         self._reset_data_values()
+
+        self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
 
         self._serial = serial
 
@@ -232,7 +234,7 @@ class MultiWii(object):
 
     @property
     def command_write_read_delay(self) -> float:
-        """Gets the command write delay."""
+        """Gets the delay (in seconds) between each write and read command."""
         return self._command_write_read_delay
 
     @property
