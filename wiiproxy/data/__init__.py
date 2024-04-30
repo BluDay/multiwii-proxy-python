@@ -2,26 +2,26 @@ from ._base import _MultiWiiData, command_code, struct_format
 
 from ._point import _Point2D, _Point3D
 
-from .altitude   import Altitude
-from .analog     import Analog
-from .attitude   import Attitude
-from .box        import Box
-from .box_ids    import BoxIds
-from .box_names  import BoxNames
-from .comp_gps   import CompGps
-from .ident      import Ident
-from .misc       import Misc
-from .motor      import Motor
-from .motor_pins import MotorPins
-from .pid        import Pid
-from .pid_names  import PidNames
-from .raw_gps    import RawGps
-from .raw_imu    import RawImu
-from .rc         import Rc
-from .rc_tuning  import RcTuning
-from .servo      import Servo
-from .servo_conf import ServoConf
-from .status     import Status
-from .waypoint   import Waypoint
+from .msp_altitude   import MspAltitude
+from .msp_analog     import MspAnalog
+from .msp_attitude   import MspAttitude
+from .msp_box        import MspBox
+from .msp_box_ids    import MspBoxIds
+from .msp_box_names  import MspBoxNames
+from .msp_comp_gps   import MspCompGps
+from .msp_ident      import MspIdent
+from .msp_misc       import MspMisc
+from .msp_motor      import MspMotor
+from .msp_motor_pins import MspMotorPins
+from .msp_pid        import MspPid
+from .msp_pid_names  import MspPidNames
+from .msp_raw_gps    import MspRawGps
+from .msp_raw_imu    import MspRawImu
+from .msp_rc         import MspRc
+from .msp_rc_tuning  import MspRcTuning
+from .msp_servo      import MspServo
+from .msp_servo_conf import MspServoConf
+from .msp_status     import MspStatus
+from .msp_waypoint   import MspWaypoint
 
 # from ._values import MultiWiiDataValues
