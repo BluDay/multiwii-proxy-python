@@ -10,44 +10,44 @@ class MspAnalog(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    __voltage: int
+    _voltage: int
 
-    __power_meter: int # Unclear
+    _power_meter: int # Unclear
 
-    __rssi: int
+    _rssi: int
 
-    __amperage: int
+    _amperage: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self.__voltage     = None
-        self.__power_meter = None
-        self.__rssi        = None
-        self.__amperage    = None
+        self._voltage     = None
+        self._power_meter = None
+        self._rssi        = None
+        self._amperage    = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def voltage(self) -> int:
         """Gets the current voltage value."""
-        return self.__voltage
+        return self._voltage
 
     @property
     def power_meter(self) -> int:
         """Gets the power meter value."""
-        return self.__power_meter
+        return self._power_meter
 
     @property
     def rssi(self) -> int:
         """Gets the rssi value."""
-        return self.__rssi
+        return self._rssi
 
     @property
     def amperage(self) -> int:
         """Gets the current amperage value."""
-        return self.__amperage
+        return self._amperage
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

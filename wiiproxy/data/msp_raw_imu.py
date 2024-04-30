@@ -10,36 +10,36 @@ class MspRawImu(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    __acc: _Point3D[float]
+    _acc: _Point3D[float]
 
-    __gyro: _Point3D[float]
+    _gyro: _Point3D[float]
 
-    __mag: _Point3D[float]
+    _mag: _Point3D[float]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self.__acc  = None
-        self.__gyro = None
-        self.__mag  = None
+        self._acc  = None
+        self._gyro = None
+        self._mag  = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def acc(self) -> _Point3D[float]:
         """Gets the current 3D point value of the accelerometer."""
-        return self.__acc
+        return self._acc
 
     @property
     def gyro(self) -> _Point3D[float]:
         """Gets the current 3D point value of the gyroscope."""
-        return self.__gyro
+        return self._gyro
 
     @property
     def mag(self) -> _Point3D[float]:
         """Gets the current 3D point value of the magnetometer."""
-        return self.__mag
+        return self._mag
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

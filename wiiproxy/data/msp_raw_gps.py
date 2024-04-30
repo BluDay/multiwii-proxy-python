@@ -10,60 +10,60 @@ class MspRawGps(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    __fix: int
+    _fix: int
 
-    __satellites: int
+    _satellites: int
 
-    __coordinates: _Point2D[float]
+    _coordinates: _Point2D[float]
 
-    __altitude: int
+    _altitude: int
 
-    __speed: int
+    _speed: int
 
-    __ground_course: int
+    _ground_course: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self.__fix           = None
-        self.__satellites    = None
-        self.__coordinates   = None
-        self.__altitude      = None
-        self.__speed         = None
-        self.__ground_course = None
+        self._fix           = None
+        self._satellites    = None
+        self._coordinates   = None
+        self._altitude      = None
+        self._speed         = None
+        self._ground_course = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def fix(self) -> int:
         """Gets the fix value."""
-        return self.__fix
+        return self._fix
 
     @property
     def satellites(self) -> int:
         """Gets the satellites value."""
-        return self.__satellites
+        return self._satellites
 
     @property
     def coordinates(self) -> _Point2D[float]:
         """Gets the current coordinates."""
-        return self.__coordinates
+        return self._coordinates
 
     @property
     def altitude(self) -> int:
         """Gets the current altitude."""
-        return self.__altitude
+        return self._altitude
 
     @property
     def speed(self) -> int:
         """Gets the current speed."""
-        return self.__speed
+        return self._speed
 
     @property
     def ground_course(self) -> int:
         """Gets the ground course value."""
-        return self.__ground_course
+        return self._ground_course
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

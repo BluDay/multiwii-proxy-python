@@ -10,28 +10,28 @@ class MspAttitude(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    __angle: _Point2D[float]
+    _angle: _Point2D[float]
 
-    __heading: int
+    _heading: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self.__angle   = None
-        self.__heading = None
+        self._angle   = None
+        self._heading = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def angle(self) -> _Point2D[float]:
         """Gets the angle values."""
-        return self.__angle
+        return self._angle
 
     @property
     def heading(self) -> int:
         """Gets the heading value."""
-        return self.__heading
+        return self._heading
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
