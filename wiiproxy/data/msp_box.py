@@ -11,20 +11,20 @@ class MspBox(_MultiWiiData):
     """
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _values: tuple[int]
+    __values: tuple[int]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         \"""Initializes a new instance with default values.\"""
-        self._values = None
+        self.__values = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def values(self) -> tuple[int]:
         \"""Gets the main values.\"""
-        return self._values
+        return self.__values
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

@@ -10,60 +10,60 @@ class MspWaypoint(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _number: int
+    __number: int
 
-    _position: _Point2D[float]
+    __position: _Point2D[float]
 
-    _alt_hold: int
+    __alt_hold: int
 
-    _heading: int
+    __heading: int
 
-    _time_to_stay: int
+    __time_to_stay: int
 
-    _flag: int
+    __flag: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self._number       = None
-        self._position     = None
-        self._alt_hold     = None
-        self._heading      = None
-        self._time_to_stay = None
-        self._flag         = None
+        self.__number       = None
+        self.__position     = None
+        self.__alt_hold     = None
+        self.__heading      = None
+        self.__time_to_stay = None
+        self.__flag         = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def number(self) -> int:
         """Gets the number value."""
-        return self._number
+        return self.__number
 
     @property
     def position(self) -> _Point2D[float]:
         """Gets a 2D point value of the current position."""
-        return self._position
+        return self.__position
 
     @property
     def alt_hold(self) -> int:
         """Gets the altitude hold value."""
-        return self._alt_hold
+        return self.__alt_hold
 
     @property
     def heading(self) -> int:
         """Gets the heading value."""
-        return self._heading
+        return self.__heading
 
     @property
     def time_to_stay(self) -> int:
         """Gets the time-to-stay value."""
-        return self._time_to_stay
+        return self.__time_to_stay
 
     @property
     def flag(self) -> int:
         """Gets the flag value."""
-        return self._flag
+        return self.__flag
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

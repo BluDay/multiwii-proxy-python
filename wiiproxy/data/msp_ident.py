@@ -12,54 +12,54 @@ class MspIdent(_MultiWiiData):
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _version: float
+    __version: float
 
-    _multitype: MultiWiiMultitype
+    __multitype: MultiWiiMultitype
 
-    _capabilities: tuple[MultiWiiCapability]
+    __capabilities: tuple[MultiWiiCapability]
 
-    _navi_version: int
+    __navi_version: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self._version      = None
-        self._multitype    = None
-        self._capabilities = None
-        self._navi_version = None
+        self.__version      = None
+        self.__multitype    = None
+        self.__capabilities = None
+        self.__navi_version = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def version(self) -> float:
         """Gets the MultiWii version."""
-        return self._version
+        return self.__version
 
     @property
     def multitype(self) -> MultiWiiMultitype:
         """Gets the configured vehicle type."""
-        return self._multitype
+        return self.__multitype
 
     @property
     def capabilities(self) -> tuple[MultiWiiCapability]:
         """Gets configured capabilities."""
-        return self._capabilities
+        return self.__capabilities
 
     @property
     def navi_version(self) -> int:
         """Gets the NAVI_VERSION."""
-        return self._navi_version
+        return self.__navi_version
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def _evaluate_raw_data(self) -> NoReturn:
         """Updates the current values by the provided unserialized data bytes."""
-        data = self._raw_data
+        data = self.__raw_data
 
-        self._version = data[0] / 100
+        self.__version = data[0] / 100
 
-        self._multitype = MultiWiiMultitype(data[1])
+        self.__multitype = MultiWiiMultitype(data[1])
 
         capabilities = ()
 
@@ -67,6 +67,6 @@ class MspIdent(_MultiWiiData):
             if capability & data[2]:
                 capabilities += (capability,)
 
-        self._capabilities = capabilities
+        self.__capabilities = capabilities
 
-        self._navi_version = data[3] << 28
+        self.__navi_version = data[3] << 28

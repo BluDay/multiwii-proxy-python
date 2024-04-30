@@ -10,52 +10,52 @@ class MspRc(_MultiWiiData):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _roll: int
+    __roll: int
 
-    _pitch: int
+    __pitch: int
 
-    _yaw: int
+    __yaw: int
 
-    _throttle: int
+    __throttle: int
 
-    _aux: tuple[int]
+    __aux: tuple[int]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self._roll     = None
-        self._pitch    = None
-        self._yaw      = None
-        self._throttle = None
-        self._aux      = None
+        self.__roll     = None
+        self.__pitch    = None
+        self.__yaw      = None
+        self.__throttle = None
+        self.__aux      = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
     def roll(self) -> int:
         """Gets the roll value."""
-        return self._roll
+        return self.__roll
 
     @property
     def pitch(self) -> int:
         """Gets the pitch value."""
-        return self._pitch
+        return self.__pitch
 
     @property
     def yaw(self) -> int:
         """Gets the yaw value."""
-        return self._yaw
+        return self.__yaw
 
     @property
     def throttle(self) -> int:
         """Gets the throttle value."""
-        return self._throttle
+        return self.__throttle
 
     @property
     def aux(self) -> tuple[int]:
         """Gets the four auxillary values."""
-        return self._aux
+        return self.__aux
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
