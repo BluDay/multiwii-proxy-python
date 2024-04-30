@@ -318,7 +318,7 @@ class MultiWii(object):
         """Reads a message of a command code from the FC."""
         pass
 
-    def _send_message(self, command: int, data: Tuple[int] = None) -> NoReturn:
+    def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
         """Sends a message of a specified command and data values to the FC."""
         pass
 
