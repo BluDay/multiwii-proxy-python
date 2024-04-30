@@ -1,10 +1,9 @@
-from . import command_code, struct_format, MultiWiiData
-
-from .. import MspCommands
+from .  import command_code, struct_format, MultiWiiData
+from .. import MSP_BOX
 
 from typing import NoReturn
 
-@command_code(MspCommands.BOX)
+@command_code(MSP_BOX)
 @struct_format('H', has_variable_size=True)
 class Box(MultiWiiData):
     """Represents data values for the MSP_BOX command."""
@@ -33,5 +32,4 @@ class Box(MultiWiiData):
         \"""Updates the current values by the provided unserialized data bytes.\"""
         pass
     """
-
     pass

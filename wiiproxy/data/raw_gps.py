@@ -1,10 +1,9 @@
-from . import command_code, struct_format, MultiWiiData, Point2D
-
-from .. import MspCommands
+from .  import command_code, struct_format, MultiWiiData, Point2D
+from .. import MSP_RAW_GPS
 
 from typing import NoReturn
 
-@command_code(MspCommands.RAW_GPS)
+@command_code(MSP_RAW_GPS)
 @struct_format('2B2I3H')
 class RawGps(MultiWiiData):
     """Represents data values for the MSP_RAW_GPS command."""
