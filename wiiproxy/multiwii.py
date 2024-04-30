@@ -115,7 +115,7 @@ class MultiWii(object):
     def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port."""
         if not isinstance(serial, Serial):
-            raise TypeError('Argument "serial" must be an instance of "serial.Serial".')
+            raise TypeError('"serial" must be an instance of "Serial".')
 
         self._is_active = False
 
