@@ -4,7 +4,7 @@ from .. import MspCommands
 
 from typing import NoReturn
 
-@command_code(MspCommands.MSP_STATUS)
+@command_code(MspCommands.STATUS)
 @struct_format('3HIB')
 class Status(MultiWiiData):
     """Represents data values for the MSP_STATUS command."""
