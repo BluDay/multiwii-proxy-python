@@ -1,4 +1,4 @@
-from ._base import MultiWiiData, command_code, struct_format
+from ._base import _MultiWiiData, command_code, struct_format
 
 from ._point import Point2D, Point3D
 

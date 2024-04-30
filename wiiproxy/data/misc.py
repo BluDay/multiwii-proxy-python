@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData
+from .  import _MultiWiiData, command_code, struct_format
 from .. import MSP_MISC
 
 from typing import NoReturn
 
 @command_code(MSP_MISC)
 @struct_format('6HIH4B')
-class Misc(MultiWiiData):
+class Misc(_MultiWiiData):
     """Represents data values for the MSP_MISC command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

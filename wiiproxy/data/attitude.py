@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData, Point2D
+from .  import _MultiWiiData, command_code, struct_format, Point2D
 from .. import MSP_ATTITUDE
 
 from typing import NoReturn
 
 @command_code(MSP_ATTITUDE)
 @struct_format('3h')
-class Attitude(MultiWiiData):
+class Attitude(_MultiWiiData):
     """Represents data values for the MSP_ATTITUDE command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

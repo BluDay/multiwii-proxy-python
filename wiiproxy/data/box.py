@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData
+from .  import _MultiWiiData, command_code, struct_format
 from .. import MSP_BOX
 
 from typing import NoReturn
 
 @command_code(MSP_BOX)
 @struct_format('H', has_variable_size=True)
-class Box(MultiWiiData):
+class Box(_MultiWiiData):
     """Represents data values for the MSP_BOX command."""
 
     """
