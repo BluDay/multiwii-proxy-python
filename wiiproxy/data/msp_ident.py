@@ -7,7 +7,7 @@ from typing import Final, NoReturn
 
 @command_code(MSP_IDENT)
 @struct_format('3BI')
-class Ident(_MultiWiiData):
+class MspIdent(_MultiWiiData):
     """Represents data values for the MSP_IDENT command."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

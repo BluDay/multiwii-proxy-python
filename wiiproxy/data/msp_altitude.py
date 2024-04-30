@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_ALTITUDE)
 @struct_format('ih')
-class Altitude(_MultiWiiData):
+class MspAltitude(_MultiWiiData):
     """Represents data values for the MSP_ALTITUDE command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

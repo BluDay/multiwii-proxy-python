@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_RAW_IMU)
 @struct_format('9h')
-class RawImu(_MultiWiiData):
+class MspRawImu(_MultiWiiData):
     """Represents data values for the MSP_RAW_IMU command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

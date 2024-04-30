@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_BOX)
 @struct_format('H', has_variable_size=True)
-class Box(_MultiWiiData):
+class MspBox(_MultiWiiData):
     """Represents data values for the MSP_BOX command."""
 
     """

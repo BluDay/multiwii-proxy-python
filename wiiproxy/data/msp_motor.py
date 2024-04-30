@@ -5,6 +5,6 @@ from typing import NoReturn
 
 @command_code(MSP_MOTOR)
 @struct_format('8H')
-class Motor(_MultiWiiData):
+class MspMotor(_MultiWiiData):
     """Represents data values for the MSP_MOTOR command."""
     pass

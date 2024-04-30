@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_RC_TUNING)
 @struct_format('7B')
-class RcTuning(_MultiWiiData):
+class MspRcTuning(_MultiWiiData):
     """Represents data values for the MSP_RC_TUNING command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

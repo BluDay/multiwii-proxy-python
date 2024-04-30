@@ -5,7 +5,7 @@ from typing import NoReturn
 
 @command_code(MSP_STATUS)
 @struct_format('3HIB')
-class Status(_MultiWiiData):
+class MspStatus(_MultiWiiData):
     """Represents data values for the MSP_STATUS command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
