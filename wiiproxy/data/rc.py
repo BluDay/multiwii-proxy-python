@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData
+from .  import _MultiWiiData, command_code, struct_format
 from .. import MSP_RC
 
 from typing import NoReturn
 
 @command_code(MSP_RC)
 @struct_format('8H')
-class Rc(MultiWiiData):
+class Rc(_MultiWiiData):
     """Represents data values for the MSP_RC command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

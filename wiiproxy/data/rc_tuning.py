@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData
+from .  import _MultiWiiData, command_code, struct_format
 from .. import MSP_RC_TUNING
 
 from typing import NoReturn
 
 @command_code(MSP_RC_TUNING)
 @struct_format('7B')
-class RcTuning(MultiWiiData):
+class RcTuning(_MultiWiiData):
     """Represents data values for the MSP_RC_TUNING command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

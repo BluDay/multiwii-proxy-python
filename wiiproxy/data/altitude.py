@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData
+from .  import _MultiWiiData, command_code, struct_format
 from .. import MSP_ALTITUDE
 
 from typing import NoReturn
 
 @command_code(MSP_ALTITUDE)
 @struct_format('ih')
-class Altitude(MultiWiiData):
+class Altitude(_MultiWiiData):
     """Represents data values for the MSP_ALTITUDE command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

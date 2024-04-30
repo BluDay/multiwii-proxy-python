@@ -1,11 +1,11 @@
-from .  import command_code, struct_format, MultiWiiData, Point2D
+from .  import _MultiWiiData, command_code, struct_format, Point2D
 from .. import MSP_WP
 
 from typing import NoReturn
 
 @command_code(MSP_WP)
 @struct_format('B3I2HB')
-class Waypoint(MultiWiiData):
+class Waypoint(_MultiWiiData):
     """Represents data values for the MSP_WP command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
