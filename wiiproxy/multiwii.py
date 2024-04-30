@@ -84,31 +84,31 @@ class MultiWii(object):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _altitude:   MspAltitude
-    _analog:     MspAnalog
-    _attitude:   MspAttitude
-    _box:        MspBox
-    _box_ids:    MspBoxIds
-    _box_names:  MspBoxNames
-    _comp_gps:   MspCompGps
-    _ident:      MspIdent
-    _misc:       MspMisc
-    _motor:      MspMotor
-    _motor_pins: MspMotorPins
-    _pid:        MspPid
-    _pid_names:  MspPidNames
-    _raw_gps:    MspRawGps
-    _raw_imu:    MspRawImu
-    _rc:         MspRc
-    _rc_tuning:  MspRcTuning
-    _servo:      MspServo
-    _servo_conf: MspServoConf
-    _status:     MspStatus
-    _waypoint:   MspWaypoint
+    __altitude:   MspAltitude
+    __analog:     MspAnalog
+    __attitude:   MspAttitude
+    __box:        MspBox
+    __box_ids:    MspBoxIds
+    __box_names:  MspBoxNames
+    __comp_gps:   MspCompGps
+    __ident:      MspIdent
+    __misc:       MspMisc
+    __motor:      MspMotor
+    __motor_pins: MspMotorPins
+    __pid:        MspPid
+    __pid_names:  MspPidNames
+    __raw_gps:    MspRawGps
+    __raw_imu:    MspRawImu
+    __rc:         MspRc
+    __rc_tuning:  MspRcTuning
+    __servo:      MspServo
+    __servo_conf: MspServoConf
+    __status:     MspStatus
+    __waypoint:   MspWaypoint
 
-    _command_write_read_delay: int
+    __command_write_read_delay: int
 
-    _serial: Serial
+    __serial: Serial
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
