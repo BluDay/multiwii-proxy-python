@@ -23,5 +23,3 @@ from .msp_servo      import MspServo
 from .msp_servo_conf import MspServoConf
 from .msp_status     import MspStatus
 from .msp_waypoint   import MspWaypoint
-
-# from ._values import MultiWiiDataValues
