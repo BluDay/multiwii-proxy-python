@@ -90,7 +90,7 @@ class MultiWii(object):
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
-    def __init__(self, serial: Serial) -> NoReturn:
+    def _init_(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port.
 
         This constructor initializes a new instance of the MultiWii class using the provided
@@ -146,7 +146,7 @@ class MultiWii(object):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def __reset_serial_buffers(self) -> NoReturn:
+    def _reset_serial_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
 
         This method clears both the input and output buffers of the serial port,
@@ -168,11 +168,11 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    def __read_message(self, command: int) -> NoReturn:
+    def _read_message(self, command: int) -> NoReturn:
         """Reads a message of a command code from the FC."""
         pass
 
-    def __send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
+    def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
         """Sends a message of a specified command and data values to the FC."""
         pass
 
