@@ -322,19 +322,6 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def write_eeprom(self) -> NoReturn:
-        """Sends the MSP_EEPROM_WRITE command.
-
-        This command writes the current configuration settings to the EEPROM of the FC. 
-
-        Note
-        ----
-        Writing to EEPROM should be done with caution, as it modifies the stored config
-        directly. Ensure that the values written are valid and intended, as incorrect
-        values could lead to unexpected behavior or instability.
-        """
-        self._send_message(MSP_EEPROM_WRITE)
-
     def set_box(self) -> NoReturn:
         """Sends the MSP_SET_BOX
 
@@ -407,3 +394,17 @@ class MultiWii(object):
         other settings related to servo control.
         """
         self._send_message(MSP_SET_SERVO_CONF)
+
+    def write_eeprom(self) -> NoReturn:
+        """Sends the MSP_EEPROM_WRITE command.
+
+        This command writes the current configuration settings to the EEPROM of the FC. 
+
+        Note
+        ----
+        Writing to EEPROM should be done with caution, as it modifies the stored config
+        directly. Ensure that the values written are valid and intended, as incorrect
+        values could lead to unexpected behavior or instability.
+        """
+        self._send_message(MSP_EEPROM_WRITE)
+
