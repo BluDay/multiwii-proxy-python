@@ -90,7 +90,7 @@ class MultiWii(object):
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
-    def _init_(self, serial: Serial) -> NoReturn:
+    def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port.
 
         This constructor initializes a new instance of the MultiWii class using the provided
