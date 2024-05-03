@@ -264,7 +264,7 @@ class MultiWii(object):
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
-    def bind_transmitter_receiver(self) -> NoReturn:
+    def bind(self) -> NoReturn:
         """Sends the MSP_BIND command.
 
         This command initiates the binding process between the transmitter (radio controller)
@@ -278,7 +278,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_BIND)
 
-    def calibrate_accelerometer(self) -> NoReturn:
+    def calibrate_acc(self) -> NoReturn:
         """Sends the MSP_ACC_CALIBRATION command.
 
         This command initiates the accelerometer calibration process on the FC. Accelerometer
@@ -292,7 +292,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_ACC_CALIBRATION)
 
-    def calibrate_magnetometer(self) -> NoReturn:
+    def calibrate_mag(self) -> NoReturn:
         """Sends the MSP_MAG_CALIBRATION command.
 
         This command initiates the magnetometer (compass) calibration process on the FC.
@@ -307,7 +307,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_ACC_CALIBRATION)
 
-    def reset_config(self) -> NoReturn:
+    def reset_conf(self) -> NoReturn:
         """Sends the MSP_RESET_CONF command.
 
         This command resets the configuration settings on the FC to their default values.
@@ -322,7 +322,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def save_config_to_eeprom(self) -> NoReturn:
+    def write_eeprom(self) -> NoReturn:
         """Sends the MSP_EEPROM_WRITE command.
 
         This command writes the current configuration settings to the EEPROM of the FC. 
