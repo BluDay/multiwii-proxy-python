@@ -168,6 +168,10 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
+    def _read_data(self, command: int, message: bytes) -> tuple[int]:
+        """Reads a message of a command code from the FC."""
+        pass
+
     def _read_message(self, command: int) -> NoReturn:
         """Reads a message of a command code from the FC."""
         pass
