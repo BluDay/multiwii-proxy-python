@@ -29,6 +29,8 @@ class _MultiWiiData(ABC):
         """Initializes a new instance."""
         self._raw_data = None
 
+        self._priority = CommandPriority.Normal
+
     # -------------------------------------- PROPERTIES ----------------------------------------
 
     @property
