@@ -36,12 +36,12 @@ class _MspDataStructure(ABC):
         return self._priority
 
     @priority.setter
-    def priority(self, priority: CommandPriority) -> NoReturn:
+    def priority(self, value: CommandPriority) -> NoReturn:
         """Sets the priority to be used for the corresponding command."""
-        if not isinstance(priority, CommandPriority):
-            raise TypeError('Priority must be of type "CommandPriority".')
+        if not isinstance(value, CommandPriority):
+            raise TypeError('Value must be of type "CommandPriority".')
 
-        self._priority = priority
+        self._priority = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
