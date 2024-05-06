@@ -37,9 +37,10 @@ from . import (
     MSP_SET_SERVO_CONF
 )
 
-from serial import Serial
-from time   import sleep
-from typing import Final, NoReturn
+from serial    import Serial
+from time      import sleep
+from threading import Thread
+from typing    import Final, NoReturn
 
 class MultiWii(MultiWiiData):
     """The main class for wiiproxy that handles everything.
@@ -311,10 +312,10 @@ class MultiWii(MultiWiiData):
 
     # ------------------------------------- CORE METHODS ---------------------------------------
 
-    def start(self) -> NoReturn:
+    def start_worker(self) -> NoReturn:
         """Starts the worker thread."""
         pass
 
-    def stop(self) -> NoReturn:
+    def stop_worker(self) -> NoReturn:
         """Stops the worker thread."""
         pass
