@@ -51,7 +51,7 @@ class MultiWiiData(object):
     _status:     MspStatus
     _waypoint:   MspWaypoint
 
-    # ------------------------------------- GET COMMANDS ---------------------------------------
+    # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
     def altitude(self) -> MspAltitude:
