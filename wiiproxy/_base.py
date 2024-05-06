@@ -27,14 +27,6 @@ from typing import Final, NoReturn
 class MultiWiiData(object):
     """The base class for MultiWii with all data structure instances."""
     
-    # ------------------------------------ CLASS CONSTANTS -------------------------------------
-
-    """Default delay (in seconds) for serial writes."""
-    DEFAULT_COMMAND_WRITE_READ_DELAY: Final[float] = 0.005
-
-    """The MSP version used."""
-    MSP_VERSION: Final[str] = 'v1'
-
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     _altitude:   MspAltitude
