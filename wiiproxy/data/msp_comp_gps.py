@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, command_code, struct_format
-from .. import MSP_COMP_GPS
+from . import _MspDataStructure, command_code, struct_format
+
+from ..msp_commands import MSP_COMP_GPS
 
 from typing import NoReturn
 

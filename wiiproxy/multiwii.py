@@ -1,5 +1,6 @@
-from . import (
-    MultiWiiData,
+from . import MultiWiiData
+
+from .msp_commands import (
     MSP_ALTITUDE,
     MSP_ANALOG,
     MSP_ATTITUDE,

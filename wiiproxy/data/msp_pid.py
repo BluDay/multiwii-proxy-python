@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, command_code, struct_format
-from .. import MSP_PID
+from . import _MspDataStructure, command_code, struct_format
+
+from ..msp_commands import MSP_PID
 
 from typing import NoReturn
 

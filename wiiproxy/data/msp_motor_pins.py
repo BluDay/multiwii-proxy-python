@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, command_code, struct_format
-from .. import MSP_MOTOR_PINS
+from . import _MspDataStructure, command_code, struct_format
+
+from ..msp_commands import MSP_MOTOR_PINS
 
 from typing import NoReturn
 

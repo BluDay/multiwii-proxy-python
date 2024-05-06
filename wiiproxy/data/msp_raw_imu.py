@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, _Point3D, command_code, struct_format
-from .. import MSP_RAW_IMU
+from . import _MspDataStructure, _Point3D, command_code, struct_format
+
+from ..msp_commands import MSP_RAW_IMU
 
 from typing import NoReturn
 

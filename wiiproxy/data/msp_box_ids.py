@@ -1,7 +1,7 @@
-from .  import _MspDataStructure, command_code, struct_format
-from .. import MSP_BOXIDS
+from . import _MspDataStructure, command_code, struct_format
 
-from ..config import MultiWiiBox
+from ..config       import MultiWiiBox
+from ..msp_commands import MSP_BOXIDS
 
 from typing import NoReturn
 

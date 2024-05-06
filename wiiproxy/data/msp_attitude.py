@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, _Point2D, command_code, struct_format
-from .. import MSP_ATTITUDE
+from . import _MspDataStructure, _Point2D, command_code, struct_format
+
+from ..msp_commands import MSP_ATTITUDE
 
 from typing import NoReturn
 
