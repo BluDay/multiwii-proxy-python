@@ -1,5 +1,6 @@
-from .  import _MspDataStructure, _Point2D, command_code, struct_format
-from .. import MSP_WP
+from . import _MspDataStructure, _Point2D, command_code, struct_format
+
+from ..msp_commands import MSP_WP
 
 from typing import NoReturn
 
