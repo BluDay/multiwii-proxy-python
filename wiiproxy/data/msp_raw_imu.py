@@ -1,11 +1,11 @@
-from .  import _MultiWiiData, _Point3D, command_code, struct_format
+from .  import _MspDataStructure, _Point3D, command_code, struct_format
 from .. import MSP_RAW_IMU
 
 from typing import NoReturn
 
 @command_code(MSP_RAW_IMU)
 @struct_format('9h')
-class MspRawImu(_MultiWiiData):
+class MspRawImu(_MspDataStructure):
     """Represents data values for the MSP_RAW_IMU command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

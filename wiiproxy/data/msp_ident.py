@@ -1,4 +1,4 @@
-from .  import _MultiWiiData, command_code, struct_format
+from .  import _MspDataStructure, command_code, struct_format
 from .. import MSP_IDENT
 
 from ..config import MultiWiiCapability, MultiWiiMultitype
@@ -7,7 +7,7 @@ from typing import Final, NoReturn
 
 @command_code(MSP_IDENT)
 @struct_format('3BI')
-class MspIdent(_MultiWiiData):
+class MspIdent(_MspDataStructure):
     """Represents data values for the MSP_IDENT command."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

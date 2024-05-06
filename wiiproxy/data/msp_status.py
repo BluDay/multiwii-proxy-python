@@ -1,11 +1,11 @@
-from .  import _MultiWiiData, command_code, struct_format
+from .  import _MspDataStructure, command_code, struct_format
 from .. import MSP_STATUS
 
 from typing import NoReturn
 
 @command_code(MSP_STATUS)
 @struct_format('3HIB')
-class MspStatus(_MultiWiiData):
+class MspStatus(_MspDataStructure):
     """Represents data values for the MSP_STATUS command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
