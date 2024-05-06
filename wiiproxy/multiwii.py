@@ -176,7 +176,7 @@ class MultiWii(object):
         """Parses data from a received or sent message."""
         pass
 
-    def _read_message(self, command: int) -> NoReturn:
+    def _read_message(self, command: int) -> bytes:
         """Reads a message of a command code from the FC."""
         pass
 
