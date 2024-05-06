@@ -48,4 +48,6 @@ from .msp_commands import (
     MSP_SET_SERVO_CONF
 )
 
+from ._base import MultiWiiData
+
 from .multiwii import MultiWii
