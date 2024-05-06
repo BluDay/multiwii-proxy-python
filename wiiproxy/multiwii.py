@@ -486,3 +486,11 @@ class MultiWii(object):
         self._servo_conf = MspServoConf()
         self._status     = MspStatus()
         self._waypoint   = MspWaypoint()
+
+    def start(self) -> NoReturn:
+        """Starts the worker thread."""
+        pass
+
+    def stop(self) -> NoReturn:
+        """Stops the worker thread."""
+        pass
