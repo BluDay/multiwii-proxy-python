@@ -186,87 +186,108 @@ class MultiWii(object):
 
     # ------------------------------------- GET COMMANDS ---------------------------------------
 
-    def get_altitude(self) -> MspAltitude:
+    @property
+    def altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
         return self._get_data(MSP_ALTITUDE)
     
-    def get_analog(self) -> MspAnalog:
+    @property
+    def analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
         return self._get_data(MSP_ANALOG)
     
-    def get_attitude(self) -> MspAttitude:
+    @property
+    def attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
         return self._get_data(MSP_ATTITUDE)
     
-    def get_box(self) -> MspBox:
+    @property
+    def box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
         return self._get_data(MSP_BOX)
     
-    def get_boxids(self) -> MspBoxIds:
+    @property
+    def boxids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
         return self._get_data(MSP_BOXIDS)
     
-    def get_boxnames(self) -> MspBoxNames:
+    @property
+    def boxnames(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
         return self._get_data(MSP_BOXNAMES)
     
-    def get_comp_gps(self) -> MspCompGps:
+    @property
+    def comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
         return self._get_data(MSP_COMP_GPS)
     
-    def get_ident(self) -> MspIdent:
+    @property
+    def ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
         return self._get_data(MSP_IDENT)
     
-    def get_misc(self) -> MspMisc:
+    @property
+    def misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
         return self._get_data(MSP_MISC)
     
-    def get_motor(self) -> MspMotor:
+    @property
+    def motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
         return self._get_data(MSP_MOTOR)
     
-    def get_motor_pins(self) -> MspMotorPins:
+    @property
+    def motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
         return self._get_data(MSP_MOTOR_PINS)
     
-    def get_pid(self) -> MspPid:
+    @property
+    def pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
         return self._get_data(MSP_PID)
     
-    def get_pidnames(self) -> MspPidNames:
+    @property
+    def pidnames(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
         return self._get_data(MSP_PIDNAMES)
     
-    def get_raw_gps(self) -> MspRawGps:
+    @property
+    def raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
         return self._get_data(MSP_RAW_GPS)
     
-    def get_raw_imu(self) -> MspRawImu:
+    @property
+    def raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
         return self._get_data(MSP_RAW_IMU)
     
-    def get_rc(self) -> MspRc:
+    @property
+    def rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
         return self._get_data(MSP_RC)
     
-    def get_rc_tuning(self) -> MspRcTuning:
+    @property
+    def rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
         return self._get_data(MSP_RC_TUNING)
     
-    def get_servo(self) -> MspServo:
+    @property
+    def servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
         return self._get_data(MSP_SERVO)
     
-    def get_servo_conf(self) -> MspServoConf:
+    @property
+    def servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
         return self._get_data(MSP_SERVO_CONF)
     
-    def get_status(self) -> MspStatus:
+    @property
+    def status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
         return self._get_data(MSP_STATUS)
     
-    def get_waypoint(self) -> MspWaypoint:
+    @property
+    def waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
         return self._get_data(MSP_WP)
 
