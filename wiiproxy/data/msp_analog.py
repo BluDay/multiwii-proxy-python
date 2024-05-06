@@ -1,11 +1,11 @@
-from .  import _MultiWiiData, command_code, struct_format
+from .  import _MspDataStructure, command_code, struct_format
 from .. import MSP_ANALOG
 
 from typing import NoReturn
 
 @command_code(MSP_ANALOG)
 @struct_format('B3H')
-class MspAnalog(_MultiWiiData):
+class MspAnalog(_MspDataStructure):
     """Represents data values for the MSP_ANALOG command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------

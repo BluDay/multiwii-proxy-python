@@ -3,18 +3,15 @@ from ..config import CommandPriority
 from abc    import ABC, abstractmethod
 from typing import Callable, Final, NoReturn, Type
 
-class _MultiWiiData(ABC):
+class _MspDataStructure(ABC):
     """Represents the base class for MSP data structure classes."""
 
     # ----------------------------------- CLASS CONSTANTS --------------------------------------
 
-    """The corresponding MSP command code."""
     COMMAND_CODE: Final[int]
 
-    """Whether the data size is indeterminate or not."""
     HAS_VARIABLE_SIZE: Final[bool]
 
-    """The structure format in a string literal value."""
     STRUCT_FORMAT: Final[str]
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
