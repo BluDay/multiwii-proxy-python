@@ -1,3 +1,5 @@
+from ..config import CommandPriority
+
 from abc    import ABC, abstractmethod
 from typing import Callable, Final, NoReturn, Type
 
@@ -17,6 +19,8 @@ class _MultiWiiData(ABC):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
+    _priority: CommandPriority
+
     _raw_data: bytes
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
@@ -24,6 +28,21 @@ class _MultiWiiData(ABC):
     def __init__(self) -> NoReturn:
         """Initializes a new instance."""
         self._raw_data = None
+
+    # -------------------------------------- PROPERTIES ----------------------------------------
+
+    @property
+    def priority(self) -> CommandPriority:
+        """Gets the current priority for the corresponding command."""
+        return self._priority
+
+    @priority.setter
+    def priority(self, priority: CommandPriority) -> NoReturn:
+        """Sets the priority to be used for the corresponding command."""
+        if not isinstance(priority, CommandPriority):
+            raise TypeError('Priority must be of type "CommandPriority".')
+
+        self._priority = priority
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
