@@ -43,7 +43,7 @@ from time      import sleep
 from threading import Thread
 from typing    import Final, NoReturn
 
-class MultiWii(MultiWiiData):
+class MultiWii(object):
     """The main class for wiiproxy that handles everything.
     
     This class merely requires an open serial port—with a baudrate of 115200—to be passed at
@@ -65,6 +65,8 @@ class MultiWii(MultiWiiData):
 
     _command_write_read_delay: int
 
+    _data: MultiWiiData
+
     _serial: Serial
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
@@ -85,9 +87,11 @@ class MultiWii(MultiWiiData):
 
         self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
 
+        self._data = MultiWiiData()
+
         self._serial = serial
 
-        super().reset()
+        self._data.reset()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
 
@@ -95,6 +99,11 @@ class MultiWii(MultiWiiData):
     def command_write_read_delay(self) -> float:
         """Gets the delay (in seconds) between each write and read command."""
         return self._command_write_read_delay
+
+    @property
+    def data(self) -> MultiWiiData:
+        """Gets the MultiWii data collection instance."""
+        return self._data
 
     @property
     def serial(self) -> Serial:
