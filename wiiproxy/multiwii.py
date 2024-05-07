@@ -65,9 +65,9 @@ class MultiWii(object):
 
     _command_write_read_delay: int
 
-    _data: MultiWiiData
+    _data: Final[MultiWiiData]
 
-    _serial: Serial
+    _serial: Final[Serial]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
