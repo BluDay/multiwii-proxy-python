@@ -30,11 +30,7 @@ class _MspDataStructure(ABC):
         pass
     
     def update(self, raw_data: bytes) -> NoReturn:
-        """Deserialize bytes to a derived data structure type.
-
-        Parameters:
-            data (bytes): A buffer with the raw data values.
-        """
+        """Deserialize bytes to a derived data structure type."""
         self._raw_data = data
 
         self._evaluate_raw_data()
