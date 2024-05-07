@@ -67,6 +67,8 @@ class MultiWii(object):
 
     _data: Final[MultiWiiData]
 
+    _is_active: bool
+
     _serial: Final[Serial]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
@@ -83,11 +85,11 @@ class MultiWii(object):
         if not isinstance(serial, Serial):
             raise TypeError('"serial" must be an instance of "Serial".')
 
-        self._is_active = False
-
         self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
 
         self._data = MultiWiiData()
+
+        self._is_active = False
 
         self._serial = serial
 
@@ -104,6 +106,11 @@ class MultiWii(object):
     def data(self) -> MultiWiiData:
         """Gets the MultiWii data collection instance."""
         return self._data
+
+    @property
+    def is_active(self) -> bool:
+        """Gets a value indicating whether the worker thread is active or not."""
+        return self._is_active
 
     @property
     def serial(self) -> Serial:
