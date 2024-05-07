@@ -193,10 +193,6 @@ class MultiWii(object):
     def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
         """Sends a message to the FC with the specified command code and optional data values.
 
-        Note
-        ----
-        Optional data values will be sent along with the outgoing message if provided.
-
         Raises
         ------
         ValueError
