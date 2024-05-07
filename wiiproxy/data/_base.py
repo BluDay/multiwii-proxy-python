@@ -1,5 +1,3 @@
-from ..config import CommandPriority
-
 from abc    import ABC, abstractmethod
 from typing import Callable, Final, NoReturn, Type
 
@@ -16,8 +14,6 @@ class _MspDataStructure(ABC):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _priority: CommandPriority
-
     _raw_data: bytes
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
@@ -25,23 +21,6 @@ class _MspDataStructure(ABC):
     def __init__(self) -> NoReturn:
         """Initializes a new instance."""
         self._raw_data = None
-
-        self._priority = CommandPriority.Normal
-
-    # -------------------------------------- PROPERTIES ----------------------------------------
-
-    @property
-    def priority(self) -> CommandPriority:
-        """Gets the current priority for the corresponding command."""
-        return self._priority
-
-    @priority.setter
-    def priority(self, value: CommandPriority) -> NoReturn:
-        """Sets the priority to be used for the corresponding command."""
-        if not isinstance(value, CommandPriority):
-            raise TypeError('Value must be of type "CommandPriority".')
-
-        self._priority = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
