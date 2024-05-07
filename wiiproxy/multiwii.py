@@ -174,11 +174,36 @@ class MultiWii(object):
         pass
 
     def _read_message(self, command: int) -> bytes:
-        """Reads a message of a command code from the FC."""
+        """Reads a message from the FC with the specified command code.
+
+        Note
+        ----
+        This method sends a write message with empty values to the FC in order to retrieve a
+        response message. Ensure that the FC is ready to to respond to the command code sent.
+
+        Raises
+        ------
+        ValueError
+            If the provided command code is invalid or not recognized.
+        TimeoutError
+            If a timeout occurs while waiting for the message from the FC.
+        """
         pass
 
     def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
-        """Sends a message of a specified command and data values to the FC."""
+        """Sends a message to the FC with the specified command code and optional data values.
+
+        Note
+        ----
+        Optional data values will be sent along with the outgoing message if provided.
+
+        Raises
+        ------
+        ValueError
+            If the provided command code is invalid or not recognized.
+        TimeoutError
+            If a timeout occurs while waiting for the FC to acknowledge the message.
+        """
         pass
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
