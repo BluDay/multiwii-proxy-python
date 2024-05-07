@@ -9,10 +9,10 @@ class MspMessageHeader(object):
     PREAMBLE: Final[str] = '$M'
 
     """The incoming header."""
-    INCOMING: Final[str] = f'{PREAMBLE}{MspMessageDirection.INCOMING}'
+    INCOMING: Final[str] = PREAMBLE + MspMessageDirection.INCOMING_CHAR
 
     """The outgoing header."""
-    OUTGOING: Final[str] = f'{PREAMBLE}{MspMessageDirection.OUTGOING}'
+    OUTGOING: Final[str] = PREAMBLE + MspMessageDirection.OUTGOING_CHAR
 
     """A serialized preamble."""
     SERIALIZED_PREAMBLE: Final[bytes] = None
