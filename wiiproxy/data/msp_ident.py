@@ -53,20 +53,18 @@ class MspIdent(_MspDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _evaluate_raw_data(self) -> NoReturn:
+    def _update_values(self, raw_data: bytes) -> NoReturn:
         """Updates the current values by the provided unserialized data bytes."""
-        data = self._raw_data
+        self._version = raw_data[0] / 100
 
-        self._version = data[0] / 100
-
-        self._multitype = MultiWiiMultitype(data[1])
+        self._multitype = MultiWiiMultitype(raw_data[1])
 
         capabilities = ()
 
         for capability in Capability:
-            if capability & data[2]:
+            if capability & raw_data[2]:
                 capabilities += (capability,)
 
         self._capabilities = capabilities
 
-        self._navi_version = data[3] << 28
+        self._navi_version = raw_data[3] << 28
