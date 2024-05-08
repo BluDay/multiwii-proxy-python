@@ -3,7 +3,7 @@ from . import _MspDataStructure, command_code, struct_format
 from ..config       import MultiWiiCapability, MultiWiiMultitype
 from ..msp_commands import MSP_IDENT
 
-from typing import Final, NoReturn
+from typing import NoReturn
 
 @command_code(MSP_IDENT)
 @struct_format('3BI')
