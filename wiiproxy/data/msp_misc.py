@@ -116,6 +116,6 @@ class MspMisc(_MspDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _evaluate_raw_data(self) -> NoReturn:
+    def _update_values(self, raw_data: bytes) -> NoReturn:
         """Updates the current values by the provided unserialized data bytes."""
         pass
