@@ -25,15 +25,15 @@ class _MspDataStructure(ABC):
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     @abstractmethod
-    def _update_values(self, data: bytes) -> NoReturn:
+    def _update_values(self, raw_data: bytes) -> NoReturn:
         """Evaluates received raw data values and updates derived instance members."""
         pass
     
-    def update(self, data: bytes) -> NoReturn:
+    def update_values(self, raw_data: bytes) -> NoReturn:
         """Deserialize bytes to a derived data structure type."""
-        self._update_values(data)
+        self._update_values(raw_data)
 
-        self._raw_data = data
+        self._raw_data = raw_data
 
 def command_code(code: int) -> Callable[[int], Type]:
     """Decorator for setting the command code of a data structure."""
