@@ -388,6 +388,6 @@ class MultiWii(object):
         """Stops the worker thread."""
         pass
 
-    def update_priority(self, command: int, value: CommandPriority) -> NoReturn:
+    def update_priority(self, command: int, priority: CommandPriority) -> NoReturn:
         """Updates the priority for a given command."""
-        self._priorities[command] = value
+        self._priorities[command] = priority
