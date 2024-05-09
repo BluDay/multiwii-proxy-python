@@ -33,9 +33,9 @@ def struct_format(value: str, has_variable_size: bool = False) -> Callable[[str]
     """Decorator for setting the struct format for data values."""
     def apply(cls: Type) -> Type:
         """Sets format-related class member values in the given structure type."""
-        cls.HAS_VARIABLE_SIZE = has_variable_size
-
         cls.STRUCT_FORMAT = value
+
+        cls.HAS_VARIABLE_SIZE = has_variable_size
 
         return cls
 
