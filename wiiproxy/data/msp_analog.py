@@ -52,6 +52,6 @@ class MspAnalog(_MspDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _update_values(self, raw_data: bytes) -> NoReturn:
-        """Updates the current values by the provided unserialized data bytes."""
+    def _update(self, data: tuple) -> NoReturn:
+        """Updates the current values by unserialized data values."""
         pass
