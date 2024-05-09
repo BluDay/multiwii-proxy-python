@@ -19,24 +19,24 @@ class _MspDataStructure(ABC):
         """Updates the current values by unserialized data values."""
         pass
 
-def command_code(code: int) -> Callable[[int], Type]:
+def command_code(value: int) -> Callable[[int], Type]:
     """Decorator for setting the command code of a data structure."""
-    def set_code(cls: Type) -> Type:
+    def apply(cls: Type) -> Type:
         """Sets the command code."""
-        cls.COMMAND_CODE = code
+        cls.COMMAND_CODE = value
 
         return cls
 
-    return set_code
+    return apply
 
-def struct_format(format: str, has_variable_size: bool = False) -> Callable[[str], Type]:
+def struct_format(value: str, has_variable_size: bool = False) -> Callable[[str], Type]:
     """Decorator for setting the struct format for data values."""
-    def set_format(cls: Type) -> Type:
+    def apply(cls: Type) -> Type:
         """Sets format-related class member values in the given structure type."""
         cls.HAS_VARIABLE_SIZE = has_variable_size
 
-        cls.STRUCT_FORMAT = format
+        cls.STRUCT_FORMAT = value
 
         return cls
 
-    return set_format
+    return apply
