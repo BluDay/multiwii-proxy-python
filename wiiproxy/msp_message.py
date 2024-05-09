@@ -3,6 +3,8 @@ from typing import Final
 class MspMessage(object):
     """A utility for handling MSP messages."""
 
+    # ------------------------------------ CLASS CONSTANTS -------------------------------------
+
     HEADER_PREAMBLE: Final[bytes] = b'$M' # 0x24, 0x4d
 
     ERROR_CHAR: Final[int] = 0x21 # !
