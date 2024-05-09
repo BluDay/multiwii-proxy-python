@@ -101,7 +101,7 @@ class MultiWii(object):
 
         self._data.reset()
         
-        self.reset_priorities()
+        self.reset_command_priorities()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
