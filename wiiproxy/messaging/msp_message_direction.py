@@ -1,4 +1,3 @@
-from struct import pack
 from typing import Final
 
 class MspMessageDirection(object):
