@@ -129,7 +129,6 @@ class MultiWii(object):
         ------
         TypeError
             If the value is not a float.
-
         ValueError
             If the value is a negative number.
         """
