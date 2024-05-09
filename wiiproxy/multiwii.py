@@ -390,4 +390,4 @@ class MultiWii(object):
 
     def update_priority(self, command: int, priority: CommandPriority) -> NoReturn:
         """Updates the priority for a given command."""
-        self._priorities[command] = priority
+        self._command_priorities[command] = priority
