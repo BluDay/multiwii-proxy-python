@@ -1,5 +1,7 @@
 from . import MultiWiiData
 
+from .config import CommandPriority
+
 from .msp_commands import (
     MSP_ALTITUDE,
     MSP_ANALOG,
@@ -91,9 +93,13 @@ class MultiWii(object):
 
         self._is_active = False
 
+        self._priorities = {}
+
         self._serial = serial
 
         self._data.reset()
+        
+        self.reset_priorities()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
 
@@ -341,6 +347,32 @@ class MultiWii(object):
 
     # ------------------------------------- CORE METHODS ---------------------------------------
 
+    def reset_priorities(self) -> NoReturn:
+        """Resets priorities for all read command codes to their default value."""
+        self._priorities = {
+            MSP_ALTITUDE:   CommandPriority.High,
+            MSP_ANALOG:     CommandPriority.Medium,
+            MSP_ATTITUDE:   CommandPriority.High,
+            MSP_BOX:        CommandPriority.Low,
+            MSP_BOXIDS:     CommandPriority.Low,
+            MSP_BOXNAMES:   CommandPriority.Low,
+            MSP_COMP_GPS:   CommandPriority.Inactive,
+            MSP_IDENT:      CommandPriority.Low,
+            MSP_MISC:       CommandPriority.Low,
+            MSP_MOTOR:      CommandPriority.High,
+            MSP_MOTOR_PINS: CommandPriority.Low,
+            MSP_PID:        CommandPriority.Low,
+            MSP_PIDNAMES:   CommandPriority.Low,
+            MSP_RAW_GPS:    CommandPriority.Inactive,
+            MSP_RAW_IMU:    CommandPriority.High,
+            MSP_RC:         CommandPriority.Critical,
+            MSP_RC_TUNING:  CommandPriority.Low,
+            MSP_SERVO:      CommandPriority.Medium,
+            MSP_SERVO_CONF: CommandPriority.Low,
+            MSP_STATUS:     CommandPriority.Medium,
+            MSP_WP:         CommandPriority.Inactive
+        }
+
     def start_worker(self) -> NoReturn:
         """Starts the worker thread."""
         pass
@@ -348,3 +380,7 @@ class MultiWii(object):
     def stop_worker(self) -> NoReturn:
         """Stops the worker thread."""
         pass
+
+    def update_priority(self, command: int, value: CommandPriority) -> NoReturn:
+        """Updates the priority for a given command."""
+        self._priorities[command] = value
