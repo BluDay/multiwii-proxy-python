@@ -12,28 +12,12 @@ class _MspDataStructure(ABC):
 
     STRUCT_FORMAT: Final[str]
 
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
-    _raw_data: bytes
-
-    # ------------------------------------- MAGIC METHODS --------------------------------------
-
-    def __init__(self) -> NoReturn:
-        """Initializes a new instance."""
-        self._raw_data = None
-
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     @abstractmethod
-    def _update_values(self, raw_data: bytes) -> NoReturn:
-        """Evaluates received raw data values and updates derived instance members."""
+    def update(self, data: tuple) -> NoReturn:
+        """Updates the current values by unserialized data values."""
         pass
-    
-    def update_values(self, raw_data: bytes) -> NoReturn:
-        """Deserialize bytes to a derived data structure type."""
-        self._update_values(raw_data)
-
-        self._raw_data = raw_data
 
 def command_code(code: int) -> Callable[[int], Type]:
     """Decorator for setting the command code of a data structure."""

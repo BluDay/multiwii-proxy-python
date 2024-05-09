@@ -36,8 +36,8 @@ class MspAltitude(_MspDataStructure):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _update_values(self, raw_data: bytes) -> NoReturn:
-        """Updates the current values by the provided unserialized data bytes."""
-        self._estimation = raw_data[0]
+    def _update(self, data: tuple) -> NoReturn:
+        """Updates the current values by unserialized data values."""
+        self._estimation = data[0]
 
-        self._pressure_variation = raw_data[1]
+        self._pressure_variation = data[1]
