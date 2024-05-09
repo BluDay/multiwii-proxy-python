@@ -43,7 +43,7 @@ from .msp_commands import (
 from serial    import Serial
 from time      import sleep
 from threading import Thread
-from typing    import Final, NoReturn
+from typing    import Dict, Final, NoReturn
 
 class MultiWii(object):
     """The main class for wiiproxy that handles everything.
@@ -64,6 +64,8 @@ class MultiWii(object):
     MSP_VERSION: Final[str] = 'v1'
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
+    _command_priorities: Final[Dict[int, CommandPriority]]
 
     _command_write_read_delay: int
 
@@ -87,13 +89,13 @@ class MultiWii(object):
         if not isinstance(serial, Serial):
             raise TypeError('"serial" must be an instance of "Serial".')
 
+        self._command_priorities = {}
+
         self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
 
         self._data = MultiWiiData()
 
         self._is_active = False
-
-        self._priorities = {}
 
         self._serial = serial
 
@@ -102,6 +104,11 @@ class MultiWii(object):
         self.reset_priorities()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
+    
+    @property
+    def command_priorities(self) -> Dict[int, CommandPriority]:
+        """Gets the command priority map."""
+        return self._command_priorities
 
     @property
     def command_write_read_delay(self) -> float:
@@ -347,9 +354,9 @@ class MultiWii(object):
 
     # ------------------------------------- CORE METHODS ---------------------------------------
 
-    def reset_priorities(self) -> NoReturn:
-        """Resets priorities for all read command codes to their default value."""
-        self._priorities = {
+    def reset_command_priorities(self) -> NoReturn:
+        """Resets priorities for all read-command codes to their default value."""
+        self._command_priorities = {
             MSP_ALTITUDE:   CommandPriority.High,
             MSP_ANALOG:     CommandPriority.Medium,
             MSP_ATTITUDE:   CommandPriority.High,
