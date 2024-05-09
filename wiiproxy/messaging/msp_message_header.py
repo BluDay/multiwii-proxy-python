@@ -7,11 +7,13 @@ class MspMessageHeader(object):
 
     PREAMBLE: Final[str] = '$M'
 
+    ERROR: Final[str] = PREAMBLE + MspMessageDirection.ERROR_CHAR
+
     INCOMING: Final[str] = PREAMBLE + MspMessageDirection.INCOMING_CHAR
 
     OUTGOING: Final[str] = PREAMBLE + MspMessageDirection.OUTGOING_CHAR
 
-    SERIALIZED_PREAMBLE: Final[bytes] = None
+    SERIALIZED_ERROR: Final[bytes] = None
 
     SERIALIZED_INCOMING: Final[bytes] = None
 
