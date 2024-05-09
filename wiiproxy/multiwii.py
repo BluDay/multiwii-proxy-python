@@ -67,7 +67,7 @@ class MultiWii(object):
 
     _command_priorities: Final[Dict[int, CommandPriority]]
 
-    _command_write_read_delay: int
+    _command_write_read_delay: float
 
     _data: Final[MultiWiiData]
 
