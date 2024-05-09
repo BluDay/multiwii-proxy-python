@@ -164,14 +164,6 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    def _get_data(self, command: int) -> bytes:
-        """Reads a message of a command code and returns parsed data values."""
-        pass
-
-    def _parse_data(self, command: int, message: bytes) -> tuple[int]:
-        """Parses data from a received or sent message."""
-        pass
-
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
 
