@@ -140,17 +140,6 @@ class MultiWii(object):
             
         self._command_write_read_delay = value
 
-    # ------------------------------------- STATIC METHODS -------------------------------------
-
-    @staticmethod
-    def calculate_checksum(data: bytes) -> int:
-        """Calculates the checksum for the payload using an XOR CRC."""
-        checksum = 0
-
-        for byte in payload: checksum ^= byte
-
-        return checksum & 0xff
-
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def _clear_serial_io_buffers(self) -> NoReturn:
