@@ -58,7 +58,7 @@ class MultiWii(object):
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
     """Default delay (in seconds) for serial writes."""
-    DEFAULT_COMMAND_WRITE_READ_DELAY: Final[float] = 0.005
+    DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
 
     """The MSP version used."""
     MSP_VERSION: Final[str] = 'v1'
@@ -67,7 +67,7 @@ class MultiWii(object):
 
     _command_priorities: Final[Dict[int, CommandPriority]]
 
-    _command_write_read_delay: float
+    _message_write_read_delay: float
 
     _data: Final[MultiWiiData]
 
@@ -91,7 +91,7 @@ class MultiWii(object):
 
         self._command_priorities = {}
 
-        self._command_write_read_delay = MultiWii.DEFAULT_COMMAND_WRITE_READ_DELAY
+        self._message_write_read_delay = MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
         self._data = MultiWiiData()
 
@@ -111,9 +111,9 @@ class MultiWii(object):
         return self._command_priorities
 
     @property
-    def command_write_read_delay(self) -> float:
-        """Gets the delay (in seconds) between each write and read command."""
-        return self._command_write_read_delay
+    def message_write_read_delay(self) -> float:
+        """Gets the delay (in seconds) between each write and read message."""
+        return self._message_write_read_delay
 
     @property
     def data(self) -> MultiWiiData:
@@ -130,13 +130,13 @@ class MultiWii(object):
         """Gets the used serial instance that was provided at instantiation."""
         return self._serial
 
-    @command_write_read_delay.setter
-    def command_write_read_delay(self, value: float) -> NoReturn:
+    @message_write_read_delay.setter
+    def message_write_read_delay(self, value: float) -> NoReturn:
         """Sets the delay (in seconds) between each write and read command.
 
-        This property controls the delay between each write command followed by a read command
-        sent to the FC. A write command with empty data values is sent first to prepare the FC,
-        followed by a delay, and then a read command to retrieve information from the FC.
+        This property controls the delay between each write message followed by a read message
+        sent to the FC. A message with empty data values is sent first, followed by a delay,
+        and then a read message to retrieve information from the FC.
 
         Raises
         ------
@@ -151,7 +151,7 @@ class MultiWii(object):
         if value < 0:
             raise ValueError('Value must be a non-negative number.')
             
-        self._command_write_read_delay = value
+        self._message_write_read_delay = value
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
