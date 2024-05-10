@@ -15,7 +15,7 @@ class MspCompGps(_MspDataStructure):
 
     _direction_to_home: int
 
-    _update: int # What?
+    _update: int
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 

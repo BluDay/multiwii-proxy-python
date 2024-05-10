@@ -13,7 +13,7 @@ class MspAnalog(_MspDataStructure):
 
     _voltage: int
 
-    _power_meter: int # Unclear
+    _power_meter_sum: int
 
     _rssi: int
 
@@ -23,10 +23,10 @@ class MspAnalog(_MspDataStructure):
 
     def __init__(self) -> NoReturn:
         """Initializes a new instance with default values."""
-        self._voltage     = None
-        self._power_meter = None
-        self._rssi        = None
-        self._amperage    = None
+        self._voltage         = None
+        self._power_meter_sum = None
+        self._rssi            = None
+        self._amperage        = None
 
     # -------------------------------------- PROPERTIES ----------------------------------------
 
@@ -36,9 +36,9 @@ class MspAnalog(_MspDataStructure):
         return self._voltage
 
     @property
-    def power_meter(self) -> int:
-        """Gets the power meter value."""
-        return self._power_meter
+    def power_meter_sum(self) -> int:
+        """Gets the power meter sum value."""
+        return self._power_meter_sum
 
     @property
     def rssi(self) -> int:
@@ -54,7 +54,7 @@ class MspAnalog(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        self._voltage     = data[0]
-        self._power_meter = data[1]
-        self._rssi        = data[2]
-        self._amperage    = data[3]
+        self._voltage         = data[0] / 10
+        self._power_meter_sum = data[1]
+        self._rssi            = data[2]
+        self._amperage        = data[3]
