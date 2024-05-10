@@ -1,4 +1,5 @@
-from enum import IntEnum, unique
+from enum   import IntEnum, unique
+from typing import Self
 
 @unique
 class MultiWiiSensor(IntEnum):
@@ -8,3 +9,14 @@ class MultiWiiSensor(IntEnum):
     Mag   = 2
     Gps   = 3
     Sonar = 4
+
+    @staticmethod
+    def get_sensors(value: int) -> tuple[Self]:
+        """Gets all..."""
+        sensors = ()
+
+        for sensor in MultiWiiSensor:
+            if sensor | value:
+                sensors += (sensor,)
+
+        return sensors
