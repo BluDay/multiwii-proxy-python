@@ -15,4 +15,8 @@ class MspAttitude(_MspDataStructure):
     @staticmethod
     def parse(data: tuple) -> Self:
         """Updates the current values by unserialized data values."""
-        return MspAttitude(data[0:2], data[2])
+        angle = (data[0], data[1])
+
+        heading = data[2]
+
+        return MspAttitude(angle, heading)

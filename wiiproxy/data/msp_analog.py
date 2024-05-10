@@ -19,7 +19,12 @@ class MspAnalog(_MspDataStructure):
     @staticmethod
     def parse(data: tuple) -> Self:
         """Updates the current values by unserialized data values."""
-        self._voltage         = data[0] / 10
-        self._power_meter_sum = data[1]
-        self._rssi            = data[2]
-        self._amperage        = data[3]
+        voltage = data[0] / 10
+
+        power_meter_sum = data[1]
+
+        rssi = data[2]
+
+        amperage = data[3]
+
+        return MspAnalog(voltage, power_meter_sum, rssi, amperage)
