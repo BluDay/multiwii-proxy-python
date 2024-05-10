@@ -57,10 +57,8 @@ class MultiWii(object):
     
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
-    """Default delay (in seconds) for serial writes."""
     DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
 
-    """The MSP version used."""
     MSP_VERSION: Final[str] = 'v1'
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
