@@ -1,4 +1,4 @@
-from . import MultiWiiData
+from . import MspData
 
 from .config import CommandPriority
 
@@ -65,7 +65,7 @@ class MultiWii(object):
 
     _command_priorities: Final[Dict[int, CommandPriority]]
 
-    _data: Final[MultiWiiData]
+    _data: Final[MspData]
 
     _is_active: bool
 
@@ -89,7 +89,7 @@ class MultiWii(object):
 
         self._command_priorities = {}
 
-        self._data = MultiWiiData()
+        self._data = MspData()
 
         self._is_active = False
 
@@ -109,8 +109,8 @@ class MultiWii(object):
         return self._command_priorities
 
     @property
-    def data(self) -> MultiWiiData:
-        """Gets the MultiWii data collection instance."""
+    def data(self) -> MspData:
+        """Gets the MSP data collection instance."""
         return self._data
 
     @property

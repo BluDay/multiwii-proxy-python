@@ -24,8 +24,8 @@ from .data import (
 
 from typing import Final, NoReturn
 
-class MultiWiiData(object):
-    """The base class for MultiWii with all data structure instances."""
+class MspData(object):
+    """A collection of all MSP data structure instances."""
     
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
