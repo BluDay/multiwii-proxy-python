@@ -25,3 +25,11 @@ class MultiWiiBox(IntEnum):
     OsdSwitch = 19
     Mission   = 20
     Land      = 21
+
+@unique
+class MultiWiiBoxState(IntEnum):
+    """Represents the aux state values for an MSP box item."""
+    Empty = 0
+    Low   = 1
+    Mid   = 2
+    High  = 3
