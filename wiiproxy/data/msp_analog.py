@@ -54,4 +54,7 @@ class MspAnalog(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._voltage     = data[0]
+        self._power_meter = data[1]
+        self._rssi        = data[2]
+        self._amperage    = data[3]

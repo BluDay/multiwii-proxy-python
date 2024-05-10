@@ -38,4 +38,6 @@ class MspAttitude(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._angle   = data[0]
+        self._heading = data[1]
+

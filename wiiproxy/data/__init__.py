@@ -1,4 +1,10 @@
-from ._base import _MspDataStructure, command_code, struct_format
+from ._base import (
+    _MspDataStructure,
+    _MspNames,
+    _MspValues,
+    command_code,
+    struct_format
+)
 
 from ._point import _Point2D, _Point3D
 

@@ -70,4 +70,9 @@ class MspWaypoint(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._number       = data[0]
+        self._position     = data[1:3]
+        self._alt_hold     = data[3]
+        self._heading      = data[4]
+        self._time_to_stay = data[5]
+        self._flag         = data[6]

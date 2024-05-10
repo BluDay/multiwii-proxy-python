@@ -1,5 +1,7 @@
 from . import _MspDataStructure, command_code, struct_format
 
+from ..config import MultiWiiSensor
+
 from ..msp_commands import MSP_STATUS
 
 from typing import NoReturn
@@ -62,4 +64,18 @@ class MspStatus(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._cycle_time = data[0]
+
+        self._i2c_errors = data[1]
+
+        sensors = ()
+
+        for sensor in MultiWiiSensor:
+            if sensor | data[2]:
+                sensors += (sensor,)
+
+        self._sensors = sensors
+
+        self._flag = data[3]
+
+        self._global_conf = data[4]

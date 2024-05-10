@@ -78,4 +78,10 @@ class MspRcTuning(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._rate                 = data[0]
+        self._expo                 = data[1]
+        self._roll_pitch_rate      = data[2]
+        self._yaw_rate             = data[3]
+        self._dynamic_throttle_pid = data[4]
+        self._throttle_mid         = data[5]
+        self._throttle_expo        = data[6]

@@ -46,4 +46,6 @@ class MspCompGps(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._distance_to_home  = data[0]
+        self._direction_to_home = data[1]
+        self._update            = data[2]

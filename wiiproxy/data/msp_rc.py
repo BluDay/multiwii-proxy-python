@@ -62,4 +62,8 @@ class MspRc(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._roll     = data[0]
+        self._pitch    = data[1]
+        self._yaw      = data[2]
+        self._throttle = data[3]
+        self._aux      = data[4:]

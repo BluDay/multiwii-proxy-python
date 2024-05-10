@@ -118,4 +118,15 @@ class MspMisc(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._power_trigger     = data[0]
+        self._throttle_failsafe = data[1]
+        self._throttle_idle     = data[2]
+        self._throttle_min      = data[3]
+        self._throttle_max      = data[4]
+        self._plog_arm          = data[5]
+        self._plog_lifetime     = data[6]
+        self._mag_declination   = data[7] / 10
+        self._battery_scale     = data[8]
+        self._battery_warn_1    = data[9] / 10
+        self._battery_warn_2    = data[10] / 10
+        self._battery_critical  = data[11] / 10

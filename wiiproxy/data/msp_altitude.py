@@ -38,6 +38,5 @@ class MspAltitude(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        self._estimation = data[0]
-
+        self._estimation         = data[0]
         self._pressure_variation = data[1]
