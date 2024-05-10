@@ -22,8 +22,8 @@ class MspMessage(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
-    def calculate_checksum(data: bytes) -> int:
-        """Calculates the checksum for the data values using an XOR CRC."""
+    def calculate_checksum(payload: bytes) -> int:
+        """Calculates the checksum for the payload using an XOR CRC."""
         checksum = 0
 
         for byte in data: checksum ^= byte
