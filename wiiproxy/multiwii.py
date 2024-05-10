@@ -344,7 +344,12 @@ class MultiWii(object):
         self._send_message(MSP_SET_SERVO_CONF)
 
     def set_waypoint(self, values: MspSetWaypoint) -> NoReturn:
-        """Sends the MSP_SET_WP command."""
+        """Sends the MSP_SET_WP command.
+
+        Dispatches a command to set a waypoint on the FC, providing specific latitude, longitude,
+        altitude, heading, duration and navigation flags for precise navigation and waypoint
+        management.
+        """
         self._send_message(MSP_SET_WP)
 
     def write_eeprom(self) -> NoReturn:
