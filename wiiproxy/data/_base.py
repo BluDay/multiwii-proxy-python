@@ -22,7 +22,6 @@ class _MspDataStructure(ABC):
 def command_code(value: int) -> Callable[[int], Type]:
     """Decorator for setting the command code of a data structure."""
     def apply(cls: Type) -> Type:
-        """Sets the command code."""
         cls.COMMAND_CODE = value
 
         return cls
@@ -32,7 +31,6 @@ def command_code(value: int) -> Callable[[int], Type]:
 def struct_format(value: str, has_variable_size: bool = False) -> Callable[[str], Type]:
     """Decorator for setting the struct format for data values."""
     def apply(cls: Type) -> Type:
-        """Sets format-related class member values in the given structure type."""
         cls.STRUCT_FORMAT = value
 
         cls.HAS_VARIABLE_SIZE = has_variable_size
