@@ -1,5 +1,7 @@
 from . import _MspValues, command_code, struct_format
 
+from ..config import MultiWiiBoxState
+
 from ..msp_commands import MSP_BOX
 
 from typing import NamedTuple
