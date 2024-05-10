@@ -103,11 +103,6 @@ class MultiWii(object):
     # --------------------------------------- PROPERTIES ---------------------------------------
     
     @property
-    def command_priorities(self) -> Dict[int, CommandPriority]:
-        """Gets the command priority map."""
-        return self._command_priorities
-
-    @property
     def data(self) -> MspData:
         """Gets the MSP data collection instance."""
         return self._data
@@ -351,6 +346,14 @@ class MultiWii(object):
 
     # ------------------------------------- CORE METHODS ---------------------------------------
 
+    def get_command_priorities(self) -> Dict[int, CommandPriority]:
+        """Gets all priorities for the provided read-command."""
+        return dict(self._command_priorities)
+
+    def get_commnad_priority(self, command: int) -> CommandPriority:
+        """Gets the priority for the provided read-command."""
+        return self._command_priorities[command]
+
     def reset_command_priorities(self) -> NoReturn:
         """Resets priorities for all read-command codes to their default value."""
         self._command_priorities = {
@@ -381,6 +384,10 @@ class MultiWii(object):
         """Resets all data values."""
         self._data._reset()
 
+    def set_command_priority(self, command: int, priority: CommandPriority) -> NoReturn:
+        """Sets the priority for the provided read-command."""
+        self._command_priorities[command] = priority
+
     def start_worker(self) -> NoReturn:
         """Starts the worker thread."""
         pass
@@ -388,7 +395,3 @@ class MultiWii(object):
     def stop_worker(self) -> NoReturn:
         """Stops the worker thread."""
         pass
-
-    def update_priority(self, command: int, priority: CommandPriority) -> NoReturn:
-        """Updates the priority for the provided read-command."""
-        self._command_priorities[command] = priority
