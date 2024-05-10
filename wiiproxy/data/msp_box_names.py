@@ -1,11 +1,10 @@
-from . import _MspDataStructure, command_code, struct_format
+from . import _MspNames, command_code, struct_format
 
 from ..msp_commands import MSP_BOXNAMES
 
 from typing import NoReturn
 
 @command_code(MSP_BOXNAMES)
-@struct_format('s', has_variable_size=True)
-class MspBoxNames(_MspDataStructure):
+class MspBoxNames(_MspNames):
     """Represents data values for the MSP_BOXNAMES command."""
     pass

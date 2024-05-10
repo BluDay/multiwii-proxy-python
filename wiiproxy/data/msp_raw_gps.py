@@ -70,4 +70,9 @@ class MspRawGps(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._fix           = data[0]
+        self._satellites    = data[1]
+        self._coordinates   = data[2] / 10000000
+        self._altitude      = data[3] / 10000000
+        self._speed         = data[4]
+        self._ground_course = data[5] * 10

@@ -46,4 +46,12 @@ class MspRawImu(_MspDataStructure):
 
     def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
-        pass
+        self._acc = data[0:3]
+
+        self._gyro = (
+            data[3] / 4.096,
+            data[4] / 4.096,
+            data[5] / 4.096
+        )
+
+        self._mag = data[6:9]
