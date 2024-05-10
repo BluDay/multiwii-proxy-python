@@ -97,9 +97,8 @@ class MultiWii(object):
 
         self._serial = serial
 
-        self._data.reset()
-        
         self.reset_command_priorities()
+        self.reset_data()
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
@@ -380,7 +379,7 @@ class MultiWii(object):
 
     def reset_data(self) -> NoReturn:
         """Resets all data values."""
-        self._data.reset()
+        self._data._reset()
 
     def start_worker(self) -> NoReturn:
         """Starts the worker thread."""

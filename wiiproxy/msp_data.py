@@ -158,9 +158,9 @@ class MspData(object):
         """Sends the MSP_WP command and gets the data instance."""
         return self._waypoint
 
-    # ------------------------------------- CORE METHODS ---------------------------------------
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def reset(self) -> NoReturn:
+    def _reset(self) -> NoReturn:
         """Resets all data value instances."""
         self._altitude   = MspAltitude()
         self._analog     = MspAnalog()
