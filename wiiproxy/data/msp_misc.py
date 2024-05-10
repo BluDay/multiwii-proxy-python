@@ -133,7 +133,7 @@ class MspMisc(_MspDataStructure):
 
 class MspSetMisc(NamedTuple):
     """Represents data values for the MSP_MISC command."""
-	power_trigger: int
+    power_trigger: int
 
     throttle_min: int
 
@@ -141,18 +141,18 @@ class MspSetMisc(NamedTuple):
 
     min_command: int
 
-	failsafe_throttle: int
+    failsafe_throttle: int
 
-	plog_arm: int
+    plog_arm: int
 
-	plog_lifetime: int
+    plog_lifetime: int
 
-	mag_declination: int
+    mag_declination: int
 
-	battery_scale: int
+    battery_scale: int
 
-	battery_warn_1: int
+    battery_warn_1: int
 
-	battery_warn_2: int
+    battery_warn_2: int
 
-	battery_critical: int
+    battery_critical: int

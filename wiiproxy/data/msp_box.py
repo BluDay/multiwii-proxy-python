@@ -4,7 +4,7 @@ from ..config import MultiWiiBoxState
 
 from ..msp_commands import MSP_BOX
 
-from typing import NamedTuple
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_BOX)
 @struct_format('H', has_variable_size=True)
