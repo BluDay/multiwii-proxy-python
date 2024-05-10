@@ -22,6 +22,11 @@ class MspMessage(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @staticmethod
+    def create(command: int, data: tuple) -> bytes:
+        """Creates an outgoing serialized message to send to the FC."""
+        pass
+
+    @staticmethod
     def calculate_checksum(payload: bytes) -> int:
         """Calculates the checksum for the payload using an XOR CRC."""
         checksum = 0
