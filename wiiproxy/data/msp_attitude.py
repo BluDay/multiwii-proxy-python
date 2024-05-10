@@ -2,42 +2,17 @@ from . import _MspDataStructure, _Point2D, command_code, struct_format
 
 from ..msp_commands import MSP_ATTITUDE
 
-from typing import NoReturn
+from typing import Self
 
 @command_code(MSP_ATTITUDE)
 @struct_format('3h')
 class MspAttitude(_MspDataStructure):
     """Represents data values for the MSP_ATTITUDE command."""
+    angle: _Point2D[float]
 
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+    heading: int
 
-    _angle: _Point2D[float]
-
-    _heading: int
-
-    # ------------------------------------- MAGIC METHODS --------------------------------------
-
-    def __init__(self) -> NoReturn:
-        """Initializes a new instance with default values."""
-        self._angle   = None
-        self._heading = None
-
-    # -------------------------------------- PROPERTIES ----------------------------------------
-
-    @property
-    def angle(self) -> _Point2D[float]:
-        """Gets the angle values."""
-        return self._angle
-
-    @property
-    def heading(self) -> int:
-        """Gets the heading value."""
-        return self._heading
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
-
-    def _update(self, data: tuple) -> NoReturn:
+    @staticmethod
+    def parse(data: tuple) -> Self:
         """Updates the current values by unserialized data values."""
-        self._angle   = data[0]
-        self._heading = data[1]
-
+        return MspAttitude(data[0:2], data[2])
