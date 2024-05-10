@@ -2,7 +2,7 @@ from . import _MspDataStructure, command_code, struct_format
 
 from ..msp_commands import MSP_RC_TUNING
 
-from typing import NoReturn
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_RC_TUNING)
 @struct_format('7B')
@@ -85,3 +85,19 @@ class MspRcTuning(_MspDataStructure):
         self._dynamic_throttle_pid = data[4]
         self._throttle_mid         = data[5]
         self._throttle_expo        = data[6]
+
+class MspSetRcTuning(NamedTuple):
+    """Represents data values for the MSP_SET_RC_TUNING command."""
+    rate: int
+
+    expo: int
+
+    roll_pitch_rate: int
+
+    yaw_rate: int
+
+    dynamic_throttle_pid: int
+
+    throttle_mid: int
+
+    throttle_expo: int

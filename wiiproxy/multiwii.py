@@ -2,6 +2,18 @@ from . import MspData
 
 from .config import CommandPriority
 
+from .data import (
+    MspSetMotor,
+    MspSetRawGps,
+    MspSetRawRc,
+    MspSetRcTuning
+    MspSetPid,
+    MspSetBoxItem,
+    MspSetMisc,
+    MspSetWaypoint,
+    MspSetServoConf
+)
+
 from .msp_commands import (
     MSP_ALTITUDE,
     MSP_ANALOG,
@@ -258,7 +270,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def set_box(self) -> NoReturn:
+    def set_box(self, values: tuple[MspSetBoxItem]) -> NoReturn:
         """Sends the MSP_SET_BOX
 
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
@@ -266,7 +278,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_BOX)
 
-    def set_head(self) -> NoReturn:
+    def set_head(self, range: int) -> NoReturn:
         """Sends the MSP_SET_HEAD command.
 
         Sets the heading (yaw) direction reference on the FC. It is used to define the forward
@@ -274,7 +286,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_HEAD)
 
-    def set_misc(self) -> NoReturn:
+    def set_misc(self, values: MspSetMisc) -> NoReturn:
         """Sends the MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
@@ -282,7 +294,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MISC)
 
-    def set_motor(self) -> NoReturn:
+    def set_motor(self, values: MspSetMotor) -> NoReturn:
         """Sends the MSP_SET_MOTOR command.
 
         Sets the motor output values on the FC. Motor output values determine the throttle level
@@ -290,7 +302,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MOTOR)
 
-    def set_pid(self) -> NoReturn:
+    def set_pid(self, values: MspSetPid) -> NoReturn:
         """Sends the MSP_SET_PID command.
 
         Sets the PID values on the FC. PID values are used to adjust the stability and response
@@ -298,7 +310,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_PID)
 
-    def set_raw_gps(self) -> NoReturn:
+    def set_raw_gps(self, values: MspSetRawGps) -> NoReturn:
         """Sends the MSP_SET_RAW_GPS command.
 
         Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other
@@ -306,7 +318,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RAW_GPS)
 
-    def set_raw_rc(self) -> NoReturn:
+    def set_raw_rc(self, values: MspSetRawRc) -> NoReturn:
         """Sends the MSP_SET_RAW_RC command.
 
         Sets the raw receiver (RC/RX) channel data on the FC. Raw FC data includes the pulse
@@ -315,7 +327,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RAW_RC)
     
-    def set_rc_tuning(self) -> NoReturn:
+    def set_rc_tuning(self, values: MspSetRcTuning) -> NoReturn:
         """Sends the MSP_SET_RC_TUNING command.
 
         Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to
@@ -323,13 +335,17 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING)
 
-    def set_servo_conf(self) -> NoReturn:
+    def set_servo_conf(self, values: MspSetServoConf) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
         other settings related to servo control.
         """
         self._send_message(MSP_SET_SERVO_CONF)
+
+    def set_waypoint(self, values: MspSetWaypoint) -> NoReturn:
+        """Sends the MSP_SET_WP command."""
+        self._send_message(MSP_SET_WP)
 
     def write_eeprom(self) -> NoReturn:
         """Sends the MSP_EEPROM_WRITE command.

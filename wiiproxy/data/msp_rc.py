@@ -2,7 +2,7 @@ from . import _MspDataStructure, command_code, struct_format
 
 from ..msp_commands import MSP_RC
 
-from typing import NoReturn
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_RC)
 @struct_format('8H')
@@ -67,3 +67,18 @@ class MspRc(_MspDataStructure):
         self._yaw      = data[2]
         self._throttle = data[3]
         self._aux      = data[4:]
+
+class MspSetRawRc(NamedTuple):
+    """Represents data values for the MSP_SET_RAW_RC command."""
+    roll: int
+
+    pitch: int
+
+    yaw: int
+
+    throttle: int
+
+    aux1: int
+    aux2: int
+    aux3: int
+    aux4: int
