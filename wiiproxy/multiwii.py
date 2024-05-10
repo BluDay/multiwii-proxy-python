@@ -1,8 +1,25 @@
-from . import MspData
-
-from .config import CommandPriority
-
 from .data import (
+    MspAltitude,
+    MspAnalog,
+    MspAttitude,
+    MspBox,
+    MspBoxIds,
+    MspBoxNames,
+    MspCompGps,
+    MspIdent,
+    MspMisc,
+    MspMotor,
+    MspMotorPins,
+    MspPid,
+    MspPidNames,
+    MspRawGps,
+    MspRawImu,
+    MspRc,
+    MspRcTuning,
+    MspServo,
+    MspServoConf,
+    MspStatus,
+    MspWaypoint,
     MspSetMotor,
     MspSetRawGps,
     MspSetRawRc,
@@ -52,10 +69,9 @@ from .msp_commands import (
     MSP_SET_SERVO_CONF
 )
 
-from serial    import Serial
-from time      import sleep
-from threading import Thread
-from typing    import Dict, Final, NoReturn
+from serial import Serial
+from time   import sleep
+from typing import Final, NoReturn
 
 class MultiWii(object):
     """The main class for wiiproxy that handles everything.
@@ -75,12 +91,6 @@ class MultiWii(object):
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    _command_priorities: Final[Dict[int, CommandPriority]]
-
-    _data: Final[MspData]
-
-    _is_active: bool
-
     _message_write_read_delay: float
 
     _serial: Final[Serial]
@@ -99,31 +109,12 @@ class MultiWii(object):
         if not isinstance(serial, Serial):
             raise TypeError('"serial" must be an instance of "Serial".')
 
-        self._command_priorities = {}
-
-        self._data = MspData()
-
-        self._is_active = False
-
         self._message_write_read_delay = MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
         self._serial = serial
 
-        self.reset_command_priorities()
-        self.reset_data()
-
     # --------------------------------------- PROPERTIES ---------------------------------------
     
-    @property
-    def data(self) -> MspData:
-        """Gets the MSP data collection instance."""
-        return self._data
-
-    @property
-    def is_active(self) -> bool:
-        """Gets a value indicating whether the worker thread is active or not."""
-        return self._is_active
-
     @property
     def message_write_read_delay(self) -> float:
         """Gets the delay (in seconds) between each write and read message."""
@@ -209,6 +200,92 @@ class MultiWii(object):
             If a timeout occurs while waiting for the FC to acknowledge the message.
         """
         pass
+
+    # ------------------------------------- GET COMMANDS ---------------------------------------
+
+    def get_altitude(self) -> MspAltitude:
+        """Sends the MSP_ALTITUDE command and gets the data instance."""
+        return MspAltitude.parse(self._retrieve_data(MSP_ALTITUDE))
+    
+    def get_analog(self) -> MspAnalog:
+        """Sends the MSP_ANALOG command and gets the data instance."""
+        return MspAnalog.parse(self._retrieve_data(MSP_ANALOG))
+    
+    def get_attitude(self) -> MspAttitude:
+        """Sends the MSP_ATTITUDE command and gets the data instance."""
+        return MspAttitude.parse(self._retrieve_data(MSP_ATTITUDE))
+    
+    def get_box(self) -> MspBox:
+        """Sends the MSP_BOX command and gets the data instance."""
+        return MspBox.parse(self._retrieve_data(MSP_BOX))
+    
+    def get_box_ids(self) -> MspBoxIds:
+        """Sends the MSP_BOXIDS command and gets the data instance."""
+        return MspBoxIds.parse(self._retrieve_data(MSP_BOXIDS))
+    
+    def get_box_names(self) -> MspBoxNames:
+        """Sends the MSP_BOXNAMES command and gets the data instance."""
+        return MspBoxNames.parse(self._retrieve_data(MSP_BOXNAMES))
+    
+    def get_comp_gps(self) -> MspCompGps:
+        """Sends the MSP_COMP_GPS command and gets the data instance."""
+        return MspCompGps.parse(self._retrieve_data(MSP_COMP_GPS))
+    
+    def get_ident(self) -> MspIdent:
+        """Sends the MSP_IDENT command and gets the data instance."""
+        return MspIdent.parse(self._retrieve_data(MSP_IDENT))
+    
+    def get_misc(self) -> MspMisc:
+        """Sends the MSP_MISC command and gets the data instance."""
+        return MspMisc.parse(self._retrieve_data(MSP_MISC))
+    
+    def get_motor(self) -> MspMotor:
+        """Sends the MSP_MOTOR command and gets the data instance."""
+        return MspMotor.parse(self._retrieve_data(MSP_MOTOR))
+    
+    def get_motor_pins(self) -> MspMotorPins:
+        """Sends the MSP_MOTOR_PINS command and gets the data instance."""
+        return MspMotorPins.parse(self._retrieve_data(MSP_MOTOR_PINS))
+    
+    def get_pid(self) -> MspPid:
+        """Sends the MSP_PID command and gets the data instance."""
+        return MspPid.parse(self._retrieve_data(MSP_PID))
+    
+    def get_pid_names(self) -> MspPidNames:
+        """Sends the MSP_PIDNAMES command and gets the data instance."""
+        return MspPidNames.parse(self._retrieve_data(MSP_PIDNAMES))
+    
+    def get_raw_gps(self) -> MspRawGps:
+        """Sends the MSP_RAW_GPS command and gets the data instance."""
+        return MspRawGps.parse(self._retrieve_data(MSP_RAW_GPS))
+    
+    def get_raw_imu(self) -> MspRawImu:
+        """Sends the MSP_RAW_IMU command and gets the data instance."""
+        return MspRawImu.parse(self._retrieve_data(MSP_RAW_IMU))
+    
+    def get_rc(self) -> MspRc:
+        """Sends the MSP_RC command and gets the data instance."""
+        return MspRc.parse(self._retrieve_data(MSP_RC))
+    
+    def get_rc_tuning(self) -> MspRcTuning:
+        """Sends the MSP_RC_TUNING command and gets the data instance."""
+        return MspRcTuning.parse(self._retrieve_data(MSP_RC_TUNING))
+    
+    def get_servo(self) -> MspServo:
+        """Sends the MSP_SERVO command and gets the data instance."""
+        return MspServo.parse(self._retrieve_data(MSP_SERVO))
+    
+    def get_servo_conf(self) -> MspServoConf:
+        """Sends the MSP_SERVO_CONF command and gets the data instance."""
+        return MspServoConf.parse(self._retrieve_data(MSP_SERVO_CONF))
+    
+    def get_status(self) -> MspStatus:
+        """Sends the MSP_STATUS command and gets the data instance."""
+        return MspStatus.parse(self._retrieve_data(MSP_STATUS))
+    
+    def get_waypoint(self) -> MspWaypoint:
+        """Sends the MSP_WP command and gets the data instance."""
+        return MspWaypoint.parse(self._retrieve_data(MSP_WP))
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
@@ -364,55 +441,3 @@ class MultiWii(object):
         values could lead to unexpected behavior or instability.
         """
         self._send_message(MSP_EEPROM_WRITE)
-
-    # ------------------------------------- CORE METHODS ---------------------------------------
-
-    def get_command_priorities(self) -> Dict[int, CommandPriority]:
-        """Gets all priorities for the provided read-command."""
-        return dict(self._command_priorities)
-
-    def get_command_priority(self, command: int) -> CommandPriority:
-        """Gets the priority for the provided read-command."""
-        return self._command_priorities[command]
-
-    def reset_command_priorities(self) -> NoReturn:
-        """Resets priorities for all read-command codes to their default value."""
-        self._command_priorities = {
-            MSP_ALTITUDE:   CommandPriority.High,
-            MSP_ANALOG:     CommandPriority.Medium,
-            MSP_ATTITUDE:   CommandPriority.High,
-            MSP_BOX:        CommandPriority.Low,
-            MSP_BOXIDS:     CommandPriority.Low,
-            MSP_BOXNAMES:   CommandPriority.Low,
-            MSP_COMP_GPS:   CommandPriority.Inactive,
-            MSP_IDENT:      CommandPriority.Low,
-            MSP_MISC:       CommandPriority.Low,
-            MSP_MOTOR:      CommandPriority.High,
-            MSP_MOTOR_PINS: CommandPriority.Low,
-            MSP_PID:        CommandPriority.Low,
-            MSP_PIDNAMES:   CommandPriority.Low,
-            MSP_RAW_GPS:    CommandPriority.Inactive,
-            MSP_RAW_IMU:    CommandPriority.High,
-            MSP_RC:         CommandPriority.Critical,
-            MSP_RC_TUNING:  CommandPriority.Low,
-            MSP_SERVO:      CommandPriority.Medium,
-            MSP_SERVO_CONF: CommandPriority.Low,
-            MSP_STATUS:     CommandPriority.Medium,
-            MSP_WP:         CommandPriority.Inactive
-        }
-
-    def reset_data(self) -> NoReturn:
-        """Resets all data values."""
-        self._data._reset()
-
-    def set_command_priority(self, command: int, priority: CommandPriority) -> NoReturn:
-        """Sets the priority for the provided read-command."""
-        self._command_priorities[command] = priority
-
-    def start_worker(self) -> NoReturn:
-        """Starts the worker thread."""
-        pass
-
-    def stop_worker(self) -> NoReturn:
-        """Stops the worker thread."""
-        pass
