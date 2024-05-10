@@ -1,4 +1,5 @@
-from enum import IntEnum, unique
+from enum   import IntEnum, unique
+from typing import Self
 
 @unique
 class MultiWiiCapability(IntEnum):
@@ -8,3 +9,13 @@ class MultiWiiCapability(IntEnum):
     Flap   = 0b0000100
     Nav    = 0b0001000
     ExtAux = 0b0010000
+
+    def get_capabilities(value: int) -> tuple[Self]:
+        """Parses all capability values from a single integer."""
+        capabilities = ()
+
+        for capability in MultiWiiCapability:
+            if capability & value:
+                capabilities += (capability,)
+
+        return capabilities

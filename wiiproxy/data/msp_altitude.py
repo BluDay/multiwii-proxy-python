@@ -2,41 +2,17 @@ from . import _MspDataStructure, command_code, struct_format
 
 from ..msp_commands import MSP_ALTITUDE
 
-from typing import NoReturn
+from typing import Self
 
 @command_code(MSP_ALTITUDE)
 @struct_format('ih')
 class MspAltitude(_MspDataStructure):
     """Represents data values for the MSP_ALTITUDE command."""
+    estimation: int
 
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+    pressure_variation: int
 
-    _estimation: int
-
-    _pressure_variation: int
-
-    # ------------------------------------- MAGIC METHODS --------------------------------------
-
-    def __init__(self) -> NoReturn:
-        """Initializes a new instance with default values."""
-        self._estimation         = None
-        self._pressure_variation = None
-
-    # -------------------------------------- PROPERTIES ----------------------------------------
-
-    @property
-    def estimation(self) -> int:
-        """Gets the estimation value."""
-        return self._estimation
-
-    @property
-    def pressure_variation(self) -> int:
-        """Gets the pressure variation."""
-        return self._pressure_variation
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
-
-    def _update(self, data: tuple) -> NoReturn:
+    @staticmethod
+    def parse(data: tuple) -> Self:
         """Updates the current values by unserialized data values."""
-        self._estimation         = data[0]
-        self._pressure_variation = data[1]
+        return MspAltitude(data[0], data[1])
