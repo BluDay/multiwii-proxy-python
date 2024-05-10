@@ -6,12 +6,12 @@ from .data import (
     MspSetMotor,
     MspSetRawGps,
     MspSetRawRc,
-    MspSetRcTuning
+    MspSetRcTuning,
     MspSetPid,
     MspSetBoxItem,
     MspSetMisc,
     MspSetWaypoint,
-    MspSetServoConf
+    MspSetServoConfItem
 )
 
 from .msp_commands import (
@@ -335,7 +335,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING)
 
-    def set_servo_conf(self, values: MspSetServoConf) -> NoReturn:
+    def set_servo_conf(self, values: tuple[MspSetServoConfItem]) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and

@@ -26,6 +26,6 @@ from .msp_raw_imu    import MspRawImu
 from .msp_rc         import MspRc, MspSetRawRc
 from .msp_rc_tuning  import MspRcTuning, MspSetRcTuning
 from .msp_servo      import MspServo
-from .msp_servo_conf import MspServoConf, MspSetServoConf
+from .msp_servo_conf import MspServoConf, MspSetServoConfItem
 from .msp_status     import MspStatus
 from .msp_waypoint   import MspWaypoint, MspSetWaypoint
