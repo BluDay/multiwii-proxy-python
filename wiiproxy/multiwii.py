@@ -67,11 +67,11 @@ class MultiWii(object):
 
     _command_priorities: Final[Dict[int, CommandPriority]]
 
-    _message_write_read_delay: float
-
     _data: Final[MultiWiiData]
 
     _is_active: bool
+
+    _message_write_read_delay: float
 
     _serial: Final[Serial]
 
@@ -91,11 +91,11 @@ class MultiWii(object):
 
         self._command_priorities = {}
 
-        self._message_write_read_delay = MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
-
         self._data = MultiWiiData()
 
         self._is_active = False
+
+        self._message_write_read_delay = MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
         self._serial = serial
 
@@ -111,11 +111,6 @@ class MultiWii(object):
         return self._command_priorities
 
     @property
-    def message_write_read_delay(self) -> float:
-        """Gets the delay (in seconds) between each write and read message."""
-        return self._message_write_read_delay
-
-    @property
     def data(self) -> MultiWiiData:
         """Gets the MultiWii data collection instance."""
         return self._data
@@ -124,6 +119,11 @@ class MultiWii(object):
     def is_active(self) -> bool:
         """Gets a value indicating whether the worker thread is active or not."""
         return self._is_active
+
+    @property
+    def message_write_read_delay(self) -> float:
+        """Gets the delay (in seconds) between each write and read message."""
+        return self._message_write_read_delay
 
     @property
     def serial(self) -> Serial:
