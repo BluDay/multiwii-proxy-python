@@ -350,7 +350,7 @@ class MultiWii(object):
         """Gets all priorities for the provided read-command."""
         return dict(self._command_priorities)
 
-    def get_commnad_priority(self, command: int) -> CommandPriority:
+    def get_command_priority(self, command: int) -> CommandPriority:
         """Gets the priority for the provided read-command."""
         return self._command_priorities[command]
 
