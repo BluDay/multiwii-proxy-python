@@ -2,8 +2,6 @@ from . import _MspValues, command_code, struct_format
 
 from ..msp_commands import MSP_SERVO
 
-from typing import NoReturn
-
 @command_code(MSP_SERVO)
 @struct_format('8H')
 class MspServo(_MspValues):
