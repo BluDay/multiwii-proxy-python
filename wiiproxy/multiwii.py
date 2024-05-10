@@ -380,6 +380,10 @@ class MultiWii(object):
             MSP_WP:         CommandPriority.Inactive
         }
 
+    def reset_data(self) -> NoReturn:
+        """Resets all data values."""
+        self._data.reset()
+
     def start_worker(self) -> NoReturn:
         """Starts the worker thread."""
         pass
