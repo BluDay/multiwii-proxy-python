@@ -2,7 +2,7 @@ from . import _MspDataStructure, command_code, struct_format
 
 from ..msp_commands import MSP_MISC
 
-from typing import NoReturn
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_MISC)
 @struct_format('6HIH4B')
@@ -130,3 +130,29 @@ class MspMisc(_MspDataStructure):
         self._battery_warn_1    = data[9] / 10
         self._battery_warn_2    = data[10] / 10
         self._battery_critical  = data[11] / 10
+
+class MspSetMisc(NamedTuple):
+    """Represents data values for the MSP_MISC command."""
+	power_trigger: int
+
+    throttle_min: int
+
+    throttle_max: int
+
+    min_command: int
+
+	failsafe_throttle: int
+
+	plog_arm: int
+
+	plog_lifetime: int
+
+	mag_declination: int
+
+	battery_scale: int
+
+	battery_warn_1: int
+
+	battery_warn_2: int
+
+	battery_critical: int

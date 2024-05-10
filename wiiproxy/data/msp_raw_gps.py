@@ -2,7 +2,7 @@ from . import _MspDataStructure, _Point2D, command_code, struct_format
 
 from ..msp_commands import MSP_RAW_GPS
 
-from typing import NoReturn
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_RAW_GPS)
 @struct_format('2B2I3H')
@@ -76,3 +76,18 @@ class MspRawGps(_MspDataStructure):
         self._altitude      = data[3] / 10000000
         self._speed         = data[4]
         self._ground_course = data[5] * 10
+
+def MspSetRawGps(NamedTuple):
+    """Represents data values for the MSP_SET_RAW_GPS command."""
+    fix: int
+
+    satellites: int
+
+    latitude:  int
+    longitude: int
+
+    altitude: int
+
+    speed: int
+
+    groundcourse: int
