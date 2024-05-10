@@ -15,7 +15,7 @@ class _MspDataStructure(ABC):
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     @abstractmethod
-    def update(self, data: tuple) -> NoReturn:
+    def _update(self, data: tuple) -> NoReturn:
         """Updates the current values by unserialized data values."""
         pass
 
