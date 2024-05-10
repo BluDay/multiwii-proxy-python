@@ -2,7 +2,7 @@ from . import _MspDataStructure, _Point2D, command_code, struct_format
 
 from ..msp_commands import MSP_WP
 
-from typing import NoReturn
+from typing import NamedTuple, NoReturn
 
 @command_code(MSP_WP)
 @struct_format('B3I2HB')
@@ -76,3 +76,19 @@ class MspWaypoint(_MspDataStructure):
         self._heading      = data[4]
         self._time_to_stay = data[5]
         self._flag         = data[6]
+
+class MspSetWaypoint(NamedTuple):
+    """Represents data values for the MSP_SET_WP command."""
+    number: int
+
+    latitude: int
+
+    longitude: int
+
+    alt_hold: int
+
+    heading: int
+
+    time_to_stay: int
+
+    flag: int
