@@ -90,6 +90,8 @@ class MultiWii(object):
 
     MSP_VERSION: Final[str] = 'v1'
 
+    NAME_SEPARATION_CHAR: Final[str] = ';'
+
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     _message_write_read_delay: float
@@ -172,6 +174,10 @@ class MultiWii(object):
         """
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
+
+    def _decode_names(self, data: tuple) -> tuple[str]:
+        """Decodes the deserialized string value and splits it to a tuple."""
+        return tuple(data[0].decode().split(MultiWii.NAME_SPARATION_CHAR))
 
     def _read_and_parse_data(self, cls: _MspDataStructure) -> Any:
         """Retrieves data from the FC and parses it to the corresponding data class."""
