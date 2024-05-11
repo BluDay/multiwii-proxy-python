@@ -1,5 +1,4 @@
-from .data import (
-    _MspDataStructure,
+from .msp_data import (
     MspAltitude,
     MspAnalog,
     MspAttitude,
@@ -24,11 +23,8 @@ from .data import (
     MspSetMotor,
     MspSetRawGps,
     MspSetRawRc,
-    MspSetRcTuning,
-    MspSetPid,
     MspSetBoxItem,
     MspSetMisc,
-    MspSetWaypoint,
     MspSetServoConfItem
 )
 
@@ -179,10 +175,6 @@ class MultiWii(object):
         """Decodes the deserialized string value and splits it to a tuple."""
         return tuple(data[0].decode().split(MultiWii.NAME_SPARATION_CHAR))
 
-    def _read_and_parse_data(self, cls: _MspDataStructure) -> Any:
-        """Retrieves data from the FC and parses it to the corresponding data class."""
-        pass
-
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
 
@@ -216,87 +208,87 @@ class MultiWii(object):
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        return self._read_and_parse_data(MspAltitude)
+        return MspAltitude()
     
     def get_analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        return self._read_and_parse_data(MspAnalog)
+        return MspAnalog()
     
     def get_attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        return self._read_and_parse_data(MspAttitude)
+        return MspAttitude()
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        return self._read_and_parse_data(MspBox)
+        return MspBox()
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        return self._read_and_parse_data(MspBoxIds)
+        return MspBoxIds()
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        return self._read_and_parse_data(MspBoxNames)
+        return MspBoxNames()
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        return self._read_and_parse_data(MspCompGps)
+        return MspCompGps()
     
     def get_ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        return self._read_and_parse_data(MspIdent)
+        return MspIdent()
     
     def get_misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        return self._read_and_parse_data(MspMisc)
+        return MspMisc()
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        return self._read_and_parse_data(MspMotor)
+        return MspMotor()
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        return self._read_and_parse_data(MspMotorPins)
+        return MspMotorPins()
     
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        return self._read_and_parse_data(MspPid)
+        return MspPid()
     
     def get_pid_names(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        return self._read_and_parse_data(MspPidNames)
+        return MspPidNames()
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        return self._read_and_parse_data(MspRawGps)
+        return MspRawGps()
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        return self._read_and_parse_data(MspRawImu)
+        return MspRawImu()
     
     def get_rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        return self._read_and_parse_data(MspRc)
+        return MspRc()
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        return self._read_and_parse_data(MspRcTuning)
+        return MspRcTuning()
     
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        return self._read_and_parse_data(MspServo)
+        return MspServo()
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        return self._read_and_parse_data(MspServoConf)
+        return MspServoConf()
     
     def get_status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        return self._read_and_parse_data(MspStatus)
+        return MspStatus()
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        return self._read_and_parse_data(MspWaypoint)
+        return MspWaypoint()
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
@@ -390,7 +382,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MOTOR, values)
 
-    def set_pid(self, values: MspSetPid) -> NoReturn:
+    def set_pid(self, values: MspPid) -> NoReturn:
         """Sends the MSP_SET_PID command.
 
         Sets the PID values on the FC. PID values are used to adjust the stability and response
@@ -415,7 +407,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RAW_RC, values)
     
-    def set_rc_tuning(self, values: MspSetRcTuning) -> NoReturn:
+    def set_rc_tuning(self, values: MspRcTuning) -> NoReturn:
         """Sends the MSP_SET_RC_TUNING command.
 
         Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to
@@ -431,7 +423,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_SERVO_CONF)
 
-    def set_waypoint(self, values: MspSetWaypoint) -> NoReturn:
+    def set_waypoint(self, values: MspWaypoint) -> NoReturn:
         """Sends the MSP_SET_WP command.
 
         Dispatches a command to set a waypoint on the FC, providing specific latitude, longitude,
