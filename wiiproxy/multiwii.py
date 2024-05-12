@@ -172,6 +172,10 @@ class MultiWii(object):
         """Decodes the deserialized string value and splits it to a tuple."""
         return tuple(data[0].decode().split(MultiWii.NAME_SPARATION_CHAR))
 
+    def _read_and_parse_data(self, command: int, format: str, has_variable_size: bool = False) -> tuple[int]:
+        """(Add summary here.)"""
+        pass
+
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
 
@@ -205,87 +209,129 @@ class MultiWii(object):
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        return MspAltitude()
+        data = self._read_and_parse_data(MSP_ALTITUDE, 'ih')
+
+        return MspAltitude(**data)
     
     def get_analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        return MspAnalog()
+        data = self._read_and_parse_data(MSP_ANALOG, 'B3H')
+
+        return MspAnalog(**data)
     
     def get_attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        return MspAttitude()
+        data = self._read_and_parse_data(MSP_ATTITUDE, '3h')
+
+        return MspAttitude(**data)
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        return MspBox()
+        data = self._read_and_parse_data(MSP_BOX, 'H', has_variable_size=True)
+
+        return MspBox(**data)
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        return MspBoxIds()
+        data = self._read_and_parse_data(MSP_BOXIDS, 'B', has_variable_size=True)
+
+        return MspBoxIds(**data)
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        return MspBoxNames()
+        data = self._read_and_parse_data(MSP_BOXNAMES, 's', has_variable_size=True)
+
+        return MspBoxNames(**data)
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        return MspCompGps()
+        data = self._read_and_parse_data(MSP_COMP_GPS, '2HB')
+
+        return MspCompGps(**data)
     
     def get_ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        return MspIdent()
+        data = self._read_and_parse_data(MSP_IDENT, '3BI')
+
+        return MspIdent(**data)
     
     def get_misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        return MspMisc()
+        data = self._read_and_parse_data(MSP_MISC, '6HIH4B')
+
+        return MspMisc(**data)
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        return MspMotor()
+        data = self._read_and_parse_data(MSP_MOTOR, '8H')
+
+        return MspMotor(**data)
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        return MspMotorPins()
+        data = self._read_and_parse_data(MSP_MOTOR_PINS, '8B')
+
+        return MspMotorPins(**data)
     
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        return MspPid()
+        data = self._read_and_parse_data(MSP_PID, '30B')
+
+        return MspPid(**data)
     
     def get_pid_names(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        return MspPidNames()
+        data = self._read_and_parse_data(MSP_PIDNAMES, 's', has_variable_size=True)
+
+        return MspPidNames(**data)
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        return MspRawGps()
+        data = self._read_and_parse_data(MSP_RAW_GPS, '2B2I3H')
+
+        return MspRawGps(**data)
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        return MspRawImu()
+        data = self._read_and_parse_data(MSP_RAW_IMU, '9h')
+
+        return MspRawImu(**data)
     
     def get_rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        return MspRc()
+        data = self._read_and_parse_data(MSP_RC, '8H')
+
+        return MspRc(**data)
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        return MspRcTuning()
+        data = self._read_and_parse_data(MSP_RC_TUNING, '7B')
+
+        return MspRcTuning(**data)
     
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        return MspServo()
+        data = self._read_and_parse_data(MSP_SERVO, '8H')
+
+        return MspServo(**data)
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        return MspServoConf()
+        data = self._read_and_parse_data(MSP_SERVO_CONF, '3HB', has_variable_size=True)
+
+        return MspServoConf(**data)
     
     def get_status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        return MspStatus()
+        data = self._read_and_parse_data(MSP_STATUS, '3HIB')
+
+        return MspStatus(**data)
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        return MspWaypoint()
+        data = self._read_and_parse_data(MSP_WP, 'B3I2HB')
+
+        return MspWaypoint(**data)
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
