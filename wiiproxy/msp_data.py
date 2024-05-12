@@ -264,7 +264,7 @@ class MspWaypoint(object):
     flag: int
 
 @dataclass
-class SetMspBoxItem(object):
+class SetBoxItem(object):
     """Represents  for the MSP_SET_BOX command."""
     aux1: MultiWiiBoxState
     aux2: MultiWiiBoxState
@@ -276,7 +276,7 @@ class SetMspBoxItem(object):
         pass
 
 @dataclass
-class SetMspMisc(object):
+class SetMisc(object):
     """Represents data values for the MSP_SET_MISC command."""
     power_trigger: int
 
@@ -303,7 +303,7 @@ class SetMspMisc(object):
     battery_critical: int
 
 @dataclass
-class SetMspServoConfItem(object):
+class SetServoConfItem(object):
     """Represents data values for the MSP_SET_SERVO_CONF command."""
     min: int
 
