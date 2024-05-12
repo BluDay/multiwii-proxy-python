@@ -1,4 +1,4 @@
-from .config import MultiWiiBoxState, MultiWiiMultitype, MultiWiiCapability
+from .msp_config import MultiWiiBoxState, MultiWiiMultitype, MultiWiiCapability
 
 from dataclasses import dataclass
 
@@ -264,7 +264,7 @@ class MspWaypoint(object):
     flag: int
 
 @dataclass
-class SetBoxItem(object):
+class BoxItem(object):
     """Represents  for the MSP_SET_BOX command."""
     aux1: MultiWiiBoxState
     aux2: MultiWiiBoxState
@@ -276,7 +276,7 @@ class SetBoxItem(object):
         pass
 
 @dataclass
-class SetMisc(object):
+class Misc(object):
     """Represents data values for the MSP_SET_MISC command."""
     power_trigger: int
 
@@ -303,7 +303,7 @@ class SetMisc(object):
     battery_critical: int
 
 @dataclass
-class SetServoConfItem(object):
+class ServoConfItem(object):
     """Represents data values for the MSP_SET_SERVO_CONF command."""
     min: int
 
