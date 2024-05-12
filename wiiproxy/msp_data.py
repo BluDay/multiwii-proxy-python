@@ -2,14 +2,14 @@ from .config import MultiWiiBoxState, MultiWiiMultitype, MultiWiiCapability
 
 from dataclasses import dataclass
 
-from typing import NamedTuple
-
+@dataclass
 class MspAltitude(object):
     """Represents data values for the MSP_ALTITUDE command."""
     estimation: int
 
     pressure_variation: int
 
+@dataclass
 class MspAnalog(object):
     """Represents data values for the MSP_ANALOG command."""
     voltage: int
@@ -20,6 +20,7 @@ class MspAnalog(object):
 
     amperage: int
 
+@dataclass
 class MspAttitude(object):
     """Represents data values for the MSP_ATTITUDE command."""
     angle_x: float
@@ -27,18 +28,22 @@ class MspAttitude(object):
 
     heading: int
 
+@dataclass
 class MspBox(object):
     """Represents data values for the MSP_BOX command."""
     values: tuple[int]
 
+@dataclass
 class MspBoxIds(object):
     """Represents data values for the MSP_BOXIDS command."""
     values: tuple[int]
 
+@dataclass
 class MspBoxNames(object):
     """Represents data values for the MSP_BOXNAMES command."""
     names: tuple[str]
 
+@dataclass
 class MspCompGps(object):
     """Represents data values for the MSP_COMP_GPS command."""
     distance_to_home: int
@@ -47,6 +52,7 @@ class MspCompGps(object):
 
     update: int
 
+@dataclass
 class MspIdent(object):
     """Represents data values for the MSP_IDENT command."""
     version: float
@@ -57,6 +63,7 @@ class MspIdent(object):
 
     navi_version: int
 
+@dataclass
 class MspMisc(object):
     """Represents data values for the MSP_MISC command."""
     power_trigger: int
@@ -83,6 +90,7 @@ class MspMisc(object):
 
     battery_critical: int
 
+@dataclass
 class MspMotor(object):
     """Represents data values for the MSP_MOTOR command."""
     motor1: int
@@ -94,10 +102,12 @@ class MspMotor(object):
     motor7: int
     motor8: int
 
+@dataclass
 class MspMotorPins(object):
     """Represents data values for the MSP_MOTOR_PINS command."""
     values: tuple[int]
 
+@dataclass
 class MspPid(object):
     """Represents data values for the MSP_PID command."""
     roll_p: int
@@ -140,10 +150,12 @@ class MspPid(object):
     vel_i: int
     vel_d: int
 
+@dataclass
 class MspPidNames(object):
     """Represents data values for the MSP_PIDNAMES command."""
     names: tuple[str]
 
+@dataclass
 class MspRawGps(object):
     """Represents data values for the MSP_RAW_GPS command."""
     fix: int
@@ -160,6 +172,7 @@ class MspRawGps(object):
 
     ground_course: int
 
+@dataclass
 class MspRawImu(object):
     """Represents data values for the MSP_RAW_IMU command."""
     acc_x: float
@@ -174,7 +187,8 @@ class MspRawImu(object):
     mag_y: float
     mag_z: float
 
-class MspRc(NamedTuple):
+@dataclass
+class MspRc(object):
     """Represents data values for the MSP_RC command."""
     roll: int
 
@@ -192,6 +206,7 @@ class MspRc(NamedTuple):
 
     aux4: int
 
+@dataclass
 class MspRcTuning(object):
     """Represents data values for the MSP_RC_TUNING command."""
     rate: int
@@ -208,14 +223,17 @@ class MspRcTuning(object):
 
     throttle_expo: int
 
+@dataclass
 class MspServo(object):
     """Represents data values for the MSP_SERVO command."""
     values: tuple[int]
 
+@dataclass
 class MspServoConf(object):
     """Represents data values for the MSP_SERVO_CONF command."""
     values: tuple[int]
 
+@dataclass
 class MspStatus(object):
     """Represents data values for the MSP_STATUS command."""
     cycle_time: int
@@ -228,6 +246,7 @@ class MspStatus(object):
 
     global_conf: int
 
+@dataclass
 class MspWaypoint(object):
     """Represents data values for the MSP_WP command."""
     number: int
@@ -244,6 +263,7 @@ class MspWaypoint(object):
 
     flag: int
 
+@dataclass
 class SetMspBoxItem(object):
     """Represents  for the MSP_SET_BOX command."""
     aux1: MultiWiiBoxState
@@ -255,7 +275,8 @@ class SetMspBoxItem(object):
         """Compiles all of the set box state values to a single unsigned integer value."""
         pass
 
-class SetMspMisc(NamedTuple):
+@dataclass
+class SetMspMisc(object):
     """Represents data values for the MSP_SET_MISC command."""
     power_trigger: int
 
@@ -281,7 +302,8 @@ class SetMspMisc(NamedTuple):
 
     battery_critical: int
 
-class SetMspServoConfItem(NamedTuple):
+@dataclass
+class SetMspServoConfItem(object):
     """Represents data values for the MSP_SET_SERVO_CONF command."""
     min: int
 
