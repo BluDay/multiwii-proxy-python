@@ -20,9 +20,9 @@ from .msp_data import (
     MspServoConf,
     MspStatus,
     MspWaypoint,
-    MspSetBoxItem,
-    MspSetMisc,
-    MspSetServoConfItem
+    SetMspBoxItem,
+    SetMspMisc,
+    SetMspServoConfItem
 )
 
 from .msp_commands import (
@@ -347,7 +347,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def set_box(self, values: tuple[MspSetBoxItem]) -> NoReturn:
+    def set_box(self, values: tuple[SetMspBoxItem]) -> NoReturn:
         """Sends the MSP_SET_BOX
 
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
@@ -363,7 +363,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_HEAD)
 
-    def set_misc(self, values: MspSetMisc) -> NoReturn:
+    def set_misc(self, values: SetMspMisc) -> NoReturn:
         """Sends the MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
@@ -412,7 +412,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING, values)
 
-    def set_servo_conf(self, values: tuple[MspSetServoConfItem]) -> NoReturn:
+    def set_servo_conf(self, values: tuple[SetMspServoConfItem]) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
