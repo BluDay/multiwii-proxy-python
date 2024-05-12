@@ -1,3 +1,23 @@
+from ._serialization import (
+    read_int8_le,
+    read_int16_le,
+    read_int32_le,
+    read_uint8_le,
+    read_uint16_le,
+    read_uint32_le,
+    write_int8_le,
+    write_int16_le,
+    write_int32_le,
+    write_uint8_le,
+    write_uint16_le,
+    write_uint32_le
+)
+
+from .msp_config import (
+    MultiWiiMultitype,
+    MultiWiiCapability
+)
+
 from .msp_data import (
     MspAltitude,
     MspAnalog,
@@ -20,9 +40,9 @@ from .msp_data import (
     MspServoConf,
     MspStatus,
     MspWaypoint,
-    SetBoxItem,
-    SetMisc,
-    SetServoConfItem
+    BoxItem,
+    Misc,
+    ServoConfItem
 )
 
 from .msp_commands import (
@@ -168,13 +188,17 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    def _decode_names(self, data: tuple) -> tuple[str]:
+    def _decode_names(self, data: bytes) -> tuple[str]:
         """Decodes the deserialized string value and splits it to a tuple."""
-        return tuple(data[0].decode().split(MultiWii.NAME_SPARATION_CHAR))
+        return tuple(data.decode().split(MultiWii.NAME_SPARATION_CHAR))
 
-    def _read_and_parse_data(self, command: int, format: str, has_variable_size: bool = False) -> tuple[int]:
-        """(Add summary here.)"""
-        pass
+    def _read_message_data(self, command: int) -> bytes:
+        """Reads a message and returns the raw data bytes."""
+        return self._read_message(command)[5:-1]
+
+    def _read_message_payload(self, command: int) -> bytes:
+        """Reads a message and returns the raw payload bytes."""
+        return self._read_message(command)[3:-1]
 
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
@@ -209,129 +233,295 @@ class MultiWii(object):
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_ALTITUDE, 'ih')
+        data = self._read_message_data(MSP_ALTITUDE)
 
-        return MspAltitude(**data)
+        return MspAltitude(
+            estimation         = read_int32_le(data),
+            pressure_variation = read_int16_le(data, offset=4)
+        )
     
     def get_analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_ANALOG, 'B3H')
+        data = self._read_message_data(MSP_ANALOG)
 
-        return MspAnalog(**data)
+        return MspAnalog(
+            voltage         = read_uint8_le(data),
+            power_meter_sum = read_uint16_le(data, offset=1),
+            rssi            = read_uint16_le(data, offset=3),
+            amperage        = read_uint16_le(data, offset=5)
+        )
     
     def get_attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_ATTITUDE, '3h')
+        data = self._read_message_data(MSP_ATTITUDE)
 
-        return MspAttitude(**data)
+        return MspAttitude(
+            angle_x = read_int16_le(data),
+            angle_y = read_int16_le(data, offset=2),
+            heading = read_int16_le(data, offset=4)
+        )
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_BOX, 'H', has_variable_size=True)
+        (code, size, *data) = self._read_message_payload(MSP_BOX)
 
-        return MspBox(**data)
+        values = ()
+
+        for index in range(size, step=2):
+            values += (read_int16_le(data, offset=index),)
+        
+        return MspBox(values)
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_BOXIDS, 'B', has_variable_size=True)
+        (code, size, *data) = self._read_message_payload(MSP_BOXIDS)
 
-        return MspBoxIds(**data)
+        values = ()
+
+        for index in range(size):
+            values += (read_int8_le(data, offset=index),)
+
+        return MspBoxIds(values)
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_BOXNAMES, 's', has_variable_size=True)
+        data = self._read_message_data(MSP_BOXNAMES)
 
-        return MspBoxNames(**data)
+        return MspBoxNames(names=self._decode_names(data))
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_COMP_GPS, '2HB')
+        data = self._read_message_data(MSP_COMP_GPS)
 
-        return MspCompGps(**data)
+        return MspCompGps(
+            distance_to_home  = read_uint16_le(data),
+            direction_to_home = read_uint16_le(data, offset=2),
+            update            = read_uint8_le(data, offset=4)
+        )
     
     def get_ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_IDENT, '3BI')
+        data = self._read_message_data(MSP_IDENT)
 
-        return MspIdent(**data)
+        return MspIdent(
+            version      = read_uint8_le(data),
+            multitype    = MultiWiiMultitype(read_uint8_le(data, offset=1)),
+            capabilities = MultiWiiCapability.get_capabilities(read_uint8_le(data, offset=2)),
+            navi_version = read_uint32_le(data, offset=3)
+        )
     
     def get_misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_MISC, '6HIH4B')
+        data = self._read_message_data(MSP_MISC)
 
-        return MspMisc(**data)
+        return MspMisc(
+            power_trigger     = read_int_le(data),
+            throttle_failsafe = read_int_le(data, offset=2),
+            throttle_idle     = read_int_le(data, offset=4),
+            throttle_min      = read_int_le(data, offset=6),
+            throttle_max      = read_int_le(data, offset=8),
+            plog_arm          = read_int_le(data, offset=10),
+            plog_lifetime     = read_int_le(data, offset=12),
+            mag_declination   = read_int_le(data, offset=16),
+            battery_scale     = read_int_le(data, offset=18),
+            battery_warn_1    = read_int_le(data, offset=19),
+            battery_warn_2    = read_int_le(data, offset=20),
+            battery_critical  = read_int_le(data, offset=21)
+        )
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_MOTOR, '8H')
+        data = self._read_message_payload(MSP_MOTOR)
 
-        return MspMotor(**data)
+        return MspMotor(
+            motor1=read_uint16_le(data),
+            motor2=read_uint16_le(data, offset=2),
+            motor3=read_uint16_le(data, offset=4),
+            motor4=read_uint16_le(data, offset=6),
+            motor5=read_uint16_le(data, offset=8),
+            motor6=read_uint16_le(data, offset=10),
+            motor7=read_uint16_le(data, offset=12),
+            motor8=read_uint16_le(data, offset=14)
+        )
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_MOTOR_PINS, '8B')
+        data = self._read_message_payload(MSP_MOTOR_PINS)
 
-        return MspMotorPins(**data)
+        values = ()
+
+        for index in range(8):
+            values += (read_int8_le(data, offset=index),)
+
+        return MspMotorPins(values)
     
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_PID, '30B')
+        data = self._read_message_payload(MSP_PID) 
 
-        return MspPid(**data)
+        return MspPid(
+            roll_p=read_uint8_le(data),
+            roll_i=read_uint8_le(data, offset=1),
+            roll_d=read_uint8_le(data, offset=2),
+
+            pitch_p=read_uint8_le(data, offset=3),
+            pitch_i=read_uint8_le(data, offset=4),
+            pitch_d=read_uint8_le(data, offset=5),
+
+            yaw_p=read_uint8_le(data, offset=6),
+            yaw_i=read_uint8_le(data, offset=7),
+            yaw_d=read_uint8_le(data, offset=8),
+
+            alt_p=read_uint8_le(data, offset=9),
+            alt_i=read_uint8_le(data, offset=10),
+            alt_d=read_uint8_le(data, offset=11),
+
+            pos_p=read_uint8_le(data, offset=12),
+            pos_i=read_uint8_le(data, offset=13),
+            pos_d=read_uint8_le(data, offset=14),
+
+            posr_p=read_uint8_le(data, offset=15),
+            posr_i=read_uint8_le(data, offset=16),
+            posr_d=read_uint8_le(data, offset=17),
+
+            navr_p=read_uint8_le(data, offset=18),
+            navr_i=read_uint8_le(data, offset=19),
+            navr_d=read_uint8_le(data, offset=20),
+
+            level_p=read_uint8_le(data, offset=21),
+            level_i=read_uint8_le(data, offset=22),
+            level_d=read_uint8_le(data, offset=23),
+
+            mag_p=read_uint8_le(data, offset=24),
+            mag_i=read_uint8_le(data, offset=25),
+            mag_d=read_uint8_le(data, offset=26),
+
+            vel_p=read_uint8_le(data, offset=27),
+            vel_i=read_uint8_le(data, offset=28),
+            vel_d=read_uint8_le(data, offset=29)
+        )
     
     def get_pid_names(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_PIDNAMES, 's', has_variable_size=True)
+        data = self._read_message_data(MSP_PIDNAMES)
 
-        return MspPidNames(**data)
+        return MspPidNames(names=self._decode_names(data))
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_RAW_GPS, '2B2I3H')
+        data = self._read_message_data(MSP_RAW_GPS)
 
-        return MspRawGps(**data)
+        return MspRawGps(
+            fix           = read_uint_le(data),
+            satellites    = read_uint_le(data, offset=1),
+            latitude      = read_uint_le(data, offset=2),
+            longitude     = read_uint_le(data, offset=6),
+            altitude      = read_uint_le(data, offset=10),
+            speed         = read_uint_le(data, offset=12),
+            ground_course = read_uint_le(data, offset=14)
+        )
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_RAW_IMU, '9h')
+        data = self._read_message_data(MSP_RAW_IMU)
 
-        return MspRawImu(**data)
+        return MspRawImu(
+            acc_x=float(read_int16_le(data)),
+            acc_y=float(read_int16_le(data, offset=2)),
+            acc_z=float(read_int16_le(data, offset=4)),
+
+            gyro_x=float(read_int16_le(data, offset=6)),
+            gyro_y=float(read_int16_le(data, offset=8)),
+            gyro_z=float(read_int16_le(data, offset=10)),
+
+            mag_x=float(read_int16_le(data, offset=12)),
+            mag_y=float(read_int16_le(data, offset=14)),
+            mag_z=float(read_int16_le(data, offset=16))
+        )
     
     def get_rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_RC, '8H')
+        data = self._read_message_data(MSP_RC)
 
-        return MspRc(**data)
+        return MspRc(
+            roll     = read_uint16_le(data),
+            pitch    = read_uint16_le(data, offset=2),
+            yaw      = read_uint16_le(data, offset=4),
+            throttle = read_uint16_le(data, offset=6),
+            aux1     = read_uint16_le(data, offset=8),
+            aux2     = read_uint16_le(data, offset=10),
+            aux3     = read_uint16_le(data, offset=12),
+            aux4     = read_uint16_le(data, offset=14)
+        )
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_RC_TUNING, '7B')
+        data = self._read_message_payload(MSP_RC_TUNING)
 
-        return MspRcTuning(**data)
+        return MspRcTuning(
+            rate                 = read_uint8_le(data),
+            expo                 = read_uint8_le(data, offset=1),
+            roll_pitch_rate      = read_uint8_le(data, offset=2),
+            yaw_rate             = read_uint8_le(data, offset=3),
+            dynamic_throttle_pid = read_uint8_le(data, offset=4),
+            throttle_mid         = read_uint8_le(data, offset=5),
+            throttle_expo        = read_uint8_le(data, offset=6)
+        )
     
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_SERVO, '8H')
+        (code, size, *data) = self._read_message_payload(MSP_SERVO)
 
-        return MspServo(**data)
+        values = ()
+
+        for index in range(size, step=2):
+            values += (read_int16_le(data, offset=index),)
+
+        return MspServo(values)
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_SERVO_CONF, '3HB', has_variable_size=True)
+        (code, size, *data) = self._read_message_payload(MSP_SERVO_CONF)
 
-        return MspServoConf(**data)
+        values = ()
+
+        for index in range(size, step=7):
+            item = ServoConfItem(
+                min    = read_uint_le(data, offset=index),
+                max    = read_uint_le(data, offset=index + 2),
+                middle = read_uint_le(data, offset=index + 4),
+                rate   = read_uint_le(data, offset=index + 5)
+            )
+
+            values += (item,)
+
+        return MspServoConf(values)
     
     def get_status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_STATUS, '3HIB')
+        data = self._read_message_data(MSP_STATUS)
 
-        return MspStatus(**data)
+        return MspStatus(
+            cycle_time  = read_uint16_le(data),
+            i2c_errors  = read_uint16_le(data, offset=2),
+            sensors     = read_uint16_le(data, offset=4),
+            flag        = read_uint32_le(data, offset=6),
+            global_conf = read_uint8_le(data, offset=10)
+        )
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        data = self._read_and_parse_data(MSP_WP, 'B3I2HB')
+        data = self._read_message_data(MSP_WP)
 
-        return MspWaypoint(**data)
+        return MspWaypoint(
+            number       = read_uint8_le(data),
+            latitude     = read_uint32_le(data, offset=1),
+            longitude    = read_uint32_le(data, offset=5),
+            alt_hold     = read_uint32_le(data, offset=9),
+            heading      = read_uint16_le(data, offset=13),
+            time_to_stay = read_uint16_le(data, offset=15),
+            flag         = read_uint8_le(data, offset=17)
+        )
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
@@ -393,7 +583,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def set_box(self, data: tuple[SetBoxItem]) -> NoReturn:
+    def set_box(self, data: tuple[BoxItem]) -> NoReturn:
         """Sends the MSP_SET_BOX
 
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
@@ -409,7 +599,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_HEAD)
 
-    def set_misc(self, data: SetMisc) -> NoReturn:
+    def set_misc(self, data: Misc) -> NoReturn:
         """Sends the MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
@@ -458,7 +648,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING, data)
 
-    def set_servo_conf(self, data: tuple[SetServoConfItem]) -> NoReturn:
+    def set_servo_conf(self, data: tuple[ServoConfItem]) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
