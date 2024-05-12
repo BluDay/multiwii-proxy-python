@@ -31,17 +31,6 @@ class MspBox(object):
     """Represents data values for the MSP_BOX command."""
     values: tuple[int]
 
-class MspSetBoxItem(object):
-    """Represents  for the MSP_SET_BOX command."""
-    aux1: MultiWiiBoxState
-    aux2: MultiWiiBoxState
-    aux3: MultiWiiBoxState
-    aux4: MultiWiiBoxState
-     
-    def compile(self) -> int:
-        """Compiles all of the set box state values to a single unsigned integer value."""
-        pass
-
 class MspBoxIds(object):
     """Represents data values for the MSP_BOXIDS command."""
     values: tuple[int]
@@ -79,32 +68,6 @@ class MspMisc(object):
     throttle_min: int
 
     throttle_max: int
-
-    plog_arm: int
-
-    plog_lifetime: int
-
-    mag_declination: int
-
-    battery_scale: int
-
-    battery_warn_1: int
-
-    battery_warn_2: int
-
-    battery_critical: int
-
-class MspSetMisc(NamedTuple):
-    """Represents data values for the MSP_SET_MISC command."""
-    power_trigger: int
-
-    throttle_min: int
-
-    throttle_max: int
-
-    min_command: int
-
-    failsafe_throttle: int
 
     plog_arm: int
 
@@ -253,16 +216,6 @@ class MspServoConf(object):
     """Represents data values for the MSP_SERVO_CONF command."""
     values: tuple[int]
 
-class MspSetServoConfItem(NamedTuple):
-    """Represents data values for the MSP_SET_SERVO_CONF command."""
-    min: int
-
-    max: int
-
-    middle: int
-
-    rate: int
-
 class MspStatus(object):
     """Represents data values for the MSP_STATUS command."""
     cycle_time: int
@@ -290,3 +243,50 @@ class MspWaypoint(object):
     time_to_stay: int
 
     flag: int
+
+class SetMspBoxItem(object):
+    """Represents  for the MSP_SET_BOX command."""
+    aux1: MultiWiiBoxState
+    aux2: MultiWiiBoxState
+    aux3: MultiWiiBoxState
+    aux4: MultiWiiBoxState
+     
+    def compile(self) -> int:
+        """Compiles all of the set box state values to a single unsigned integer value."""
+        pass
+
+class SetMspMisc(NamedTuple):
+    """Represents data values for the MSP_SET_MISC command."""
+    power_trigger: int
+
+    throttle_min: int
+
+    throttle_max: int
+
+    min_command: int
+
+    failsafe_throttle: int
+
+    plog_arm: int
+
+    plog_lifetime: int
+
+    mag_declination: int
+
+    battery_scale: int
+
+    battery_warn_1: int
+
+    battery_warn_2: int
+
+    battery_critical: int
+
+class SetMspServoConfItem(NamedTuple):
+    """Represents data values for the MSP_SET_SERVO_CONF command."""
+    min: int
+
+    max: int
+
+    middle: int
+
+    rate: int
