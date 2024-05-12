@@ -1,22 +1,8 @@
 from .config import MultiWiiBoxState, MultiWiiMultitype, MultiWiiCapability
 
 from dataclasses import dataclass
-from typing      import Generic, NamedTuple, TypeVar
 
-T = TypeVar('T')
-
-@dataclass
-class _Point2D(NamedTuple, Generic[T]):
-    """A tuple of x and y integer values for a 2D point."""
-    x: T
-    y: T
-
-@dataclass
-class _Point3D(NamedTuple, Generic[T]):
-    """A tuple of x, y and z integer values for a 3D point."""
-    x: T
-    y: T
-    z: T
+from typing import NamedTuple
 
 class MspAltitude(object):
     """Represents data values for the MSP_ALTITUDE command."""
@@ -36,7 +22,8 @@ class MspAnalog(object):
 
 class MspAttitude(object):
     """Represents data values for the MSP_ATTITUDE command."""
-    angle: _Point2D[float]
+    angle_x: float
+    angle_y: float
 
     heading: int
 
@@ -108,7 +95,7 @@ class MspMisc(object):
     battery_critical: int
 
 class MspSetMisc(NamedTuple):
-    """Represents data values for the MSP_MISC command."""
+    """Represents data values for the MSP_SET_MISC command."""
     power_trigger: int
 
     throttle_min: int
@@ -135,10 +122,6 @@ class MspSetMisc(NamedTuple):
 
 class MspMotor(object):
     """Represents data values for the MSP_MOTOR command."""
-    pass
-
-class MspSetMotor(NamedTuple):
-    """Data values as a tuple for the MSP_SET_MOTOR command."""
     motor1: int
     motor2: int
     motor3: int
@@ -150,7 +133,7 @@ class MspSetMotor(NamedTuple):
 
 class MspMotorPins(object):
     """Represents data values for the MSP_MOTOR_PINS command."""
-    pass
+    values: tuple[int]
 
 class MspPid(object):
     """Represents data values for the MSP_PID command."""
@@ -214,44 +197,22 @@ class MspRawGps(object):
 
     ground_course: int
 
-def MspSetRawGps(NamedTuple):
-    """Represents data values for the MSP_SET_RAW_GPS command."""
-    fix: int
-
-    satellites: int
-
-    latitude: int
-
-    longitude: int
-
-    altitude: int
-
-    speed: int
-
-    ground_course: int
-
 class MspRawImu(object):
     """Represents data values for the MSP_RAW_IMU command."""
-    acc: _Point3D[float]
+    acc_x: float
+    acc_y: float
+    acc_z: float
 
-    gyro: _Point3D[float]
+    gyro_x: float
+    gyro_y: float
+    gyro_z: float
 
-    mag: _Point3D[float]
+    mag_x: float
+    mag_y: float
+    mag_z: float
 
-class MspRc(object):
+class MspRc(NamedTuple):
     """Represents data values for the MSP_RC command."""
-    roll: int
-
-    pitch: int
-
-    yaw: int
-
-    throttle: int
-
-    aux: tuple[int]
-
-class MspSetRawRc(NamedTuple):
-    """Represents data values for the MSP_SET_RAW_RC command."""
     roll: int
 
     pitch: int
