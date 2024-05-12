@@ -20,9 +20,6 @@ from .msp_data import (
     MspServoConf,
     MspStatus,
     MspWaypoint,
-    MspSetMotor,
-    MspSetRawGps,
-    MspSetRawRc,
     MspSetBoxItem,
     MspSetMisc,
     MspSetServoConfItem
@@ -374,7 +371,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MISC, values)
 
-    def set_motor(self, values: MspSetMotor) -> NoReturn:
+    def set_motor(self, values: MspMotor) -> NoReturn:
         """Sends the MSP_SET_MOTOR command.
 
         Sets the motor output values on the FC. Motor output values determine the throttle level
@@ -390,7 +387,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_PID, values)
 
-    def set_raw_gps(self, values: MspSetRawGps) -> NoReturn:
+    def set_raw_gps(self, values: MspRawGps) -> NoReturn:
         """Sends the MSP_SET_RAW_GPS command.
 
         Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other
@@ -398,7 +395,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RAW_GPS, values)
 
-    def set_raw_rc(self, values: MspSetRawRc) -> NoReturn:
+    def set_raw_rc(self, values: MspRc) -> NoReturn:
         """Sends the MSP_SET_RAW_RC command.
 
         Sets the raw receiver (RC/RX) channel data on the FC. Raw FC data includes the pulse
