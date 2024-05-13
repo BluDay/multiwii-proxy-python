@@ -141,7 +141,7 @@ class MspMisc:
     battery_critical: int
 
 @dataclass
-class MspMiscDto:
+class MspSetMisc:
     """Represents data values for the MSP_SET_MISC command."""
     power_trigger: int
 
