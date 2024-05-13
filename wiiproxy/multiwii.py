@@ -631,6 +631,11 @@ class MultiWii(object):
 
         Sets the heading (yaw) direction reference on the FC with a value range of -180 to 180.
         It is used to define the forward direction of the aircraft relative to its orientation.
+
+        Raises
+        ------
+        ValueError
+            If the provided range value is less than -180 or greater than 180.
         """
         if range < -180 or range > 180:
             raise ValueError('Value must be within the range of -180 and 180.')
