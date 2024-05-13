@@ -6,6 +6,36 @@ from .msp_config import (
 )
 
 from dataclasses import dataclass
+from typing      import Final, Generic, TypeVar
+
+T = TypeVar('T')
+
+@dataclass
+class _Coord2D(Generic[T]):
+    """Represents 2D coordinates with longitude and latitude values."""
+    latitude: T
+
+    longitude: T
+
+@dataclass
+class _PidValues(Generic[T]):
+    """Represents PID values."""
+    p: T
+    i: T
+    d: T
+
+@dataclass
+class _Point2D(Generic[T]):
+    """Represents a 2D point."""
+    x: T
+    y: T
+
+@dataclass
+class _Point3D(Generic[T]):
+    """Represents a 3D point."""
+    x: T
+    y: T
+    z: T
 
 @dataclass
 class MspAltitude:
@@ -28,8 +58,7 @@ class MspAnalog:
 @dataclass
 class MspAttitude:
     """Represents data values for the MSP_ATTITUDE command."""
-    angle_x: float
-    angle_y: float
+    angle: _Point2D[float]
 
     heading: int
 
@@ -115,45 +144,25 @@ class MspMotorPins:
 @dataclass
 class MspPid:
     """Represents data values for the MSP_PID command."""
-    roll_p: int
-    roll_i: int
-    roll_d: int
+    roll: _PidValues[int]
 
-    pitch_p: int
-    pitch_i: int
-    pitch_d: int
+    pitch: _PidValues[int]
 
-    yaw_p: int
-    yaw_i: int
-    yaw_d: int
+    yaw: _PidValues[int]
 
-    alt_p: int
-    alt_i: int
-    alt_d: int
+    alt: _PidValues[int]
 
-    pos_p: int
-    pos_i: int
-    pos_d: int
+    pos: _PidValues[int]
 
-    posr_p: int
-    posr_i: int
-    posr_d: int
+    posr: _PidValues[int]
 
-    navr_p: int
-    navr_i: int
-    navr_d: int
+    navr: _PidValues[int]
 
-    level_p: int
-    level_i: int
-    level_d: int
+    level: _PidValues[int]
 
-    mag_p: int
-    mag_i: int
-    mag_d: int
+    mag: _PidValues[int]
 
-    vel_p: int
-    vel_i: int
-    vel_d: int
+    vel: _PidValues[int]
 
 @dataclass
 class MspPidNames:
@@ -167,9 +176,7 @@ class MspRawGps:
 
     satellites: int
 
-    latitude: int
-
-    longitude: int
+    coordinate: _Coord2D[int]
 
     altitude: int
 
@@ -180,17 +187,11 @@ class MspRawGps:
 @dataclass
 class MspRawImu:
     """Represents data values for the MSP_RAW_IMU command."""
-    acc_x: float
-    acc_y: float
-    acc_z: float
+    acc: _Point3D[float]
 
-    gyro_x: float
-    gyro_y: float
-    gyro_z: float
+    gyro: _Point3D[float]
 
-    mag_x: float
-    mag_y: float
-    mag_z: float
+    mag: _Point3D[float]
 
 @dataclass
 class MspRc:
@@ -256,9 +257,7 @@ class MspWaypoint:
     """Represents data values for the MSP_WP command."""
     number: int
 
-    latitude: int
-
-    longitude: int
+    coordinate: _Coord2D[int]
 
     alt_hold: int
 

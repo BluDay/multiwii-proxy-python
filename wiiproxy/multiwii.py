@@ -19,6 +19,10 @@ from .msp_config import (
 )
 
 from .msp_data import (
+    _Coord2D,
+    _PidValues,
+    _Point2D,
+    _Point3D,
     MspAltitude,
     MspAnalog,
     MspAttitude,
@@ -251,9 +255,13 @@ class MultiWii(object):
         """Sends the MSP_ATTITUDE command and gets the data instance."""
         data = self._get_data(MSP_ATTITUDE)
 
+        angle = _Point2D(
+            x=float(read_int16(data)),
+            y=float(read_int16(data, offset=2))
+        )
+
         return MspAttitude(
-            angle_x = float(read_int16(data)),
-            angle_y = float(read_int16(data, offset=2)),
+            angle   = angle,
             heading = read_int16(data, offset=4)
         )
     
@@ -358,45 +366,56 @@ class MultiWii(object):
         data = self._get_data(MSP_PID) 
 
         return MspPid(
-            roll_p=read_uint8(data),
-            roll_i=read_uint8(data, offset=1),
-            roll_d=read_uint8(data, offset=2),
-
-            pitch_p=read_uint8(data, offset=3),
-            pitch_i=read_uint8(data, offset=4),
-            pitch_d=read_uint8(data, offset=5),
-
-            yaw_p=read_uint8(data, offset=6),
-            yaw_i=read_uint8(data, offset=7),
-            yaw_d=read_uint8(data, offset=8),
-
-            alt_p=read_uint8(data, offset=9),
-            alt_i=read_uint8(data, offset=10),
-            alt_d=read_uint8(data, offset=11),
-
-            pos_p=read_uint8(data, offset=12),
-            pos_i=read_uint8(data, offset=13),
-            pos_d=read_uint8(data, offset=14),
-
-            posr_p=read_uint8(data, offset=15),
-            posr_i=read_uint8(data, offset=16),
-            posr_d=read_uint8(data, offset=17),
-
-            navr_p=read_uint8(data, offset=18),
-            navr_i=read_uint8(data, offset=19),
-            navr_d=read_uint8(data, offset=20),
-
-            level_p=read_uint8(data, offset=21),
-            level_i=read_uint8(data, offset=22),
-            level_d=read_uint8(data, offset=23),
-
-            mag_p=read_uint8(data, offset=24),
-            mag_i=read_uint8(data, offset=25),
-            mag_d=read_uint8(data, offset=26),
-
-            vel_p=read_uint8(data, offset=27),
-            vel_i=read_uint8(data, offset=28),
-            vel_d=read_uint8(data, offset=29)
+            roll=_PidValues(
+                p=read_uint8(data),
+                i=read_uint8(data, offset=1),
+                d=read_uint8(data, offset=2)
+            ),
+            pitch=_PidValues(
+                p=read_uint8(data, offset=3),
+                i=read_uint8(data, offset=4),
+                d=read_uint8(data, offset=5)
+            ),
+            yaw=_PidValues(
+                p=read_uint8(data, offset=6),
+                i=read_uint8(data, offset=7),
+                d=read_uint8(data, offset=8)
+            ),
+            alt=_PidValues(
+                p=read_uint8(data, offset=9),
+                i=read_uint8(data, offset=10),
+                d=read_uint8(data, offset=11)
+            ),
+            pos=_PidValues(
+                p=read_uint8(data, offset=12),
+                i=read_uint8(data, offset=13),
+                d=read_uint8(data, offset=14)
+            ),
+            posr=_PidValues(
+                p=read_uint8(data, offset=15),
+                i=read_uint8(data, offset=16),
+                d=read_uint8(data, offset=17)
+            ),
+            navr=_PidValues(
+                p=read_uint8(data, offset=18),
+                i=read_uint8(data, offset=19),
+                d=read_uint8(data, offset=20)
+            ),
+            level=_PidValues(
+                p=read_uint8(data, offset=21),
+                i=read_uint8(data, offset=22),
+                d=read_uint8(data, offset=23)
+            ),
+            mag=_PidValues(
+                p=read_uint8(data, offset=24),
+                i=read_uint8(data, offset=25),
+                d=read_uint8(data, offset=26)
+            ),
+            vel=_PidValues(
+                p=read_uint8(data, offset=27),
+                i=read_uint8(data, offset=28),
+                d=read_uint8(data, offset=29)
+            )
         )
     
     def get_pid_names(self) -> MspPidNames:
@@ -409,11 +428,15 @@ class MultiWii(object):
         """Sends the MSP_RAW_GPS command and gets the data instance."""
         data = self._get_data(MSP_RAW_GPS)
 
+        coordinate = _Coord2D(
+            latitude=read_uint32(data, offset=2),
+            longitude=read_uint32(data, offset=6)
+        )
+
         return MspRawGps(
             fix           = read_uint8(data),
             satellites    = read_uint8(data, offset=1),
-            latitude      = read_uint32(data, offset=2),
-            longitude     = read_uint32(data, offset=6),
+            coordinate    = coordinate,
             altitude      = read_uint16(data, offset=10),
             speed         = read_uint16(data, offset=12),
             ground_course = read_uint16(data, offset=14)
@@ -424,17 +447,21 @@ class MultiWii(object):
         data = self._get_data(MSP_RAW_IMU)
 
         return MspRawImu(
-            acc_x=float(read_int16(data)),
-            acc_y=float(read_int16(data, offset=2)),
-            acc_z=float(read_int16(data, offset=4)),
-
-            gyro_x=float(read_int16(data, offset=6)),
-            gyro_y=float(read_int16(data, offset=8)),
-            gyro_z=float(read_int16(data, offset=10)),
-
-            mag_x=float(read_int16(data, offset=12)),
-            mag_y=float(read_int16(data, offset=14)),
-            mag_z=float(read_int16(data, offset=16))
+            acc=_Point3D(
+                x=float(read_int16(data)),
+                y=float(read_int16(data, offset=2)),
+                z=float(read_int16(data, offset=4))
+            ),
+            gyro=_Point3D(
+                x=float(read_int16(data, offset=6)),
+                y=float(read_int16(data, offset=8)),
+                z=float(read_int16(data, offset=10))
+            ),
+            mag=_Point3D(
+                x=float(read_int16(data, offset=12)),
+                y=float(read_int16(data, offset=14)),
+                z=float(read_int16(data, offset=16))
+            )
         )
     
     def get_rc(self) -> MspRc:
@@ -511,10 +538,14 @@ class MultiWii(object):
         """Sends the MSP_WP command and gets the data instance."""
         data = self._get_data(MSP_WP)
 
+        coordinate = _Coord2D(
+            latitude=read_uint32(data, offset=1),
+            longitude=read_uint32(data, offset=5)
+        )
+
         return MspWaypoint(
             number       = read_uint8(data),
-            latitude     = read_uint32(data, offset=1),
-            longitude    = read_uint32(data, offset=5),
+            coordinate   = coordinate,
             alt_hold     = read_uint32(data, offset=9),
             heading      = read_uint16(data, offset=13),
             time_to_stay = read_uint16(data, offset=15),
