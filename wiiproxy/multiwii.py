@@ -263,22 +263,22 @@ class MultiWii(object):
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        (code, size, *data) = self._read_message_payload(MSP_BOX)
+        data = self._read_message_data(MSP_BOX)
 
         values = ()
 
-        for index in range(size, step=2):
+        for index in range(len(data), step=2):
             values += (read_int16_le(data, offset=index),)
         
         return MspBox(values)
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        (code, size, *data) = self._read_message_payload(MSP_BOXIDS)
+        data = self._read_message_data(MSP_BOXIDS)
 
         values = ()
 
-        for index in range(size):
+        for index in range(len(data)):
             values += (read_int8_le(data, offset=index),)
 
         return MspBoxIds(values)
@@ -470,22 +470,22 @@ class MultiWii(object):
     
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        (code, size, *data) = self._read_message_payload(MSP_SERVO)
+        data = self._read_message_data(MSP_SERVO)
 
         values = ()
 
-        for index in range(size, step=2):
+        for index in range(len(data), step=2):
             values += (read_int16_le(data, offset=index),)
 
         return MspServo(values)
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        (code, size, *data) = self._read_message_payload(MSP_SERVO_CONF)
+        data = self._read_message_data(MSP_SERVO_CONF)
 
         values = ()
 
-        for index in range(size, step=7):
+        for index in range(len(data), step=7):
             item = ServoConfItem(
                 min    = read_uint16_le(data, offset=index),
                 max    = read_uint16_le(data, offset=index + 2),
