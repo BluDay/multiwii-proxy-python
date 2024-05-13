@@ -10,6 +10,8 @@ from typing      import Final, Generic, TypeVar
 
 T = TypeVar('T')
 
+# ------------------------------------ BASE STRUCTURES -------------------------------------
+
 @dataclass
 class _Coord2D(Generic[T]):
     """Represents 2D coordinates with longitude and latitude values."""
@@ -36,6 +38,60 @@ class _Point3D(Generic[T]):
     x: T
     y: T
     z: T
+
+# ------------------------------------ SOME CLASSES :) -------------------------------------
+
+@dataclass
+class BoxItem:
+    """Represents  for the MSP_SET_BOX command."""
+    aux1: MultiWiiBoxState
+    aux2: MultiWiiBoxState
+    aux3: MultiWiiBoxState
+    aux4: MultiWiiBoxState
+     
+    def compile(self) -> int:
+        """Compiles all of the set box state values to a single unsigned integer value."""
+        pass
+
+@dataclass
+class Misc:
+    """Represents data values for the MSP_SET_MISC command."""
+    power_trigger: int
+
+    throttle_min: int
+
+    throttle_max: int
+
+    min_command: int
+
+    failsafe_throttle: int
+
+    plog_arm: int
+
+    plog_lifetime: int
+
+    mag_declination: int
+
+    battery_scale: int
+
+    battery_warn_1: int
+
+    battery_warn_2: int
+
+    battery_critical: int
+
+@dataclass
+class ServoConfItem:
+    """Represents data values for the MSP_SET_SERVO_CONF command."""
+    min: int
+
+    max: int
+
+    middle: int
+
+    rate: int
+
+# --------------------------------- MSP DATA STRUCTURES ------------------------------------
 
 @dataclass
 class MspAltitude:
@@ -266,53 +322,3 @@ class MspWaypoint:
     time_to_stay: int
 
     flag: int
-
-@dataclass
-class BoxItem:
-    """Represents  for the MSP_SET_BOX command."""
-    aux1: MultiWiiBoxState
-    aux2: MultiWiiBoxState
-    aux3: MultiWiiBoxState
-    aux4: MultiWiiBoxState
-     
-    def compile(self) -> int:
-        """Compiles all of the set box state values to a single unsigned integer value."""
-        pass
-
-@dataclass
-class Misc:
-    """Represents data values for the MSP_SET_MISC command."""
-    power_trigger: int
-
-    throttle_min: int
-
-    throttle_max: int
-
-    min_command: int
-
-    failsafe_throttle: int
-
-    plog_arm: int
-
-    plog_lifetime: int
-
-    mag_declination: int
-
-    battery_scale: int
-
-    battery_warn_1: int
-
-    battery_warn_2: int
-
-    battery_critical: int
-
-@dataclass
-class ServoConfItem:
-    """Represents data values for the MSP_SET_SERVO_CONF command."""
-    min: int
-
-    max: int
-
-    middle: int
-
-    rate: int
