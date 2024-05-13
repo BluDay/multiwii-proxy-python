@@ -27,26 +27,26 @@ def read_uint32(buffer: bytes, offset: int = 0) -> int:
     """Deserializes the provided bytes to a signed 32-bit integer."""
     return read_int16(buffer, offset) & 0xffffffff
 
-def write_int8(buffer: bytes, offset: int = 0) -> bytes:
+def write_int8(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a signed 8-bit integer."""
-    pass
+    buffer[offset] = value
 
-def write_int16(buffer: bytes, offset: int = 0) -> bytes:
+def write_int16(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a signed 16-bit integer."""
     pass
 
-def write_int32(buffer: bytes, offset: int = 0) -> bytes:
+def write_int32(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a signed 32-bit integer."""
     pass
 
-def write_uint8(buffer: bytes, offset: int = 0) -> bytes:
+def write_uint8(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a unsigned 8-bit integer."""
-    pass
+    buffer[offset] = value & 0xff
 
-def write_uint16(buffer: bytes, offset: int = 0) -> bytes:
+def write_uint16(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a signed 16-bit integer."""
     pass
 
-def write_uint32(buffer: bytes, offset: int = 0) -> bytes:
+def write_uint32(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Serializes the provided bytes to a signed 32-bit integer."""
     pass
