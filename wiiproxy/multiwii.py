@@ -19,22 +19,21 @@ from .msp_config import (
 )
 
 from .msp_data import (
-    _Coord2D,
-    _PidValues,
-    _Point2D,
-    _Point3D,
-    BoxItem,
-    Misc,
-    ServoConfItem,
+    Coord2D,
+    PidValues,
+    Point2D,
+    Point3D,
     MspAltitude,
     MspAnalog,
     MspAttitude,
     MspBox,
     MspBoxIds,
+    MspBoxItem,
     MspBoxNames,
     MspCompGps,
     MspIdent,
     MspMisc,
+    MspMiscDto,
     MspMotor,
     MspMotorPins,
     MspPid,
@@ -45,6 +44,7 @@ from .msp_data import (
     MspRcTuning,
     MspServo,
     MspServoConf,
+    MspServoConfItem,
     MspStatus,
     MspWaypoint
 )
@@ -256,7 +256,7 @@ class MultiWii(object):
         data = self._get_data(MSP_ATTITUDE)
 
         return MspAttitude(
-            angle=_Point2D(
+            angle=Point2D(
                 x=float(read_int16(data)),
                 y=float(read_int16(data, offset=2))
             ),
@@ -364,52 +364,52 @@ class MultiWii(object):
         data = self._get_data(MSP_PID) 
 
         return MspPid(
-            roll=_PidValues(
+            roll=PidValues(
                 p=read_uint8(data),
                 i=read_uint8(data, offset=1),
                 d=read_uint8(data, offset=2)
             ),
-            pitch=_PidValues(
+            pitch=PidValues(
                 p=read_uint8(data, offset=3),
                 i=read_uint8(data, offset=4),
                 d=read_uint8(data, offset=5)
             ),
-            yaw=_PidValues(
+            yaw=PidValues(
                 p=read_uint8(data, offset=6),
                 i=read_uint8(data, offset=7),
                 d=read_uint8(data, offset=8)
             ),
-            alt=_PidValues(
+            alt=PidValues(
                 p=read_uint8(data, offset=9),
                 i=read_uint8(data, offset=10),
                 d=read_uint8(data, offset=11)
             ),
-            pos=_PidValues(
+            pos=PidValues(
                 p=read_uint8(data, offset=12),
                 i=read_uint8(data, offset=13),
                 d=read_uint8(data, offset=14)
             ),
-            posr=_PidValues(
+            posr=PidValues(
                 p=read_uint8(data, offset=15),
                 i=read_uint8(data, offset=16),
                 d=read_uint8(data, offset=17)
             ),
-            navr=_PidValues(
+            navr=PidValues(
                 p=read_uint8(data, offset=18),
                 i=read_uint8(data, offset=19),
                 d=read_uint8(data, offset=20)
             ),
-            level=_PidValues(
+            level=PidValues(
                 p=read_uint8(data, offset=21),
                 i=read_uint8(data, offset=22),
                 d=read_uint8(data, offset=23)
             ),
-            mag=_PidValues(
+            mag=PidValues(
                 p=read_uint8(data, offset=24),
                 i=read_uint8(data, offset=25),
                 d=read_uint8(data, offset=26)
             ),
-            vel=_PidValues(
+            vel=PidValues(
                 p=read_uint8(data, offset=27),
                 i=read_uint8(data, offset=28),
                 d=read_uint8(data, offset=29)
@@ -429,7 +429,7 @@ class MultiWii(object):
         return MspRawGps(
             fix=read_uint8(data),
             satellites=read_uint8(data, offset=1),
-            coordinate=_Coord2D(
+            coordinate=Coord2D(
                 latitude=read_uint32(data, offset=2),
                 longitude=read_uint32(data, offset=6)
             ),
@@ -443,17 +443,17 @@ class MultiWii(object):
         data = self._get_data(MSP_RAW_IMU)
 
         return MspRawImu(
-            acc=_Point3D(
+            acc=Point3D(
                 x=float(read_int16(data)),
                 y=float(read_int16(data, offset=2)),
                 z=float(read_int16(data, offset=4))
             ),
-            gyro=_Point3D(
+            gyro=Point3D(
                 x=float(read_int16(data, offset=6)),
                 y=float(read_int16(data, offset=8)),
                 z=float(read_int16(data, offset=10))
             ),
-            mag=_Point3D(
+            mag=Point3D(
                 x=float(read_int16(data, offset=12)),
                 y=float(read_int16(data, offset=14)),
                 z=float(read_int16(data, offset=16))
@@ -536,7 +536,7 @@ class MultiWii(object):
 
         return MspWaypoint(
             number=read_uint8(data),
-            coordinate=_Coord2D(
+            coordinate=Coord2D(
                 latitude=read_uint32(data, offset=1),
                 longitude=read_uint32(data, offset=5)
             ),
@@ -606,7 +606,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def set_box(self, data: tuple[BoxItem]) -> NoReturn:
+    def set_box(self, data: tuple[MspBoxItem]) -> NoReturn:
         """Sends the MSP_SET_BOX
 
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
@@ -622,7 +622,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_HEAD)
 
-    def set_misc(self, data: Misc) -> NoReturn:
+    def set_misc(self, data: MspMiscDto) -> NoReturn:
         """Sends the MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
@@ -671,7 +671,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING, data)
 
-    def set_servo_conf(self, data: tuple[ServoConfItem]) -> NoReturn:
+    def set_servo_conf(self, data: tuple[MspServoConfItem]) -> NoReturn:
         """Sends the MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
