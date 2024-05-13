@@ -190,7 +190,7 @@ class MultiWii(object):
 
     def _decode_names(self, data: bytes) -> tuple[str]:
         """Decodes the deserialized string value and splits it to a tuple."""
-        return tuple(data.decode().split(MultiWii.NAME_SPARATION_CHAR))
+        return tuple(data.decode('ascii').split(MultiWii.NAME_SPARATION_CHAR))
 
     def _read_message_data(self, command: int) -> bytes:
         """Reads a message and returns the raw data bytes."""
