@@ -13,83 +13,31 @@ T = TypeVar('T')
 # ------------------------------------ BASE STRUCTURES -------------------------------------
 
 @dataclass
-class _Coord2D(Generic[T]):
+class Coord2D(Generic[T]):
     """Represents 2D coordinates with longitude and latitude values."""
     latitude: T
 
     longitude: T
 
 @dataclass
-class _PidValues(Generic[T]):
+class PidValues(Generic[T]):
     """Represents PID values."""
     p: T
     i: T
     d: T
 
 @dataclass
-class _Point2D(Generic[T]):
+class Point2D(Generic[T]):
     """Represents a 2D point."""
     x: T
     y: T
 
 @dataclass
-class _Point3D(Generic[T]):
+class Point3D(Generic[T]):
     """Represents a 3D point."""
     x: T
     y: T
     z: T
-
-# ------------------------------------ SOME CLASSES :) -------------------------------------
-
-@dataclass
-class BoxItem:
-    """Represents  for the MSP_SET_BOX command."""
-    aux1: MultiWiiBoxState
-    aux2: MultiWiiBoxState
-    aux3: MultiWiiBoxState
-    aux4: MultiWiiBoxState
-     
-    def compile(self) -> int:
-        """Compiles all of the set box state values to a single unsigned integer value."""
-        pass
-
-@dataclass
-class Misc:
-    """Represents data values for the MSP_SET_MISC command."""
-    power_trigger: int
-
-    throttle_min: int
-
-    throttle_max: int
-
-    min_command: int
-
-    failsafe_throttle: int
-
-    plog_arm: int
-
-    plog_lifetime: int
-
-    mag_declination: int
-
-    battery_scale: int
-
-    battery_warn_1: int
-
-    battery_warn_2: int
-
-    battery_critical: int
-
-@dataclass
-class ServoConfItem:
-    """Represents data values for the MSP_SET_SERVO_CONF command."""
-    min: int
-
-    max: int
-
-    middle: int
-
-    rate: int
 
 # --------------------------------- MSP DATA STRUCTURES ------------------------------------
 
@@ -114,7 +62,7 @@ class MspAnalog:
 @dataclass
 class MspAttitude:
     """Represents data values for the MSP_ATTITUDE command."""
-    angle: _Point2D[float]
+    angle: Point2D[float]
 
     heading: int
 
@@ -127,6 +75,18 @@ class MspBox:
 class MspBoxIds:
     """Represents data values for the MSP_BOXIDS command."""
     values: tuple[MultiWiiBox]
+
+@dataclass
+class MspBoxItem:
+    """Represents data values for the MSP_SET_BOX command."""
+    aux1: MultiWiiBoxState
+    aux2: MultiWiiBoxState
+    aux3: MultiWiiBoxState
+    aux4: MultiWiiBoxState
+     
+    def compile(self) -> int:
+        """Compiles all of the set box state values to a single unsigned integer value."""
+        pass
 
 @dataclass
 class MspBoxNames:
@@ -181,6 +141,33 @@ class MspMisc:
     battery_critical: int
 
 @dataclass
+class MspMiscDto:
+    """Represents data values for the MSP_SET_MISC command."""
+    power_trigger: int
+
+    throttle_min: int
+
+    throttle_max: int
+
+    min_command: int
+
+    failsafe_throttle: int
+
+    plog_arm: int
+
+    plog_lifetime: int
+
+    mag_declination: int
+
+    battery_scale: int
+
+    battery_warn_1: int
+
+    battery_warn_2: int
+
+    battery_critical: int
+
+@dataclass
 class MspMotor:
     """Represents data values for the MSP_MOTOR command."""
     motor1: int
@@ -200,25 +187,25 @@ class MspMotorPins:
 @dataclass
 class MspPid:
     """Represents data values for the MSP_PID command."""
-    roll: _PidValues[int]
+    roll: PidValues[int]
 
-    pitch: _PidValues[int]
+    pitch: PidValues[int]
 
-    yaw: _PidValues[int]
+    yaw: PidValues[int]
 
-    alt: _PidValues[int]
+    alt: PidValues[int]
 
-    pos: _PidValues[int]
+    pos: PidValues[int]
 
-    posr: _PidValues[int]
+    posr: PidValues[int]
 
-    navr: _PidValues[int]
+    navr: PidValues[int]
 
-    level: _PidValues[int]
+    level: PidValues[int]
 
-    mag: _PidValues[int]
+    mag: PidValues[int]
 
-    vel: _PidValues[int]
+    vel: PidValues[int]
 
 @dataclass
 class MspPidNames:
@@ -232,7 +219,7 @@ class MspRawGps:
 
     satellites: int
 
-    coordinate: _Coord2D[int]
+    coordinate: Coord2D[int]
 
     altitude: int
 
@@ -243,11 +230,11 @@ class MspRawGps:
 @dataclass
 class MspRawImu:
     """Represents data values for the MSP_RAW_IMU command."""
-    acc: _Point3D[float]
+    acc: Point3D[float]
 
-    gyro: _Point3D[float]
+    gyro: Point3D[float]
 
-    mag: _Point3D[float]
+    mag: Point3D[float]
 
 @dataclass
 class MspRc:
@@ -296,6 +283,17 @@ class MspServoConf:
     values: tuple[int]
 
 @dataclass
+class MspServoConfItem:
+    """Represents data values for the MSP_SET_SERVO_CONF command."""
+    min: int
+
+    max: int
+
+    middle: int
+
+    rate: int
+
+@dataclass
 class MspStatus:
     """Represents data values for the MSP_STATUS command."""
     cycle_time: int
@@ -313,7 +311,7 @@ class MspWaypoint:
     """Represents data values for the MSP_WP command."""
     number: int
 
-    coordinate: _Coord2D[int]
+    coordinate: Coord2D[int]
 
     alt_hold: int
 
