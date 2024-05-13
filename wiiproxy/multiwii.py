@@ -430,33 +430,38 @@ class MultiWii(object):
             fix=read_uint8(data),
             satellites=read_uint8(data, offset=1),
             coordinate=Coord2D(
-                latitude=read_uint32(data, offset=2),
-                longitude=read_uint32(data, offset=6)
+                latitude=read_uint32(data, offset=2) / 10000000.0,
+                longitude=read_uint32(data, offset=6) / 10000000.0
             ),
             altitude=read_uint16(data, offset=10),
             speed=read_uint16(data, offset=12),
-            ground_course=read_uint16(data, offset=14)
+            ground_course=read_uint16(data, offset=14) / 10.0
+
         )
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
         data = self._get_data(MSP_RAW_IMU)
 
+        acc_unit  = 10.0
+        gyro_unit = 10.0
+        mag_unit  = 10.0
+
         return MspRawImu(
             acc=Point3D(
-                x=float(read_int16(data)),
-                y=float(read_int16(data, offset=2)),
-                z=float(read_int16(data, offset=4))
+                x=read_int16(data) / acc_unit,
+                y=read_int16(data, offset=2) / acc_unit,
+                z=read_int16(data, offset=4) / acc_unit
             ),
             gyro=Point3D(
-                x=float(read_int16(data, offset=6)),
-                y=float(read_int16(data, offset=8)),
-                z=float(read_int16(data, offset=10))
+                x=read_int16(data, offset=6) / gyro_unit,
+                y=read_int16(data, offset=8) / gyro_unit,
+                z=read_int16(data, offset=10) / gyro_unit
             ),
             mag=Point3D(
-                x=float(read_int16(data, offset=12)),
-                y=float(read_int16(data, offset=14)),
-                z=float(read_int16(data, offset=16))
+                x=read_int16(data, offset=12) / mag_unit,
+                y=read_int16(data, offset=14) / mag_unit,
+                z=read_int16(data, offset=16) / mag_unit
             )
         )
     
@@ -537,8 +542,8 @@ class MultiWii(object):
         return MspWaypoint(
             number=read_uint8(data),
             coordinate=Coord2D(
-                latitude=read_uint32(data, offset=1),
-                longitude=read_uint32(data, offset=5)
+                latitude=read_uint32(data, offset=1) / 10000000.0,
+                longitude=read_uint32(data, offset=5) / 10000000.0
             ),
             alt_hold=read_uint32(data, offset=9),
             heading=read_uint16(data, offset=13),
