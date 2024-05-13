@@ -275,7 +275,9 @@ class MultiWii(object):
         values = ()
 
         for offset in range(len(data)):
-            values += (read_int8(data, offset),)
+            box = MultiWiiBox(read_int8(data, offset))
+
+            values += (box,)
 
         return MspBoxIds(values)
     

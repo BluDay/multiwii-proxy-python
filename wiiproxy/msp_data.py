@@ -1,4 +1,9 @@
-from .msp_config import MultiWiiBoxState, MultiWiiMultitype, MultiWiiCapability
+from .msp_config import (
+    MultiWiiBox,
+    MultiWiiBoxState,
+    MultiWiiCapability,
+    MultiWiiMultitype
+)
 
 from dataclasses import dataclass
 
@@ -36,7 +41,7 @@ class MspBox(object):
 @dataclass
 class MspBoxIds(object):
     """Represents data values for the MSP_BOXIDS command."""
-    values: tuple[int]
+    values: tuple[MultiWiiBox]
 
 @dataclass
 class MspBoxNames(object):
