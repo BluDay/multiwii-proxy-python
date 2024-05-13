@@ -60,7 +60,7 @@ class MspCompGps(object):
 @dataclass
 class MspIdent(object):
     """Represents data values for the MSP_IDENT command."""
-    version: float
+    version: int
 
     multitype: MultiWiiMultitype
 
