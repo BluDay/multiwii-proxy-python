@@ -315,18 +315,18 @@ class MultiWii(object):
         data = self._read_message_data(MSP_MISC)
 
         return MspMisc(
-            power_trigger     = read_int_le(data),
-            throttle_failsafe = read_int_le(data, offset=2),
-            throttle_idle     = read_int_le(data, offset=4),
-            throttle_min      = read_int_le(data, offset=6),
-            throttle_max      = read_int_le(data, offset=8),
-            plog_arm          = read_int_le(data, offset=10),
-            plog_lifetime     = read_int_le(data, offset=12),
-            mag_declination   = read_int_le(data, offset=16),
-            battery_scale     = read_int_le(data, offset=18),
-            battery_warn_1    = read_int_le(data, offset=19),
-            battery_warn_2    = read_int_le(data, offset=20),
-            battery_critical  = read_int_le(data, offset=21)
+            power_trigger     = read_uint16_le(data),
+            throttle_failsafe = read_uint16_le(data, offset=2),
+            throttle_idle     = read_uint16_le(data, offset=4),
+            throttle_min      = read_uint16_le(data, offset=6),
+            throttle_max      = read_uint16_le(data, offset=8),
+            plog_arm          = read_uint16_le(data, offset=10),
+            plog_lifetime     = read_uint32_le(data, offset=12),
+            mag_declination   = read_uint16_le(data, offset=16),
+            battery_scale     = read_uint8_le(data, offset=18),
+            battery_warn_1    = read_uint8_le(data, offset=19),
+            battery_warn_2    = read_uint8_le(data, offset=20),
+            battery_critical  = read_uint8_le(data, offset=21)
         )
     
     def get_motor(self) -> MspMotor:
@@ -412,13 +412,13 @@ class MultiWii(object):
         data = self._read_message_data(MSP_RAW_GPS)
 
         return MspRawGps(
-            fix           = read_uint_le(data),
-            satellites    = read_uint_le(data, offset=1),
-            latitude      = read_uint_le(data, offset=2),
-            longitude     = read_uint_le(data, offset=6),
-            altitude      = read_uint_le(data, offset=10),
-            speed         = read_uint_le(data, offset=12),
-            ground_course = read_uint_le(data, offset=14)
+            fix           = read_uint8_le(data),
+            satellites    = read_uint8_le(data, offset=1),
+            latitude      = read_uint32_le(data, offset=2),
+            longitude     = read_uint32_le(data, offset=6),
+            altitude      = read_uint16_le(data, offset=10),
+            speed         = read_uint16_le(data, offset=12),
+            ground_course = read_uint16_le(data, offset=14)
         )
     
     def get_raw_imu(self) -> MspRawImu:
@@ -487,10 +487,10 @@ class MultiWii(object):
 
         for index in range(size, step=7):
             item = ServoConfItem(
-                min    = read_uint_le(data, offset=index),
-                max    = read_uint_le(data, offset=index + 2),
-                middle = read_uint_le(data, offset=index + 4),
-                rate   = read_uint_le(data, offset=index + 5)
+                min    = read_uint16_le(data, offset=index),
+                max    = read_uint16_le(data, offset=index + 2),
+                middle = read_uint16_le(data, offset=index + 4),
+                rate   = read_uint8_le(data, offset=index + 5)
             )
 
             values += (item,)
