@@ -617,8 +617,8 @@ class MultiWii(object):
     def set_head(self, range: int) -> NoReturn:
         """Sends the MSP_SET_HEAD command.
 
-        Sets the heading (yaw) direction reference on the FC. It is used to define the forward
-        direction of the aircraft relative to its orientation.
+        Sets the heading (yaw) direction reference on the FC with a value range of -180 to 180.
+        It is used to define the forward direction of the aircraft relative to its orientation.
         """
         self._send_message(MSP_SET_HEAD)
 
