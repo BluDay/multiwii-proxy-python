@@ -267,8 +267,8 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(len(data), step=2):
-            values += (read_int16_le(data, offset=index),)
+        for offset in range(len(data), step=2):
+            values += (read_int16_le(data, offset),)
         
         return MspBox(values)
     
@@ -278,8 +278,8 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(len(data)):
-            values += (read_int8_le(data, offset=index),)
+        for offset in range(len(data)):
+            values += (read_int8_le(data, offset),)
 
         return MspBoxIds(values)
     
@@ -350,8 +350,8 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(8):
-            values += (read_int8_le(data, offset=index),)
+        for offset in range(8):
+            values += (read_int8_le(data, offset),)
 
         return MspMotorPins(values)
     
@@ -474,8 +474,8 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(len(data), step=2):
-            values += (read_int16_le(data, offset=index),)
+        for offset in range(len(data), step=2):
+            values += (read_int16_le(data, offset),)
 
         return MspServo(values)
     
@@ -485,12 +485,12 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(len(data), step=7):
+        for offset in range(len(data), step=7):
             item = ServoConfItem(
-                min    = read_uint16_le(data, offset=index),
-                max    = read_uint16_le(data, offset=index + 2),
-                middle = read_uint16_le(data, offset=index + 4),
-                rate   = read_uint8_le(data, offset=index + 5)
+                min    = read_uint16_le(data, offset),
+                max    = read_uint16_le(data, offset + 2),
+                middle = read_uint16_le(data, offset + 4),
+                rate   = read_uint8_le(data, offset + 5)
             )
 
             values += (item,)
