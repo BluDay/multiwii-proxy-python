@@ -1,16 +1,16 @@
 from ._serialization import (
-    read_int8_le,
-    read_int16_le,
-    read_int32_le,
-    read_uint8_le,
-    read_uint16_le,
-    read_uint32_le,
-    write_int8_le,
-    write_int16_le,
-    write_int32_le,
-    write_uint8_le,
-    write_uint16_le,
-    write_uint32_le
+    read_int8,
+    read_int16,
+    read_int32,
+    read_uint8,
+    read_uint16,
+    read_uint32,
+    write_int8,
+    write_int16,
+    write_int32,
+    write_uint8,
+    write_uint16,
+    write_uint32
 )
 
 from .msp_config import (
@@ -232,8 +232,8 @@ class MultiWii(object):
         data = self._read_message_data(MSP_ALTITUDE)
 
         return MspAltitude(
-            estimation         = read_int32_le(data),
-            pressure_variation = read_int16_le(data, offset=4)
+            estimation         = read_int32(data),
+            pressure_variation = read_int16(data, offset=4)
         )
     
     def get_analog(self) -> MspAnalog:
@@ -241,10 +241,10 @@ class MultiWii(object):
         data = self._read_message_data(MSP_ANALOG)
 
         return MspAnalog(
-            voltage         = read_uint8_le(data),
-            power_meter_sum = read_uint16_le(data, offset=1),
-            rssi            = read_uint16_le(data, offset=3),
-            amperage        = read_uint16_le(data, offset=5)
+            voltage         = read_uint8(data),
+            power_meter_sum = read_uint16(data, offset=1),
+            rssi            = read_uint16(data, offset=3),
+            amperage        = read_uint16(data, offset=5)
         )
     
     def get_attitude(self) -> MspAttitude:
@@ -252,9 +252,9 @@ class MultiWii(object):
         data = self._read_message_data(MSP_ATTITUDE)
 
         return MspAttitude(
-            angle_x = read_int16_le(data),
-            angle_y = read_int16_le(data, offset=2),
-            heading = read_int16_le(data, offset=4)
+            angle_x = read_int16(data),
+            angle_y = read_int16(data, offset=2),
+            heading = read_int16(data, offset=4)
         )
     
     def get_box(self) -> MspBox:
@@ -264,7 +264,7 @@ class MultiWii(object):
         values = ()
 
         for offset in range(len(data), step=2):
-            values += (read_int16_le(data, offset),)
+            values += (read_int16(data, offset),)
         
         return MspBox(values)
     
@@ -275,7 +275,7 @@ class MultiWii(object):
         values = ()
 
         for offset in range(len(data)):
-            values += (read_int8_le(data, offset),)
+            values += (read_int8(data, offset),)
 
         return MspBoxIds(values)
     
@@ -290,9 +290,9 @@ class MultiWii(object):
         data = self._read_message_data(MSP_COMP_GPS)
 
         return MspCompGps(
-            distance_to_home  = read_uint16_le(data),
-            direction_to_home = read_uint16_le(data, offset=2),
-            update            = read_uint8_le(data, offset=4)
+            distance_to_home  = read_uint16(data),
+            direction_to_home = read_uint16(data, offset=2),
+            update            = read_uint8(data, offset=4)
         )
     
     def get_ident(self) -> MspIdent:
@@ -300,10 +300,10 @@ class MultiWii(object):
         data = self._read_message_data(MSP_IDENT)
 
         return MspIdent(
-            version      = read_uint8_le(data),
-            multitype    = MultiWiiMultitype(read_uint8_le(data, offset=1)),
-            capabilities = MultiWiiCapability.get_capabilities(read_uint8_le(data, offset=2)),
-            navi_version = read_uint32_le(data, offset=3)
+            version      = read_uint8(data),
+            multitype    = MultiWiiMultitype(read_uint8(data, offset=1)),
+            capabilities = MultiWiiCapability.get_capabilities(read_uint8(data, offset=2)),
+            navi_version = read_uint32(data, offset=3)
         )
     
     def get_misc(self) -> MspMisc:
@@ -311,18 +311,18 @@ class MultiWii(object):
         data = self._read_message_data(MSP_MISC)
 
         return MspMisc(
-            power_trigger     = read_uint16_le(data),
-            throttle_failsafe = read_uint16_le(data, offset=2),
-            throttle_idle     = read_uint16_le(data, offset=4),
-            throttle_min      = read_uint16_le(data, offset=6),
-            throttle_max      = read_uint16_le(data, offset=8),
-            plog_arm          = read_uint16_le(data, offset=10),
-            plog_lifetime     = read_uint32_le(data, offset=12),
-            mag_declination   = read_uint16_le(data, offset=16),
-            battery_scale     = read_uint8_le(data, offset=18),
-            battery_warn_1    = read_uint8_le(data, offset=19),
-            battery_warn_2    = read_uint8_le(data, offset=20),
-            battery_critical  = read_uint8_le(data, offset=21)
+            power_trigger     = read_uint16(data),
+            throttle_failsafe = read_uint16(data, offset=2),
+            throttle_idle     = read_uint16(data, offset=4),
+            throttle_min      = read_uint16(data, offset=6),
+            throttle_max      = read_uint16(data, offset=8),
+            plog_arm          = read_uint16(data, offset=10),
+            plog_lifetime     = read_uint32(data, offset=12),
+            mag_declination   = read_uint16(data, offset=16),
+            battery_scale     = read_uint8(data, offset=18),
+            battery_warn_1    = read_uint8(data, offset=19),
+            battery_warn_2    = read_uint8(data, offset=20),
+            battery_critical  = read_uint8(data, offset=21)
         )
     
     def get_motor(self) -> MspMotor:
@@ -330,14 +330,14 @@ class MultiWii(object):
         data = self._read_message_data(MSP_MOTOR)
 
         return MspMotor(
-            motor1=read_uint16_le(data),
-            motor2=read_uint16_le(data, offset=2),
-            motor3=read_uint16_le(data, offset=4),
-            motor4=read_uint16_le(data, offset=6),
-            motor5=read_uint16_le(data, offset=8),
-            motor6=read_uint16_le(data, offset=10),
-            motor7=read_uint16_le(data, offset=12),
-            motor8=read_uint16_le(data, offset=14)
+            motor1=read_uint16(data),
+            motor2=read_uint16(data, offset=2),
+            motor3=read_uint16(data, offset=4),
+            motor4=read_uint16(data, offset=6),
+            motor5=read_uint16(data, offset=8),
+            motor6=read_uint16(data, offset=10),
+            motor7=read_uint16(data, offset=12),
+            motor8=read_uint16(data, offset=14)
         )
     
     def get_motor_pins(self) -> MspMotorPins:
@@ -347,7 +347,7 @@ class MultiWii(object):
         values = ()
 
         for offset in range(8):
-            values += (read_int8_le(data, offset),)
+            values += (read_int8(data, offset),)
 
         return MspMotorPins(values)
     
@@ -356,45 +356,45 @@ class MultiWii(object):
         data = self._read_message_data(MSP_PID) 
 
         return MspPid(
-            roll_p=read_uint8_le(data),
-            roll_i=read_uint8_le(data, offset=1),
-            roll_d=read_uint8_le(data, offset=2),
+            roll_p=read_uint8(data),
+            roll_i=read_uint8(data, offset=1),
+            roll_d=read_uint8(data, offset=2),
 
-            pitch_p=read_uint8_le(data, offset=3),
-            pitch_i=read_uint8_le(data, offset=4),
-            pitch_d=read_uint8_le(data, offset=5),
+            pitch_p=read_uint8(data, offset=3),
+            pitch_i=read_uint8(data, offset=4),
+            pitch_d=read_uint8(data, offset=5),
 
-            yaw_p=read_uint8_le(data, offset=6),
-            yaw_i=read_uint8_le(data, offset=7),
-            yaw_d=read_uint8_le(data, offset=8),
+            yaw_p=read_uint8(data, offset=6),
+            yaw_i=read_uint8(data, offset=7),
+            yaw_d=read_uint8(data, offset=8),
 
-            alt_p=read_uint8_le(data, offset=9),
-            alt_i=read_uint8_le(data, offset=10),
-            alt_d=read_uint8_le(data, offset=11),
+            alt_p=read_uint8(data, offset=9),
+            alt_i=read_uint8(data, offset=10),
+            alt_d=read_uint8(data, offset=11),
 
-            pos_p=read_uint8_le(data, offset=12),
-            pos_i=read_uint8_le(data, offset=13),
-            pos_d=read_uint8_le(data, offset=14),
+            pos_p=read_uint8(data, offset=12),
+            pos_i=read_uint8(data, offset=13),
+            pos_d=read_uint8(data, offset=14),
 
-            posr_p=read_uint8_le(data, offset=15),
-            posr_i=read_uint8_le(data, offset=16),
-            posr_d=read_uint8_le(data, offset=17),
+            posr_p=read_uint8(data, offset=15),
+            posr_i=read_uint8(data, offset=16),
+            posr_d=read_uint8(data, offset=17),
 
-            navr_p=read_uint8_le(data, offset=18),
-            navr_i=read_uint8_le(data, offset=19),
-            navr_d=read_uint8_le(data, offset=20),
+            navr_p=read_uint8(data, offset=18),
+            navr_i=read_uint8(data, offset=19),
+            navr_d=read_uint8(data, offset=20),
 
-            level_p=read_uint8_le(data, offset=21),
-            level_i=read_uint8_le(data, offset=22),
-            level_d=read_uint8_le(data, offset=23),
+            level_p=read_uint8(data, offset=21),
+            level_i=read_uint8(data, offset=22),
+            level_d=read_uint8(data, offset=23),
 
-            mag_p=read_uint8_le(data, offset=24),
-            mag_i=read_uint8_le(data, offset=25),
-            mag_d=read_uint8_le(data, offset=26),
+            mag_p=read_uint8(data, offset=24),
+            mag_i=read_uint8(data, offset=25),
+            mag_d=read_uint8(data, offset=26),
 
-            vel_p=read_uint8_le(data, offset=27),
-            vel_i=read_uint8_le(data, offset=28),
-            vel_d=read_uint8_le(data, offset=29)
+            vel_p=read_uint8(data, offset=27),
+            vel_i=read_uint8(data, offset=28),
+            vel_d=read_uint8(data, offset=29)
         )
     
     def get_pid_names(self) -> MspPidNames:
@@ -408,13 +408,13 @@ class MultiWii(object):
         data = self._read_message_data(MSP_RAW_GPS)
 
         return MspRawGps(
-            fix           = read_uint8_le(data),
-            satellites    = read_uint8_le(data, offset=1),
-            latitude      = read_uint32_le(data, offset=2),
-            longitude     = read_uint32_le(data, offset=6),
-            altitude      = read_uint16_le(data, offset=10),
-            speed         = read_uint16_le(data, offset=12),
-            ground_course = read_uint16_le(data, offset=14)
+            fix           = read_uint8(data),
+            satellites    = read_uint8(data, offset=1),
+            latitude      = read_uint32(data, offset=2),
+            longitude     = read_uint32(data, offset=6),
+            altitude      = read_uint16(data, offset=10),
+            speed         = read_uint16(data, offset=12),
+            ground_course = read_uint16(data, offset=14)
         )
     
     def get_raw_imu(self) -> MspRawImu:
@@ -422,17 +422,17 @@ class MultiWii(object):
         data = self._read_message_data(MSP_RAW_IMU)
 
         return MspRawImu(
-            acc_x=float(read_int16_le(data)),
-            acc_y=float(read_int16_le(data, offset=2)),
-            acc_z=float(read_int16_le(data, offset=4)),
+            acc_x=float(read_int16(data)),
+            acc_y=float(read_int16(data, offset=2)),
+            acc_z=float(read_int16(data, offset=4)),
 
-            gyro_x=float(read_int16_le(data, offset=6)),
-            gyro_y=float(read_int16_le(data, offset=8)),
-            gyro_z=float(read_int16_le(data, offset=10)),
+            gyro_x=float(read_int16(data, offset=6)),
+            gyro_y=float(read_int16(data, offset=8)),
+            gyro_z=float(read_int16(data, offset=10)),
 
-            mag_x=float(read_int16_le(data, offset=12)),
-            mag_y=float(read_int16_le(data, offset=14)),
-            mag_z=float(read_int16_le(data, offset=16))
+            mag_x=float(read_int16(data, offset=12)),
+            mag_y=float(read_int16(data, offset=14)),
+            mag_z=float(read_int16(data, offset=16))
         )
     
     def get_rc(self) -> MspRc:
@@ -440,14 +440,14 @@ class MultiWii(object):
         data = self._read_message_data(MSP_RC)
 
         return MspRc(
-            roll     = read_uint16_le(data),
-            pitch    = read_uint16_le(data, offset=2),
-            yaw      = read_uint16_le(data, offset=4),
-            throttle = read_uint16_le(data, offset=6),
-            aux1     = read_uint16_le(data, offset=8),
-            aux2     = read_uint16_le(data, offset=10),
-            aux3     = read_uint16_le(data, offset=12),
-            aux4     = read_uint16_le(data, offset=14)
+            roll     = read_uint16(data),
+            pitch    = read_uint16(data, offset=2),
+            yaw      = read_uint16(data, offset=4),
+            throttle = read_uint16(data, offset=6),
+            aux1     = read_uint16(data, offset=8),
+            aux2     = read_uint16(data, offset=10),
+            aux3     = read_uint16(data, offset=12),
+            aux4     = read_uint16(data, offset=14)
         )
     
     def get_rc_tuning(self) -> MspRcTuning:
@@ -455,13 +455,13 @@ class MultiWii(object):
         data = self._read_message_data(MSP_RC_TUNING)
 
         return MspRcTuning(
-            rate                 = read_uint8_le(data),
-            expo                 = read_uint8_le(data, offset=1),
-            roll_pitch_rate      = read_uint8_le(data, offset=2),
-            yaw_rate             = read_uint8_le(data, offset=3),
-            dynamic_throttle_pid = read_uint8_le(data, offset=4),
-            throttle_mid         = read_uint8_le(data, offset=5),
-            throttle_expo        = read_uint8_le(data, offset=6)
+            rate                 = read_uint8(data),
+            expo                 = read_uint8(data, offset=1),
+            roll_pitch_rate      = read_uint8(data, offset=2),
+            yaw_rate             = read_uint8(data, offset=3),
+            dynamic_throttle_pid = read_uint8(data, offset=4),
+            throttle_mid         = read_uint8(data, offset=5),
+            throttle_expo        = read_uint8(data, offset=6)
         )
     
     def get_servo(self) -> MspServo:
@@ -471,7 +471,7 @@ class MultiWii(object):
         values = ()
 
         for offset in range(len(data), step=2):
-            values += (read_int16_le(data, offset),)
+            values += (read_int16(data, offset),)
 
         return MspServo(values)
     
@@ -483,10 +483,10 @@ class MultiWii(object):
 
         for offset in range(len(data), step=7):
             item = ServoConfItem(
-                min    = read_uint16_le(data, offset),
-                max    = read_uint16_le(data, offset + 2),
-                middle = read_uint16_le(data, offset + 4),
-                rate   = read_uint8_le(data, offset + 5)
+                min    = read_uint16(data, offset),
+                max    = read_uint16(data, offset + 2),
+                middle = read_uint16(data, offset + 4),
+                rate   = read_uint8(data, offset + 5)
             )
 
             values += (item,)
@@ -498,11 +498,11 @@ class MultiWii(object):
         data = self._read_message_data(MSP_STATUS)
 
         return MspStatus(
-            cycle_time  = read_uint16_le(data),
-            i2c_errors  = read_uint16_le(data, offset=2),
-            sensors     = read_uint16_le(data, offset=4),
-            flag        = read_uint32_le(data, offset=6),
-            global_conf = read_uint8_le(data, offset=10)
+            cycle_time  = read_uint16(data),
+            i2c_errors  = read_uint16(data, offset=2),
+            sensors     = read_uint16(data, offset=4),
+            flag        = read_uint32(data, offset=6),
+            global_conf = read_uint8(data, offset=10)
         )
     
     def get_waypoint(self) -> MspWaypoint:
@@ -510,13 +510,13 @@ class MultiWii(object):
         data = self._read_message_data(MSP_WP)
 
         return MspWaypoint(
-            number       = read_uint8_le(data),
-            latitude     = read_uint32_le(data, offset=1),
-            longitude    = read_uint32_le(data, offset=5),
-            alt_hold     = read_uint32_le(data, offset=9),
-            heading      = read_uint16_le(data, offset=13),
-            time_to_stay = read_uint16_le(data, offset=15),
-            flag         = read_uint8_le(data, offset=17)
+            number       = read_uint8(data),
+            latitude     = read_uint32(data, offset=1),
+            longitude    = read_uint32(data, offset=5),
+            alt_hold     = read_uint32(data, offset=9),
+            heading      = read_uint16(data, offset=13),
+            time_to_stay = read_uint16(data, offset=15),
+            flag         = read_uint8(data, offset=17)
         )
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
