@@ -245,7 +245,7 @@ class MultiWii(object):
         data = self._get_data(MSP_ANALOG)
 
         return MspAnalog(
-            voltage=read_uint8(data),
+            voltage=read_uint8(data) / 10.0,
             power_meter_sum=read_uint16(data, offset=1),
             rssi=read_uint16(data, offset=3),
             amperage=read_uint16(data, offset=5)
@@ -257,8 +257,8 @@ class MultiWii(object):
 
         return MspAttitude(
             angle=Point2D(
-                x=float(read_int16(data)),
-                y=float(read_int16(data, offset=2))
+                x=read_int16(data) / 10.0,
+                y=read_int16(data, offset=2) / 10.0
             ),
             heading=read_int16(data, offset=4)
         )
@@ -326,11 +326,11 @@ class MultiWii(object):
             throttle_max=read_uint16(data, offset=8),
             plog_arm=read_uint16(data, offset=10),
             plog_lifetime=read_uint32(data, offset=12),
-            mag_declination=read_uint16(data, offset=16),
+            mag_declination=read_uint16(data, offset=16) / 10.0,
             battery_scale=read_uint8(data, offset=18),
-            battery_warn_1=read_uint8(data, offset=19),
-            battery_warn_2=read_uint8(data, offset=20),
-            battery_critical=read_uint8(data, offset=21)
+            battery_warn_1=read_uint8(data, offset=19) / 10.0,
+            battery_warn_2=read_uint8(data, offset=20) / 10.0,
+            battery_critical=read_uint8(data, offset=21) / 10.0
         )
     
     def get_motor(self) -> MspMotor:
