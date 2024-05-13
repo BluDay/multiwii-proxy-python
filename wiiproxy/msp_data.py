@@ -52,7 +52,7 @@ class MspAltitude:
 @dataclass
 class MspAnalog:
     """Represents data values for the MSP_ANALOG command."""
-    voltage: int
+    voltage: float
 
     power_meter_sum: int
 
@@ -131,15 +131,15 @@ class MspMisc:
 
     plog_lifetime: int
 
-    mag_declination: int
+    mag_declination: float
 
     battery_scale: int
 
-    battery_warn_1: int
+    battery_warn_1: float
 
-    battery_warn_2: int
+    battery_warn_2: float
 
-    battery_critical: int
+    battery_critical: float
 
 @dataclass
 class MspSetMisc:
@@ -158,15 +158,15 @@ class MspSetMisc:
 
     plog_lifetime: int
 
-    mag_declination: int
+    mag_declination: float
 
     battery_scale: int
 
-    battery_warn_1: int
+    battery_warn_1: float
 
-    battery_warn_2: int
+    battery_warn_2: float
 
-    battery_critical: int
+    battery_critical: float
 
 @dataclass
 class MspMotor:
@@ -220,13 +220,13 @@ class MspRawGps:
 
     satellites: int
 
-    coordinate: Coord2D[int]
+    coordinate: Coord2D[float]
 
     altitude: int
 
     speed: int
 
-    ground_course: int
+    ground_course: float
 
 @dataclass
 class MspRawImu:
