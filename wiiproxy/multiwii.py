@@ -444,7 +444,6 @@ class MultiWii(object):
             altitude=read_uint16(data, offset=10),
             speed=read_uint16(data, offset=12),
             ground_course=read_uint16(data, offset=14) / 10.0
-
         )
     
     def get_raw_imu(self) -> MspRawImu:
