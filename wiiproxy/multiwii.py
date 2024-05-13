@@ -252,8 +252,8 @@ class MultiWii(object):
         data = self._read_message_data(MSP_ATTITUDE)
 
         return MspAttitude(
-            angle_x = read_int16(data),
-            angle_y = read_int16(data, offset=2),
+            angle_x = float(read_int16(data)),
+            angle_y = float(read_int16(data, offset=2)),
             heading = read_int16(data, offset=4)
         )
     
