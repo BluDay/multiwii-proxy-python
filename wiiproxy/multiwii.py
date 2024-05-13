@@ -23,6 +23,9 @@ from .msp_data import (
     _PidValues,
     _Point2D,
     _Point3D,
+    BoxItem,
+    Misc,
+    ServoConfItem,
     MspAltitude,
     MspAnalog,
     MspAttitude,
@@ -43,10 +46,7 @@ from .msp_data import (
     MspServo,
     MspServoConf,
     MspStatus,
-    MspWaypoint,
-    BoxItem,
-    Misc,
-    ServoConfItem
+    MspWaypoint
 )
 
 from .msp_commands import (
