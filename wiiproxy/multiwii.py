@@ -196,10 +196,6 @@ class MultiWii(object):
         """Reads a message and returns the raw data bytes."""
         return self._read_message(command)[5:-1]
 
-    def _read_message_payload(self, command: int) -> bytes:
-        """Reads a message and returns the raw payload bytes."""
-        return self._read_message(command)[3:-1]
-
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
 
@@ -331,7 +327,7 @@ class MultiWii(object):
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        data = self._read_message_payload(MSP_MOTOR)
+        data = self._read_message_data(MSP_MOTOR)
 
         return MspMotor(
             motor1=read_uint16_le(data),
@@ -346,7 +342,7 @@ class MultiWii(object):
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        data = self._read_message_payload(MSP_MOTOR_PINS)
+        data = self._read_message_data(MSP_MOTOR_PINS)
 
         values = ()
 
@@ -357,7 +353,7 @@ class MultiWii(object):
     
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        data = self._read_message_payload(MSP_PID) 
+        data = self._read_message_data(MSP_PID) 
 
         return MspPid(
             roll_p=read_uint8_le(data),
@@ -456,7 +452,7 @@ class MultiWii(object):
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        data = self._read_message_payload(MSP_RC_TUNING)
+        data = self._read_message_data(MSP_RC_TUNING)
 
         return MspRcTuning(
             rate                 = read_uint8_le(data),
