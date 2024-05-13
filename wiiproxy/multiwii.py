@@ -193,7 +193,15 @@ class MultiWii(object):
         self._serial.reset_output_buffer()
 
     def _decode_names(self, data: bytes) -> tuple[str]:
-        """Decodes the deserialized string value and splits it to a tuple."""
+        """Decodes the deserialized string value and splits it to a tuple.
+
+        Raises
+        ------
+        TypeError
+            If `data` is not of type `bytes`.
+        UnicodeDecodeError
+            If the bytes cannot be decoded into ASCII characters.
+        """
         return tuple(data.decode('ascii').split(MultiWii.NAME_SEPARATION_CHAR))
 
     def _get_data(self, command: int) -> bytes:
