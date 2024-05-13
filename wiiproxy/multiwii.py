@@ -33,7 +33,7 @@ from .msp_data import (
     MspCompGps,
     MspIdent,
     MspMisc,
-    MspMiscDto,
+    MspSetMisc,
     MspMotor,
     MspMotorPins,
     MspPid,
@@ -622,7 +622,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_HEAD)
 
-    def set_misc(self, data: MspMiscDto) -> NoReturn:
+    def set_misc(self, data: MspSetMisc) -> NoReturn:
         """Sends the MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
