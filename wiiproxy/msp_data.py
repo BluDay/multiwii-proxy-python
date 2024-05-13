@@ -2,7 +2,8 @@ from .msp_config import (
     MultiWiiBox,
     MultiWiiBoxState,
     MultiWiiCapability,
-    MultiWiiMultitype
+    MultiWiiMultitype,
+    MultiWiiSensor
 )
 
 from dataclasses import dataclass
@@ -300,7 +301,7 @@ class MspStatus:
 
     i2c_errors: int
 
-    sensors: tuple[int]
+    sensors: tuple[MultiWiiSensor]
 
     flag: int
 
