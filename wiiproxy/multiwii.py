@@ -637,7 +637,7 @@ class MultiWii(object):
         ValueError
             If the provided range value is less than -180 or greater than 180.
         """
-        if range < -180 or range > 180:
+        if not -180 <= range <= 180:
             raise ValueError('Value must be within the range of -180 and 180.')
 
         self._send_message(MSP_SET_HEAD, data=(range,))
