@@ -32,7 +32,7 @@ class MspCommand(object):
 
         self._code = code
 
-        self._is_set_command = is_set_command = code >= 200
+        self._is_set_command = code >= 200
 
         if struct_format:
             has_variable_size = struct_format[0] == '*'
