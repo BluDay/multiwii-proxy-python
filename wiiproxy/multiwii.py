@@ -1,22 +1,4 @@
-from ._serialization import (
-    read_int8,
-    read_int16,
-    read_int32,
-    read_uint8,
-    read_uint16,
-    read_uint32,
-    write_int8,
-    write_int16,
-    write_int32,
-    write_uint8,
-    write_uint16,
-    write_uint32
-)
-
-from .msp_config import (
-    MultiWiiMultitype,
-    MultiWiiCapability
-)
+from .msp_config import MultiWiiMultitype, MultiWiiCapability
 
 from .msp_data import (
     Coord2D,
