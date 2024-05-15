@@ -38,11 +38,11 @@ class MultiWiiBoxState(IntEnum):
 @unique
 class MultiWiiCapability(IntEnum):
     """Represents some capabilities that the flight controller has."""
-    Bind   = 0b0000001
-    Dynbal = 0b0000010
-    Flap   = 0b0000100
-    Nav    = 0b0001000
-    ExtAux = 0b0010000
+    Bind   = 0b00001
+    Dynbal = 0b00010
+    Flap   = 0b00100
+    Nav    = 0b01000
+    ExtAux = 0b10000
 
     def get_capabilities(value: int) -> tuple[Self]:
         """Parses all capability values from a single integer."""
