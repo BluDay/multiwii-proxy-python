@@ -53,7 +53,7 @@ class MspCommand(object):
         self._struct_format_size = None
 
     def __repr__(self) -> str:
-        """Gets the string representation of the object."""
+        """Gets a string representation of the object."""
         return f'{self.__class__.__name__}<{self._code}, {self._struct_format}>'
 
     # --------------------------------------- PROPERTIES ---------------------------------------
