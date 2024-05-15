@@ -44,6 +44,7 @@ class MultiWiiCapability(IntEnum):
     Nav    = 0b01000
     ExtAux = 0b10000
 
+    @staticmethod
     def get_capabilities(value: int) -> tuple[Self]:
         """Parses all capability values from a single integer."""
         capabilities = ()
