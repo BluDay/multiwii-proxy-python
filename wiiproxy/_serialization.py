@@ -90,7 +90,7 @@ def write_int8(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     if not -128 <= value <= 127:
         raise ValueError('Value must be between -128 and 127.')
 
-    buffer[offset] = value
+    _write_int8(buffer, value, offset)
 
 def write_int16(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     """Writes the provided value to the byte buffer as a signed 16-bit integer.
