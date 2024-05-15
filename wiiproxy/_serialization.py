@@ -1,5 +1,22 @@
 from typing import NoReturn
 
+def _write_int8(buffer: bytes, value: int, offset: int) -> NoReturn:
+    """Writes the provided integer to the byte buffer as an 8-bit value."""
+    buffer[offset] = value & 0xff
+
+def _write_int16(buffer: bytes, value: int, offset: int) -> NoReturn:
+    """Writes the provided integer to the byte buffer as a 16-bit value."""
+    _write_int8(bytes, value, offset)
+
+    buffer[offset + 1] = (value >> 8) & 0xff
+
+def _write_int32(buffer: bytes, value: int, offset: int) -> NoReturn:
+    """Writes the provided integer to the byte buffer as a 32-bit value."""
+    _write_int16(buffer, value, offset)
+    
+    buffer[offset + 2] = (value >> 16) & 0xff
+    buffer[offset + 3] = (value >> 24) & 0xff
+
 def read_int8(buffer: bytes, offset: int = 0) -> int:
     """Deserializes the provided bytes to a signed 8-bit integer.
 
@@ -64,7 +81,15 @@ def write_int8(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
 
     This function serializes the provided signed 8-bit integer value and writes
     it into the specified byte buffer at the given offset.
+
+    Raises
+    ------
+    ValueError
+        If the provided value is not between -128 and 127.
     """
+    if not -128 <= value <= 127:
+        raise ValueError('Value must be between -128 and 127.')
+
     buffer[offset] = value
 
 def write_int16(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
@@ -72,37 +97,77 @@ def write_int16(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
 
     This function serializes the provided signed 16-bit integer value and writes
     it into the specified byte buffer at the given offset.
+
+    Raises
+    ------
+    ValueError
+        If the provided value is not between -32768 and 32767.
     """
-    pass
+    if not -32768 <= value <= 32767:
+        raise ValueError('Value must be between -32768 and 32767.')
+
+    _write_int16(buffer, value, offset)
 
 def write_int32(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     """Writes the provided value to the byte buffer as a signed 32-bit integer.
 
     This function serializes the provided signed 32-bit integer value and writes
     it into the specified byte buffer at the given offset.
+    
+    Raises
+    ------
+    ValueError
+        If the provided value is not between -2147483648 and 2147483647.
     """
-    pass
+    if not -2147483648 <= value <= 2147483647:
+        raise ValueError('Value must be between -2147483648 and 2147483647.')
+
+    _write_int32(buffer, value, offset)
 
 def write_uint8(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     """Writes the provided value to the byte buffer as a unsigned 8-bit integer.
 
     This function serializes the provided unsigned 8-bit integer value and writes
     it into the specified byte buffer at the given offset.
+
+    Raises
+    ------
+    ValueError
+        If the provided value is not between 0 and 255.
     """
-    write_int8(value & 0xff)
+    if not 0 <= value <= 255:
+        raise ValueError('Value must be between 0 and 255.')
+
+    _write_int8(buffer, value, offset)
 
 def write_uint16(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     """Writes the provided value to the byte buffer as a unsigned 16-bit integer.
 
     This function serializes the provided unsigned 16-bit integer value and writes
     it into the specified byte buffer at the given offset.
+    
+    Raises
+    ------
+    ValueError
+        If the provided value is not between 0 and 65535.
     """
-    write_int16(value & 0xffff)
+    if not 0 <= value <= 65535:
+        raise ValueError('Value must be between 0 and 65535.')
+
+    _write_int16(buffer, value, offset)
 
 def write_uint32(buffer: bytes, value: int, offset: int = 0) -> NoReturn:
     """Writes the provided value to the byte buffer as a unsigned 32-bit integer.
 
     This function serializes the provided unsigned 32-bit integer value and writes
     it into the specified byte buffer at the given offset.
+    
+    Raises
+    ------
+    ValueError
+        If the provided value is not between 0 and 4294967295.
     """
-    write_int32(value & 0xffffff)
+    if not 0 <= value <= 4294967295:
+        raise ValueError('Value must be between 0 and 4294967295.')
+
+    _write_int32(buffer, value, offset)
