@@ -42,8 +42,8 @@ class MspCommand(object):
 
             self._has_variable_size = has_variable_size
 
-            self._struct_format      = struct_format
             self._struct_format_size = calcsize(f'<{struct_format}')
+            self._struct_format      = struct_format
 
             return
 
