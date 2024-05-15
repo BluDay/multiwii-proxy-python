@@ -92,7 +92,7 @@ def write_uint8(buffer: bytes, value: int, offset: int = 0) -> bytes:
 def write_uint16(buffer: bytes, value: int, offset: int = 0) -> bytes:
     """Writes the provided value to the byte buffer as a unsigned 16-bit integer.
 
-    This function serializes the provided signed 16-bit integer value and writes
+    This function serializes the provided unsigned 16-bit integer value and writes
     it into the specified byte buffer at the given offset.
     """
     write_int16(value & 0xffff)
