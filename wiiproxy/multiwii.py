@@ -204,9 +204,13 @@ class MultiWii(object):
         """
         return tuple(data.decode('ascii').split(MultiWii.NAME_SEPARATION_CHAR))
 
-    def _get_data(self, command: int) -> bytes:
+    def _get_raw_data(self, command: int) -> bytes:
         """Reads a message of the specified command and returns the unserialized data."""
         return self._read_message(command)[5:-1]
+
+    def _get_raw_data_with_size(self, command: int) -> bytes:
+        """Reads a message of the specified command and returns the unserialized data."""
+        return self._read_message(command)[4:-1]
 
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
@@ -241,7 +245,7 @@ class MultiWii(object):
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        data = self._get_data(MSP_ALTITUDE)
+        data = self._get_raw_data(MSP_ALTITUDE)
 
         return MspAltitude(
             estimation=read_int32(data),
@@ -250,7 +254,7 @@ class MultiWii(object):
     
     def get_analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        data = self._get_data(MSP_ANALOG)
+        data = self._get_raw_data(MSP_ANALOG)
 
         return MspAnalog(
             voltage=read_uint8(data) / 10.0,
@@ -261,7 +265,7 @@ class MultiWii(object):
     
     def get_attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        data = self._get_data(MSP_ATTITUDE)
+        data = self._get_raw_data(MSP_ATTITUDE)
 
         return MspAttitude(
             angle=Point2D(
@@ -273,22 +277,22 @@ class MultiWii(object):
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        data = self._get_data(MSP_BOX)
+        (size, *data) = self._get_raw_data_with_size(MSP_BOX)
 
         values = ()
 
-        for offset in range(len(data), step=2):
+        for offset in range(size, step=2):
             values += (read_int16(data, offset),)
         
         return MspBox(values)
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        data = self._get_data(MSP_BOXIDS)
+        (size, *data) = self._get_raw_data_with_size(MSP_BOXIDS)
 
         values = ()
 
-        for offset in range(len(data)):
+        for offset in range(size):
             box = MultiWiiBox(read_int8(data, offset))
 
             values += (box,)
@@ -297,13 +301,13 @@ class MultiWii(object):
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        data = self._get_data(MSP_BOXNAMES)
+        data = self._get_raw_data(MSP_BOXNAMES)
 
         return MspBoxNames(names=self._decode_names(data))
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        data = self._get_data(MSP_COMP_GPS)
+        data = self._get_raw_data(MSP_COMP_GPS)
 
         return MspCompGps(
             distance_to_home=read_uint16(data),
@@ -313,7 +317,7 @@ class MultiWii(object):
     
     def get_ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        data = self._get_data(MSP_IDENT)
+        data = self._get_raw_data(MSP_IDENT)
 
         return MspIdent(
             version=read_uint8(data),
@@ -324,7 +328,7 @@ class MultiWii(object):
     
     def get_misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        data = self._get_data(MSP_MISC)
+        data = self._get_raw_data(MSP_MISC)
 
         return MspMisc(
             power_trigger=read_uint16(data),
@@ -343,7 +347,7 @@ class MultiWii(object):
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        data = self._get_data(MSP_MOTOR)
+        data = self._get_raw_data(MSP_MOTOR)
 
         return MspMotor(
             motor1=read_uint16(data),
@@ -358,7 +362,7 @@ class MultiWii(object):
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        data = self._get_data(MSP_MOTOR_PINS)
+        data = self._get_raw_data(MSP_MOTOR_PINS)
 
         values = ()
 
@@ -369,7 +373,7 @@ class MultiWii(object):
     
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        data = self._get_data(MSP_PID) 
+        data = self._get_raw_data(MSP_PID) 
 
         return MspPid(
             roll=PidValues(
@@ -426,13 +430,13 @@ class MultiWii(object):
     
     def get_pid_names(self) -> MspPidNames:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        data = self._get_data(MSP_PIDNAMES)
+        data = self._get_raw_data(MSP_PIDNAMES)
 
         return MspPidNames(names=self._decode_names(data))
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        data = self._get_data(MSP_RAW_GPS)
+        data = self._get_raw_data(MSP_RAW_GPS)
 
         return MspRawGps(
             fix=read_uint8(data),
@@ -448,7 +452,7 @@ class MultiWii(object):
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        data = self._get_data(MSP_RAW_IMU)
+        data = self._get_raw_data(MSP_RAW_IMU)
 
         acc_unit  = 10.0
         gyro_unit = 10.0
@@ -474,7 +478,7 @@ class MultiWii(object):
     
     def get_rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        data = self._get_data(MSP_RC)
+        data = self._get_raw_data(MSP_RC)
 
         return MspRc(
             roll=read_uint16(data),
@@ -489,7 +493,7 @@ class MultiWii(object):
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        data = self._get_data(MSP_RC_TUNING)
+        data = self._get_raw_data(MSP_RC_TUNING)
 
         return MspRcTuning(
             rate=read_uint8(data),
@@ -503,22 +507,22 @@ class MultiWii(object):
     
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        data = self._get_data(MSP_SERVO)
+        (size, *data) = self._get_raw_data_with_size(MSP_SERVO)
 
         values = ()
 
-        for offset in range(len(data), step=2):
+        for offset in range(size, step=2):
             values += (read_int16(data, offset),)
 
         return MspServo(values)
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        data = self._get_data(MSP_SERVO_CONF)
+        (size, *data) = self._get_raw_data_with_size(MSP_SERVO_CONF)
 
         values = ()
 
-        for offset in range(len(data), step=7):
+        for offset in range(size, step=7):
             item = ServoConfItem(
                 min=read_uint16(data, offset),
                 max=read_uint16(data, offset + 2),
@@ -532,7 +536,7 @@ class MultiWii(object):
     
     def get_status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        data = self._get_data(MSP_STATUS)
+        data = self._get_raw_data(MSP_STATUS)
 
         return MspStatus(
             cycle_time=read_uint16(data),
@@ -544,7 +548,7 @@ class MultiWii(object):
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        data = self._get_data(MSP_WP)
+        data = self._get_raw_data(MSP_WP)
 
         return MspWaypoint(
             number=read_uint8(data),
