@@ -90,7 +90,12 @@ class MultiWiiSensor(IntEnum):
 
     @staticmethod
     def get_sensors(value: int) -> tuple[Self]:
-        """Gets all..."""
+        """Gets all of the available sensors from an integer value.
+
+        This method iterates through each MultiWiiSensor value and performs a
+        bitwise OR operation with the provided value to check which sensors
+        have been set.
+        """
         sensors = ()
 
         for sensor in MultiWiiSensor:
