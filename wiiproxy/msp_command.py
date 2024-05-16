@@ -62,7 +62,7 @@ class MspCommand(object):
         return '{}<{}, "{}", {}>'.(
             self.__class__.__name__,
             self._code,
-            self._struct_format,
+            struct_format,
             self._struct_format_size
         )
 
