@@ -73,9 +73,14 @@ class MspCommand(object):
         return self._code
 
     @property
-    def has_variable_size(self) -> int:
+    def has_variable_size(self) -> bool:
         """Gets a value indicative whether the data structure size is indeterminate."""
         return self._has_variable_size
+
+    @property
+    def is_set_command(self) -> bool:
+        """Gets a value indicative whether the command is used for writing data."""
+        return self._is_set_command
 
     @property
     def struct_format(self) -> str:
