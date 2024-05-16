@@ -54,7 +54,17 @@ class MspCommand(object):
 
     def __repr__(self) -> str:
         """Gets a string representation of the object."""
-        return f'{self.__class__.__name__}<{self._code}, {self._struct_format}>'
+        struct_format = self._struct_format
+
+        if self._has_variable_size:
+            struct_format = f'*{struct_format}'
+
+        return '{}<{}, "{}", {}>'.(
+            self.__class__.__name__,
+            self._code,
+            self._struct_format,
+            self._struct_format_size
+        )
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
