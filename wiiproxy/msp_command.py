@@ -51,6 +51,10 @@ class MspCommand(object):
         self._struct_format      = None
         self._struct_format_size = None
 
+    def __int__(self) -> int:
+        """Represents the object as an integer value using the command code."""
+        self._code
+
     def __repr__(self) -> str:
         """Gets a string representation of the object."""
         struct_format = self._struct_format
@@ -64,6 +68,10 @@ class MspCommand(object):
             struct_format,
             self._struct_format_size
         )
+
+    def __str__(self) -> str:
+        """Represents the object as a string value using the `struct` format."""
+        return self._struct_format
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
