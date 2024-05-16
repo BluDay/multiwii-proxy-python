@@ -59,7 +59,7 @@ class MspCommand(object):
         if self._has_variable_size:
             struct_format = f'*{struct_format}'
 
-        return '{}<{}, "{}", {}>'.(
+        return '{}<{}, "{}", {}>'.format(
             self.__class__.__name__,
             self._code,
             struct_format,
