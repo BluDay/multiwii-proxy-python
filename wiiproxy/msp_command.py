@@ -25,7 +25,6 @@ class MspCommand(object):
         ------
         ValueError
             If the provided code is not between 100 or 240.
-            If the a format has not been provided for a set command.
         """
         if not 100 <= code <= 250:
             raise ValueError('Command code must be between 100 and 240.')
