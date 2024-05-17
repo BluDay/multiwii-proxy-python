@@ -13,6 +13,6 @@ class MspMotor:
     motor8: int
 
 @dataclass
-class MspMotorPins:
+class MspMotorPins(MspMotor):
     """Represents data values for the MSP_MOTOR_PINS command."""
-    values: tuple[int]
+    pass
