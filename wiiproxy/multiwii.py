@@ -319,20 +319,20 @@ class MultiWii(object):
 
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        data = self._get_data(MSP_PID)
+        (size, *data) = self._get_data_with_size(MSP_PID)
 
-        grouped_pid_values = ()
+        pid_collection = ()
 
-        for index in range(len(data), 3):
+        for index in range(size, step=3):
             pid_values = PidValues(
                 p=data[index],
                 i=data[index + 1],
                 d=data[index + 2]
             )
 
-            grouped_pid_values += (pid_values,)
+            pid_collection += (pid_values,)
 
-        return MspPid(*grouped_pid_values)
+        return MspPid(*pid_collection)
     
     def get_pid_names(self) -> tuple[str]:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
