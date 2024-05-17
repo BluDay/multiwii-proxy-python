@@ -1,4 +1,4 @@
-from .msp_command import MspCommand
+from .command import MspCommand
 
 from typing import Final
 
