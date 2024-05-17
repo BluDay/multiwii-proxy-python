@@ -174,7 +174,8 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    def _decode_names(self, data: bytes) -> tuple[str]:
+    @classmethod
+    def _decode_names(cls, data: bytes) -> tuple[str]:
         """Decodes the deserialized string value and splits it to a tuple.
 
         Raises
@@ -184,7 +185,7 @@ class MultiWii(object):
         UnicodeDecodeError
             If the bytes cannot be decoded into ASCII characters.
         """
-        return tuple(data.decode('ascii').split(MultiWii.NAME_SEPARATION_CHAR))
+        return tuple(data.decode('ascii').split(cls.NAME_SEPARATION_CHAR))
 
     def _get_raw_data(self, command: int) -> bytes:
         """Reads a message of the specified command and returns the unserialized data."""
