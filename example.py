@@ -12,4 +12,4 @@ print(repr(MSP_IDENT))
 print(repr(MSP_MISC))
 print(repr(MSP_RC))
 
-print(MultiWiiMultitype.Ident)
+print(MultiWiiMultitype.QuadX)
