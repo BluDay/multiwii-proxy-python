@@ -21,6 +21,19 @@ class MspMessage(object):
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
+    @classmethod
+    def decode_names(cls, data: bytes) -> tuple[str]:
+        """Decodes the deserialized string value and splits it to a tuple.
+
+        Raises
+        ------
+        TypeError
+            If `data` is not of type `bytes`.
+        UnicodeDecodeError
+            If the bytes cannot be decoded into ASCII characters.
+        """
+        return tuple(data.decode('ascii').split(cls.NAME_SEPARATION_CHAR))
+
     @staticmethod
     def create(command: int, data: tuple) -> bytes:
         """Creates an outgoing serialized message to send to the FC."""

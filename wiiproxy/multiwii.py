@@ -68,6 +68,8 @@ from .data import (
     MspWaypoint
 )
 
+from .messaging import MspMessage
+
 from serial import Serial
 from time   import sleep
 from typing import Final, NoReturn
@@ -173,19 +175,6 @@ class MultiWii(object):
         self._serial.reset_input_buffer()
         self._serial.reset_output_buffer()
 
-    @classmethod
-    def _decode_names(cls, data: bytes) -> tuple[str]:
-        """Decodes the deserialized string value and splits it to a tuple.
-
-        Raises
-        ------
-        TypeError
-            If `data` is not of type `bytes`.
-        UnicodeDecodeError
-            If the bytes cannot be decoded into ASCII characters.
-        """
-        return tuple(data.decode('ascii').split(cls.NAME_SEPARATION_CHAR))
-
     def _get_data(self, command: int) -> bytes:
         """Reads a message of the specified command and returns the unserialized data."""
         return self._read_message(command)[5:-1]
@@ -271,9 +260,9 @@ class MultiWii(object):
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        data = self._get_data(MSP_BOXNAMES)
+        names = MspMessage.decode_names(self._get_data(MSP_BOXNAMES))
 
-        return MspBoxNames(names=self._decode_names(data))
+        return MspBoxNames(names)
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
@@ -336,9 +325,9 @@ class MultiWii(object):
     
     def get_pid_names(self) -> tuple[str]:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        data = self._get_data(MSP_PIDNAMES)
+        names = MspMessage.decode_names(self._get_data(MSP_PIDNAMES))
 
-        return MspPidNames(names=self._decode_names(data))
+        return MspPidNames(names)
     
     def get_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
