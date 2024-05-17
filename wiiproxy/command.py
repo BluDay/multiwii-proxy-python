@@ -1,5 +1,5 @@
 from struct import calcsize
-from typing import Final, NoReturn, Self
+from typing import Final, NoReturn
 
 class MspCommand(object):
     """Represents a MSP command."""
