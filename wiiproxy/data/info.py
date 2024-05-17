@@ -1,8 +1,4 @@
-from ..config import (
-    MultiWiiCapability,
-    MultiWiiMultitype,
-    MultiWiiSensor
-)
+from ..config import MultiWiiCapability, MultiWiiMultitype, MultiWiiSensor
 
 from dataclasses import dataclass
 
