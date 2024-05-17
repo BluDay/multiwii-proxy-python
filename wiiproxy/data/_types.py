@@ -3,7 +3,7 @@ from typing      import Generic, NamedTuple, TypeVar
 T = TypeVar('T')
 
 class Coord2D(NamedTuple):
-    """Represents 2D coordinates with longitude and latitude values."""
+    """Represents 2D geographics coordinates with longitude and latitude values."""
     latitude:  float
     longitude: float
 
