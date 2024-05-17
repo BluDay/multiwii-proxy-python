@@ -329,7 +329,7 @@ class MultiWii(object):
 
         return MspPidNames(names)
     
-    def get_gps(self) -> MspRawGps:
+    def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
         data = self._get_data(MSP_RAW_GPS)
 
@@ -345,7 +345,7 @@ class MultiWii(object):
             ground_course=data[6] / 10.0
         )
     
-    def get_imu(self) -> MspRawImu:
+    def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
         data = self._get_data(MSP_RAW_IMU)
 
