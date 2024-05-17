@@ -1,12 +1,11 @@
-from typing import Generic, NamedTuple, TypeVar
+from typing      import Generic, NamedTuple, TypeVar
 
 T = TypeVar('T')
 
-class Coord2D(NamedTuple, Generic[T]):
+class Coord2D(NamedTuple):
     """Represents 2D coordinates with longitude and latitude values."""
-    latitude: T
-
-    longitude: T
+    latitude:  float
+    longitude: float
 
 class PidValues(NamedTuple, Generic[T]):
     """Represents PID values."""
