@@ -3,7 +3,11 @@ from typing import Self
 
 @unique
 class MultiWiiBox(IntEnum):
-    """Represents the various boxes that can be checked."""
+    """Represents the various boxes that can be checked in a MultiWii flight controller.
+
+    Each box corresponds to a specific function or mode that can be activated in the
+    flight controller's configuration.
+    """
     Arm       = 0
     Angle     = 1
     Horizon   = 2
@@ -29,7 +33,11 @@ class MultiWiiBox(IntEnum):
 
 @unique
 class MultiWiiBoxState(IntEnum):
-    """Represents the aux state values for an MSP box item."""
+    """Represents the state of an auxiliary (aux) control box in MultiWii flight controller..
+
+    The state indicates whether the box is unselected (Empty), or selected at a
+    LOW (Low), MID (Mid), or HIGH (High) position.
+    """
     Empty = 0
     Low   = 1
     Mid   = 2
@@ -37,7 +45,10 @@ class MultiWiiBoxState(IntEnum):
 
 @unique
 class MultiWiiCapability(IntEnum):
-    """Represents some capabilities that the flight controller has."""
+    """Represents various capabilities of a MultiWii flight controller.
+
+    Each capability indicates a specific feature that the flight controller supports.
+    """
     Bind   = 0b00001
     Dynbal = 0b00010
     Flap   = 0b00100
@@ -46,7 +57,7 @@ class MultiWiiCapability(IntEnum):
 
     @staticmethod
     def get_capabilities(value: int) -> tuple[Self]:
-        """Parses all capability values from a single integer."""
+        """Parses and returns all capability flags from a given integer."""
         capabilities = ()
 
         for capability in MultiWiiCapability:
@@ -57,7 +68,11 @@ class MultiWiiCapability(IntEnum):
 
 @unique
 class MultiWiiMultitype(IntEnum):
-    """Represents different types of available vehicle configurations."""
+    """Enumeration of vehicle configurations available in MultiWii.
+
+    These configurations represents different types of aircraft or vehicle setups
+    that the flight controller can be configured to control.
+    """
     Unidentified = 0
     Tri          = 1
     QuadP        = 2
@@ -82,7 +97,11 @@ class MultiWiiMultitype(IntEnum):
 
 @unique
 class MultiWiiSensor(IntEnum):
-    """Represents different sensor types."""
+    """Enumeration of sensor types supported by MultiWii.
+
+    These sensor types indicate the various sensors that can be used with the
+    MultiWii flight controller to provide additional data and functionality.
+    """
     Acc   = 0
     Baro  = 1
     Mag   = 2
@@ -91,11 +110,10 @@ class MultiWiiSensor(IntEnum):
 
     @staticmethod
     def get_sensors(value: int) -> tuple[Self]:
-        """Gets all of the available sensors from an integer value.
+        """Gets all sensors enabled from an integer value.
 
-        This method iterates through each MultiWiiSensor value and performs a
-        bitwise OR operation with the provided value to check which sensors
-        have been set.
+        This method identifies which sensors are active by performing a bitwise
+        AND operation with each sensor type.
         """
         sensors = ()
 
