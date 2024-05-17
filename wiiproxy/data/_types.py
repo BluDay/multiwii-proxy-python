@@ -4,7 +4,8 @@ T = TypeVar('T')
 
 class Coord2D(NamedTuple):
     """Represents 2D geographics coordinates with longitude and latitude values."""
-    latitude:  float
+    latitude: float
+
     longitude: float
 
 class PidValues(NamedTuple, Generic[T]):
