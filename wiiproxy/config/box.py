@@ -34,8 +34,8 @@ class MultiWiiBox(IntEnum):
 class MultiWiiBoxState(IntEnum):
     """Represents the state of an auxiliary (aux) control box in MultiWii flight controller.
 
-    The state indicates whether the box is unselected (Empty), or selected at a
-    LOW (Low), MID (Mid), or HIGH (High) position.
+    The state indicates whether the box is unselected (Empty), or selected at a LOW (Low),
+    MID (Mid), or HIGH (High) position.
     """
     Empty = 0
     Low   = 1
