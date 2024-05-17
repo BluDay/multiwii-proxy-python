@@ -1,4 +1,4 @@
-from .msp_config import (
+from .config import (
     MultiWiiBox,
     MultiWiiBoxState,
     MultiWiiCapability,

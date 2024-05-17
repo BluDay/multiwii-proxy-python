@@ -1,4 +1,4 @@
-from .msp_config import MultiWiiMultitype, MultiWiiCapability
+from .config import MultiWiiMultitype, MultiWiiCapability
 
 from .msp_data import (
     Coord2D,
