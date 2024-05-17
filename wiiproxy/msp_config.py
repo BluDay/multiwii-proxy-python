@@ -55,12 +55,12 @@ class MultiWiiCapability(IntEnum):
     Nav    = 0b01000
     ExtAux = 0b10000
 
-    @staticmethod
-    def get_capabilities(value: int) -> tuple[Self]:
+    @classmethod
+    def get_capabilities(cls, value: int) -> tuple[Self]:
         """Parses and returns all capability flags from a given integer."""
         capabilities = ()
 
-        for capability in MultiWiiCapability:
+        for capability in cls:
             if capability & value:
                 capabilities += (capability,)
 
@@ -108,8 +108,8 @@ class MultiWiiSensor(IntEnum):
     Gps   = 3
     Sonar = 4
 
-    @staticmethod
-    def get_sensors(value: int) -> tuple[Self]:
+    @classmethod
+    def get_sensors(cls, value: int) -> tuple[Self]:
         """Gets all sensors enabled from an integer value.
 
         This method identifies which sensors are active by performing a bitwise
@@ -117,7 +117,7 @@ class MultiWiiSensor(IntEnum):
         """
         sensors = ()
 
-        for sensor in MultiWiiSensor:
+        for sensor in cls:
             if sensor | value:
                 sensors += (sensor,)
 
