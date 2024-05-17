@@ -5,12 +5,24 @@ from typing      import NamedTuple
 
 @dataclass
 class MspBox:
-    """Represents data values for the MSP_BOX command."""
+    """Represents data values for the MSP_BOX command.
+
+    Attributes
+    ----------
+    values : tuple[int]
+        The data values.
+    """
     values: tuple[int]
 
 @dataclass
 class MspBoxIds:
-    """Represents data values for the MSP_BOXIDS command."""
+    """Represents data values for the MSP_BOXIDS command.
+
+    Attributes
+    ----------
+    values : tuple[MultiWiiBox]
+        The data values as `MultiWiiBox`es.
+    """
     values: tuple[MultiWiiBox]
 
 @dataclass
@@ -55,5 +67,15 @@ class MspBoxItem(NamedTuple):
 
 @dataclass
 class MspBoxNames:
-    """Represents data values for the MSP_BOXNAMES command."""
+    """Represents data values for the MSP_BOXNAMES command.
+
+    This class is used to store the names of various boxes that can be checked in a
+    MultiWii flight controller. Each box corresponds to a specific function or mode
+    that can be activated in the flight controller's configuration.
+    
+    Attributes
+    ----------
+    names : tuple[str]
+        The name of the boxes as strings.
+    """
     names: tuple[str]
