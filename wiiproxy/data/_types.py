@@ -10,9 +10,11 @@ class Coord2D(NamedTuple):
 
 class PidValues(NamedTuple, Generic[T]):
     """Represents PID values."""
-    p: T
-    i: T
-    d: T
+    proportional: T
+
+    integral: T
+
+    derivative: T
 
 class Point2D(NamedTuple, Generic[T]):
     """Represents a 2D point."""
