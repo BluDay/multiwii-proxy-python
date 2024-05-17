@@ -1,6 +1,7 @@
 from ..config import MultiWiiBox, MultiWiiBoxState
 
 from dataclasses import dataclass
+from typing      import NamedTuple
 
 @dataclass
 class MspBox:
@@ -13,7 +14,7 @@ class MspBoxIds:
     values: tuple[MultiWiiBox]
 
 @dataclass
-class MspBoxItem:
+class MspBoxItem(NamedTuple):
     """Represents data values for the MSP_SET_BOX command."""
     aux1: MultiWiiBoxState
     aux2: MultiWiiBoxState
