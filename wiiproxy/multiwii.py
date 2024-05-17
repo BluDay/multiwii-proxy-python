@@ -111,7 +111,7 @@ class MultiWii(object):
         if not isinstance(serial, Serial):
             raise TypeError('"serial" must be an instance of "Serial".')
 
-        self._message_write_read_delay = MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
+        self._message_write_read_delay = self.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
         self._serial = serial
 
