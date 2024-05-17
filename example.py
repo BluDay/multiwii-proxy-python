@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 
+from wiiproxy.config import MultiWiiMultitype
+
 from wiiproxy.msp_commands import MSP_IDENT, MSP_MISC, MSP_RC
-from wiiproxy.msp_config   import MultiWiiMultitype
 from wiiproxy.msp_message  import MspMessage
 
 print(f'Header preamble: {MspMessage.HEADER_PREAMBLE}')
