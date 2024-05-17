@@ -1,6 +1,6 @@
 from .config import MultiWiiMultitype, MultiWiiCapability
 
-from .msp_data import (
+from .data import (
     Coord2D,
     PidValues,
     Point2D,
