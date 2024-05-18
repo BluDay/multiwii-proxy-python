@@ -5,6 +5,10 @@ class MspMessage(object):
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
+    _ENCODING: Final[str] = 'ascii'
+
+    _NAME_SEPARATION_CHAR: Final[str] = ';'
+
     HEADER_PREAMBLE: Final[bytes] = b'$M' # 0x24, 0x4d
 
     ERROR_CHAR: Final[int] = 0x21 # !
@@ -13,13 +17,11 @@ class MspMessage(object):
 
     OUTGOING_CHAR: Final[int] = 0x3e # >
 
-    ERROR_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(ERROR_CHAR).encode('ascii')
+    ERROR_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(ERROR_CHAR).encode(_ENCODING)
 
-    INCOMING_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(INCOMING_CHAR).encode('ascii')
+    INCOMING_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(INCOMING_CHAR).encode(_ENCODING)
 
-    OUTGOING_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(OUTGOING_CHAR).encode('ascii')
-
-    NAME_SEPARATION_CHAR: Final[str] = ';'
+    OUTGOING_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(OUTGOING_CHAR).encode(_ENCODING)
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
@@ -34,7 +36,7 @@ class MspMessage(object):
         UnicodeDecodeError
             If the bytes cannot be decoded into ASCII characters.
         """
-        return tuple(data.decode('ascii').split(cls.NAME_SEPARATION_CHAR))
+        return tuple(data.decode(cls._ENCODING).split(cls._NAME_SEPARATION_CHAR))
 
     @staticmethod
     def calculate_checksum(payload: bytes) -> int:
