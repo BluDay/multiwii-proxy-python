@@ -19,6 +19,8 @@ class MspMessage(object):
 
     OUTGOING_HEADER: Final[bytes] = HEADER_PREAMBLE + chr(OUTGOING_CHAR).encode('ascii')
 
+    NAME_SEPARATION_CHAR: Final[str] = ';'
+
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @classmethod
@@ -33,11 +35,6 @@ class MspMessage(object):
             If the bytes cannot be decoded into ASCII characters.
         """
         return tuple(data.decode('ascii').split(cls.NAME_SEPARATION_CHAR))
-
-    @staticmethod
-    def create(command: int, data: tuple) -> bytes:
-        """Creates an outgoing serialized message to send to the FC."""
-        pass
 
     @staticmethod
     def calculate_checksum(payload: bytes) -> int:
