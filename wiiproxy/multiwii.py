@@ -388,15 +388,15 @@ class MultiWii(object):
 
         values = ()
 
-        for index in range(size / 7, step=4):
-            item = ServoConfItem(
+        for index in range(size / 4, step=4):
+            servo_conf_item = ServoConfItem(
                 min=data[index],
                 max=data[index + 1],
                 middle=data[index + 2],
                 rate=data[index + 3]
             )
 
-            values += (item,)
+            values += (servo_conf_item,)
 
         return MspServoConf(values)
     
