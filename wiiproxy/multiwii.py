@@ -90,8 +90,6 @@ class MultiWii(object):
 
     MSP_VERSION: Final[str] = 'v1'
 
-    NAME_SEPARATION_CHAR: Final[str] = ';'
-
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     _message_write_read_delay: float
