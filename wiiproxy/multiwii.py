@@ -243,24 +243,21 @@ class MultiWii(object):
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        (size, *data) = self._get_data_with_size(MSP_BOX)
-
-        values = ()
-
-        for offset in range(size, step=2):
-            values += (read_int16(data, offset),)
-        
-        return MspBox(values)
+        return MspBox(values=self._get_data(MSP_BOX))
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
         data = self._get_data(MSP_BOXIDS)
 
-        return MspBoxIds(values=(MultiWiiBox(value) for value in data))
+        values = (MultiWiiBox(value) for value in data)
+
+        return MspBoxIds(values)
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        names = MspMessage.decode_names(self._get_data(MSP_BOXNAMES))
+        data = self._get_data(MSP_BOXNAMES)
+
+        names = MspMessage.decode_names(data)
 
         return MspBoxNames(names)
     
@@ -325,7 +322,9 @@ class MultiWii(object):
     
     def get_pid_names(self) -> tuple[str]:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        names = MspMessage.decode_names(self._get_data(MSP_PIDNAMES))
+        data = self._get_data(MSP_PIDNAMES)
+
+        names = MspMessage.decode_names(data)
 
         return MspPidNames(names)
     
@@ -381,14 +380,7 @@ class MultiWii(object):
 
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        (size, *data) = self._get_data_with_size(MSP_SERVO)
-
-        values = ()
-
-        for offset in range(size, step=2):
-            values += (read_int16(data, offset),)
-
-        return MspServo(values)
+        return MspServo(values=self._get_data(MSP_SERVO))
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
@@ -396,12 +388,12 @@ class MultiWii(object):
 
         values = ()
 
-        for offset in range(size, step=7):
+        for index in range(size / 7, step=4):
             item = ServoConfItem(
-                min=read_uint16(data, offset),
-                max=read_uint16(data, offset + 2),
-                middle=read_uint16(data, offset + 4),
-                rate=read_uint8(data, offset + 5)
+                min=data[index],
+                max=data[index + 1],
+                middle=data[index + 2],
+                rate=data[index + 3]
             )
 
             values += (item,)
