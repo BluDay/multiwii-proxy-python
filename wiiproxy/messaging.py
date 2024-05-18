@@ -5,19 +5,11 @@ class MspMessage(object):
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
 
-    HEADER_PREAMBLE: Final[bytes] = b'$M' # 0x24, 0x4d
+    ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 
-    ERROR_CHAR: Final[bytes] = b'!' # 0x21
- 
-    INCOMING_CHAR: Final[bytes] = b'<' # 0x3c
+    INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 
-    OUTGOING_CHAR: Final[bytes] = b'>' # 0x3e
-
-    ERROR_HEADER: Final[bytes] = HEADER_PREAMBLE + ERROR_CHAR
-
-    INCOMING_HEADER: Final[bytes] = HEADER_PREAMBLE + INCOMING_CHAR
-
-    OUTGOING_HEADER: Final[bytes] = HEADER_PREAMBLE + OUTGOING_CHAR
+    OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
     # ------------------------------------- STATIC METHODS -------------------------------------
 
