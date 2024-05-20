@@ -40,6 +40,13 @@ class Command(object):
     def __init__(self, code: int, struct_format: str) -> NoReturn:
         """Initializes an instance using the provided code and struct format.
 
+        Parameters
+        ----------
+        code : int
+            The unique code representing the specific MSP command. Must be between 100 and 240.
+        struct_format : str
+            The format used for packing and unpacking data values for the command.
+
         Raises
         ------
         ValueError
