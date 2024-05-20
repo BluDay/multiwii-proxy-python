@@ -99,6 +99,18 @@ class MultiWii(object):
         including the activation status, command write-read delay and serial port configuration.
         Additionally, it ensures that the provided serial port is of the correct type (Serial).
         If the serial port is not of the expected type, a TypeError is raised.
+
+        Parameters
+        ----------
+        serial : Serial
+            The serial port instance used for communication with the flight controller. This
+            should be an instance of the `Serial` class from the `pyserial` library, which
+            provides the interface for serial communication.
+
+        Raises
+        ------
+        TyoeError
+            If the provided serial port instance is not an instance of the `Serial` class.
         """
         if not isinstance(serial, Serial):
             raise TypeError('"serial" must be an instance of "Serial".')
