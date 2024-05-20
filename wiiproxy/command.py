@@ -31,7 +31,7 @@ class Command(object):
 
     _is_set_command: Final[bool]
 
-    _payload_struct_format: Final[str]
+    _struct_format: Final[str]
 
     _struct_format_size: Final[int]
 
