@@ -48,4 +48,4 @@ class MspPidNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        return cls(names=MspMessage.decode_names(data[0]))
+        return cls(names=MspMessage.decode_names(data))
