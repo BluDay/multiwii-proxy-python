@@ -2,7 +2,26 @@ from struct import calcsize
 from typing import Final, NoReturn
 
 class Command(object):
-    """Represents a MSP command."""
+    """Represents an MSP command.
+
+    This class encapsulates the details of a command for the MultiWii Serial Protocol (MSP).
+    It includes information about the command code, whether the command size is variable,
+    if it is a set-command, and details about the structure format used for serializing and
+    deserializing corresponding data values.
+
+    Attributes
+    ----------
+    _code : int
+        The unique code representing the specific MSP command.
+    _has_variable_size : bool
+        Indicates whether the command has a variable size payload.
+    _is_set_command : bool
+        Indicates whether the command is a set or get command.
+    _struct_format : str
+        The format used for packing and unpacking data values for the command.
+    _struct_format_size : int
+        The size of the structure format, representing a fixed size of the data values.
+    """
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
