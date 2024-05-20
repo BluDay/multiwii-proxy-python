@@ -1,5 +1,5 @@
 from ..config    import MultiWiiBox, MultiWiiBoxState
-from ..messaging import Message
+from ..messaging import decode_names
 
 from dataclasses import dataclass
 from typing      import NamedTuple, Self
@@ -93,4 +93,4 @@ class MspBoxNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        return cls(names=MspMessage.decode_names(data))
+        return cls(names=decode_names(data))
