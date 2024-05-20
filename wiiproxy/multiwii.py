@@ -63,8 +63,6 @@ from .data import (
     MspWaypoint
 )
 
-from .messaging import MspMessage
-
 from serial import Serial
 from time   import sleep
 from typing import Final, NoReturn

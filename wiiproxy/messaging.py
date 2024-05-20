@@ -1,6 +1,6 @@
 from typing import Final
 
-class MspMessage(object):
+class Message(object):
     """A utility for handling MSP messages."""
 
     # ------------------------------------ CLASS CONSTANTS -------------------------------------
