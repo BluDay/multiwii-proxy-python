@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing      import Self
 
 @dataclass
 class MspMotor:
@@ -12,7 +13,14 @@ class MspMotor:
     motor7: int
     motor8: int
 
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(*data)
+
 @dataclass
 class MspMotorPins(MspMotor):
     """Represents data values for the MSP_MOTOR_PINS command."""
-    pass
+
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(*data)

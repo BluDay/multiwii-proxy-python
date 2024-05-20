@@ -1,7 +1,7 @@
 from ..config import MultiWiiBox, MultiWiiBoxState
 
 from dataclasses import dataclass
-from typing      import NamedTuple
+from typing      import NamedTuple, Self
 
 @dataclass
 class MspBox:
@@ -14,6 +14,10 @@ class MspBox:
     """
     values: tuple[int]
 
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(values=data)
+
 @dataclass
 class MspBoxIds:
     """Represents data values for the MSP_BOXIDS command.
@@ -24,6 +28,12 @@ class MspBoxIds:
         The data values as `MultiWiiBox`es.
     """
     values: tuple[MultiWiiBox]
+
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        values = (MultiWiiBox(value) for value in data)
+
+        return cls(values)
 
 @dataclass
 class MspBoxItem(NamedTuple):
@@ -79,3 +89,7 @@ class MspBoxNames:
         The name of the boxes as strings.
     """
     names: tuple[str]
+
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(names=MspMessage.decode_names(data))

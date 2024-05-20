@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing      import Self
 
 @dataclass
 class MspRc:
@@ -18,6 +19,10 @@ class MspRc:
     aux3: int
 
     aux4: int
+    
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(*data)
 
 @dataclass
 class MspRcTuning:
@@ -35,3 +40,7 @@ class MspRcTuning:
     throttle_mid: int
 
     throttle_expo: int
+
+    @classmethod
+    def parse(cls, data: tuple) -> Self:
+        return cls(*data)

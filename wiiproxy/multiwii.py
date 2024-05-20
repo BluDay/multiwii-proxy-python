@@ -36,11 +36,6 @@ from .commands import (
     MSP_SET_SERVO_CONF
 )
 
-from .config import (
-    MultiWiiMultitype,
-    MultiWiiCapability
-)
-
 from .data import (
     MspAltitude,
     MspAnalog,
@@ -214,209 +209,87 @@ class MultiWii(object):
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
-        return MspAltitude(*self._get_data(MSP_ALTITUDE))
+        return MspAltitude.parse(self._get_data(MSP_ALTITUDE))
     
     def get_analog(self) -> MspAnalog:
         """Sends the MSP_ANALOG command and gets the data instance."""
-        data = self._get_data(MSP_ANALOG)
-
-        return MspAnalog(
-            voltage=data[0] / 10.0,
-            power_meter_sum=data[1],
-            rssi=data[2],
-            amperage=data[3]
-        )
+        return MspAnalog.parse(self._get_data(MSP_ANALOG))
     
     def get_attitude(self) -> MspAttitude:
         """Sends the MSP_ATTITUDE command and gets the data instance."""
-        data = self._get_data(MSP_ATTITUDE)
-
-        return MspAttitude(
-            angle=Point2D(
-                x=data[0] / 10.0,
-                y=data[1] / 10.0
-            ),
-            heading=data[3]
-        )
+        return MspAttitude.parse(self._get_data(MSP_ATTITUDE))
     
     def get_box(self) -> MspBox:
         """Sends the MSP_BOX command and gets the data instance."""
-        return MspBox(values=self._get_data(MSP_BOX))
+        return MspBox.parse(self._get_data(MSP_BOX))
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends the MSP_BOXIDS command and gets the data instance."""
-        data = self._get_data(MSP_BOXIDS)
-
-        values = (MultiWiiBox(value) for value in data)
-
-        return MspBoxIds(values)
+        return MspBoxIds.parse(self._get_data(MSP_BOXIDS))
     
     def get_box_names(self) -> MspBoxNames:
         """Sends the MSP_BOXNAMES command and gets the data instance."""
-        data = self._get_data(MSP_BOXNAMES)
-
-        names = MspMessage.decode_names(data)
-
-        return MspBoxNames(names)
+        return MspBoxNames.parse(self._get_data(MSP_BOXNAMES))
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends the MSP_COMP_GPS command and gets the data instance."""
-        return MspCompGps(*self._get_data(MSP_COMP_GPS))
+        return MspCompGps.parse(self._get_data(MSP_COMP_GPS))
     
     def get_ident(self) -> MspIdent:
         """Sends the MSP_IDENT command and gets the data instance."""
-        data = self._get_data(MSP_IDENT)
-
-        return MspIdent(
-            version=data[0],
-            multitype=MultiWiiMultitype(data[1]),
-            capabilities=MultiWiiCapability.get_capabilities(data[2]),
-            navi_version=data[3]
-        )
+        return MspIdent.parse(self._get_data(MSP_IDENT))
     
     def get_misc(self) -> MspMisc:
         """Sends the MSP_MISC command and gets the data instance."""
-        data = self._get_data(MSP_MISC)
-
-        return MspMisc(
-            power_trigger=data[0],
-            throttle_failsafe=data[1],
-            throttle_idle=data[2],
-            throttle_min=data[3],
-            throttle_max=data[4],
-            plog_arm=data[5],
-            plog_lifetime=data[6],
-            mag_declination=data[7] / 10.0,
-            battery_scale=data[8],
-            battery_warn_1=data[9] / 10.0,
-            battery_warn_2=data[10] / 10.0,
-            battery_critical=data[11] / 10.0
-        )
+        return MspMisc.parse(self._get_data(MSP_MISC))
     
     def get_motor(self) -> MspMotor:
         """Sends the MSP_MOTOR command and gets the data instance."""
-        return MspMotor(*self._get_data(MSP_MOTOR))
+        return MspMotor.parse(self._get_data(MSP_MOTOR))
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends the MSP_MOTOR_PINS command and gets the data instance."""
-        return MspMotorPins(*self._get_data(MSP_MOTOR_PINS))
+        return MspMotorPins.parse(self._get_data(MSP_MOTOR_PINS))
 
     def get_pid(self) -> MspPid:
         """Sends the MSP_PID command and gets the data instance."""
-        (size, *data) = self._get_data_with_size(MSP_PID)
+        return MspPid.parse(self._get_data(MSP_PID))
 
-        pid_collection = ()
-
-        for index in range(size, step=3):
-            pid_values = PidValues(
-                p=data[index],
-                i=data[index + 1],
-                d=data[index + 2]
-            )
-
-            pid_collection += (pid_values,)
-
-        return MspPid(*pid_collection)
-    
     def get_pid_names(self) -> tuple[str]:
         """Sends the MSP_PIDNAMES command and gets the data instance."""
-        data = self._get_data(MSP_PIDNAMES)
-
-        names = MspMessage.decode_names(data)
-
-        return MspPidNames(names)
+        return MspPidNames.parse(self._get_data(MSP_PIDNAMES))
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends the MSP_RAW_GPS command and gets the data instance."""
-        data = self._get_data(MSP_RAW_GPS)
-
-        return MspRawGps(
-            fix=data[0],
-            satellites=data[1],
-            coordinate=Coord2D(
-                latitude=data[2] / 10000000.0,
-                longitude=data[3] / 10000000.0
-            ),
-            altitude=data[4],
-            speed=[5],
-            ground_course=data[6] / 10.0
-        )
+        return MspRawGps.parse(self._get_data(MSP_RAW_GPS))
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends the MSP_RAW_IMU command and gets the data instance."""
-        data = self._get_data(MSP_RAW_IMU)
-
-        acc_unit  = 10.0
-        gyro_unit = 10.0
-        mag_unit  = 10.0
-
-        return MspRawImu(
-            acc=Point3D(
-                x=data[0] / acc_unit,
-                y=data[1] / acc_unit,
-                z=data[2] / acc_unit
-            ),
-            gyro=Point3D(
-                x=data[3] / gyro_unit,
-                y=data[4] / gyro_unit,
-                z=data[5] / gyro_unit
-            ),
-            mag=Point3D(
-                x=data[6] / mag_unit,
-                y=data[7] / mag_unit,
-                z=data[8] / mag_unit
-            )
-        )
+        return MspRawImu.parse(self._get_data(MSP_RAW_IMU))
     
     def get_rc(self) -> MspRc:
         """Sends the MSP_RC command and gets the data instance."""
-        return MspRc(*self._get_data(MSP_RC))
+        return MspRc.parse(self._get_data(MSP_RC))
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends the MSP_RC_TUNING command and gets the data instance."""
-        return MspRcTuning(*self._get_data(MSP_RC_TUNING))
+        return MspRcTuning.parse(self._get_data(MSP_RC_TUNING))
 
     def get_servo(self) -> MspServo:
         """Sends the MSP_SERVO command and gets the data instance."""
-        return MspServo(values=self._get_data(MSP_SERVO))
+        return MspServo.parse(self._get_data(MSP_SERVO))
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends the MSP_SERVO_CONF command and gets the data instance."""
-        (size, *data) = self._get_data_with_size(MSP_SERVO_CONF)
-
-        values = ()
-
-        for index in range(size / 4, step=4):
-            servo_conf_item = ServoConfItem(
-                min=data[index],
-                max=data[index + 1],
-                middle=data[index + 2],
-                rate=data[index + 3]
-            )
-
-            values += (servo_conf_item,)
-
-        return MspServoConf(values)
+        return MspServoConf.parse(self._get_data(MSP_SERVO_CONF))
     
     def get_status(self) -> MspStatus:
         """Sends the MSP_STATUS command and gets the data instance."""
-        return MspStatus(*self._get_data(MSP_STATUS))
+        return MspStatus.parse(self._get_data(MSP_STATUS))
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends the MSP_WP command and gets the data instance."""
-        data = self._get_data(MSP_WP)
-
-        return MspWaypoint(
-            number=data[0],
-            coordinate=Coord2D(
-                latitude=data[1] / 10000000.0,
-                longitude=data[2] / 10000000.0
-            ),
-            alt_hold=data[3],
-            heading=data[4],
-            time_to_stay=data[5],
-            flag=data[6]
-        )
+        return MspWaypoint.parse(self._get_data(MSP_WP))
 
     # ------------------------------------- SET COMMANDS ---------------------------------------
 
