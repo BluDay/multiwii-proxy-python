@@ -14,17 +14,17 @@ class MspMessage(object):
     # ------------------------------------- STATIC METHODS -------------------------------------
 
     @classmethod
-    def decode_names(cls, data: bytes) -> tuple[str]:
+    def decode_names(cls, data: tuple) -> tuple[str]:
         """Decodes the deserialized string value and splits it to a tuple.
 
         Raises
         ------
         TypeError
-            If `data` is not of type `bytes`.
+            If `data` is not of type `tuple`.
         UnicodeDecodeError
             If the bytes cannot be decoded into ASCII characters.
         """
-        return tuple(data.decode('ascii').split(';'))
+        return tuple(data[0].decode('ascii').split(';'))
 
     @staticmethod
     def calculate_checksum(payload: bytes) -> int:
