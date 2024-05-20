@@ -1,4 +1,5 @@
-from ..config import MultiWiiBox, MultiWiiBoxState
+from ..config    import MultiWiiBox, MultiWiiBoxState
+from ..messaging import Message
 
 from dataclasses import dataclass
 from typing      import NamedTuple, Self

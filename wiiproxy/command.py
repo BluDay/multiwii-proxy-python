@@ -1,7 +1,7 @@
 from struct import calcsize
 from typing import Final, NoReturn
 
-class MspCommand(object):
+class Command(object):
     """Represents a MSP command."""
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
