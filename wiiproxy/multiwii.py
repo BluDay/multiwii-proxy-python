@@ -81,7 +81,7 @@ class MultiWii(object):
 
     DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
 
-    MSP_VERSION: Final[str] = 'v1'
+    MSP_VERSION: Final[int] = 1
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
