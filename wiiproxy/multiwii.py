@@ -109,7 +109,7 @@ class MultiWii(object):
 
         Raises
         ------
-        TyoeError
+        TypeError
             If the provided serial port instance is not an instance of the `Serial` class.
         """
         if not isinstance(serial, Serial):
