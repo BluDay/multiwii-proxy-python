@@ -1,6 +1,6 @@
 from . import PidValues
 
-from ..messaging import Message
+from ..messaging import decode_names
 
 from dataclasses import dataclass
 from typing      import Self
@@ -50,4 +50,4 @@ class MspPidNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        return cls(names=Message.decode_names(data))
+        return cls(names=decode_names(data))
