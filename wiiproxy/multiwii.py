@@ -77,19 +77,19 @@ class MultiWii(object):
     Supports MSP v1 and not any of the newer versions.
     """
     
-    # ------------------------------------ CLASS CONSTANTS -------------------------------------
+    # -------------------------------------- CONSTANTS -----------------------------------------
 
     DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
 
     MSP_VERSION: Final[int] = 1
 
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+    # -------------------------------------- ATTRIBUTES ----------------------------------------
 
     _message_write_read_delay: float
 
     _serial: Final[Serial]
 
-    # ------------------------------------- MAGIC METHODS --------------------------------------
+    # ------------------------------------ DUNDER METHODS --------------------------------------
 
     def __init__(self, serial: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port.
@@ -215,7 +215,7 @@ class MultiWii(object):
         """
         pass
 
-    # ------------------------------------- GET COMMANDS ---------------------------------------
+    # --------------------------------- GET COMMAND METHODS ------------------------------------
 
     def get_altitude(self) -> MspAltitude:
         """Sends the MSP_ALTITUDE command and gets the data instance."""
@@ -301,7 +301,7 @@ class MultiWii(object):
         """Sends the MSP_WP command and gets the data instance."""
         return MspWaypoint.parse(self._get_data(MSP_WP))
 
-    # ------------------------------------- SET COMMANDS ---------------------------------------
+    # --------------------------------- SET COMMAND METHODS ------------------------------------
 
     def bind(self) -> NoReturn:
         """Sends the MSP_BIND command.
