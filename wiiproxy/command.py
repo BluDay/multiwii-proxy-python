@@ -17,11 +17,9 @@ class Command(object):
         Indicates whether the command has a variable size payload.
     _is_set_command : bool
         Indicates whether the command is a set or get command.
-    _message_struct_format : str
-        The full format for packing and unpacking a corresponding message with `struct`.
-    _payload_struct_format : str
-        The format used for packing and unpacking a corresponding payload with `struct`.
-    _payload_struct_format_size : int
+    _struct_format : str
+        The format used for packing and unpacking a corresponding payload.
+    _struct_format_size : int
         The size of the structure format, representing a fixed size of the data values.
     """
 
@@ -33,11 +31,9 @@ class Command(object):
 
     _is_set_command: Final[bool]
 
-    _message_struct_format: Final[str]
-
     _payload_struct_format: Final[str]
 
-    _payload_struct_format_size: Final[int]
+    _struct_format_size: Final[int]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
@@ -49,7 +45,7 @@ class Command(object):
         code : int
             The unique code representing the specific MSP command. Must be between 100 and 240.
         struct_format : str
-            The format used for packing and unpacking data values for the command.
+            The format used for packing and unpacking a corresponding payload.
 
         Raises
         ------
@@ -114,25 +110,20 @@ class Command(object):
 
     @property
     def has_variable_size(self) -> bool:
-        """Gets a value indicative of whether the data structure size is variable."""
+        """Gets a value indicative whether the payload size is variable."""
         return self._has_variable_size
 
     @property
     def is_set_command(self) -> bool:
-        """Gets a value indicative of whether the command is a set-command."""
+        """Gets a value indicative whether the command is a set-command."""
         return self._is_set_command
 
     @property
-    def message_struct_format(self) -> str:
-        """Gets the full message structure format to use with `struct`."""
-        return self._message_struct_format
+    def struct_format(self) -> str:
+        """Gets the payload format to use with the `struct` submodule."""
+        return self._struct_format
 
     @property
-    def payload_struct_format(self) -> str:
-        """Gets the payload structure format to use with `struct`."""
-        return self._payload_struct_format
-
-    @property
-    def payload_struct_format_size(self) -> int:
+    def struct_format_size(self) -> int:
         """Gets the payload format size."""
-        return self._payload_struct_format_size
+        return self._struct_format_size
