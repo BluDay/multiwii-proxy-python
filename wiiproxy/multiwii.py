@@ -218,7 +218,7 @@ class MultiWii(object):
         Returns
         -------
         bytes
-            The bytes of the read/incoming message.
+            The bytes for the read/incoming message.
         """
         pass
 
