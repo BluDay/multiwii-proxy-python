@@ -2,11 +2,11 @@ from typing import Final
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
-ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
+MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 
-INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
+MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 
-OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
+MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
 
