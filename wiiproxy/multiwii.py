@@ -191,7 +191,7 @@ class MultiWii(object):
         Returns
         -------
         tuple[int]
-            A tuple with the unserialized data values.
+            A tuple with deserialized data values.
         """
         return self._read_message(command)[5:-1]
 
