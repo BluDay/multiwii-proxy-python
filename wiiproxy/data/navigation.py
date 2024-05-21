@@ -17,14 +17,14 @@ class MspCompGps:
         The distance to the home position in meters.
     direction_to_home : int
         The direction to the home position in degrees.
-    update : int
+    update_status : int
         The update status of the GPS data.
     """
     distance_to_home: int
 
     direction_to_home: int
 
-    update: int
+    update_status: int
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
