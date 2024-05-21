@@ -1,5 +1,5 @@
 from ._types import (
-    Coord2D,
+    Coords2D,
     PidValues,
     Point2D,
     Point3D
