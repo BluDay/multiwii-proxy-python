@@ -399,7 +399,7 @@ class MultiWii(object):
         """
         return MspPid.parse(self._read_data(MSP_PID))
 
-    def get_pid_names(self) -> tuple[str]:
+    def get_pid_names(self) -> MspPidNames:
         """Sends an MSP_PIDNAMES command and gets the data instance.
 
         This method sends the MSP_PIDNAMES command to the MultiWii flight controller and
