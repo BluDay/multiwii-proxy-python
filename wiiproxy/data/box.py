@@ -8,6 +8,10 @@ from typing      import NamedTuple, Self
 class MspBox:
     """Represents data values for the MSP_BOX command.
 
+    This class is used to store the state values of various control boxes in a MultiWii
+    flight controller. Control boxes can be used to enable or disable specific functions
+    or modes during flight.
+
     Attributes
     ----------
     values : tuple[int]
@@ -17,6 +21,19 @@ class MspBox:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an
+        instance of the `MspBox` class.
+
+        Parameters
+        ----------
+        data : tuple
+            A tuple containing unpacked data values.
+
+        Returns
+        -------
+        MspBox
+            An instance of the `MspBox` class populated with the parsed data.
+        """
         return cls(values=data)
 
 @dataclass
@@ -32,9 +49,21 @@ class MspBoxIds:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        values = (MultiWiiBox(value) for value in data)
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an
+        instance of the `MspBoxIds` class.
 
-        return cls(values)
+        Parameters
+        ----------
+        data : tuple
+            A tuple containing unpacked data values.
+
+        Returns
+        -------
+        MspBoxIds
+            An instance of the `MspBoxIds` class populated with the parsed data.
+        """
+        return cls(values=tuple(MultiWiiBox(value) for value in data))
+
 
 @dataclass
 class MspBoxItem(NamedTuple):
@@ -93,4 +122,17 @@ class MspBoxNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an
+        instance of the `MspBoxNames` class.
+
+        Parameters
+        ----------
+        data : tuple
+            A tuple containing unpacked data values.
+
+        Returns
+        -------
+        MspBoxNames
+            An instance of the `MspBoxNames` class populated with the parsed data.
+        """
         return cls(names=decode_names(data))
