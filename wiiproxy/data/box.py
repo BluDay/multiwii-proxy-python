@@ -64,7 +64,6 @@ class MspBoxIds:
         """
         return cls(values=tuple(MultiWiiBox(value) for value in data))
 
-
 @dataclass
 class MspBoxItem(NamedTuple):
     """Represents data values for the MSP_SET_BOX command.
