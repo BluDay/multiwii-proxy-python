@@ -48,7 +48,7 @@ class MspServoConf:
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `Msp` class.
+        instance of the `MspServoConf` class.
 
         Parameters
         ----------
@@ -57,8 +57,8 @@ class MspServoConf:
 
         Returns
         -------
-        Msp
-            An instance of the `Msp` class populated with the parsed data.
+        MspServoConf
+            An instance of the `MspServoConf` class populated with the parsed data.
         """
         conf_count = len(data) / 4
 
