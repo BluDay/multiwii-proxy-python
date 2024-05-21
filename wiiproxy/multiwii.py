@@ -70,13 +70,28 @@ from time   import sleep
 from typing import Final, NoReturn
 
 class MultiWii(object):
-    """The main class for wiiproxy that handles everything.
+    """The main class for wiiproxy that handles communication with MultiWii flight controllers.
     
-    This class merely requires an open serial port—with a baudrate of 115200—to be passed at
-    instantiation. Everything else—like the commands, the thread, each data instance—gets
-    created automatically.
+    This class requires an open serial port with a baudrate of 115200 to be passed at
+    instantiation.
 
-    Supports MSP v1 and not any of the newer versions.
+    Attributes
+    ----------
+    DEFAULT_MESSAGE_WRITE_READ_DELAY : float, constant
+        The default delay in seconds between writing and reading messages.
+    MSP_VERSION : int, constant
+        The version of the MultiWii Serial Protocol (MSP) supported (v1).
+
+    Attributes
+    ----------
+    _message_write_read_delay : float
+        The delay in seconds between writing and reading messages.
+    _serial_port : Serial
+        The serial port used for communication with the flight controller.
+
+    Note
+    ----
+    This class supports MSP v1 and does not support any newer versions.
     """
     
     # -------------------------------------- CONSTANTS -----------------------------------------
@@ -89,11 +104,11 @@ class MultiWii(object):
 
     _message_write_read_delay: float
 
-    _serial: Final[Serial]
+    _serial_port: Final[Serial]
 
     # ------------------------------------ DUNDER METHODS --------------------------------------
 
-    def __init__(self, serial: Serial) -> NoReturn:
+    def __init__(self, serial_port: Serial) -> NoReturn:
         """Initializes an instance using the provided serial port.
 
         This constructor initializes a new instance of the MultiWii class using the provided
@@ -114,12 +129,12 @@ class MultiWii(object):
         TypeError
             If the provided serial port instance is not an instance of the `Serial` class.
         """
-        if not isinstance(serial, Serial):
-            raise TypeError('"serial" must be an instance of "Serial".')
+        if not isinstance(serial_port, Serial):
+            raise TypeError('The serial port must be an instance of "Serial".')
 
         self._message_write_read_delay = self.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
-        self._serial = serial
+        self._serial_port = serial
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
@@ -129,9 +144,9 @@ class MultiWii(object):
         return self._message_write_read_delay
 
     @property
-    def serial(self) -> Serial:
-        """Gets the used serial instance that was provided at instantiation."""
-        return self._serial
+    def serial_port(self) -> Serial:
+        """Gets the serial port instance."""
+        return self._serial_port
 
     @message_write_read_delay.setter
     def message_write_read_delay(self, value: float) -> NoReturn:
@@ -158,7 +173,7 @@ class MultiWii(object):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _clear_serial_io_buffers(self) -> NoReturn:
+    def _clear_serial_port_io_buffers(self) -> NoReturn:
         """Resets the input and output buffers of the serial port.
 
         This method clears both the input and output buffers of the serial port,
@@ -168,7 +183,7 @@ class MultiWii(object):
 
         Note
         ----
-        This method directly accesses the underlying serial port object (_serial).
+        This method directly accesses the underlying serial port object (_serial_port).
         Ensure that the serial port has been properly initialized before calling
         this method.
 
@@ -177,8 +192,8 @@ class MultiWii(object):
         SerialException
             If an error occurs while resetting the buffers.
         """
-        self._serial.reset_input_buffer()
-        self._serial.reset_output_buffer()
+        self._serial_port.reset_input_buffer()
+        self._serial_port.reset_output_buffer()
 
     def _read_data(self, command: Command) -> tuple[int]:
         """Reads a message of the specified command and returns the unserialized data.
