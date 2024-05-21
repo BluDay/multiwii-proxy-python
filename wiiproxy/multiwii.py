@@ -182,10 +182,6 @@ class MultiWii(object):
         """Reads a message of the specified command and returns the unserialized data."""
         return self._read_message(command)[5:-1]
 
-    def _get_data_with_size(self, command: int) -> bytes:
-        """Reads a message of the specified command and returns the unserialized data."""
-        return self._read_message(command)[4:-1]
-
     def _read_message(self, command: int) -> bytes:
         """Reads a message from the FC with the specified command code.
 
