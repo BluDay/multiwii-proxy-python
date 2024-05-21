@@ -3,7 +3,7 @@
 __author__      = 'BluDay'
 __copyrights__  = '© 2024 BluDay'
 __credits__     = 'BluDay'
-__description__ = 'A user-friendly and multithreaded Python 3 module for controlling MultiWii-based drones.'
+__description__ = 'User-friendly Python 3 module for MultiWii-based drones'
 __license__     = 'MIT'
 __maintainer__  = 'BluDay'
 __title__       = 'WiiProxy'
