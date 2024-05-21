@@ -1,3 +1,5 @@
+from .command import Command
+
 from .commands import (
     MSP_ALTITUDE,
     MSP_ANALOG,
@@ -182,13 +184,18 @@ class MultiWii(object):
         """Reads a message of the specified command and returns the unserialized data."""
         return self._read_message(command)[5:-1]
 
-    def _read_message(self, command: int) -> bytes:
+    def _read_message(self, command: Command) -> tuple[int]:
         """Reads a message from the FC with the specified command code.
 
         Note
         ----
         This method sends a write message with empty values to the FC in order to retrieve a
         response message. Ensure that the FC is ready to to respond to the command code sent.
+
+        Parameters
+        ----------
+        command : Command
+            The MSP command to read a message for.
 
         Raises
         ------
@@ -199,8 +206,15 @@ class MultiWii(object):
         """
         pass
 
-    def _send_message(self, command: int, data: tuple[int] = None) -> NoReturn:
+    def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message to the FC with the specified command code and optional data values.
+
+        Parameters
+        ----------
+        command : Command
+            The MSP command to create a message for.
+        data : tuple[int]
+            Data values to serialize and include in the message payload.
 
         Raises
         ------
