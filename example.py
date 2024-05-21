@@ -1,16 +1,21 @@
 #! /usr/bin/env python3
 
+from wiiproxy.commands import MSP_IDENT, MSP_MISC, MSP_RC
+
 from wiiproxy.config import MultiWiiMultitype
 
-from wiiproxy.msp_commands import MSP_IDENT, MSP_MISC, MSP_RC
-from wiiproxy.msp_message  import MspMessage
+from wiiproxy.messaging import (
+    MESSAGE_ERROR_HEADER,
+    MESSAGE_INCOMING_HEADER,
+    MESSAGE_OUTGOING_HEADER
+)
 
-print(f'Header preamble: {MspMessage.HEADER_PREAMBLE}')
-print(f'Incoming header: {MspMessage.INCOMING_HEADER}')
-print(f'Outgoing header: {MspMessage.OUTGOING_HEADER}')
+print(f'Error header    : {MESSAGE_ERROR_HEADER}')
+print(f'Incoming header : {MESSAGE_INCOMING_HEADER}')
+print(f'Outgoing header : {MESSAGE_OUTGOING_HEADER}')
 
 print(repr(MSP_IDENT))
 print(repr(MSP_MISC))
 print(repr(MSP_RC))
 
-print(MultiWiiMultitype.QuadX)
+print(repr(MultiWiiMultitype.QuadX))
