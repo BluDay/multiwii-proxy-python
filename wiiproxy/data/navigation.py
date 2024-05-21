@@ -56,7 +56,7 @@ class MspRawGps:
         The GPS fix status.
     satellites : int
         The number of satellites in view.
-    coords : Coords2D[float]
+    coordinates : Coords2D[float]
         The GPS coordinates (latitude and longitude).
     altitude : int
         The altitude in meters.
@@ -69,7 +69,7 @@ class MspRawGps:
 
     satellites: int
 
-    coords: Coords2D[float]
+    coordinates: Coords2D[float]
 
     altitude: int
 
@@ -95,7 +95,7 @@ class MspRawGps:
         return cls(
             fix=data[0],
             satellites=data[1],
-            coords=Coords2D(
+            coordinates=Coords2D(
                 latitude=data[2] / 10000000.0,
                 longitude=data[3] / 10000000.0
             ),
@@ -116,7 +116,7 @@ class MspWaypoint:
     ----------
     number : int
         The waypoint number.
-    coords : Coords2D[int]
+    coordinates : Coords2D[int]
         The GPS coordinates (latitude and longitude) of the waypoint.
     alt_hold : int
         The altitude hold value in meters.
@@ -129,7 +129,7 @@ class MspWaypoint:
     """
     number: int
 
-    coords: Coords2D[int]
+    coordinates: Coords2D[int]
 
     alt_hold: int
 
@@ -156,7 +156,7 @@ class MspWaypoint:
         """
         return cls(
             number=data[0],
-            coords=Coords2D(
+            coordinates=Coords2D(
                 latitude=data[1] / 10000000.0,
                 longitude=data[2] / 10000000.0
             ),
