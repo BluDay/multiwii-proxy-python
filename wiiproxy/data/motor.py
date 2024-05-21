@@ -55,16 +55,40 @@ class MspMotor:
         return cls(*data)
 
 @dataclass
-class MspMotorPins(MspMotor):
+class MspMotorPins:
     """Represents data values for the MSP_MOTOR_PINS command.
 
     This class extends `MspMotor` to provide the motor pin values for up to eight motors
-    in a MultiWii flight controller. It inherits all attributes and methods from `MspMotor`.
+    in a MultiWii flight controller. Each motor's pin value is represented as an integer
+    value.
 
     Attributes
     ----------
-    Inherits all attributes from `MspMotor`.
+    motor 1: int
+        The pin value for motor 1.
+    motor 2: int
+        The pin value for motor 2.
+    motor 3: int
+        The pin value for motor 3.
+    motor 4: int
+        The pin value for motor 4.
+    motor 5: int
+        The pin value for motor 5.
+    motor 6: int
+        The pin value for motor 6.
+    motor 7: int
+        The pin value for motor 7.
+    motor 8: int
+        The pin value for motor 8.
     """
+    motor1: int
+    motor2: int
+    motor3: int
+    motor4: int
+    motor5: int
+    motor6: int
+    motor7: int
+    motor8: int
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
