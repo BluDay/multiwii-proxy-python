@@ -13,11 +13,11 @@ Supports only v1 of the [MultiWi Serial Protocol (MSP)](http://www.multiwii.com/
 from serial   import Serial
 from wiiproxy import MultiWii
 
-serial = Serial('/dev/ttyUSB0', baudrate=115200)
+serial_port = Serial('/dev/ttyUSB0', baudrate=115200)
 
-fc = MultiWii(serial)
+multiwii = MultiWii(serial_port)
 
-ident = fc.get_ident()
+ident = multiwii.get_ident()
 
-print(f'{ident.multitype}') # MultiWiiMultitype.QuadX
+print(repr(ident.multitype)) # <MultiWiiMultitype.QuadX: 3>
 ```
