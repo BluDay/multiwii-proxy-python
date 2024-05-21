@@ -195,7 +195,7 @@ class MultiWii(object):
         """
         return self._read_message(command)[5:-1]
 
-    def _read_message(self, command: Command) -> tuple[int]:
+    def _read_message(self, command: Command) -> bytes:
         """Reads a message from the FC with the specified command code.
 
         Note
@@ -214,6 +214,11 @@ class MultiWii(object):
             If the provided command code is invalid or not recognized.
         TimeoutError
             If a timeout occurs while waiting for the message from the FC.
+
+        Returns
+        -------
+        bytes
+            The bytes of the read/incoming message.
         """
         pass
 
