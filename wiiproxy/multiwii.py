@@ -244,87 +244,276 @@ class MultiWii(object):
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
     def get_altitude(self) -> MspAltitude:
-        """Sends an MSP_ALTITUDE command and gets the data instance."""
+        """Sends an MSP_ALTITUDE command and gets the data instance.
+
+        This method sends the MSP_ALTITUDE command to the MultiWii flight controller and
+        retrieves the corresponding altitude data.
+
+        Returns
+        -------
+        MspAltitude
+            An instance of the `MspAltitude` class populated with parsed altitude data.
+        """
         return MspAltitude.parse(self._read_data(MSP_ALTITUDE))
     
     def get_analog(self) -> MspAnalog:
-        """Sends an MSP_ANALOG command and gets the data instance."""
+        """Sends an MSP_ANALOG command and gets the data instance.
+
+        This method sends the MSP_ANALOG command to the MultiWii flight controller and
+        retrieves the corresponding analog data.
+
+        Returns
+        -------
+        MspAnalog
+            An instance of the `MspAnalog` class populated with parsed analog data.
+        """
         return MspAnalog.parse(self._read_data(MSP_ANALOG))
     
     def get_attitude(self) -> MspAttitude:
-        """Sends an MSP_ATTITUDE command and gets the data instance."""
+        """Sends an MSP_ATTITUDE command and gets the data instance.
+
+        This method sends the MSP_ATTITUDE command to the MultiWii flight controller and
+        retrieves the corresponding attitude data.
+
+        Returns
+        -------
+        MspAttitude
+            An instance of the `MspAttitude` class populated with parsed attitude data.
+        """
         return MspAttitude.parse(self._read_data(MSP_ATTITUDE))
     
     def get_box(self) -> MspBox:
-        """Sends an MSP_BOX command and gets the data instance."""
+        """Sends an MSP_BOX command and gets the data instance.
+
+        This method sends the MSP_BOX command to the MultiWii flight controller and
+        retrieves the corresponding box data.
+
+        Returns
+        -------
+        MspBox
+            An instance of the `MspBox` class populated with parsed box data.
+        """
         return MspBox.parse(self._read_data(MSP_BOX))
     
     def get_box_ids(self) -> MspBoxIds:
-        """Sends an MSP_BOXIDS command and gets the data instance."""
+        """Sends an MSP_BOXIDS command and gets the data instance.
+
+        This method sends the MSP_BOXIDS command to the MultiWii flight controller and
+        retrieves the corresponding box IDs data.
+
+        Returns
+        -------
+        MspBoxIds
+            An instance of the `MspBoxIds` class populated with parsed box IDs data.
+        """
         return MspBoxIds.parse(self._read_data(MSP_BOXIDS))
     
     def get_box_names(self) -> MspBoxNames:
-        """Sends an MSP_BOXNAMES command and gets the data instance."""
+        """Sends an MSP_BOXNAMES command and gets the data instance.
+
+        This method sends the MSP_BOXNAMES command to the MultiWii flight controller and
+        retrieves the corresponding box names data.
+
+        Returns
+        -------
+        MspBoxNames
+            An instance of the `MspBoxNames` class populated with parsed box names data.
+        """
         return MspBoxNames.parse(self._read_data(MSP_BOXNAMES))
     
     def get_comp_gps(self) -> MspCompGps:
-        """Sends an MSP_COMP_GPS command and gets the data instance."""
+        """Sends an MSP_COMP_GPS command and gets the data instance.
+        
+        This method sends the MSP_COMP_GPS command to the MultiWii flight controller and
+        retrieves the corresponding GPS comparison data.
+
+        Returns
+        -------
+        MspCompGps
+            An instance of the `MspCompGps` class populated with parsed GPS comparison data.
+        """
         return MspCompGps.parse(self._read_data(MSP_COMP_GPS))
     
     def get_ident(self) -> MspIdent:
-        """Sends an MSP_IDENT command and gets the data instance."""
+        """Sends an MSP_IDENT command and gets the data instance.
+
+        This method sends the MSP_IDENT command to the MultiWii flight controller and
+        retrieves the corresponding identification data.
+
+        Returns
+        -------
+        MspIdent
+            An instance of the `MspIdent` class populated with parsed identification data.
+        """
         return MspIdent.parse(self._read_data(MSP_IDENT))
     
     def get_misc(self) -> MspMisc:
-        """Sends an MSP_MISC command and gets the data instance."""
+        """Sends an MSP_MISC command and gets the data instance.
+
+        This method sends the MSP_MISC command to the MultiWii flight controller and
+        retrieves the corresponding miscellaneous data.
+
+        Returns
+        -------
+        MspMisc
+            An instance of the `MspMisc` class populated with parsed miscellaneous data.
+        """
         return MspMisc.parse(self._read_data(MSP_MISC))
     
     def get_motor(self) -> MspMotor:
-        """Sends an MSP_MOTOR command and gets the data instance."""
+        """Sends an MSP_MOTOR command and gets the data instance.
+
+        This method sends the MSP_MOTOR command to the MultiWii flight controller and
+        retrieves the corresponding motor data.
+
+        Returns
+        -------
+        MspMotor
+            An instance of the `MspMotor` class populated with parsed motor data.
+        """
         return MspMotor.parse(self._read_data(MSP_MOTOR))
     
     def get_motor_pins(self) -> MspMotorPins:
-        """Sends an MSP_MOTOR_PINS command and gets the data instance."""
+        """Sends an MSP_MOTOR_PINS command and gets the data instance.
+
+        This method sends the MSP_MOTOR_PINS command to the MultiWii flight controller and
+        retrieves the corresponding motor pins data.
+
+        Returns
+        -------
+        MspMotorPins
+            An instance of the `MspMotorPins` class populated with parsed motor pins data.
+        """
         return MspMotorPins.parse(self._read_data(MSP_MOTOR_PINS))
 
     def get_pid(self) -> MspPid:
-        """Sends an MSP_PID command and gets the data instance."""
+        """Sends an MSP_PID command and gets the data instance.
+
+        This method sends the MSP_PID command to the MultiWii flight controller and
+        retrieves the corresponding PID data.
+
+        Returns
+        -------
+        MspPid
+            An instance of the `MspPid` class populated with parsed PID data.
+        """
         return MspPid.parse(self._read_data(MSP_PID))
 
     def get_pid_names(self) -> tuple[str]:
-        """Sends an MSP_PIDNAMES command and gets the data instance."""
+        """Sends an MSP_PIDNAMES command and gets the data instance.
+
+        This method sends the MSP_PIDNAMES command to the MultiWii flight controller and
+        retrieves the corresponding PID names data.
+
+        Returns
+        -------
+        MspPidNames
+            An instance of the `MspPidNames` class populated with parsed PID names data.
+        """
         return MspPidNames.parse(self._read_data(MSP_PIDNAMES))
     
     def get_raw_gps(self) -> MspRawGps:
-        """Sends an MSP_RAW_GPS command and gets the data instance."""
+        """Sends an MSP_RAW_GPS command and gets the data instance.
+
+        This method sends the MSP_RAW_GPS command to the MultiWii flight controller and
+        retrieves the corresponding raw GPS data.
+
+        Returns
+        -------
+        MspRawGps
+            An instance of the `MspRawGps` class populated with parsed raw GPS data.
+        """
         return MspRawGps.parse(self._read_data(MSP_RAW_GPS))
     
     def get_raw_imu(self) -> MspRawImu:
-        """Sends an MSP_RAW_IMU command and gets the data instance."""
+        """Sends an MSP_RAW_IMU command and gets the data instance.
+
+        This method sends the MSP_RAW_IMU command to the MultiWii flight controller and
+        retrieves the corresponding raw IMU data.
+
+        Returns
+        -------
+        MspRawImu
+            An instance of the `MspRawImu` class populated with parsed raw IMU data.
+        """
         return MspRawImu.parse(self._read_data(MSP_RAW_IMU))
     
     def get_rc(self) -> MspRc:
-        """Sends an MSP_RC command and gets the data instance."""
+        """Sends an MSP_RC command and gets the data instance.
+
+        This method sends the MSP_RC command to the MultiWii flight controller and
+        retrievesthe corresponding RC data.
+
+        Returns
+        -------
+        MspRc
+            An instance of the `MspRc` class populated with parsed RC data.
+        """
         return MspRc.parse(self._read_data(MSP_RC))
     
     def get_rc_tuning(self) -> MspRcTuning:
-        """Sends an MSP_RC_TUNING command and gets the data instance."""
+        """Sends an MSP_RC_TUNING command and gets the data instance.
+
+        This method sends the MSP_RC_TUNING command to the MultiWii flight controller and
+        retrieves the corresponding RC tuning data.
+
+        Returns
+        -------
+        MspRcTuning
+            An instance of the `MspRcTuning` class populated with parsed RC tuning data.
+        """
         return MspRcTuning.parse(self._read_data(MSP_RC_TUNING))
 
     def get_servo(self) -> MspServo:
-        """Sends an MSP_SERVO command and gets the data instance."""
+        """Sends an MSP_SERVO command and gets the data instance.
+
+        This method sends the MSP_SERVO command to the MultiWii flight controller and
+        retrieves the corresponding servo data.
+
+        Returns
+        -------
+        MspServo
+            An instance of the `MspServo` class populated with parsed servo data.
+        """
         return MspServo.parse(self._read_data(MSP_SERVO))
     
     def get_servo_conf(self) -> MspServoConf:
-        """Sends an MSP_SERVO_CONF command and gets the data instance."""
+        """Sends an MSP_SERVO_CONF command and gets the data instance.
+
+        This method sends the MSP_SERVO_CONF command to the MultiWii flight controller and
+        retrieves the corresponding servo configuration data.
+
+        Returns
+        -------
+        MspServoConf
+            An instance of the `MspServoConf` class populated with parsed servo config data.
+        """
         return MspServoConf.parse(self._read_data(MSP_SERVO_CONF))
     
     def get_status(self) -> MspStatus:
-        """Sends an MSP_STATUS command and gets the data instance."""
+        """Sends an MSP_STATUS command and gets the data instance.
+
+        This method sends the MSP_STATUS command to the MultiWii flight controller and
+        retrieves the corresponding system status data.
+
+        Returns
+        -------
+        MspStatus
+            An instance of the `MspStatus` class populated with parsed system status data.
+        """
         return MspStatus.parse(self._read_data(MSP_STATUS))
     
     def get_waypoint(self) -> MspWaypoint:
-        """Sends an MSP_WP command and gets the data instance."""
+        """Sends an MSP_WP command and gets the data instance.
+
+        This method sends the MSP_WP command to the MultiWii flight controller and
+        retrieves the corresponding GPS waypoint data.
+
+        Returns
+        -------
+        MspWaypoint
+            An instance of the `MspWaypoint` class populated with parsed GPS waypoint data.
+        """
         return MspWaypoint.parse(self._read_data(MSP_WP))
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
