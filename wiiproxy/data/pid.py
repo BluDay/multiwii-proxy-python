@@ -20,19 +20,19 @@ class MspPid:
         The PID values for the pitch axis.
     yaw : PidValues[int]
         The PID values for the yaw axis.
-    alt : PidValues[int]
+    altitude_hold : PidValues[int]
         The PID values for the altitude hold.
-    pos : PidValues[int]
+    position_hold : PidValues[int]
         The PID values for the position hold.
-    posr : PidValues[int]
+    position_rate : PidValues[int]
         The PID values for the position rate.
-    navr : PidValues[int]
+    navigation_rate : PidValues[int]
         The PID values for the navigation rate.
-    level : PidValues[int]
+    level_mode : PidValues[int]
         The PID values for the level mode.
-    mag : PidValues[int]
+    magnetometer : PidValues[int]
         The PID values for the magnetometer.
-    vel : PidValues[int]
+    velocity : PidValues[int]
         The PID values for the velocity.
     """
     roll: PidValues[int]
@@ -41,19 +41,19 @@ class MspPid:
 
     yaw: PidValues[int]
 
-    alt: PidValues[int]
+    altitude_hold: PidValues[int]
 
-    pos: PidValues[int]
+    position_hold: PidValues[int]
 
-    posr: PidValues[int]
+    position_rate: PidValues[int]
 
-    navr: PidValues[int]
+    navigation_rate: PidValues[int]
 
-    level: PidValues[int]
+    level_mode: PidValues[int]
 
-    mag: PidValues[int]
+    magnetometer: PidValues[int]
 
-    vel: PidValues[int]
+    velocity: PidValues[int]
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
