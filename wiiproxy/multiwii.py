@@ -715,7 +715,7 @@ class MultiWii(object):
         data : tuple[MspServoConfItem]
             A tuple with instances of the `MspServoConfItem` class populated with values.
         """
-        self._send_message(MSP_SET_SERVO_CONF)
+        self._send_message(MSP_SET_SERVO_CONF, data)
 
     def set_waypoint(self, data: MspWaypoint) -> NoReturn:
         """Sends an MSP_SET_WP command.
