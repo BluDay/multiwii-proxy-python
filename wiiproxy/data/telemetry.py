@@ -1,4 +1,4 @@
-from . import Point2D, Point3D
+from . import Point3D
 
 from dataclasses import dataclass
 from typing      import Self
@@ -45,14 +45,18 @@ class MspAttitude:
 
     Attributes
     ----------
-    angle : Point2D[float]
-        The angles in the pitch and roll axes.
-    heading : int
-        The heading angle.
+    pitch_angle : float
+        The pitch angle of the aircraft in degrees, ranging from -180 to 180.
+    roll_angle : float
+        The roll angle of the aircraft in degrees, ranging from -90 to 90.
+    yaw_angle : int
+        The heading angle of the aircraft in degrees, ranging from 0 to 360.
     """
-    angle: Point2D[float]
+    pitch_angle: float
 
-    heading: int
+    roll_angle: float
+
+    yaw_angle: int
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -70,11 +74,9 @@ class MspAttitude:
             An instance of the `MspAttitude` class populated with the parsed data.
         """
         return cls(
-            angle=Point2D(
-                x=data[0] / 10.0,
-                y=data[1] / 10.0
-            ),
-            heading=data[3]
+            pitch_angle=data[0] / 10.0,
+            roll_angle=data[1] / 10.0,
+            yaw_angle=data[3]
         )
 
 @dataclass
