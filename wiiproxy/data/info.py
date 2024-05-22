@@ -68,7 +68,7 @@ class MspIdent:
         The vehicle configuration type.
     capabilities : tuple[MultiWiiCapability]
         A tuple representing the capabilities of the flight controller.
-    navi_version : int
+    navigation_version : int
         The navigation version of the firmware.
     """
     version: int
@@ -77,7 +77,7 @@ class MspIdent:
 
     capabilities: tuple[MultiWiiCapability]
 
-    navi_version: int
+    navigation_version: int
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -104,7 +104,7 @@ class MspIdent:
             version=data[0],
             multitype=MultiWiiMultitype(data[1]),
             capabilities=capabilities,
-            navi_version=data[3]
+            navigation_version=data[3]
         )
 
 @dataclass
@@ -127,17 +127,17 @@ class MspMisc:
         The minimum throttle value.
     throttle_max : int
         The maximum throttle value.
-    plog_arm : int
+    power_logger_arm : int
         The power logger arm value.
-    plog_lifetime : int
+    power_logger_lifetime : int
         The power logger lifetime value.
-    mag_declination : float
+    magnetometer_declination : float
         The magnetic declination value, measured in degrees.
     battery_scale : int
         The battery scale value.
-    battery_warn_1 : float
+    battery_warning_1 : float
         The first battery warning level, measured in volts.
-    battery_warn_2 : float
+    battery_warning_2 : float
         The second battery warning level, measured in volts.
     battery_critical : float
         The critical battery level, measured in volts.
@@ -152,17 +152,17 @@ class MspMisc:
 
     throttle_max: int
 
-    plog_arm: int
+    power_logger_arm: int
 
-    plog_lifetime: int
+    power_logger_lifetime: int
 
-    mag_declination: float
+    magnetometer_declination: float
 
     battery_scale: int
 
-    battery_warn_1: float
+    battery_warning_1: float
 
-    battery_warn_2: float
+    battery_warning_2: float
 
     battery_critical: float
 
@@ -187,12 +187,12 @@ class MspMisc:
             throttle_idle=data[2],
             throttle_min=data[3],
             throttle_max=data[4],
-            plog_arm=data[5],
-            plog_lifetime=data[6],
-            mag_declination=data[7] / 10.0,
+            power_logger_arm=data[5],
+            power_logger_lifetime=data[6],
+            magnetometer_declination=data[7] / 10.0,
             battery_scale=data[8],
-            battery_warn_1=data[9] / 10.0,
-            battery_warn_2=data[10] / 10.0,
+            battery_warning_1=data[9] / 10.0,
+            battery_warning_2=data[10] / 10.0,
             battery_critical=data[11] / 10.0
         )
 
