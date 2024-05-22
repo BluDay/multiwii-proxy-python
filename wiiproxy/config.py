@@ -37,10 +37,10 @@ class MultiWiiBoxState(IntEnum):
     The state indicates whether the box is unselected (Empty), or selected at a LOW (Low),
     MID (Mid), or HIGH (High) position.
     """
-    Empty = 0
-    Low   = 1
-    Mid   = 2
-    High  = 3
+    Empty = 0b000
+    Low   = 0b001
+    Mid   = 0b010
+    High  = 0b100
 
 @unique
 class MultiWiiCapability(IntEnum):
