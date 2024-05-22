@@ -94,10 +94,16 @@ class MspIdent:
         MspIdent
             An instance of the `MspIdent` class populated with the parsed data.
         """
+        capabilitites = ()
+
+        for capability in MultiWiiCapability:
+            if capability & data[2]:
+                capabilities += (capability,)
+
         return cls(
             version=data[0],
             multitype=MultiWiiMultitype(data[1]),
-            capabilities=MultiWiiCapability.get_capabilities(data[2]),
+            capabilities=capabilities,
             navi_version=data[3]
         )
 
@@ -295,10 +301,16 @@ class MspStatus:
         MspStatus
             An instance of the `MspStatus` class populated with the parsed data.
         """
+        sensors = ()
+
+        for sensor in cls:
+            if sensor | data[2]:
+                sensors += (sensor,)
+
         return cls(
             cycle_time=data[0],
             i2c_errors=data[1],
-            sensors=(), # Placeholder value.
+            sensors=sensors,
             flag=data[3],
             global_conf=data[4]
         )
