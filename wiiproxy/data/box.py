@@ -72,10 +72,10 @@ class MspBoxItem(NamedTuple):
     MultiWii flight controller. Each box can be assigned a specific function or mode,
     and its state can be set to the following values:
 
-        * (Unselected) (Empty)
-        * LOW (Low)
-        * MID (Mid)
-        * HIGH (High)
+        * Empty (0b000) (Unselected)
+        * Low   (0b001) (LOW)
+        * Mid   (0b010) (MID)
+        * High  (0b100) (HIGH)
 
     Attributes
     ----------
@@ -102,7 +102,7 @@ class MspBoxItem(NamedTuple):
             The compiled integer value representing the combined state of all auxiliary
             control boxes.
         """
-        pass
+        return self.aux1 | self.aux2 << 3 | self.aux3 << 6 | self.aux4 << 9
 
 @dataclass
 class MspBoxNames:
