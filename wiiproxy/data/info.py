@@ -303,7 +303,7 @@ class MspStatus:
         """
         sensors = ()
 
-        for sensor in cls:
+        for sensor in MultiWiiSensor:
             if sensor | data[2]:
                 sensors += (sensor,)
 
