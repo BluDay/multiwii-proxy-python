@@ -96,8 +96,10 @@ class MspIdent:
         """
         capabilitites = ()
 
+        available_capabilities = data[2]
+
         for capability in MultiWiiCapability:
-            if capability & data[2]:
+            if capability & available_capabilities == capability:
                 capabilities += (capability,)
 
         return cls(
@@ -303,8 +305,10 @@ class MspStatus:
         """
         sensors = ()
 
+        available_sensors = data[2]
+
         for sensor in MultiWiiSensor:
-            if sensor & data[2] == sensor:
+            if sensor & available_sensors == sensor:
                 sensors += (sensor,)
 
         return cls(
