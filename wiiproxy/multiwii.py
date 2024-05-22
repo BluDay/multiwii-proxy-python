@@ -134,7 +134,7 @@ class MultiWii(object):
 
         self._message_write_read_delay = self.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
-        self._serial_port = serial
+        self._serial_port = serial_port
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
