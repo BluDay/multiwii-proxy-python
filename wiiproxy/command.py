@@ -1,3 +1,5 @@
+from .messaging import _PAYLOAD_STRUCT_FORMAT
+
 from struct import calcsize
 from typing import Final, NoReturn
 
@@ -13,39 +15,43 @@ class Command(object):
     ----------
     _code : int
         The unique code representing the specific MSP command.
+    _data_struct_format : str
+        The `struct` format string used for packing bytes for a data structure.
+    _data_struct_format_size : int
+        The size of the structure format, representing a fixed size of the data values.
     _has_variable_size : bool
         Indicates whether the command has a variable size payload.
     _is_set_command : bool
         Indicates whether the command is a set or get command.
-    _struct_format : str
-        The format used for packing and unpacking a corresponding payload.
-    _struct_format_size : int
-        The size of the structure format, representing a fixed size of the data values.
+    _payload_struct_format : str
+        The `struct` format string used for packing and unpacking payload bytes.
     """
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     _code: Final[int]
 
+    _data_struct_format: Final[str]
+
+    _data_struct_format_size: Final[int]
+
     _has_variable_size: Final[bool]
 
     _is_set_command: Final[bool]
 
-    _struct_format: Final[str]
-
-    _struct_format_size: Final[int]
+    _payload_struct_format: Final[str]
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
-    def __init__(self, code: int, struct_format: str) -> NoReturn:
+    def __init__(self, code: int, data_struct_format: str) -> NoReturn:
         """Initializes an instance using the provided code and struct format.
 
         Parameters
         ----------
         code : int
             The unique code representing the specific MSP command. Must be between 100 and 240.
-        struct_format : str
-            The format used for packing and unpacking a corresponding payload.
+        data_struct_format : str
+            The `struct` format string used for packing and unpacking a corresponding payload.
 
         Raises
         ------
@@ -57,27 +63,27 @@ class Command(object):
 
         self._code = code
 
-        self._is_set_command = code >= 200
+        has_variable_size = False
 
-        if struct_format:
-            has_variable_size = struct_format[0] == '*'
+        if data_struct_format:
+            has_variable_size = data_struct_format[0] == '*'
 
             if has_variable_size:
-                struct_format = struct_format[1:]
+                data_struct_format = data_struct_format[1:]
 
-            self._has_variable_size = has_variable_size
+            self._data_struct_format_size = calcsize(f'<{data_struct_format}')
 
-            self._struct_format_size = calcsize(f'<{struct_format}')
+            self._data_struct_format = data_struct_format
+        else:
+            self._data_struct_format = None
 
-            self._struct_format = struct_format
+            self._data_struct_format_size = None
 
-            return
+        self._has_variable_size = has_variable_size
+        
+        self._is_set_command = code >= 200
 
-        self._has_variable_size = False
-
-        self._struct_format = None
-
-        self._struct_format_size = None
+        self._payload_struct_format = _PAYLOAD_STRUCT_FORMAT + data_struct_format
 
     def __int__(self) -> int:
         """Represents the object as an integer value using the command code."""
@@ -85,21 +91,21 @@ class Command(object):
 
     def __repr__(self) -> str:
         """Gets a string representation of the object."""
-        struct_format = self._struct_format
+        data_struct_format = self._data_struct_format
 
         if self._has_variable_size:
-            struct_format = f'*{struct_format}'
+            data_struct_format = f'*{data_struct_format}'
 
         return '{}<{}, "{}", {}>'.format(
             self.__class__.__name__,
             self._code,
-            struct_format,
-            self._struct_format_size
+            data_struct_format,
+            self._data_struct_format_size
         )
 
     def __str__(self) -> str:
         """Represents the object as a string value using the `struct` format."""
-        return self._struct_format
+        return self._data_struct_format
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
@@ -109,8 +115,18 @@ class Command(object):
         return self._code
 
     @property
+    def data_struct_format(self) -> str:
+        """Gets the `struct `data structure format string."""
+        return self._data_struct_format
+
+    @property
+    def data_struct_format_size(self) -> int:
+        """Gets the data structure format size."""
+        return self._data_struct_format_size
+
+    @property
     def has_variable_size(self) -> bool:
-        """Gets a value indicative whether the payload size is variable."""
+        """Gets a value indicative whether the data size is variable."""
         return self._has_variable_size
 
     @property
@@ -119,11 +135,6 @@ class Command(object):
         return self._is_set_command
 
     @property
-    def struct_format(self) -> str:
-        """Gets the payload format to use with the `struct` submodule."""
-        return self._struct_format
-
-    @property
-    def struct_format_size(self) -> int:
-        """Gets the payload format size."""
-        return self._struct_format_size
+    def payload_struct_format(self) -> str:
+        """Gets the `struct` payload format string."""
+        return self._payload_struct_format
