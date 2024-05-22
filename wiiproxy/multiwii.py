@@ -140,12 +140,24 @@ class MultiWii(object):
     
     @property
     def message_write_read_delay(self) -> float:
-        """Gets the delay (in seconds) between each write and read message."""
+        """Gets the delay (in seconds) between each write and read message.
+
+        Returns
+        -------
+        float
+            The delay in seconds.
+        """
         return self._message_write_read_delay
 
     @property
     def serial_port(self) -> Serial:
-        """Gets the serial port instance."""
+        """Gets the serial port instance.
+
+        Returns
+        -------
+        Serial
+            The serial port instance.
+        """
         return self._serial_port
 
     @message_write_read_delay.setter
@@ -155,6 +167,11 @@ class MultiWii(object):
         This property controls the delay between each write message followed by a read message
         sent to the FC. A message with empty data values is sent first, followed by a delay,
         and then a read message to retrieve information from the FC.
+
+        Parameters
+        ----------
+        value : float
+            The delay in seconds.
 
         Raises
         ------
