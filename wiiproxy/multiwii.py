@@ -543,7 +543,7 @@ class MultiWii(object):
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
 
-    def bind(self) -> NoReturn:
+    def bind_transmitter_and_receiver(self) -> NoReturn:
         """Sends an MSP_BIND command.
 
         This command initiates the binding process between the transmitter (radio controller)
@@ -557,7 +557,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_BIND)
 
-    def calibrate_acc(self) -> NoReturn:
+    def calibrate_accelerometer(self) -> NoReturn:
         """Sends an MSP_ACC_CALIBRATION command.
 
         This command initiates the accelerometer calibration process on the FC. Accelerometer
@@ -571,7 +571,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_ACC_CALIBRATION)
 
-    def calibrate_mag(self) -> NoReturn:
+    def calibrate_magnetometer(self) -> NoReturn:
         """Sends an MSP_MAG_CALIBRATION command.
 
         This command initiates the magnetometer (compass) calibration process on the FC.
@@ -586,7 +586,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_ACC_CALIBRATION)
 
-    def reset_conf(self) -> NoReturn:
+    def reset_config(self) -> NoReturn:
         """Sends an MSP_RESET_CONF command.
 
         This command resets the configuration settings on the FC to their default values.
@@ -601,7 +601,20 @@ class MultiWii(object):
         """
         self._send_message(MSP_RESET_CONF)
 
-    def set_box(self, data: tuple[MspBoxItem]) -> NoReturn:
+    def save_config_to_eeprom(self) -> NoReturn:
+        """Sends an MSP_EEPROM_WRITE command.
+
+        This command writes the current configuration settings to the EEPROM of the FC. 
+
+        Notes
+        -----
+        Writing to EEPROM should be done with caution, as it modifies the stored config
+        directly. Ensure that the values written are valid and intended, as incorrect
+        values could lead to unexpected behavior or instability.
+        """
+        self._send_message(MSP_EEPROM_WRITE)
+
+    def set_boxes(self, data: tuple[MspBoxItem]) -> NoReturn:
         """Sends an MSP_SET_BOX command.
 
         Sets the flight modes (or "boxes") config on the FC. Flight modes define the behavior
@@ -635,7 +648,7 @@ class MultiWii(object):
 
         self._send_message(MSP_SET_HEAD, data=(range,))
 
-    def set_misc(self, data: MspSetMisc) -> NoReturn:
+    def set_misc_config(self, data: MspSetMisc) -> NoReturn:
         """Sends an MSP_SET_MISC command.
 
         Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
@@ -648,7 +661,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MISC, data)
 
-    def set_motor(self, data: MspMotor) -> NoReturn:
+    def set_motors(self, data: MspMotor) -> NoReturn:
         """Sends an MSP_SET_MOTOR command.
 
         Sets the motor output values on the FC. Motor output values determine the throttle level
@@ -661,7 +674,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_MOTOR, data)
 
-    def set_pid(self, data: MspPid) -> NoReturn:
+    def set_pid_values(self, data: MspPid) -> NoReturn:
         """Sends an MSP_SET_PID command.
 
         Sets the PID values on the FC. PID values are used to adjust the stability and response
@@ -714,7 +727,7 @@ class MultiWii(object):
         """
         self._send_message(MSP_SET_RC_TUNING, data)
 
-    def set_servo_conf(self, data: tuple[MspServoConfItem]) -> NoReturn:
+    def set_servo_config(self, data: tuple[MspServoConfItem]) -> NoReturn:
         """Sends an MSP_SET_SERVO_CONF command.
 
         Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
@@ -740,16 +753,3 @@ class MultiWii(object):
             An instance of the `MspWaypoint` class populated with values.
         """
         self._send_message(MSP_SET_WP, data)
-
-    def write_eeprom(self) -> NoReturn:
-        """Sends an MSP_EEPROM_WRITE command.
-
-        This command writes the current configuration settings to the EEPROM of the FC. 
-
-        Notes
-        -----
-        Writing to EEPROM should be done with caution, as it modifies the stored config
-        directly. Ensure that the values written are valid and intended, as incorrect
-        values could lead to unexpected behavior or instability.
-        """
-        self._send_message(MSP_EEPROM_WRITE)
