@@ -304,7 +304,7 @@ class MspStatus:
         sensors = ()
 
         for sensor in MultiWiiSensor:
-            if sensor | data[2]:
+            if sensor & data[2] == sensor:
                 sensors += (sensor,)
 
         return cls(
