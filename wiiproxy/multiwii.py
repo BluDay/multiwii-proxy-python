@@ -82,13 +82,6 @@ class MultiWii(object):
     MSP_VERSION : int, constant
         The version of the MultiWii Serial Protocol (MSP) supported (v1).
 
-    Attributes
-    ----------
-    _message_write_read_delay : float
-        The delay in seconds between writing and reading messages.
-    _serial_port : Serial
-        The serial port used for communication with the flight controller.
-
     Note
     ----
     This class supports MSP v1 and does not support any newer versions.
