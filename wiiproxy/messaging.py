@@ -1,7 +1,7 @@
 from .command import Command
 
 from typing import Final
-from struct import pack as struct_pack
+from struct import calcsize, pack as struct_pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
@@ -18,6 +18,18 @@ MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
+
+def _create_payload_struct_format(data_struct_format: str) -> str:
+    """Creates a `struct` payload format string using the provided data structure format.
+
+    Returns
+    -------
+    str
+        The complete payload format string to be used with `struct`.
+    """
+    data_size = calcsize(_ENDIANNESS + data_struct_format)
+
+    return _ENDIANNESS + 'B' if data_size <= 0xff else 'H'
 
 def calculate_checksum(payload: bytes) -> int:
     """Calculates the checksum for the payload using an XOR CRC.
