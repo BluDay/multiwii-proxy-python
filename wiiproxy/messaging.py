@@ -19,7 +19,7 @@ MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
 
-def calculate_checksum(payload: bytes) -> int:
+def _calculate_checksum(payload: bytes) -> int:
     """Calculates the checksum for the payload using an XOR CRC.
 
     Parameters
@@ -64,7 +64,7 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
 
     serialized_checksum = struct_pack(
         _CHECKSUM_STRUCT_FORMAT,
-        calculate_checksum(serialized_payload)
+        _calculate_checksum(serialized_payload)
     )
 
     return MESSAGE_OUTGOING_HEADER + serialized_payload + serialized_checksum
