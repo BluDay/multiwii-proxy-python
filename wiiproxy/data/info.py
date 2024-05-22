@@ -214,19 +214,19 @@ class MspSetMisc:
         The maximum throttle value.
     min_command : int
         The minimum command value.
-    failsafe_throttle : int
+    throttle_failsafe : int
         The throttle value for failsafe.
-    plog_arm : int
+    power_logger_arm : int
         The power logger arm value.
-    plog_lifetime : int
+    power_logger_lifetime : int
         The power logger lifetime value.
-    mag_declination : float
+    magnetometer_declination : float
         The magnetic declination value, measured in degrees.
     battery_scale : int
         The battery scale value.
-    battery_warn_1 : float
+    battery_warning_1 : float
         The first battery warning level, measured in volts.
-    battery_warn_2 : float
+    battery_warning_2 : float
         The second battery warning level, measured in volts.
     battery_critical : float
         The critical battery level, measured in volts.
@@ -239,19 +239,19 @@ class MspSetMisc:
 
     min_command: int
 
-    failsafe_throttle: int
+    throttle_failsafe: int
 
-    plog_arm: int
+    power_logger_arm: int
 
-    plog_lifetime: int
+    power_logger_lifetime: int
 
-    mag_declination: float
+    magnetometer_declination: float
 
     battery_scale: int
 
-    battery_warn_1: float
+    battery_warning_1: float
 
-    battery_warn_2: float
+    battery_warning_2: float
 
     battery_critical: float
 
@@ -271,9 +271,9 @@ class MspStatus:
         The count of I2C errors.
     sensors : tuple[MultiWiiSensor]
         A tuple representing the sensors' status.
-    flag : int
+    status_flag : int
         The status flag.
-    global_conf : int
+    global_config : int
         The global configuration value.
     """
     cycle_time: int
@@ -282,9 +282,9 @@ class MspStatus:
 
     sensors: tuple[MultiWiiSensor]
 
-    flag: int
+    status_flag: int
 
-    global_conf: int
+    global_config: int
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -311,6 +311,6 @@ class MspStatus:
             cycle_time=data[0],
             i2c_errors=data[1],
             sensors=sensors,
-            flag=data[3],
-            global_conf=data[4]
+            status_flag=data[3],
+            global_config=data[4]
         )
