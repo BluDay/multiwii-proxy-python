@@ -88,26 +88,26 @@ class MspRawImu:
 
     Attributes
     ----------
-    acc : Point3D[float]
+    accelerometer : Point3D[float]
         The accelerometer data.
-    gyro : Point3D[float]
+    gyroscope : Point3D[float]
         The gyroscope data.
-    mag : Point3D[float]
+    magnetometer : Point3D[float]
         The magnetometer data.
     """
-    acc: Point3D[float]
+    accelerometer: Point3D[float]
 
-    gyro: Point3D[float]
+    gyroscope: Point3D[float]
 
-    mag: Point3D[float]
+    magnetometer: Point3D[float]
 
     @classmethod
     def parse(
         cls,
-        data:      tuple,
-        acc_unit:  int = 1.0,
-        gyro_unit: int = 1.0,
-        mag_unit:  int = 1.0
+        data:               tuple,
+        accelerometer_unit: int = 1.0,
+        gyroscope_unit:     int = 1.0,
+        magnetometer_unit:  int = 1.0
     ) -> Self:
         """Parses a tuple of data values obtained from `struct.unpack` and returns an
         instance of the `MspRawImu` class.
@@ -116,11 +116,11 @@ class MspRawImu:
         ----------
         data : tuple
             A tuple containing unpacked data values.
-        acc_unit : int, optional
+        accelerometer_unit : int, optional
             The unit conversion factor for the accelerometer data (default is 1.0).
-        gyro_unit : int, optional
+        gyroscope_unit : int, optional
             The unit conversion factor for the gyroscope data (default is 1.0).
-        mag_unit : int, optional
+        magnetometer_unit : int, optional
             The unit conversion factor for the magnetometer data (default is 1.0).
 
         Returns
@@ -130,18 +130,18 @@ class MspRawImu:
         """
         return cls(
             acc=Point3D(
-                x=data[0] / acc_unit,
-                y=data[1] / acc_unit,
-                z=data[2] / acc_unit
+                x=data[0] / accelerometer_unit,
+                y=data[1] / accelerometer_unit,
+                z=data[2] / accelerometer_unit
             ),
             gyro=Point3D(
-                x=data[3] / gyro_unit,
-                y=data[4] / gyro_unit,
-                z=data[5] / gyro_unit
+                x=data[3] / gyroscope_unit,
+                y=data[4] / gyroscope_unit,
+                z=data[5] / gyroscope_unit
             ),
             mag=Point3D(
-                x=data[6] / mag_unit,
-                y=data[7] / mag_unit,
-                z=data[8] / mag_unit
+                x=data[6] / magnetometer_unit,
+                y=data[7] / magnetometer_unit,
+                z=data[8] / magnetometer_unit
             )
         )
