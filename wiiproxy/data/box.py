@@ -34,7 +34,7 @@ class MspBox:
         MspBox
             An instance of the `MspBox` class populated with the parsed data.
         """
-        return cls(values=data)
+        return cls(data)
 
 @dataclass
 class MspBoxIds:
@@ -62,7 +62,7 @@ class MspBoxIds:
         MspBoxIds
             An instance of the `MspBoxIds` class populated with the parsed data.
         """
-        return cls(values=tuple(MultiWiiBox(value) for value in data))
+        return cls(tuple(MultiWiiBox(value) for value in data))
 
 @dataclass
 class MspBoxItem(NamedTuple):
@@ -134,4 +134,4 @@ class MspBoxNames:
         MspBoxNames
             An instance of the `MspBoxNames` class populated with the parsed data.
         """
-        return cls(names=decode_names(data))
+        return cls(decode_names(data))
