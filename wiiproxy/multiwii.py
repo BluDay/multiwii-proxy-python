@@ -211,7 +211,7 @@ class MultiWii(object):
         Parameters
         ----------
         command : Command
-            The MSP command to read a message for.
+            An instance of Command representing the MSP command used to read the data.
 
         Returns
         -------
@@ -221,7 +221,7 @@ class MultiWii(object):
         return self._read_message(command)[5:-1]
 
     def _read_message(self, command: Command) -> bytes:
-        """Reads a message from the FC with the specified command code.
+        """Reads a message using the specified MSP command.
 
         Notes
         -----
@@ -231,7 +231,7 @@ class MultiWii(object):
         Parameters
         ----------
         command : Command
-            The MSP command to read a message for.
+            An instance of Command representing the MSP command used to read the message.
 
         Raises
         ------
@@ -248,12 +248,12 @@ class MultiWii(object):
         pass
 
     def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
-        """Sends a message to the FC with the specified command code and optional data values.
+        """Sends a message with the specified MSP command and optional data values.
 
         Parameters
         ----------
         command : Command
-            The MSP command to create a message for.
+            An instance of Command representing the MSP command used to write the message.
         data : tuple[int]
             Data values to serialize and include in the message payload.
 
