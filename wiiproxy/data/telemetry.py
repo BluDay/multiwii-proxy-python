@@ -129,17 +129,17 @@ class MspRawImu:
             An instance of the `MspRawImu` class populated with the parsed data.
         """
         return cls(
-            acc=Point3D(
+            accelerometer=Point3D(
                 x=data[0] / accelerometer_unit,
                 y=data[1] / accelerometer_unit,
                 z=data[2] / accelerometer_unit
             ),
-            gyro=Point3D(
+            gyroscope=Point3D(
                 x=data[3] / gyroscope_unit,
                 y=data[4] / gyroscope_unit,
                 z=data[5] / gyroscope_unit
             ),
-            mag=Point3D(
+            magnetometer=Point3D(
                 x=data[6] / magnetometer_unit,
                 y=data[7] / magnetometer_unit,
                 z=data[8] / magnetometer_unit
