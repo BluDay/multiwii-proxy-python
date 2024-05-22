@@ -1,6 +1,15 @@
+from .command import Command
+
 from typing import Final
+from struct import pack as struct_pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
+
+_ENDIANNESS: Final[str] = '<'
+
+_PAYLOAD_STRUCT_FORMAT:  Final[str] = _ENDIANNESS + 'BH'
+
+_CHECKSUM_STRUCT_FORMAT: Final[str] = _ENDIANNESS + 'B'
 
 MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 
@@ -9,6 +18,56 @@ MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
+
+def calculate_checksum(payload: bytes) -> int:
+    """Calculates the checksum for the payload using an XOR CRC.
+
+    Parameters
+    ----------
+    payload : bytes
+        Bytes of the full payload (including the command code and size).
+
+    Returns
+    -------
+    int
+        The checksum for the provided payload.
+    """
+    checksum = 0
+
+    for byte in data: checksum ^= byte
+
+    return checksum & 0xff
+
+def create_message(command: Command, data: tuple[int]) -> bytes:
+    """Constructs a serializes message and returns it.
+
+    Attributes
+    ----------
+    command : Command
+        An instance of Command representing the MSP command used to create the message.
+
+    Returns
+    -------
+    bytes
+        The full message in bytes.
+    """
+    data_size = command.struct_format_size
+
+    # TODO: Update the data size if command has an indeterminate data size.
+
+    serialized_payload = struct_pack(
+        _PAYLOAD_STRUCT_FORMAT + command.struct_format,
+        command.code,
+        data_size,
+        *data
+    )
+
+    serialized_checksum = struct_pack(
+        _CHECKSUM_STRUCT_FORMAT,
+        calculate_checksum(serialized_payload)
+    )
+
+    return MESSAGE_OUTGOING_HEADER + serialized_payload + serialized_checksum
 
 def decode_names(data: tuple) -> tuple[str]:
     """Decodes the deserialized string value and splits it to a tuple.
@@ -31,22 +90,3 @@ def decode_names(data: tuple) -> tuple[str]:
         A tuple of decoded names.
     """
     return tuple(data[0].decode('ascii').split(';'))
-
-def calculate_checksum(payload: bytes) -> int:
-    """Calculates the checksum for the payload using an XOR CRC.
-
-    Parameters
-    ----------
-    payload : bytes
-        Bytes of the full payload (including the command code and size).
-
-    Returns
-    -------
-    int
-        The checksum for the provided payload.
-    """
-    checksum = 0
-
-    for byte in data: checksum ^= byte
-
-    return checksum & 0xff
