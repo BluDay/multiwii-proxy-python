@@ -67,19 +67,19 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
 
     # TODO: Update the data size if command has an indeterminate data size.
 
-    serialized_payload = struct_pack(
+    payload = struct_pack(
         _PAYLOAD_STRUCT_FORMAT + command.struct_format,
         command.code,
         data_size,
         *data
     )
 
-    serialized_checksum = struct_pack(
+    checksum = struct_pack(
         _CHECKSUM_STRUCT_FORMAT,
         calculate_checksum(serialized_payload)
     )
 
-    return MESSAGE_OUTGOING_HEADER + serialized_payload + serialized_checksum
+    return MESSAGE_OUTGOING_HEADER + payload + checksum
 
 def decode_names(data: tuple) -> tuple[str]:
     """Decodes the deserialized string value and splits it to a tuple.
