@@ -46,7 +46,7 @@ def crc8_xor(payload: bytes) -> int:
     """
     checksum = 0
 
-    for byte in data: checksum ^= byte
+    for byte in payload: checksum ^= byte
 
     return checksum & 0xff
 
