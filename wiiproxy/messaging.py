@@ -5,11 +5,9 @@ from struct import calcsize, pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
-_ENDIANNESS: Final[str] = '<'
-
-_PAYLOAD_STRUCT_FORMAT:  Final[str] = _ENDIANNESS + 'BH'
-
 _CHECKSUM_STRUCT_FORMAT: Final[str] = _ENDIANNESS + 'B'
+
+_ENDIANNESS: Final[str] = '<'
 
 MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 
@@ -67,12 +65,9 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
 
     # TODO: Update the data size if command has an indeterminate data size.
 
-    payload = pack(
-        _PAYLOAD_STRUCT_FORMAT + command.struct_format,
-        command.code,
-        data_size,
-        *data
-    )
+    payload = b''
+
+    # TODO: Serialize the payload.
 
     checksum = pack(_CHECKSUM_STRUCT_FORMAT, crc8_xor(payload))
 
