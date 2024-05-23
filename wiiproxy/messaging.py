@@ -31,7 +31,7 @@ def _create_payload_struct_format(data_struct_format: str) -> str:
 
     return _ENDIANNESS + 'B' if data_size <= 0xff else 'H'
 
-def calculate_checksum(payload: bytes) -> int:
+def crc8_xor(payload: bytes) -> int:
     """Calculates the checksum for the payload using an XOR CRC.
 
     Parameters
@@ -74,10 +74,7 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
         *data
     )
 
-    checksum = struct_pack(
-        _CHECKSUM_STRUCT_FORMAT,
-        calculate_checksum(serialized_payload)
-    )
+    checksum = struct_pack(_CHECKSUM_STRUCT_FORMAT, crc8_xor(payload))
 
     return MESSAGE_OUTGOING_HEADER + payload + checksum
 
