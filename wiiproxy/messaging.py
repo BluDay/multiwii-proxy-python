@@ -1,7 +1,7 @@
 from .command import Command
 
 from typing import Final
-from struct import calcsize, pack as struct_pack
+from struct import calcsize, pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
@@ -67,14 +67,14 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
 
     # TODO: Update the data size if command has an indeterminate data size.
 
-    payload = struct_pack(
+    payload = pack(
         _PAYLOAD_STRUCT_FORMAT + command.struct_format,
         command.code,
         data_size,
         *data
     )
 
-    checksum = struct_pack(_CHECKSUM_STRUCT_FORMAT, crc8_xor(payload))
+    checksum = pack(_CHECKSUM_STRUCT_FORMAT, crc8_xor(payload))
 
     return MESSAGE_OUTGOING_HEADER + payload + checksum
 
