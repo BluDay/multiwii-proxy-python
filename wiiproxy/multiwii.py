@@ -260,7 +260,7 @@ class MultiWii(object):
         if response_message == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
 
-        # TODO: Continue on with the reading process.
+        # TODO: Continue with the reading process and return response message.
 
     def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
