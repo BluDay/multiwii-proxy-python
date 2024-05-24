@@ -32,7 +32,7 @@ def crc8_xor(payload: bytes) -> int:
 
     return checksum & 0xff
 
-def create_message(command: Command, size: int, data: tuple[int]) -> bytes:
+def create_message(command: Command, data: tuple[int]) -> bytes:
     """Constructs a serializes message and returns it.
 
     Attributes
