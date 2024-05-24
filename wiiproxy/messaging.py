@@ -48,12 +48,21 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
         The full message in bytes.
     """
     code = command.code
-    size = command.data_size
+    size = 0
 
-    if command.has_variable_size:
-        size = len(data) / command.data_field_count
+    payload_content = b''
 
-    payload = pack(command.payload_struct_format, size, code, *data)
+    if data:
+        if command.has_variable_size:
+            size = len(data) / command.data_field_count
+        else:
+            size = command.data_size
+
+        payload_content = pack(command.data_struct_format, *data)
+
+    payload_header = pack('<2B', size, code)
+
+    payload = payload_header + payload_content
 
     checksum = pack('<B', crc8_xor(payload))
 
