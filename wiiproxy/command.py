@@ -78,7 +78,7 @@ class Command(object):
         self._data_size        = calcsize(f'<{data_struct_format}') 
         self._data_field_count = data_field_count
 
-        self._payload_struct_format = f'<BB{data_struct_format}'
+        self._payload_struct_format = f'<2B{data_struct_format}'
 
     def __int__(self) -> int:
         """Returns the integer representation of the object, as the MSP command code.
@@ -175,7 +175,7 @@ class Command(object):
         """
         format = self._payload_struct_format
 
-        return format[2:] if format else None
+        return format[3:] if format else None
 
     @property
     def has_variable_size(self) -> bool:
