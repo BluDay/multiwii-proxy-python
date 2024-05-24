@@ -65,6 +65,12 @@ from .data import (
     MspWaypoint
 )
 
+from .messaging import (
+    create_message,
+    MESSAGE_ERROR_HEADER,
+    MESSAGE_INCOMING_HEADER
+)
+
 from serial import Serial
 from time   import sleep
 from typing import Final, NoReturn
@@ -235,17 +241,26 @@ class MultiWii(object):
 
         Raises
         ------
-        ValueError
-            If the provided command code is invalid or not recognized.
-        TimeoutError
-            If a timeout occurs while waiting for the message from the FC.
+        MspMessageError
+            If an error message is returned from the FC.
 
         Returns
         -------
         bytes
             The bytes for the read/incoming message.
         """
-        pass
+        request_message = create_message(command, data=())
+
+        self._serial_port.write(request_message)
+
+        sleep(self._message_write_read_delay)
+
+        response_message = self._serial_port.read(3)
+
+        if response_message == MESSAGE_ERROR_HEADER:
+            raise MspMessageError('An error has occured.')
+
+        # TODO: Continue on with the reading process.
 
     def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
@@ -256,15 +271,8 @@ class MultiWii(object):
             An instance of Command representing the MSP command used to write the message.
         data : tuple[int]
             Data values to serialize and include in the message payload.
-
-        Raises
-        ------
-        ValueError
-            If the provided command code is invalid or not recognized.
-        TimeoutError
-            If a timeout occurs while waiting for the FC to acknowledge the message.
         """
-        pass
+        self._serial_port.write(create_message(command, data))
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
