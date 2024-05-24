@@ -29,6 +29,12 @@ class Command(object):
     def __init__(self, code: int, data_format: str = None) -> NoReturn:
         """Initializes an instance using the provided code and struct format.
 
+        Note
+        ----
+        This constructor will use `struct.calcsize` to calculate the data size of the data
+        structure format, and to validate the format string itself. Invalid format strings
+        will cause `struct.calcsize` to raise an exception of type `struct.error`.
+
         Parameters
         ----------
         code : int
