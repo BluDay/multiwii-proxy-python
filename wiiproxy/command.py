@@ -110,11 +110,13 @@ class Command(object):
         if self._has_variable_size:
             data_struct_format = f'*{data_struct_format}'
 
-        return '{}<{}, "{}", {}>'.format(
+        return '{}<{}, "{}", {}, {}, "{}">'.format(
             self.__class__.__name__,
             self._code,
             data_struct_format,
-            self._data_size
+            self._data_size,
+            self._data_field_count,
+            '?' if self._has_variable_size else '!'
         )
 
     def __str__(self) -> str:
