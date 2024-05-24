@@ -8,19 +8,6 @@ class Command(object):
     It includes information about the command code, whether the command size is variable,
     if it is a set-command, and details about the structure format used for serializing and
     deserializing corresponding data values.
-
-    Attributes
-    ----------
-    _code : int
-        The unique code representing the specific MSP command.
-    _data_size : int
-        The size of the data structure format.
-    _has_variable_size : bool
-        Indicates whether the command has a variable size payload.
-    _is_set_command : bool
-        Indicates whether the command is a set or get command.
-    _payload_struct_format : str
-        The `struct` format string used for packing and unpacking payload bytes.
     """
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
@@ -78,11 +65,30 @@ class Command(object):
         self._is_set_command = code >= 200
 
     def __int__(self) -> int:
-        """Represents the object as an integer value using the command code."""
+        """Returns the integer representation of the object, as the MSP command code.
+
+        Returns
+        -------
+        int
+            The MSP command code.
+        """
         self._code
 
     def __repr__(self) -> str:
-        """Gets a string representation of the object."""
+        """Returns a string representation of the object.
+
+        This method perform formats a string using the following values:
+
+            * Class name
+            * Command code
+            * Data structure format
+            * Data size
+
+        Returns
+        -------
+        str
+            A detailed string representation of the object.
+        """
         data_struct_format = self.data_struct_format
 
         if self._has_variable_size:
@@ -96,37 +102,79 @@ class Command(object):
         )
 
     def __str__(self) -> str:
-        """Represents the object as a string value using the `struct` format."""
-        return self._data_struct_format
+        """Returns the string representation of the object, as the data structure format.
+
+        Returns
+        -------
+        str
+            The data structure format string.
+        """
+        return self.data_struct_format
 
     # --------------------------------------- PROPERTIES ---------------------------------------
     
     @property
     def code(self) -> int:
-        """Gets the unique command code."""
+        """Gets the unique command code.
+
+        Returns
+        -------
+        int
+            The unique MSP command code.
+        """
         return self._code
 
     @property
     def data_size(self) -> int:
-        """Gets the data structure size."""
+        """Gets the data structure size.
+
+        Returns
+        -------
+        int
+            The data structure size.
+        """
         return self._data_size
 
     @property
     def data_struct_format(self) -> str:
-        """Gets the `struct` data structure format string."""
+        """Gets the data structure format string.
+
+        Returns
+        -------
+        str
+            The data structure format that was provided initially.
+        """
         return self._payload_struct_format[2:]
 
     @property
     def has_variable_size(self) -> bool:
-        """Gets a value indicative whether the data size is variable."""
+        """Gets a value indicative whether the data size is variable.
+
+        Returns
+        -------
+        bool
+            True if data size is variable, False otherwise.
+        """
         return self._has_variable_size
 
     @property
     def is_set_command(self) -> bool:
-        """Gets a value indicative whether the command is a set-command."""
+        """Gets a value indicative whether the command is a set-command.
+        
+        Returns
+        -------
+        bool
+            True if the command is a set-command, False otherwise.
+        """
         return self._is_set_command
 
     @property
     def payload_struct_format(self) -> str:
-        """Gets the `struct` payload format string."""
+        """Gets the payload format string.
+
+        Returns
+        -------
+        str
+            The payload struct format string.
+        """
         return self._payload_struct_format
