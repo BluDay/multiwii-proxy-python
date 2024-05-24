@@ -249,9 +249,7 @@ class MultiWii(object):
         bytes
             The bytes for the read/incoming message.
         """
-        request_message = create_message(command, data=())
-
-        self._serial_port.write(request_message)
+        self._send_message(command, data=())
 
         sleep(self._message_write_read_delay)
 
