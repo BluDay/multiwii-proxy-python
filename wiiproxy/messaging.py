@@ -5,10 +5,6 @@ from struct import calcsize, pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
-_CHECKSUM_STRUCT_FORMAT: Final[str] = _ENDIANNESS + 'B'
-
-_ENDIANNESS: Final[str] = '<'
-
 MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 
 MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
@@ -16,18 +12,6 @@ MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
-
-def _create_payload_struct_format(data_struct_format: str) -> str:
-    """Creates a `struct` payload format string using the provided data structure format.
-
-    Returns
-    -------
-    str
-        The complete payload format string to be used with `struct`.
-    """
-    data_size = calcsize(_ENDIANNESS + data_struct_format)
-
-    return _ENDIANNESS + 'B' if data_size <= 0xff else 'H'
 
 def crc8_xor(payload: bytes) -> int:
     """Calculates the checksum for the payload using an XOR CRC.
@@ -48,28 +32,26 @@ def crc8_xor(payload: bytes) -> int:
 
     return checksum & 0xff
 
-def create_message(command: Command, data: tuple[int]) -> bytes:
+def create_message(command: Command, size: int, data: tuple[int]) -> bytes:
     """Constructs a serializes message and returns it.
 
     Attributes
     ----------
     command : Command
         An instance of Command representing the MSP command used to create the message.
+    data : tuple[int]
+        The data values to serialize and include in the payload.
 
     Returns
     -------
     bytes
         The full message in bytes.
     """
-    data_size = command.struct_format_size
-
-    # TODO: Update the data size if command has an indeterminate data size.
-
     payload = b''
 
     # TODO: Serialize the payload.
 
-    checksum = pack(_CHECKSUM_STRUCT_FORMAT, crc8_xor(payload))
+    checksum = pack('<B', crc8_xor(payload))
 
     return MESSAGE_OUTGOING_HEADER + payload + checksum
 

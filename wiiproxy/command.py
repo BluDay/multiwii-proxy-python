@@ -1,5 +1,3 @@
-from .messaging import _PAYLOAD_STRUCT_FORMAT
-
 from struct import calcsize
 from typing import Final, NoReturn
 
@@ -15,10 +13,8 @@ class Command(object):
     ----------
     _code : int
         The unique code representing the specific MSP command.
-    _data_struct_format : str
-        The `struct` format string used for packing bytes for a data structure.
-    _data_struct_format_size : int
-        The size of the structure format, representing a fixed size of the data values.
+    _data_size : int
+        The size of the data structure format.
     _has_variable_size : bool
         Indicates whether the command has a variable size payload.
     _is_set_command : bool
@@ -31,9 +27,7 @@ class Command(object):
 
     _code: Final[int]
 
-    _data_struct_format: Final[str]
-
-    _data_struct_format_size: Final[int]
+    _data_size: Final[int]
 
     _has_variable_size: Final[bool]
 
@@ -56,10 +50,10 @@ class Command(object):
         Raises
         ------
         ValueError
-            If the provided code is not between 100 or 240.
+            If the provided code is not between 100 or 250.
         """
         if not 100 <= code <= 250:
-            raise ValueError('Command code must be between 100 and 240.')
+            raise ValueError('Command code must be between 100 and 250.')
 
         self._code = code
 
@@ -71,19 +65,17 @@ class Command(object):
             if has_variable_size:
                 data_struct_format = data_struct_format[1:]
 
-            self._data_struct_format_size = calcsize(f'<{data_struct_format}')
+            self._data_size = calcsize(f'<{data_struct_format}') 
 
-            self._data_struct_format = data_struct_format
+            self._payload_struct_format = f'<BB{data_struct_format}'
         else:
-            self._data_struct_format = None
+            self._data_size = 0
 
-            self._data_struct_format_size = None
+            self._payload_struct_format = None 
 
         self._has_variable_size = has_variable_size
         
         self._is_set_command = code >= 200
-
-        self._payload_struct_format = _PAYLOAD_STRUCT_FORMAT + data_struct_format
 
     def __int__(self) -> int:
         """Represents the object as an integer value using the command code."""
@@ -115,14 +107,14 @@ class Command(object):
         return self._code
 
     @property
-    def data_struct_format(self) -> str:
-        """Gets the `struct `data structure format string."""
-        return self._data_struct_format
+    def data_size(self) -> int:
+        """Gets the data structure size."""
+        return self._data_size
 
     @property
-    def data_struct_format_size(self) -> int:
-        """Gets the data structure format size."""
-        return self._data_struct_format_size
+    def data_struct_format(self) -> str:
+        """Gets the `struct` data structure format string."""
+        return self._payload_struct_format[2:]
 
     @property
     def has_variable_size(self) -> bool:
