@@ -26,14 +26,14 @@ class Command(object):
 
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
-    def __init__(self, code: int, data_struct_format: str) -> NoReturn:
+    def __init__(self, code: int, data_format: str = None) -> NoReturn:
         """Initializes an instance using the provided code and struct format.
 
         Parameters
         ----------
         code : int
             The unique code representing the specific MSP command. Must be between 100 and 240.
-        data_struct_format : str
+        data_format : str
             The `struct` format string used for packing and unpacking a corresponding payload.
 
         Raises
@@ -44,31 +44,35 @@ class Command(object):
         if not 100 <= code <= 250:
             raise ValueError('Command code must be between 100 and 250.')
 
+        data_struct_format = None
+        data_field_count   = 0
+        has_variable_size  = False
+
+        if data_format:
+            format_properties = data_format.split(':')
+
+            data_struct_format = format_properties[0]
+            data_field_count   = int(format_properties[1])
+            has_variable_size  = format_properties[2] == '?'
+
         self._code = code
 
-        has_variable_size = False
+        self._has_variable_size = has_variable_size
 
-        if data_struct_format:
-            has_variable_size = data_struct_format[0] == '*'
+        self._is_set_command = code >= 200
 
-            if has_variable_size:
-                data_struct_format = data_struct_format[1:]
-
-            self._data_field_count = get_data_field_count(data_struct_format)
-
-            self._data_size = calcsize(f'<{data_struct_format}') 
-
-            self._payload_struct_format = f'<BB{data_struct_format}'
-        else:
+        if not data_struct_format:
             self._data_field_count = 0
-
-            self._data_size = 0
+            self._data_size        = 0
 
             self._payload_struct_format = None 
 
-        self._has_variable_size = has_variable_size
-        
-        self._is_set_command = code >= 200
+            return
+
+        self._data_size        = calcsize(f'<{data_struct_format}') 
+        self._data_field_count = data_field_count
+
+        self._payload_struct_format = f'<BB{data_struct_format}'
 
     def __int__(self) -> int:
         """Returns the integer representation of the object, as the MSP command code.
@@ -131,6 +135,17 @@ class Command(object):
         return self._code
 
     @property
+    def data_field_count(self) -> int:
+        """Gets the data field count.
+
+        Returns
+        -------
+        int
+            The field count for the provided data structure format.
+        """
+        return self._data_field_count
+
+    @property
     def data_size(self) -> int:
         """Gets the data structure size.
 
@@ -150,7 +165,9 @@ class Command(object):
         str
             The data structure format that was provided initially.
         """
-        return self._payload_struct_format[2:]
+        format = self._payload_struct_format
+
+        return format[2:] if format else None
 
     @property
     def has_variable_size(self) -> bool:
