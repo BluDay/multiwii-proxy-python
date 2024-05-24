@@ -42,11 +42,19 @@ def create_message(command: Command, data: tuple[int]) -> bytes:
     data : tuple[int]
         The data values to serialize and include in the payload.
 
+    Raises
+    ------
+    ValueError
+        If the provided command code is invalid or not recognized.
+
     Returns
     -------
     bytes
         The full message in bytes.
     """
+    if not command:
+        raise ValueError('"command" must be an instance of "Command".')
+
     code = command.code
     size = 0
 
