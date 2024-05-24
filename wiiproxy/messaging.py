@@ -1,7 +1,7 @@
 from .command import Command
 
 from typing import Final
-from struct import calcsize, pack
+from struct import pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
