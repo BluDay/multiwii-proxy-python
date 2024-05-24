@@ -14,6 +14,8 @@ class Command(object):
 
     _code: Final[int]
 
+    _data_field_count: Final[int]
+
     _data_size: Final[int]
 
     _has_variable_size: Final[bool]
@@ -52,10 +54,14 @@ class Command(object):
             if has_variable_size:
                 data_struct_format = data_struct_format[1:]
 
+            self._data_field_count = get_data_field_count(data_struct_format)
+
             self._data_size = calcsize(f'<{data_struct_format}') 
 
             self._payload_struct_format = f'<BB{data_struct_format}'
         else:
+            self._data_field_count = 0
+
             self._data_size = 0
 
             self._payload_struct_format = None 
