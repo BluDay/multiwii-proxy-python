@@ -83,7 +83,7 @@ class Command(object):
 
     def __repr__(self) -> str:
         """Gets a string representation of the object."""
-        data_struct_format = self._data_struct_format
+        data_struct_format = self.data_struct_format
 
         if self._has_variable_size:
             data_struct_format = f'*{data_struct_format}'
@@ -92,7 +92,7 @@ class Command(object):
             self.__class__.__name__,
             self._code,
             data_struct_format,
-            self._data_struct_format_size
+            self._data_size
         )
 
     def __str__(self) -> str:
