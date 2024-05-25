@@ -66,9 +66,11 @@ from .data import (
 )
 
 from .messaging import (
-    create_message,
     MESSAGE_ERROR_HEADER,
-    MESSAGE_INCOMING_HEADER
+    MESSAGE_INCOMING_HEADER,
+    MspMessage,
+    crc8_xor,
+    create_request_message
 )
 
 from serial import Serial
@@ -224,9 +226,9 @@ class MultiWii(object):
         tuple[int]
             A tuple with deserialized data values.
         """
-        return self._read_message(command)[5:-1]
+        return self._read_message(command).data
 
-    def _read_message(self, command: Command) -> bytes:
+    def _read_message(self, command: Command) -> MspMessage:
         """Reads a message using the specified MSP command.
 
         Note
@@ -257,8 +259,33 @@ class MultiWii(object):
 
         if response_message == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
+        elif response_message == MESSAGE_INCOMING_HEADER:
+            raise MspMessageError('Invalid incoming header received. Skipping message.')
 
-        # TODO: Continue with the reading process and return response message.
+        response_message += self._serial_port.read(2)
+
+        command_code = response_message[4]
+
+        if command_code != command.code:
+            raise MspMessageError(
+                'Non-matching command code received. ({}, {})'.format(
+                    command.code,
+                    command_code
+                )
+            )
+
+        data_size = response_message[3]
+
+        response_message += self._serial_port.read(data_size + 1)
+
+        payload = response_message[3:-1]
+
+        checksum = response_message[-1]
+
+        if checksum != crc8_xor(payload):
+            raise MspMessageError(f'Invalid payload checksum detected for {command}.')
+
+        return parse_message_data(command, payload[2:], data_size)
 
     def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
@@ -270,7 +297,7 @@ class MultiWii(object):
         data : tuple[int]
             Data values to serialize and include in the message payload.
         """
-        self._serial_port.write(create_message(command, data))
+        self._serial_port.write(create_request_message(command, data))
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
