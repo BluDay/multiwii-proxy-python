@@ -1,7 +1,7 @@
 from .command import Command
 
 from typing import Final, NamedTuple
-from struct import pack
+from struct import pack, unpack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
@@ -139,8 +139,8 @@ def _parse_response_message(command: Command, payload: bytes) -> _MspResponseMes
             )
         )
 
-    data_size = payload[0]
-
     data = unpack(command.data_struct_format, payload)
+
+    data_size = payload[0]
 
     return _MspResponseMessage(command, data, data_size)
