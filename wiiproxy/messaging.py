@@ -71,20 +71,21 @@ def create_request_message(command: Command, data: tuple[int]) -> bytes:
     bytes
         The full message in bytes.
     """
-    code = command.code
-    size = 0
+    command_code = command.code
+
+    data_size = 0
 
     payload_content = b''
 
     if data:
         if command.has_variable_size:
-            size = len(data) / command.data_field_count
+            data_size = len(data) / command.data_field_count
         else:
-            size = command.data_size
+            data_size = command.data_size
 
         payload_content = pack(command.data_struct_format, *data)
 
-    payload_header = pack('<2B', size, code)
+    payload_header = pack('<2B', data_size, command_code)
 
     payload = payload_header + payload_content
 
