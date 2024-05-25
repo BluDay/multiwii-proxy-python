@@ -1,6 +1,6 @@
 from . import PidValues
 
-from ..messaging import decode_names
+from ..messaging import _decode_names
 
 from dataclasses import dataclass
 from typing      import Self
