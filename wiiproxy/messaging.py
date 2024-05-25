@@ -22,14 +22,14 @@ class _MspResponseMessage(NamedTuple):
         An instance of Command of the targeted MSP command.
     data : tuple[int]
         A tuple of parsed data values.
-    raw_data_size : int
+    data_size : int
         The size of the unserialized data values.
     """
     command: Command
 
     data: tuple[int]
 
-    raw_data_size: int
+    data_size: int
 
 class MspMessageError(Exception):
     """Represents a specific errors related to MSP messages."""
@@ -129,18 +129,18 @@ def _parse_response_message(command: Command, payload: bytes) -> _MspResponseMes
     _MspResponseMessage
         A named tuple with the command, parsed data and additional information.
     """
-    received_command_code = payload[1]
+    command_code = payload[1]
 
-    if received_command_code != command.code:
+    if command_code != command.code:
         raise ValueError(
             'Payload with an invalid command code detected. ({}, {})'.format(
                 command.code,
-                received_command_code
+                command_code
             )
         )
 
-    raw_data_size = payload[0]
+    data_size = payload[0]
 
-    parsed_data = unpack(command.data_struct_format, payload)
+    data = unpack(command.data_struct_format, payload)
 
-    return _MspResponseMessage(command, parsed_data, raw_data_size)
+    return _MspResponseMessage(command, data, data_size)
