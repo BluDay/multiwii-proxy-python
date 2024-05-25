@@ -68,7 +68,7 @@ from .data import (
 from .messaging import (
     MESSAGE_ERROR_HEADER,
     MESSAGE_INCOMING_HEADER,
-    _MspMessageResult,
+    _MspParsedMessageData,
     MspMessageError,
     crc8_xor,
     create_request_message
@@ -229,7 +229,7 @@ class MultiWii(object):
         """
         return self._read_response_message(command).data
 
-    def _read_response_message(self, command: Command) -> _MspMessageResult:
+    def _read_response_message(self, command: Command) -> _MspParsedMessageData:
         """Reads a message using the specified MSP command.
 
         Note
@@ -286,7 +286,7 @@ class MultiWii(object):
         if checksum != crc8_xor(payload):
             raise MspMessageError(f'Invalid payload checksum detected for {command}.')
 
-        return create_message_result(command, payload[2:], data_size)
+        return create_parsed_message_data(command, payload[2:], data_size)
 
     def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
