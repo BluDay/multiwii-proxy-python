@@ -1,6 +1,6 @@
 from .command import Command
 
-from typing import Final
+from typing import Final, NamedTuple
 from struct import pack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
@@ -10,6 +10,26 @@ MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
 MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
 
 MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
+
+# ---------------------------------------- CLASSES -----------------------------------------
+
+class MspMessage(NamedTuple):
+    """Represents a tuple with the data size and values for a received MSP message.
+
+    Attributes
+    ----------
+    command : Command
+        The targeted MSP command.
+    size : int
+        The size of the received data.
+    data : tuple[int]
+        A tuple of parsed data values.
+    """
+    command: Command
+
+    size: int
+
+    data: tuple[int]
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
 
@@ -32,7 +52,7 @@ def crc8_xor(payload: bytes) -> int:
 
     return checksum & 0xff
 
-def create_message(command: Command, data: tuple[int]) -> bytes:
+def create_request_message(command: Command, data: tuple[int]) -> bytes:
     """Constructs a serializes message and returns it.
 
     Attributes
