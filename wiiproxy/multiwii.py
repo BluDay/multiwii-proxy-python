@@ -213,7 +213,7 @@ class MultiWii(object):
         self._serial_port.reset_input_buffer()
         self._serial_port.reset_output_buffer()
 
-    def _read_data(self, command: Command) -> tuple[int]:
+    def _get_data(self, command: Command) -> tuple[int]:
         """Reads a message of the specified command and returns the unserialized data.
 
         Parameters
@@ -226,9 +226,9 @@ class MultiWii(object):
         tuple[int]
             A tuple with deserialized data values.
         """
-        return self._read_message(command).data
+        return self._read_response_message(command).data
 
-    def _read_message(self, command: Command) -> MspMessage:
+    def _read_response_message(self, command: Command) -> MspMessage:
         """Reads a message using the specified MSP command.
 
         Note
@@ -251,7 +251,7 @@ class MultiWii(object):
         bytes
             The bytes for the read/incoming message.
         """
-        self._send_message(command, data=())
+        self._send_request_message(command, data=())
 
         sleep(self._message_write_read_delay)
 
@@ -287,7 +287,7 @@ class MultiWii(object):
 
         return parse_message_data(command, payload[2:], data_size)
 
-    def _send_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
+    def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
 
         Parameters
@@ -312,7 +312,7 @@ class MultiWii(object):
         MspAltitude
             An instance of the `MspAltitude` class populated with parsed altitude data.
         """
-        return MspAltitude.parse(self._read_data(MSP_ALTITUDE))
+        return MspAltitude.parse(self._get_data(MSP_ALTITUDE))
     
     def get_analog(self) -> MspAnalog:
         """Sends an MSP_ANALOG command and gets the data instance.
@@ -325,7 +325,7 @@ class MultiWii(object):
         MspAnalog
             An instance of the `MspAnalog` class populated with parsed analog data.
         """
-        return MspAnalog.parse(self._read_data(MSP_ANALOG))
+        return MspAnalog.parse(self._get_data(MSP_ANALOG))
     
     def get_attitude(self) -> MspAttitude:
         """Sends an MSP_ATTITUDE command and gets the data instance.
@@ -338,7 +338,7 @@ class MultiWii(object):
         MspAttitude
             An instance of the `MspAttitude` class populated with parsed attitude data.
         """
-        return MspAttitude.parse(self._read_data(MSP_ATTITUDE))
+        return MspAttitude.parse(self._get_data(MSP_ATTITUDE))
     
     def get_box(self) -> MspBox:
         """Sends an MSP_BOX command and gets the data instance.
@@ -351,7 +351,7 @@ class MultiWii(object):
         MspBox
             An instance of the `MspBox` class populated with parsed box data.
         """
-        return MspBox.parse(self._read_data(MSP_BOX))
+        return MspBox.parse(self._get_data(MSP_BOX))
     
     def get_box_ids(self) -> MspBoxIds:
         """Sends an MSP_BOXIDS command and gets the data instance.
@@ -364,7 +364,7 @@ class MultiWii(object):
         MspBoxIds
             An instance of the `MspBoxIds` class populated with parsed box IDs data.
         """
-        return MspBoxIds.parse(self._read_data(MSP_BOXIDS))
+        return MspBoxIds.parse(self._get_data(MSP_BOXIDS))
     
     def get_box_names(self) -> MspBoxNames:
         """Sends an MSP_BOXNAMES command and gets the data instance.
@@ -377,7 +377,7 @@ class MultiWii(object):
         MspBoxNames
             An instance of the `MspBoxNames` class populated with parsed box names data.
         """
-        return MspBoxNames.parse(self._read_data(MSP_BOXNAMES))
+        return MspBoxNames.parse(self._get_data(MSP_BOXNAMES))
     
     def get_comp_gps(self) -> MspCompGps:
         """Sends an MSP_COMP_GPS command and gets the data instance.
@@ -390,7 +390,7 @@ class MultiWii(object):
         MspCompGps
             An instance of the `MspCompGps` class populated with parsed GPS comparison data.
         """
-        return MspCompGps.parse(self._read_data(MSP_COMP_GPS))
+        return MspCompGps.parse(self._get_data(MSP_COMP_GPS))
     
     def get_ident(self) -> MspIdent:
         """Sends an MSP_IDENT command and gets the data instance.
@@ -403,7 +403,7 @@ class MultiWii(object):
         MspIdent
             An instance of the `MspIdent` class populated with parsed identification data.
         """
-        return MspIdent.parse(self._read_data(MSP_IDENT))
+        return MspIdent.parse(self._get_data(MSP_IDENT))
     
     def get_misc(self) -> MspMisc:
         """Sends an MSP_MISC command and gets the data instance.
@@ -416,7 +416,7 @@ class MultiWii(object):
         MspMisc
             An instance of the `MspMisc` class populated with parsed miscellaneous data.
         """
-        return MspMisc.parse(self._read_data(MSP_MISC))
+        return MspMisc.parse(self._get_data(MSP_MISC))
     
     def get_motor(self) -> MspMotor:
         """Sends an MSP_MOTOR command and gets the data instance.
@@ -429,7 +429,7 @@ class MultiWii(object):
         MspMotor
             An instance of the `MspMotor` class populated with parsed motor data.
         """
-        return MspMotor.parse(self._read_data(MSP_MOTOR))
+        return MspMotor.parse(self._get_data(MSP_MOTOR))
     
     def get_motor_pins(self) -> MspMotorPins:
         """Sends an MSP_MOTOR_PINS command and gets the data instance.
@@ -442,7 +442,7 @@ class MultiWii(object):
         MspMotorPins
             An instance of the `MspMotorPins` class populated with parsed motor pins data.
         """
-        return MspMotorPins.parse(self._read_data(MSP_MOTOR_PINS))
+        return MspMotorPins.parse(self._get_data(MSP_MOTOR_PINS))
 
     def get_pid(self) -> MspPid:
         """Sends an MSP_PID command and gets the data instance.
@@ -455,7 +455,7 @@ class MultiWii(object):
         MspPid
             An instance of the `MspPid` class populated with parsed PID data.
         """
-        return MspPid.parse(self._read_data(MSP_PID))
+        return MspPid.parse(self._get_data(MSP_PID))
 
     def get_pid_names(self) -> MspPidNames:
         """Sends an MSP_PIDNAMES command and gets the data instance.
@@ -468,7 +468,7 @@ class MultiWii(object):
         MspPidNames
             An instance of the `MspPidNames` class populated with parsed PID names data.
         """
-        return MspPidNames.parse(self._read_data(MSP_PIDNAMES))
+        return MspPidNames.parse(self._get_data(MSP_PIDNAMES))
     
     def get_raw_gps(self) -> MspRawGps:
         """Sends an MSP_RAW_GPS command and gets the data instance.
@@ -481,7 +481,7 @@ class MultiWii(object):
         MspRawGps
             An instance of the `MspRawGps` class populated with parsed raw GPS data.
         """
-        return MspRawGps.parse(self._read_data(MSP_RAW_GPS))
+        return MspRawGps.parse(self._get_data(MSP_RAW_GPS))
     
     def get_raw_imu(self) -> MspRawImu:
         """Sends an MSP_RAW_IMU command and gets the data instance.
@@ -494,7 +494,7 @@ class MultiWii(object):
         MspRawImu
             An instance of the `MspRawImu` class populated with parsed raw IMU data.
         """
-        return MspRawImu.parse(self._read_data(MSP_RAW_IMU))
+        return MspRawImu.parse(self._get_data(MSP_RAW_IMU))
     
     def get_rc(self) -> MspRc:
         """Sends an MSP_RC command and gets the data instance.
@@ -507,7 +507,7 @@ class MultiWii(object):
         MspRc
             An instance of the `MspRc` class populated with parsed RC data.
         """
-        return MspRc.parse(self._read_data(MSP_RC))
+        return MspRc.parse(self._get_data(MSP_RC))
     
     def get_rc_tuning(self) -> MspRcTuning:
         """Sends an MSP_RC_TUNING command and gets the data instance.
@@ -520,7 +520,7 @@ class MultiWii(object):
         MspRcTuning
             An instance of the `MspRcTuning` class populated with parsed RC tuning data.
         """
-        return MspRcTuning.parse(self._read_data(MSP_RC_TUNING))
+        return MspRcTuning.parse(self._get_data(MSP_RC_TUNING))
 
     def get_servo(self) -> MspServo:
         """Sends an MSP_SERVO command and gets the data instance.
@@ -533,7 +533,7 @@ class MultiWii(object):
         MspServo
             An instance of the `MspServo` class populated with parsed servo data.
         """
-        return MspServo.parse(self._read_data(MSP_SERVO))
+        return MspServo.parse(self._get_data(MSP_SERVO))
     
     def get_servo_conf(self) -> MspServoConf:
         """Sends an MSP_SERVO_CONF command and gets the data instance.
@@ -546,7 +546,7 @@ class MultiWii(object):
         MspServoConf
             An instance of the `MspServoConf` class populated with parsed servo config data.
         """
-        return MspServoConf.parse(self._read_data(MSP_SERVO_CONF))
+        return MspServoConf.parse(self._get_data(MSP_SERVO_CONF))
     
     def get_status(self) -> MspStatus:
         """Sends an MSP_STATUS command and gets the data instance.
@@ -559,7 +559,7 @@ class MultiWii(object):
         MspStatus
             An instance of the `MspStatus` class populated with parsed system status data.
         """
-        return MspStatus.parse(self._read_data(MSP_STATUS))
+        return MspStatus.parse(self._get_data(MSP_STATUS))
     
     def get_waypoint(self) -> MspWaypoint:
         """Sends an MSP_WP command and gets the data instance.
@@ -572,7 +572,7 @@ class MultiWii(object):
         MspWaypoint
             An instance of the `MspWaypoint` class populated with parsed GPS waypoint data.
         """
-        return MspWaypoint.parse(self._read_data(MSP_WP))
+        return MspWaypoint.parse(self._get_data(MSP_WP))
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
 
@@ -588,7 +588,7 @@ class MultiWii(object):
         Ensure that the FC is ready to receive the bind command and that the transmitter is in
         binding mode before calling this method.
         """
-        self._send_message(MSP_BIND)
+        self._send_request_message(MSP_BIND)
 
     def calibrate_accelerometer(self) -> NoReturn:
         """Sends an MSP_ACC_CALIBRATION command.
@@ -602,7 +602,7 @@ class MultiWii(object):
         The FC should be placed on a level surface during the calibration to ensure accurate
         results. Avoid moving or disturbing the FC during the process.
         """
-        self._send_message(MSP_ACC_CALIBRATION)
+        self._send_request_message(MSP_ACC_CALIBRATION)
 
     def calibrate_magnetometer(self) -> NoReturn:
         """Sends an MSP_MAG_CALIBRATION command.
@@ -617,7 +617,7 @@ class MultiWii(object):
         consistent manner to ensure accurate results. Avoid any magnetic interference or
         disturbances during the process.
         """
-        self._send_message(MSP_ACC_CALIBRATION)
+        self._send_request_message(MSP_ACC_CALIBRATION)
 
     def reset_config(self) -> NoReturn:
         """Sends an MSP_RESET_CONF command.
@@ -632,7 +632,7 @@ class MultiWii(object):
         their defaults. Make sure to reconfigure the FC according to your requirements after
         executing this command.
         """
-        self._send_message(MSP_RESET_CONF)
+        self._send_request_message(MSP_RESET_CONF)
 
     def save_config_to_eeprom(self) -> NoReturn:
         """Sends an MSP_EEPROM_WRITE command.
@@ -645,7 +645,7 @@ class MultiWii(object):
         directly. Ensure that the values written are valid and intended, as incorrect
         values could lead to unexpected behavior or instability.
         """
-        self._send_message(MSP_EEPROM_WRITE)
+        self._send_request_message(MSP_EEPROM_WRITE)
 
     def set_boxes(self, data: tuple[MspBoxItem]) -> NoReturn:
         """Sends an MSP_SET_BOX command.
@@ -658,7 +658,7 @@ class MultiWii(object):
         data : tuple[MspBoxItem]
             A tuple of non-null `MspBoxItem`s.
         """
-        self._send_message(MSP_SET_BOX, data)
+        self._send_request_message(MSP_SET_BOX, data)
 
     def set_head(self, range: int) -> NoReturn:
         """Sends an MSP_SET_HEAD command.
@@ -679,7 +679,7 @@ class MultiWii(object):
         if not -180 <= range <= 180:
             raise ValueError('Value must be within the range of -180 and 180.')
 
-        self._send_message(MSP_SET_HEAD, data=(range,))
+        self._send_request_message(MSP_SET_HEAD, data=(range,))
 
     def set_misc_config(self, data: MspSetMisc) -> NoReturn:
         """Sends an MSP_SET_MISC command.
@@ -692,7 +692,7 @@ class MultiWii(object):
         data : MspSetMisc
             An instance of the `MspSetMisc` class populated with values.
         """
-        self._send_message(MSP_SET_MISC, data)
+        self._send_request_message(MSP_SET_MISC, data)
 
     def set_motors(self, data: MspMotor) -> NoReturn:
         """Sends an MSP_SET_MOTOR command.
@@ -705,7 +705,7 @@ class MultiWii(object):
         data : MspMotor
             An instance of the `MspMotor` class populated with values.
         """
-        self._send_message(MSP_SET_MOTOR, data)
+        self._send_request_message(MSP_SET_MOTOR, data)
 
     def set_pid_values(self, data: MspPid) -> NoReturn:
         """Sends an MSP_SET_PID command.
@@ -718,7 +718,7 @@ class MultiWii(object):
         data : MspPid
             An instance of the `MspPid` class populated with values.
         """
-        self._send_message(MSP_SET_PID, data)
+        self._send_request_message(MSP_SET_PID, data)
 
     def set_raw_gps(self, data: MspRawGps) -> NoReturn:
         """Sends an MSP_SET_RAW_GPS command.
@@ -731,7 +731,7 @@ class MultiWii(object):
         data : MspRawGps
             An instance of the `MspRawGps` class populated with values.
         """
-        self._send_message(MSP_SET_RAW_GPS, data)
+        self._send_request_message(MSP_SET_RAW_GPS, data)
 
     def set_raw_rc(self, data: MspRc) -> NoReturn:
         """Sends an MSP_SET_RAW_RC command.
@@ -745,7 +745,7 @@ class MultiWii(object):
         data : MspRc
             An instance of the `MspRc` class populated with values.
         """
-        self._send_message(MSP_SET_RAW_RC, data)
+        self._send_request_message(MSP_SET_RAW_RC, data)
     
     def set_rc_tuning(self, data: MspRcTuning) -> NoReturn:
         """Sends an MSP_SET_RC_TUNING command.
@@ -758,7 +758,7 @@ class MultiWii(object):
         data : MspRcTuning
             An instance of the `MspRcTuning` class populated with values.
         """
-        self._send_message(MSP_SET_RC_TUNING, data)
+        self._send_request_message(MSP_SET_RC_TUNING, data)
 
     def set_servo_config(self, data: tuple[MspServoConfItem]) -> NoReturn:
         """Sends an MSP_SET_SERVO_CONF command.
@@ -771,7 +771,7 @@ class MultiWii(object):
         data : tuple[MspServoConfItem]
             A tuple with instances of the `MspServoConfItem` class populated with values.
         """
-        self._send_message(MSP_SET_SERVO_CONF, data)
+        self._send_request_message(MSP_SET_SERVO_CONF, data)
 
     def set_waypoint(self, data: MspWaypoint) -> NoReturn:
         """Sends an MSP_SET_WP command.
@@ -785,4 +785,4 @@ class MultiWii(object):
         data : MsWaypoint
             An instance of the `MspWaypoint` class populated with values.
         """
-        self._send_message(MSP_SET_WP, data)
+        self._send_request_message(MSP_SET_WP, data)
