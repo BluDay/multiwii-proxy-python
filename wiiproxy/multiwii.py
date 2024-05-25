@@ -68,10 +68,11 @@ from .data import (
 from .messaging import (
     MESSAGE_ERROR_HEADER,
     MESSAGE_INCOMING_HEADER,
-    _MspParsedMessageData,
+    _MspResponseMessage,
     MspMessageError,
     crc8_xor,
-    create_request_message
+    create_request_message,
+    parse_response_message
 )
 
 from serial import Serial
@@ -229,7 +230,7 @@ class MultiWii(object):
         """
         return self._read_response_message(command).data
 
-    def _read_response_message(self, command: Command) -> _MspParsedMessageData:
+    def _read_response_message(self, command: Command) -> _MspResponseMessage:
         """Reads a message using the specified MSP command.
 
         Note
@@ -249,8 +250,8 @@ class MultiWii(object):
 
         Returns
         -------
-        bytes
-            The bytes for the read/incoming message.
+        _MspResponseMessage
+            A named tuple with the command, parsed data and additional information.
         """
         self._send_request_message(command, data=())
 
@@ -265,28 +266,28 @@ class MultiWii(object):
 
         response_message += self._serial_port.read(2)
 
-        command_code = response_message[4]
+        received_command_code = response_message[4]
 
-        if command_code != command.code:
+        if received_command_code != command.code:
             raise MspMessageError(
-                'Non-matching command code received. ({}, {})'.format(
+                'Message with an invalid command code detected. ({}, {})'.format(
                     command.code,
-                    command_code
+                    received_command_code
                 )
             )
 
-        data_size = response_message[3]
+        received_data_size = response_message[3]
 
         response_message += self._serial_port.read(data_size + 1)
 
-        payload = response_message[3:-1]
+        received_payload = response_message[3:-1]
 
-        checksum = response_message[-1]
+        received_checksum = response_message[-1]
 
-        if checksum != crc8_xor(payload):
+        if recieved_checksum != crc8_xor(payload):
             raise MspMessageError(f'Invalid payload checksum detected for {command}.')
 
-        return create_parsed_message_data(command, payload[2:], data_size)
+        return parse_response_message(command, received_payload)
 
     def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.

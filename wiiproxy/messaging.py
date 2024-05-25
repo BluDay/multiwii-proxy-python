@@ -13,23 +13,23 @@ MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # ---------------------------------------- CLASSES -----------------------------------------
 
-class _MspParsedMessageData(NamedTuple):
+class _MspResponseMessage(NamedTuple):
     """Represents a tuple with the data size and values for a received MSP message.
 
     Attributes
     ----------
     command : Command
-        The targeted MSP command.
-    size : int
-        The size of the received data.
-    values : tuple[int]
+        An instance of Command of the targeted MSP command.
+    data : tuple[int]
         A tuple of parsed data values.
+    raw_data_size : int
+        The size of the unserialized data values.
     """
     command: Command
 
-    size: int
+    data: tuple[int]
 
-    values: tuple[int]
+    raw_data_size: int
 
 class MspMessageError(Exception):
     """Represents a specific errors related to MSP messages."""
@@ -114,3 +114,40 @@ def decode_names(data: tuple) -> tuple[str]:
         A tuple of decoded names.
     """
     return tuple(data[0].decode('ascii').split(';'))
+
+def parse_response_message(command: Command, payload: bytes) -> _MspResponseMessage:
+    """Parses the payload of a response message for a given command.
+
+    Attributes
+    ----------
+    command : Command
+        An instance of Command representing the MSP command for the response message.
+    payload : bytes
+        The received payload buffer from a response message.
+
+    Raises
+    ------
+    ValueError
+        If the command code in the payload does not match the code of the provided
+        command.
+
+    Returns
+    -------
+    _MspResponseMessage
+        A named tuple with the command, parsed data and additional information.
+    """
+    received_command_code = payload[1]
+
+    if received_command_code != command.code:
+        raise ValueError(
+            'Payload with an invalid command code detected. ({}, {})'.format(
+                command.code,
+                received_command_code
+            )
+        )
+
+    raw_data_size = payload[0]
+
+    parsed_data = unpack(command.data_struct_format, payload)
+
+    return _MspResponseMessage(command, parsed_data, raw_data_size)
