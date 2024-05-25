@@ -13,23 +13,23 @@ MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 
 # ---------------------------------------- CLASSES -----------------------------------------
 
-class _MspMessageResult(NamedTuple):
+class _MspParsedMessageData(NamedTuple):
     """Represents a tuple with the data size and values for a received MSP message.
 
     Attributes
     ----------
     command : Command
         The targeted MSP command.
-    data : tuple[int]
-        A tuple of parsed data values.
     size : int
         The size of the received data.
+    values : tuple[int]
+        A tuple of parsed data values.
     """
     command: Command
 
-    data: tuple[int]
-
     size: int
+
+    values: tuple[int]
 
 class MspMessageError(Exception):
     """Represents a specific errors related to MSP messages."""
