@@ -101,13 +101,6 @@ def decode_names(data: tuple) -> tuple[str]:
     data : tuple
         The `struct` unpacked payload tuple to decode.
 
-    Raises
-    ------
-    TypeError
-        If `data` is not of type `tuple`.
-    UnicodeDecodeError
-        If the bytes cannot be decoded into ASCII characters.
-
     Returns
     -------
     tuple[str]
