@@ -303,7 +303,7 @@ class MultiWii(object):
         data : tuple[int]
             Data values to serialize and include in the message payload.
         """
-        self._serial_port.write(_create_request_message(command, data))
+        self._serial_port.write(_create_request_message(command, data or ()))
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
