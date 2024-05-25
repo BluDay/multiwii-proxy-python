@@ -259,11 +259,13 @@ class MultiWii(object):
 
         sleep(self._message_write_read_delay)
 
-        response_message = self._serial_port.read(3)
+        response_message = b''
 
-        if response_message == MESSAGE_ERROR_HEADER:
+        header = self._serial_port.read(3)
+
+        if header == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
-        elif response_message == MESSAGE_INCOMING_HEADER:
+        elif header == MESSAGE_INCOMING_HEADER:
             raise MspMessageError('Invalid incoming header received. Skipping message.')
 
         response_message += self._serial_port.read(2)
