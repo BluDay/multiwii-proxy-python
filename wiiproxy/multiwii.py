@@ -257,37 +257,37 @@ class MultiWii(object):
 
         sleep(self._message_write_read_delay)
 
-        response_message = self._serial_port.read(3)
+        message = self._serial_port.read(3)
 
-        if response_message == MESSAGE_ERROR_HEADER:
+        if message == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
-        elif response_message == MESSAGE_INCOMING_HEADER:
+        elif message == MESSAGE_INCOMING_HEADER:
             raise MspMessageError('Invalid incoming header received. Skipping message.')
 
-        response_message += self._serial_port.read(2)
+        message += self._serial_port.read(2)
 
-        received_command_code = response_message[4]
+        command_code = message[4]
 
-        if received_command_code != command.code:
+        if command_code != command.code:
             raise MspMessageError(
                 'Message with an invalid command code detected. ({}, {})'.format(
                     command.code,
-                    received_command_code
+                    command_code
                 )
             )
 
-        received_data_size = response_message[3]
+        data_size = message[3]
 
-        response_message += self._serial_port.read(data_size + 1)
+        message += self._serial_port.read(data_size + 1)
 
-        received_payload = response_message[3:-1]
+        payload = message[3:-1]
 
-        received_checksum = response_message[-1]
+        checksum = message[-1]
 
-        if recieved_checksum != _crc8_xor(payload):
+        if checksum != _crc8_xor(payload):
             raise MspMessageError(f'Invalid payload checksum detected for {command}.')
 
-        return _parse_response_message(command, received_payload)
+        return _parse_response_message(command, payload)
 
     def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
