@@ -37,7 +37,7 @@ class MspMessageError(Exception):
 
 # --------------------------------------- FUNCTIONS ----------------------------------------
 
-def crc8_xor(payload: bytes) -> int:
+def _crc8_xor(payload: bytes) -> int:
     """Calculates the checksum for the payload using an XOR CRC.
 
     Parameters
@@ -56,7 +56,7 @@ def crc8_xor(payload: bytes) -> int:
 
     return checksum & 0xff
 
-def create_request_message(command: Command, data: tuple[int]) -> bytes:
+def _create_request_message(command: Command, data: tuple[int]) -> bytes:
     """Constructs a serializes message and returns it.
 
     Attributes
@@ -89,11 +89,11 @@ def create_request_message(command: Command, data: tuple[int]) -> bytes:
 
     payload = payload_header + payload_content
 
-    checksum = pack('<B', crc8_xor(payload))
+    checksum = pack('<B', _crc8_xor(payload))
 
     return MESSAGE_OUTGOING_HEADER + payload + checksum
 
-def decode_names(data: tuple) -> tuple[str]:
+def _decode_names(data: tuple) -> tuple[str]:
     """Decodes the deserialized string value and splits it to a tuple.
 
     Parameters
@@ -108,7 +108,7 @@ def decode_names(data: tuple) -> tuple[str]:
     """
     return tuple(data[0].decode('ascii').split(';'))
 
-def parse_response_message(command: Command, payload: bytes) -> _MspResponseMessage:
+def _parse_response_message(command: Command, payload: bytes) -> _MspResponseMessage:
     """Parses the payload of a response message for a given command.
 
     Attributes

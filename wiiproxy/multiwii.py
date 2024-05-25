@@ -70,9 +70,9 @@ from .messaging import (
     MESSAGE_INCOMING_HEADER,
     _MspResponseMessage,
     MspMessageError,
-    crc8_xor,
-    create_request_message,
-    parse_response_message
+    _crc8_xor,
+    _create_request_message,
+    _parse_response_message
 )
 
 from serial import Serial
@@ -284,10 +284,10 @@ class MultiWii(object):
 
         received_checksum = response_message[-1]
 
-        if recieved_checksum != crc8_xor(payload):
+        if recieved_checksum != _crc8_xor(payload):
             raise MspMessageError(f'Invalid payload checksum detected for {command}.')
 
-        return parse_response_message(command, received_payload)
+        return _parse_response_message(command, received_payload)
 
     def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
@@ -299,7 +299,7 @@ class MultiWii(object):
         data : tuple[int]
             Data values to serialize and include in the message payload.
         """
-        self._serial_port.write(create_request_message(command, data))
+        self._serial_port.write(_create_request_message(command, data))
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
