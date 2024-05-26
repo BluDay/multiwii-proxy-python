@@ -206,11 +206,6 @@ class MultiWii(object):
         This method directly accesses the underlying serial port object (_serial_port).
         Ensure that the serial port has been properly initialized before calling
         this method.
-
-        Raises
-        ------
-        SerialException
-            If an error occurs while resetting the buffers.
         """
         self._serial_port.reset_input_buffer()
         self._serial_port.reset_output_buffer()
