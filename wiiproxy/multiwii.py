@@ -257,7 +257,10 @@ class MultiWii(object):
         header = self._serial_port.read(3)
 
         if header == MESSAGE_ERROR_HEADER:
-            raise MspMessageError('An error has occured.')
+            raise MspMessageError('An error has occured.') 
+
+        if header != MESSAGE_INCOMING_HEADER:
+            raise MspMessageError('Invalid incoming message preamble received.')
 
         command_code = self._serial_port.read(1)
 
