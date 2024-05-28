@@ -254,14 +254,12 @@ class MultiWii(object):
 
         sleep(self._message_write_read_delay)
 
-        header = response_message = self._serial_port.read(3)
+        header = self._serial_port.read(3)
 
         if header == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
 
-        response_message += self._serial_port.read(2)
-
-        command_code = response_message[4]
+        command_code = self._serial_port.read(1)
 
         if command_code != command.code:
             raise MspMessageError(
@@ -271,13 +269,11 @@ class MultiWii(object):
                 )
             )
 
-        data_size = response_message[3]
+        data_size = self._serial_port.read(1)
 
-        response_message += self._serial_port.read(data_size + 1)
+        payload = self._serial_port.read(data_size)
 
-        payload = response_message[3:-1]
-
-        checksum = response_message[-1]
+        checksum = self._serial_port.read(1)
 
         if checksum != _crc8_xor(payload):
             raise MspMessageError(f'Invalid payload checksum detected for {command}.')
