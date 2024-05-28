@@ -57,7 +57,7 @@ def _crc8_xor(payload: bytes) -> int:
     return checksum & 0xff
 
 def _create_request_message(command: Command, data: tuple[int]) -> bytes:
-    """Constructs a serializes message and returns it.
+    """Constructs a serialized message for a provided command and data values.
 
     Attributes
     ----------
