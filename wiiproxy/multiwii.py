@@ -286,7 +286,7 @@ class MultiWii(object):
 
         return _parse_response_message(command, payload)
 
-    def _send_request_message(self, command: Command, data: tuple[int] = None) -> NoReturn:
+    def _send_request_message(self, command: Command, data: tuple[int] = ()) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
 
         Parameters
@@ -296,7 +296,7 @@ class MultiWii(object):
         data : tuple[int]
             Data values to serialize and include in the message payload.
         """
-        self._serial_port.write(_create_request_message(command, data or ()))
+        self._serial_port.write(_create_request_message(command, data))
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
