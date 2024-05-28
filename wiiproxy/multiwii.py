@@ -254,9 +254,7 @@ class MultiWii(object):
 
         sleep(self._message_write_read_delay)
 
-        response_message = bytes()
-
-        header = self._serial_port.read(3)
+        header = response_message = self._serial_port.read(3)
 
         if header == MESSAGE_ERROR_HEADER:
             raise MspMessageError('An error has occured.')
