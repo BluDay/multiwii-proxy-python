@@ -254,7 +254,7 @@ class MultiWii(object):
 
         sleep(self._message_write_read_delay)
 
-        response_message = b''
+        response_message = bytes()
 
         header = self._serial_port.read(3)
 

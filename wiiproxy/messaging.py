@@ -75,7 +75,7 @@ def _create_request_message(command: Command, data: tuple[int]) -> bytes:
 
     data_size = 0
 
-    payload_content = b''
+    payload_content = bytes()
 
     if data:
         if command.has_variable_size:
