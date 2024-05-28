@@ -250,7 +250,7 @@ class MultiWii(object):
         """
         self._clear_serial_io_buffers()
 
-        self._send_request_message(command, data=())
+        self._send_request_message(command)
 
         sleep(self._message_write_read_delay)
 
