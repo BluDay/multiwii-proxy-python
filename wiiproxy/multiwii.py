@@ -193,23 +193,6 @@ class MultiWii(object):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _clear_serial_io_buffers(self) -> NoReturn:
-        """Resets the input and output buffers of the serial port.
-
-        This method clears both the input and output buffers of the serial port,
-        ensuring that any residual or incomplete data is discarded. It can be
-        useful to call this method before initiaing new communication sessions
-        or when the integrity of the data transfer needs to be ensured.
-
-        Note
-        ----
-        This method directly accesses the underlying serial port object (_serial_port).
-        Ensure that the serial port has been properly initialized before calling
-        this method.
-        """
-        self._serial_port.reset_input_buffer()
-        self._serial_port.reset_output_buffer()
-
     def _get_data(self, command: Command) -> tuple[int]:
         """Reads a message of the specified command and returns the unserialized data.
 
@@ -248,8 +231,6 @@ class MultiWii(object):
         _MspResponseMessage
             A named tuple with the command, parsed data and additional information.
         """
-        self._clear_serial_io_buffers()
-
         self._send_request_message(command)
 
         sleep(self._message_write_read_delay)
