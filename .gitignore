@@ -71,3 +71,8 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+# Sphinx
+docs/_build
+docs/_static
+docs/_templates
