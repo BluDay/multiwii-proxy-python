@@ -85,13 +85,6 @@ class MultiWii(object):
     This class requires an open serial port with a baudrate of 115200 to be passed at
     instantiation.
 
-    Attributes
-    ----------
-    DEFAULT_MESSAGE_WRITE_READ_DELAY : float, constant
-        The default delay in seconds between writing and reading messages.
-    MSP_VERSION : int, constant
-        The version of the MultiWii Serial Protocol (MSP) supported (v1).
-
     Notes
     -----
     This class supports MSP v1 and does not support any newer versions.
@@ -100,8 +93,10 @@ class MultiWii(object):
     # -------------------------------------- CONSTANTS -----------------------------------------
 
     DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
+    """float: The default delay in seconds between writing and reading messages."""
 
     MSP_VERSION: Final[int] = 1
+    """int: The supported MultiWii Serial Protocol version."""
 
     # -------------------------------------- ATTRIBUTES ----------------------------------------
 
