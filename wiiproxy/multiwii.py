@@ -242,7 +242,10 @@ class MultiWii(object):
         tuple[int]
             A tuple with deserialized data values.
         """
-        return self._read_response_message(command).data
+        try:
+            return self._read_response_message(command).data
+        finally:
+            self._clear_serial_io_buffers()
 
     def _read_response_message(self, command: _MspCommand) -> _MspResponseMessage:
         """Reads a message using the specified MSP command.
@@ -267,8 +270,6 @@ class MultiWii(object):
         _MspResponseMessage
             A named tuple with the command, parsed data and additional information.
         """
-        self._clear_serial_io_buffers()
-
         self._send_request_message(command)
 
         sleep(self._message_write_read_delay)
