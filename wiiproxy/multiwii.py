@@ -92,7 +92,7 @@ class MultiWii(object):
     MSP_VERSION : int, constant
         The version of the MultiWii Serial Protocol (MSP) supported (v1).
 
-    Note
+    Notes
     -----
     This class supports MSP v1 and does not support any newer versions.
     """
@@ -201,8 +201,8 @@ class MultiWii(object):
         useful to call this method before initiaing new communication sessions
         or when the integrity of the data transfer needs to be ensured.
 
-        Note
-        ----
+        Notes
+        -----
         This method directly accesses the underlying serial port object (_serial_port).
         Ensure that the serial port has been properly initialized before calling
         this method.
@@ -228,8 +228,8 @@ class MultiWii(object):
     def _read_response_message(self, command: Command) -> _MspResponseMessage:
         """Reads a message using the specified MSP command.
 
-        Note
-        ----
+        Notes
+        -----
         This method sends a write message with empty values to the FC in order to retrieve a
         response message. Ensure that the FC is ready to to respond to the command code sent.
 
@@ -579,8 +579,8 @@ class MultiWii(object):
         and the receiver connected to the FC. Binding establishes a secure communication link
         between the transmitter (TX) and the receiver (RX).
 
-        Note
-        ----
+        Notes
+        -----
         Ensure that the FC is ready to receive the bind command and that the transmitter is in
         binding mode before calling this method.
         """
@@ -593,8 +593,8 @@ class MultiWii(object):
         calibration is essential for accurate attitude estimation and stabilization of the
         aircraft.
 
-        Note
-        ----
+        Notes
+        -----
         The FC should be placed on a level surface during the calibration to ensure accurate
         results. Avoid moving or disturbing the FC during the process.
         """
@@ -607,8 +607,8 @@ class MultiWii(object):
         Magnetometer calibration is crucial for accurate heading estimation and navigation,
         especially in GPS-assisted flight modes.
 
-        Note
-        ----
+        Notes
+        -----
         The FC should be rotated along all three axes (roll, pitch, yaw) in a smooth and
         consistent manner to ensure accurate results. Avoid any magnetic interference or
         disturbances during the process.
@@ -622,8 +622,8 @@ class MultiWii(object):
         It effectively restores the FC to its initial configuration state, clearing any
         customized settings or adjustments made by the user.
 
-        Note
-        ----
+        Notes
+        -----
         Resetting the config should be done with caution, as it will revert all settings to
         their defaults. Make sure to reconfigure the FC according to your requirements after
         executing this command.
@@ -635,8 +635,8 @@ class MultiWii(object):
 
         This command writes the current configuration settings to the EEPROM of the FC. 
 
-        Note
-        ----
+        Notes
+        -----
         Writing to EEPROM should be done with caution, as it modifies the stored config
         directly. Ensure that the values written are valid and intended, as incorrect
         values could lead to unexpected behavior or instability.
