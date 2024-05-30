@@ -1,7 +1,7 @@
 from struct import calcsize
 from typing import Final, NoReturn
 
-class Command(object):
+class _MspCommand(object):
     """Represents an MSP command.
 
     This class encapsulates the details of a command for the MultiWii Serial Protocol (MSP).

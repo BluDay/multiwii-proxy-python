@@ -1,4 +1,4 @@
-from .command import Command
+from ._command import _MspCommand
 
 from typing import Final, NamedTuple
 from struct import pack, unpack
@@ -18,14 +18,14 @@ class _MspResponseMessage(NamedTuple):
 
     Attributes
     ----------
-    command : Command
-        An instance of Command of the targeted MSP command.
+    command : _MspCommand
+        An instance of `_MspCommand` of the targeted MSP command.
     data : tuple[int]
         A tuple of parsed data values.
     data_size : int
         The size of the unserialized data values.
     """
-    command: Command
+    command: _MspCommand
 
     data: tuple[int]
 
@@ -56,13 +56,14 @@ def _crc8_xor(payload: bytes) -> int:
 
     return checksum & 0xff
 
-def _create_request_message(command: Command, data: tuple[int]) -> bytes:
+def _create_request_message(command: _MspCommand, data: tuple[int]) -> bytes:
     """Constructs a serialized message for a provided command and data values.
 
     Attributes
     ----------
-    command : Command
-        An instance of Command representing the MSP command used to create the message.
+    command : _MspCommand
+        An instance of `_MspCommand` representing the MSP command used to create the
+        message.
     data : tuple[int]
         The data values to serialize and include in the payload.
 
@@ -106,13 +107,13 @@ def _decode_names(data: tuple) -> tuple[str]:
     """
     return tuple(data[0].decode('ascii').split(';'))
 
-def _parse_response_message(command: Command, payload: bytes) -> _MspResponseMessage:
+def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspResponseMessage:
     """Parses the payload of a response message for a given command.
 
     Attributes
     ----------
-    command : Command
-        An instance of Command representing the MSP command for the response message.
+    command : _MspCommand
+        An instance of `_MspCommand` representing the MSP command for the response message.
     payload : bytes
         The received payload buffer from a response message.
 

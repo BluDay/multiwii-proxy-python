@@ -1,4 +1,4 @@
-from .command import Command
+from ._command import _MspCommand
 
 from .commands import (
     MSP_ALTITUDE,
@@ -229,13 +229,13 @@ class MultiWii(object):
         self._serial_port.reset_input_buffer()
         self._serial_port.reset_output_buffer()
 
-    def _get_data(self, command: Command) -> tuple[int]:
+    def _get_data(self, command: _MspCommand) -> tuple[int]:
         """Reads a message of the specified command and returns the unserialized data.
 
         Parameters
         ----------
-        command : Command
-            An instance of Command representing the MSP command used to read the data.
+        command : _MspCommand
+            An instance of `_MspCommand` representing the MSP command used to read the data.
 
         Returns
         -------
@@ -244,7 +244,7 @@ class MultiWii(object):
         """
         return self._read_response_message(command).data
 
-    def _read_response_message(self, command: Command) -> _MspResponseMessage:
+    def _read_response_message(self, command: _MspCommand) -> _MspResponseMessage:
         """Reads a message using the specified MSP command.
 
         Notes
@@ -254,8 +254,8 @@ class MultiWii(object):
 
         Parameters
         ----------
-        command : Command
-            An instance of Command representing the MSP command used to read the message.
+        command : _MspCommand
+            An instance of `_MspCommand` representing the MSP command used to read the message.
 
         Raises
         ------
@@ -302,13 +302,13 @@ class MultiWii(object):
 
         return _parse_response_message(command, payload)
 
-    def _send_request_message(self, command: Command, data: tuple[int] = ()) -> NoReturn:
+    def _send_request_message(self, command: _MspCommand, data: tuple[int] = ()) -> NoReturn:
         """Sends a message with the specified MSP command and optional data values.
 
         Parameters
         ----------
-        command : Command
-            An instance of Command representing the MSP command used to write the message.
+        command : _MspCommand
+            An instance of `_MspCommand` representing the MSP command used to write the message.
         data : tuple[int]
             Data values to serialize and include in the message payload.
         """
@@ -316,14 +316,14 @@ class MultiWii(object):
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
-    def get_data(self, command: Command) -> Any:
+    def get_data(self, command: _MspCommand) -> Any:
         """Sends a given command to the FC and parses the retrieved data values.
 
         Parameters
         ----------
-        command : Command
-            An instance of Command representing the MSP command to retreieve corresponding
-            data values for.
+        command : _MspCommand
+            An instance of `_MspCommand` representing the MSP command to get corresponding data
+            values for.
 
         Returns
         -------
