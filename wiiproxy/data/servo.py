@@ -6,18 +6,19 @@ class MspServo:
     """Represents data values for the MSP_SERVO command.
 
     This class encapsulates the servo values for channels in the MultiWii flight controller.
-
-    Attributes
-    ----------
-    values : tuple[int]
-        The servo output values for each channel.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     values: tuple[int]
+    """tuple[int]: The servo output values for each channel."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspServo` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspServo` class.
 
         Parameters
         ----------
@@ -37,13 +38,14 @@ class MspServoConf:
 
     This class encapsulates the servo configuration values for setting up servo endpoints,
     middle points, and rates in the MultiWii flight controller.
-
-    Attributes
-    ----------
-    values : tuple[int]
-        The servo configuration values for each servo channel.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     values: tuple[int]
+    """tuple[int]: The servo configuration values for each servo channel."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -82,22 +84,18 @@ class MspServoConfItem:
 
     This class encapsulates the configuration values for a single servo channel in the
     MultiWii flight controller.
-
-    Attributes
-    ----------
-    min : int
-        The minimum value for the servo endpoint.
-    max : int
-        The maximum value for the servo endpoint.
-    middle : int
-        The middle value for the servo endpoint.
-    rate : int
-        The rate vlaue for the servo channel.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     min: int
+    """int: The minimum value for the servo endpoint."""
 
     max: int
+    """int: The maximum value for the servo endpoint."""
 
     middle: int
+    """int: The middle value for the servo endpoint."""
 
     rate: int
+    """int: The rate vlaue for the servo channel."""

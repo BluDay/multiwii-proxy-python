@@ -8,22 +8,22 @@ class MspAltitude:
     """Represents data values for the MSP_ALTITUDE command.
 
     This class encapsulates altitude-related data from a MultiWii flight controller.
-
-    Attributes
-    ----------
-    estimation : int
-        The estimated altitude.
-    pressure_variation : int
-        The variation in pressure.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     estimation: int
+    """int: The estimated altitude."""
 
     pressure_variation: int
+    """int: The variation in pressure."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspAltitude` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspAltitude` class.
 
         Parameters
         ----------
@@ -42,26 +42,25 @@ class MspAttitude:
     """Represents data values for the MSP_ATTITUDE command.
 
     This class encapsulates attitude-related data from a MultiWii flight controller.
-
-    Attributes
-    ----------
-    pitch_angle : float
-        The pitch angle of the aircraft in degrees, ranging from -180 to 180.
-    roll_angle : float
-        The roll angle of the aircraft in degrees, ranging from -90 to 90.
-    yaw_angle : int
-        The heading angle of the aircraft in degrees, ranging from 0 to 360.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     pitch_angle: float
+    """float: The pitch angle of the aircraft in degrees, ranging from -180.0 to 180.0."""
 
     roll_angle: float
+    """float: The roll angle of the aircraft in degrees, ranging from -90.0 to 90.0."""
 
     yaw_angle: int
+    """int: The heading angle of the aircraft in degrees, ranging from 0 to 360."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspAttitude` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspAttitude` class.
 
         Parameters
         ----------
@@ -85,21 +84,20 @@ class MspRawImu:
 
     This class encapsulates raw IMU (Intertial Measurement Unit) data from a MultiWii
     flight controller.
-
-    Attributes
-    ----------
-    accelerometer : Point3D[float]
-        The accelerometer data.
-    gyroscope : Point3D[float]
-        The gyroscope data.
-    magnetometer : Point3D[float]
-        The magnetometer data.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     accelerometer: Point3D[float]
+    """Point3D[float]: The accelerometer data."""
 
     gyroscope: Point3D[float]
+    """Point3D[float]: The gyroscope data."""
 
     magnetometer: Point3D[float]
+    """Point3D[float]: The magnetometer data."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(
@@ -109,8 +107,8 @@ class MspRawImu:
         gyroscope_unit:     int = 1.0,
         magnetometer_unit:  int = 1.0
     ) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspRawImu` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspRawImu` class.
 
         Parameters
         ----------

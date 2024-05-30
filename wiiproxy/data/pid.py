@@ -11,54 +11,46 @@ class MspPid:
 
     This class encapsulates the PID controller settings for various control axes and functions
     in the MultiWii flight controller.
-
-    Attributes
-    ----------
-    roll : PidValues[int]
-        The PID values for the roll axis.
-    pitch : PidValues[int]
-        The PID values for the pitch axis.
-    yaw : PidValues[int]
-        The PID values for the yaw axis.
-    altitude_hold : PidValues[int]
-        The PID values for the altitude hold.
-    position_hold : PidValues[int]
-        The PID values for the position hold.
-    position_rate : PidValues[int]
-        The PID values for the position rate.
-    navigation_rate : PidValues[int]
-        The PID values for the navigation rate.
-    level_mode : PidValues[int]
-        The PID values for the level mode.
-    magnetometer : PidValues[int]
-        The PID values for the magnetometer.
-    velocity : PidValues[int]
-        The PID values for the velocity.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     roll: PidValues[int]
+    """PidValues[int]: PID values for the roll axis."""
 
     pitch: PidValues[int]
+    """PidValues[int]: PID values for the pitch axis."""
 
     yaw: PidValues[int]
+    """PidValues[int]: PID values for the yaw axis."""
 
     altitude_hold: PidValues[int]
+    """PidValues[int]: PID values for the altitude hold."""
 
     position_hold: PidValues[int]
+    """PidValues[int]: PID values for the position hold."""
 
     position_rate: PidValues[int]
+    """PidValues[int]: PID values for the position rate."""
 
     navigation_rate: PidValues[int]
+    """PidValues[int]: PID values for the navigation rate."""
 
     level_mode: PidValues[int]
+    """PidValues[int]: PID values for the level mode."""
 
     magnetometer: PidValues[int]
+    """PidValues[int]: PID values for the magnetometer."""
 
     velocity: PidValues[int]
+    """PidValues[int]: PID values for the velocity."""
 
+    # ------------------------------------ CLASS METHODS ---------------------------------------
+   
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspPid` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspPid` class.
 
         Parameters
         ----------
@@ -89,18 +81,19 @@ class MspPidNames:
 
     This class is used to store the names of various PID controllers used in the MultiWii
     flight controller. Each name corresponds to a specific PID controller setting.
-
-    Attributes
-    ----------
-    names : tuple[str]
-        The names of the PID controllers.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     names: tuple[str]
+    """tuple[str]: The names of the PID controllers."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspPidNames` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspPidNames` class.
 
         Parameters
         ----------

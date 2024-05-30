@@ -5,42 +5,42 @@ from typing      import Self
 class MspMotor:
     """Represents data values for the MSP_MOTOR command.
 
-    This class encapsulates the motor speed values for up to eight motors in a
-    MultiWii flight controller. Each motor's speed is represented as an integer
-    value.
-
-    Attributes
-    ----------
-    motor 1: int
-        The speed value for motor 1.
-    motor 2: int
-        The speed value for motor 2.
-    motor 3: int
-        The speed value for motor 3.
-    motor 4: int
-        The speed value for motor 4.
-    motor 5: int
-        The speed value for motor 5.
-    motor 6: int
-        The speed value for motor 6.
-    motor 7: int
-        The speed value for motor 7.
-    motor 8: int
-        The speed value for motor 8.
+    This class encapsulates the motor speed values for up to eight motors in a MultiWii flight
+    controller. Each motor's speed is represented as an integer value.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     motor1: int
+    """int: The speed value for motor 1."""
+
     motor2: int
+    """int: The speed value for motor 2."""
+
     motor3: int
+    """int: The speed value for motor 3."""
+
     motor4: int
+    """int: The speed value for motor 4."""
+
     motor5: int
+    """int: The speed value for motor 5."""
+
     motor6: int
+    """int: The speed value for motor 6."""
+
     motor7: int
+    """int: The speed value for motor 7."""
+
     motor8: int
+    """int: The speed value for motor 8."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspMotor` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspMotor` class.
 
         Parameters
         ----------
@@ -61,39 +61,40 @@ class MspMotorPins:
     This class extends `MspMotor` to provide the motor pin values for up to eight motors
     in a MultiWii flight controller. Each motor's pin value is represented as an integer
     value.
-
-    Attributes
-    ----------
-    motor 1: int
-        The pin value for motor 1.
-    motor 2: int
-        The pin value for motor 2.
-    motor 3: int
-        The pin value for motor 3.
-    motor 4: int
-        The pin value for motor 4.
-    motor 5: int
-        The pin value for motor 5.
-    motor 6: int
-        The pin value for motor 6.
-    motor 7: int
-        The pin value for motor 7.
-    motor 8: int
-        The pin value for motor 8.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     motor1: int
+    """int: The pin value for motor 1."""
+
     motor2: int
+    """int: The pin value for motor 2."""
+
     motor3: int
+    """int: The pin value for motor 3."""
+
     motor4: int
+    """int: The pin value for motor 4."""
+
     motor5: int
+    """int: The pin value for motor 5."""
+
     motor6: int
+    """int: The pin value for motor 6."""
+
     motor7: int
+    """int: The pin value for motor 7."""
+
     motor8: int
+    """int: The pin value for motor 8."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspMotorPins` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspMotorPins` class.
 
         Parameters
         ----------

@@ -7,33 +7,30 @@ from typing      import Self
 class MspAnalog:
     """Represents data values for the MSP_ANALOG command.
 
-    This class encapsulates the analog telemetry data from the MultiWii flight controller.
-    It provides information about the system's voltage, power meter, RSSI, and amperage.
-
-    Attributes
-    ----------
-    voltage : float
-        The voltage of the system, measured in volts. This value is derived by dividing
-        the raw data by 10.0.
-    power_meter_sum : int
-        The accumulated power consumption, measured in arbitrary units.
-    rssi : int
-        The Received Signal Strength Indicator (RSSI), representing the signal strength.
-    amperage : int
-        The current amperage drawn, measured in milliamps.
+    This class encapsulates the analog telemetry data from the MultiWii flight controller. It
+    provides information about the system's voltage, power meter, RSSI, and amperage.
     """
-    voltage: float
 
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
+    voltage: float
+    """float: The voltage of the system, measured in volts."""
+    
     power_meter_sum: int
+    """int: The accumulated power consumption, measured in arbitrary units."""
 
     rssi: int
+    """int: The Received Signal Strength Indicator (RSSI), representing the signal strength."""
 
     amperage: int
+    """int: The current amperage drawn, measured in milliamps."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspAnalog` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspAnalog` class.
 
         Parameters
         ----------
@@ -56,33 +53,33 @@ class MspAnalog:
 class MspIdent:
     """Represents data values for the MSP_IDENT command.
 
-    This class encapsulates the identification data from the MultiWii flight controller.
-    It provides information about the firmware version, multitype, capabilities, and
-    navigation version.
-
-    Attributes
-    ----------
-    version : int
-        The firmware version of the flight controller.
-    multitype : MultiWiiMultitype
-        The vehicle configuration type.
-    capabilities : tuple[MultiWiiCapability]
-        A tuple representing the capabilities of the flight controller.
-    navigation_version : int
-        The navigation version of the firmware.
+    This class encapsulates the identification data from the MultiWii flight controller. It
+    provides information about the firmware version, multitype, capabilities, and navigation
+    version.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     version: int
+    """int: The firmware version of the flight controller."""
 
     multitype: MultiWiiMultitype
+    """MultiWiiMultitype: The vehicle configuration type."""
 
     capabilities: tuple[MultiWiiCapability]
+    """tuple[MultiWiiCapability]: A tuple representing the capabilities of the flight
+    controller.
+    """
 
     navigation_version: int
+    """The navigation version of the firmware."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspIdent` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspIdent` class.
 
         Parameters
         ----------
@@ -116,62 +113,52 @@ class MspMisc:
     This class encapsulates miscellaneous configuration and status data from the MultiWii
     flight controller. It includes information about power triggers, throttle settings,
     battery warnings, and other miscellaneous parameters.
-
-    Attributes
-    ----------
-    power_trigger : int
-        The power trigger value.
-    throttle_failsafe : int
-        The throttle failsafe value.
-    throttle_idle : int
-        The idle throttle value.
-    throttle_min : int
-        The minimum throttle value.
-    throttle_max : int
-        The maximum throttle value.
-    power_logger_arm : int
-        The power logger arm value.
-    power_logger_lifetime : int
-        The power logger lifetime value.
-    magnetometer_declination : float
-        The magnetic declination value, measured in degrees.
-    battery_scale : int
-        The battery scale value.
-    battery_warning_1 : float
-        The first battery warning level, measured in volts.
-    battery_warning_2 : float
-        The second battery warning level, measured in volts.
-    battery_critical : float
-        The critical battery level, measured in volts.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     power_trigger: int
+    """int: The power trigger value."""
 
     throttle_failsafe: int
+    """int: The throttle failsafe value."""
 
     throttle_idle: int
+    """int: The idle throttle value."""
 
     throttle_min: int
+    """int: The minimum throttle value."""
 
     throttle_max: int
+    """int: The maximum throttle value."""
 
     power_logger_arm: int
+    """int: The power logger arm value."""
 
     power_logger_lifetime: int
+    """int: The power logger lifetime value."""
 
     magnetometer_declination: float
+    """float: The magnetic declination value, measured in degrees."""
 
     battery_scale: int
+    """int: The battery scale value."""
 
     battery_warning_1: float
+    """float: The first battery warning level, measured in volts."""
 
     battery_warning_2: float
+    """float: The second battery warning level, measured in volts."""
 
     battery_critical: float
+    """float: The critical battery level, measured in volts."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspMisc` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspMisc` class.
 
         Parameters
         ----------
@@ -202,96 +189,80 @@ class MspMisc:
 class MspSetMisc:
     """Represents data values for the MSP_SET_MISC command.
 
-    This class encapsulates miscellaneous configuration data to be set on the MultiWii
-    flight controller. It includes information about power triggers, throttle settings,
-    battery warnings, and other miscellaneous parameters.
-
-    Attributes
-    ----------
-    power_trigger : int
-        The power trigger value.
-    throttle_min : int
-        The minimum throttle value.
-    throttle_max : int
-        The maximum throttle value.
-    min_command : int
-        The minimum command value.
-    throttle_failsafe : int
-        The throttle value for failsafe.
-    power_logger_arm : int
-        The power logger arm value.
-    power_logger_lifetime : int
-        The power logger lifetime value.
-    magnetometer_declination : float
-        The magnetic declination value, measured in degrees.
-    battery_scale : int
-        The battery scale value.
-    battery_warning_1 : float
-        The first battery warning level, measured in volts.
-    battery_warning_2 : float
-        The second battery warning level, measured in volts.
-    battery_critical : float
-        The critical battery level, measured in volts.
+    This class encapsulates miscellaneous configuration data to be set on the MultiWii flight
+    controller. It includes information about power triggers, throttle settings, battery
+    warnings, and other miscellaneous parameters.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     power_trigger: int
+    """int: The power trigger value."""
 
     throttle_min: int
+    """int: The minimum throttle value."""
 
     throttle_max: int
+    """int: The maximum throttle value."""
 
     min_command: int
+    """int: The minimum command value."""
 
     throttle_failsafe: int
+    """int: The throttle value for failsafe."""
 
     power_logger_arm: int
+    """int: The power logger arm value."""
 
     power_logger_lifetime: int
+    """int: The power logger lifetime value."""
 
     magnetometer_declination: float
+    """float: The magnetic declination value, measured in degrees."""
 
     battery_scale: int
+    """int: The battery scale value."""
 
     battery_warning_1: float
+    """float: The first battery warning level, measured in volts."""
 
     battery_warning_2: float
+    """float: The second battery warning level, measured in volts."""
 
     battery_critical: float
+    """float: The critical battery level, measured in volts."""
 
 @dataclass
 class MspStatus:
     """Represents data values for the MSP_STATUS command.
 
-    This class encapsulates the status data from the MultiWii flight controller.
-    It provides information about cycle time, I2C errors, sensors, flags, and
-    global configuration.
-
-    Attributes
-    ----------
-    cycle_time : int
-        The cycle time in microseconds.
-    i2c_errors : int
-        The count of I2C errors.
-    sensors : tuple[MultiWiiSensor]
-        A tuple representing the sensors' status.
-    status_flag : int
-        The status flag.
-    global_config : int
-        The global configuration value.
+    This class encapsulates the status data from the MultiWii flight controller. It provides
+    information about cycle time, I2C errors, sensors, flags, and global configuration.
     """
+
+    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
+
     cycle_time: int
+    """int: The cycle time in microseconds."""
 
     i2c_errors: int
+    """int: The count of I2C errors."""
 
     sensors: tuple[MultiWiiSensor]
+    """tuple[MultiWiiSensor]: A tuple representing the sensors' status."""
 
     status_flag: int
+    """int: The status flag."""
 
     global_config: int
+    """int: The global configuration value."""
+
+    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspStatus` class.
+        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        of the `MspStatus` class.
 
         Parameters
         ----------
