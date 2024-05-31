@@ -51,15 +51,19 @@ class _MspCommand(object):
             raise ValueError('Command code must be between 100 and 250.')
 
         data_struct_format = None
-        data_field_count   = 0
-        has_variable_size  = False
+
+        data_field_count = 0
+
+        has_variable_size = False
 
         if data_format:
             format_properties = data_format.split(':')
 
             data_struct_format = format_properties[0]
-            data_field_count   = int(format_properties[1])
-            has_variable_size  = format_properties[2] == '?'
+
+            data_field_count = int(format_properties[1])
+
+            has_variable_size = format_properties[2] == '?'
 
         self._code = code
 
@@ -69,13 +73,15 @@ class _MspCommand(object):
 
         if not data_struct_format:
             self._data_field_count = 0
-            self._data_size        = 0
+
+            self._data_size = 0
 
             self._payload_struct_format = None 
 
             return
 
-        self._data_size        = calcsize(f'<{data_struct_format}') 
+        self._data_size = calcsize(f'<{data_struct_format}') 
+
         self._data_field_count = data_field_count
 
         self._payload_struct_format = f'<2B{data_struct_format}'
