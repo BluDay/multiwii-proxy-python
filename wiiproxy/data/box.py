@@ -6,7 +6,8 @@ from typing      import NamedTuple, Self
 
 @dataclass
 class MspBox:
-    """Represents data values for the MSP_BOX command.
+    """
+    Represents data values for the MSP_BOX command.
 
     This class is used to store the state values of various control boxes in a MultiWii flight
     controller. Control boxes can be used to enable or disable specific functions or modes
@@ -22,7 +23,8 @@ class MspBox:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance
         of the `MspBox` class.
 
         Parameters
@@ -50,8 +52,9 @@ class MspBoxIds:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspBoxIds` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspBoxIds` class.
 
         Parameters
         ----------
@@ -67,7 +70,8 @@ class MspBoxIds:
 
 @dataclass
 class MspBoxItem(NamedTuple):
-    """Represents data values for the MSP_SET_BOX command.
+    """
+    Represents data values for the MSP_SET_BOX command.
 
     This class encapsulates the configuration of auxiliary (aux) control boxes in a MultiWii
     flight controller. Each box can be assigned a specific function or mode, and its state can
@@ -96,7 +100,8 @@ class MspBoxItem(NamedTuple):
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def compile(self) -> int:
-        """Compiles all of the box state values into a single unsigned integer value.
+        """
+        Compiles all of the box state values into a single unsigned integer value.
 
         Returns
         -------
@@ -108,7 +113,8 @@ class MspBoxItem(NamedTuple):
 
 @dataclass
 class MspBoxNames:
-    """Represents data values for the MSP_BOXNAMES command.
+    """
+    Represents data values for the MSP_BOXNAMES command.
 
     This class is used to store the names of various boxes that can be checked in a MultiWii
     flight controller. Each box corresponds to a specific function or mode that can be
@@ -124,8 +130,9 @@ class MspBoxNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspBoxNames` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspBoxNames` class.
 
         Parameters
         ----------

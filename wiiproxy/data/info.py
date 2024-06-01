@@ -5,7 +5,8 @@ from typing      import Self
 
 @dataclass
 class MspAnalog:
-    """Represents data values for the MSP_ANALOG command.
+    """
+    Represents data values for the MSP_ANALOG command.
 
     This class encapsulates the analog telemetry data from the MultiWii flight controller. It
     provides information about the system's voltage, power meter, RSSI, and amperage.
@@ -29,7 +30,8 @@ class MspAnalog:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance
         of the `MspAnalog` class.
 
         Parameters
@@ -51,7 +53,8 @@ class MspAnalog:
 
 @dataclass
 class MspIdent:
-    """Represents data values for the MSP_IDENT command.
+    """
+    Represents data values for the MSP_IDENT command.
 
     This class encapsulates the identification data from the MultiWii flight controller. It
     provides information about the firmware version, multitype, capabilities, and navigation
@@ -67,9 +70,7 @@ class MspIdent:
     """MultiWiiMultitype: The vehicle configuration type."""
 
     capabilities: tuple[MultiWiiCapability]
-    """tuple[MultiWiiCapability]: A tuple representing the capabilities of the flight
-    controller.
-    """
+    """tuple[MultiWiiCapability]: A tuple with available flight capabilities."""
 
     navigation_version: int
     """The navigation version of the firmware."""
@@ -78,8 +79,9 @@ class MspIdent:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspIdent` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspIdent` class.
 
         Parameters
         ----------
@@ -108,7 +110,8 @@ class MspIdent:
 
 @dataclass
 class MspMisc:
-    """Represents data values for the MSP_MISC command.
+    """
+    Represents data values for the MSP_MISC command.
 
     This class encapsulates miscellaneous configuration and status data from the MultiWii
     flight controller. It includes information about power triggers, throttle settings,
@@ -157,8 +160,9 @@ class MspMisc:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspMisc` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspMisc` class.
 
         Parameters
         ----------
@@ -187,7 +191,8 @@ class MspMisc:
 
 @dataclass
 class MspSetMisc:
-    """Represents data values for the MSP_SET_MISC command.
+    """
+    Represents data values for the MSP_SET_MISC command.
 
     This class encapsulates miscellaneous configuration data to be set on the MultiWii flight
     controller. It includes information about power triggers, throttle settings, battery
@@ -234,7 +239,8 @@ class MspSetMisc:
 
 @dataclass
 class MspStatus:
-    """Represents data values for the MSP_STATUS command.
+    """
+    Represents data values for the MSP_STATUS command.
 
     This class encapsulates the status data from the MultiWii flight controller. It provides
     information about cycle time, I2C errors, sensors, flags, and global configuration.
@@ -261,8 +267,9 @@ class MspStatus:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspStatus` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspStatus` class.
 
         Parameters
         ----------

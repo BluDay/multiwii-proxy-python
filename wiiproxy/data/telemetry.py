@@ -5,7 +5,8 @@ from typing      import Self
 
 @dataclass
 class MspAltitude:
-    """Represents data values for the MSP_ALTITUDE command.
+    """
+    Represents data values for the MSP_ALTITUDE command.
 
     This class encapsulates altitude-related data from a MultiWii flight controller.
     """
@@ -22,8 +23,9 @@ class MspAltitude:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspAltitude` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspAltitude` class.
 
         Parameters
         ----------
@@ -39,7 +41,8 @@ class MspAltitude:
 
 @dataclass
 class MspAttitude:
-    """Represents data values for the MSP_ATTITUDE command.
+    """
+    Represents data values for the MSP_ATTITUDE command.
 
     This class encapsulates attitude-related data from a MultiWii flight controller.
     """
@@ -59,8 +62,9 @@ class MspAttitude:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspAttitude` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspAttitude` class.
 
         Parameters
         ----------
@@ -80,7 +84,8 @@ class MspAttitude:
 
 @dataclass
 class MspRawImu:
-    """Represents data values for the MSP_RAW_IMU command.
+    """
+    Represents data values for the MSP_RAW_IMU command.
 
     This class encapsulates raw IMU (Intertial Measurement Unit) data from a MultiWii
     flight controller.
@@ -107,8 +112,9 @@ class MspRawImu:
         gyroscope_unit:     int = 1.0,
         magnetometer_unit:  int = 1.0
     ) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspRawImu` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspRawImu` class.
 
         Parameters
         ----------

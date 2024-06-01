@@ -3,7 +3,8 @@ from typing      import Self
 
 @dataclass
 class MspServo:
-    """Represents data values for the MSP_SERVO command.
+    """
+    Represents data values for the MSP_SERVO command.
 
     This class encapsulates the servo values for channels in the MultiWii flight controller.
     """
@@ -17,8 +18,9 @@ class MspServo:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspServo` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspServo` class.
 
         Parameters
         ----------
@@ -34,7 +36,8 @@ class MspServo:
 
 @dataclass
 class MspServoConf:
-    """Represents data values for the MSP_SERVO_CONF command.
+    """
+    Represents data values for the MSP_SERVO_CONF command.
 
     This class encapsulates the servo configuration values for setting up servo endpoints,
     middle points, and rates in the MultiWii flight controller.
@@ -49,8 +52,9 @@ class MspServoConf:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an
-        instance of the `MspServoConf` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns aninstance of
+        the `MspServoConf` class.
 
         Parameters
         ----------
@@ -80,7 +84,8 @@ class MspServoConf:
 
 @dataclass
 class MspServoConfItem:
-    """Represents data values for the MSP_SET_SERVO_CONF command.
+    """
+    Represents data values for the MSP_SET_SERVO_CONF command.
 
     This class encapsulates the configuration values for a single servo channel in the
     MultiWii flight controller.

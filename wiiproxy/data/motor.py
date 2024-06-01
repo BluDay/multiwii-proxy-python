@@ -3,7 +3,8 @@ from typing      import Self
 
 @dataclass
 class MspMotor:
-    """Represents data values for the MSP_MOTOR command.
+    """
+    Represents data values for the MSP_MOTOR command.
 
     This class encapsulates the motor speed values for up to eight motors in a MultiWii flight
     controller. Each motor's speed is represented as an integer value.
@@ -39,8 +40,9 @@ class MspMotor:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspMotor` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspMotor` class.
 
         Parameters
         ----------
@@ -56,7 +58,8 @@ class MspMotor:
 
 @dataclass
 class MspMotorPins:
-    """Represents data values for the MSP_MOTOR_PINS command.
+    """
+    Represents data values for the MSP_MOTOR_PINS command.
 
     This class extends `MspMotor` to provide the motor pin values for up to eight motors
     in a MultiWii flight controller. Each motor's pin value is represented as an integer
@@ -93,8 +96,9 @@ class MspMotorPins:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspMotorPins` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspMotorPins` class.
 
         Parameters
         ----------

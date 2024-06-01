@@ -2,7 +2,8 @@ from struct import calcsize
 from typing import Final, NoReturn
 
 class _MspCommand(object):
-    """Represents an MSP command.
+    """
+    Represents an MSP command.
 
     This class encapsulates the details of a command for the MultiWii Serial Protocol (MSP).
     It includes information about the command code, whether the command size is variable,
@@ -27,7 +28,8 @@ class _MspCommand(object):
     # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, code: int, data_format: str = None) -> NoReturn:
-        """Initializes an instance using the provided code and struct format.
+        """
+        Initializes an instance using the provided code and struct format.
 
         Note
         ----
@@ -87,7 +89,8 @@ class _MspCommand(object):
         self._payload_struct_format = f'<2B{data_struct_format}'
 
     def __int__(self) -> int:
-        """Returns the integer representation of the object, as the MSP command code.
+        """
+        Returns the integer representation of the object, as the MSP command code.
 
         Returns
         -------
@@ -97,7 +100,8 @@ class _MspCommand(object):
         self._code
 
     def __repr__(self) -> str:
-        """Returns a string representation of the object.
+        """
+        Returns a string representation of the object.
 
         This method perform formats a string using the following values:
 
@@ -126,7 +130,8 @@ class _MspCommand(object):
         )
 
     def __str__(self) -> str:
-        """Returns the string representation of the object, as the data structure format.
+        """
+        Returns the string representation of the object, as the data structure format.
 
         Returns
         -------
@@ -139,7 +144,8 @@ class _MspCommand(object):
     
     @property
     def code(self) -> int:
-        """Gets the unique command code.
+        """
+        Gets the unique command code.
 
         Returns
         -------
@@ -150,7 +156,8 @@ class _MspCommand(object):
 
     @property
     def data_field_count(self) -> int:
-        """Gets the data field count.
+        """
+        Gets the data field count.
 
         Returns
         -------
@@ -161,7 +168,8 @@ class _MspCommand(object):
 
     @property
     def data_size(self) -> int:
-        """Gets the data structure size.
+        """
+        Gets the data structure size.
 
         Returns
         -------
@@ -172,7 +180,8 @@ class _MspCommand(object):
 
     @property
     def data_struct_format(self) -> str:
-        """Gets the data structure format string.
+        """
+        Gets the data structure format string.
 
         Returns
         -------
@@ -185,7 +194,8 @@ class _MspCommand(object):
 
     @property
     def has_variable_size(self) -> bool:
-        """Gets a value indicative whether the data size is variable.
+        """
+        Gets a value indicative whether the data size is variable.
 
         Returns
         -------
@@ -196,7 +206,8 @@ class _MspCommand(object):
 
     @property
     def is_set_command(self) -> bool:
-        """Gets a value indicative whether the command is a set-command.
+        """
+        Gets a value indicative whether the command is a set-command.
         
         Returns
         -------
@@ -207,7 +218,8 @@ class _MspCommand(object):
 
     @property
     def payload_struct_format(self) -> str:
-        """Gets the payload format string.
+        """
+        Gets the payload format string.
 
         Returns
         -------
