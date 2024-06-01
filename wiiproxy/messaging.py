@@ -138,7 +138,7 @@ def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspRespons
             )
         )
 
-    data = unpack(command.data_struct_format, payload)
+    data = unpack(command.data_struct_format, payload[2:])
 
     data_size = payload[0]
 
