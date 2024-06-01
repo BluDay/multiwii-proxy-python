@@ -1,5 +1,5 @@
-wiiproxy.commands module
-========================
+Commands
+========
 
 .. automodule:: wiiproxy.commands
    :members:
