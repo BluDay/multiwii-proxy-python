@@ -358,7 +358,7 @@ class MultiWii(object):
         """
         data = self._get_data(command)
 
-        return self._command_to_data_structure_map[command].parse(data)
+        return self._command_to_data_structure_type_map[command].parse(data)
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
 
