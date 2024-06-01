@@ -309,12 +309,7 @@ class MultiWii(object):
         command_code = self._serial_port.read(1)
 
         if command_code != command.code:
-            raise_error(
-                'Message with an invalid command code detected. ({}, {})'.format(
-                    command.code,
-                    command_code
-                )
-            )
+            raise_error(f'Invalid command code detected. ({command.code}, {command_code})')
 
         payload = bytes()
 
