@@ -29,7 +29,6 @@ class _MspResponseMessage(NamedTuple):
     data_size : int
         The size of the unserialized data values.
     """
-    
     command: _MspCommand
 
     data: tuple[int]
@@ -56,7 +55,6 @@ def _crc8_xor(payload: bytes) -> int:
     int
         The checksum for the provided payload.
     """
-    
     checksum = 0
 
     for byte in payload: checksum ^= byte
@@ -80,7 +78,6 @@ def _create_request_message(command: _MspCommand, data: tuple[int]) -> bytes:
     bytes
         The full message in bytes.
     """
-    
     data_size = 0
 
     payload_content = bytes()
@@ -115,7 +112,6 @@ def _decode_names(data: tuple) -> tuple[str]:
     tuple[str]
         A tuple of decoded names.
     """
-    
     return tuple(data[0].decode('ascii').split(';'))
 
 def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspResponseMessage:
@@ -140,7 +136,6 @@ def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspRespons
     _MspResponseMessage
         A named tuple with the command, parsed data and additional information.
     """
-    
     command_code = payload[1]
 
     if command_code != command.code:
