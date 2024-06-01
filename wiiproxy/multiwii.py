@@ -436,6 +436,8 @@ class MultiWii(object):
         data : tuple[MspBoxItem]
             A tuple of non-null `MspBoxItem` values.
         """
+        data = (box_item._compile() for box_item in data)
+
         self._send_request_message(MSP_SET_BOX, data)
 
     def set_head(self, range: int) -> NoReturn:
