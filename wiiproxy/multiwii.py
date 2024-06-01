@@ -555,6 +555,8 @@ class MultiWii(object):
         data : MspRcTuning
             An instance of the `MspRcTuning` class populated with values.
         """
+        # TODO: Evaluate data and convert values to integers.
+
         self._send_request_message(MSP_SET_RC_TUNING, data)
 
     def set_servo_config(self, data: tuple[MspServoConfItem]) -> NoReturn:
