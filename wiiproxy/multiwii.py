@@ -233,22 +233,6 @@ class MultiWii(object):
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def _get_data(self, command: _MspCommand) -> tuple[int]:
-        """
-        Reads a message of the specified command and returns the unserialized data.
-
-        Parameters
-        ----------
-        command : _MspCommand
-            An instance of `_MspCommand` representing the MSP command used to read the data.
-
-        Returns
-        -------
-        tuple[int]
-            A tuple with deserialized data values.
-        """
-        return self._read_response_message(command).data
-
     def _read_response_message(self, command: _MspCommand) -> _MspResponseMessage:
         """
         Reads a message using the specified MSP command.
@@ -356,7 +340,7 @@ class MultiWii(object):
         Any
             An instance of a corresponding data structure type for the given command.
         """
-        data = self._get_data(command)
+        data = self._read_response_message(command).data
 
         return self._command_to_data_structure_type_map[command].parse(data)
 
