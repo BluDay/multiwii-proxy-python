@@ -444,7 +444,7 @@ class MultiWii(object):
         Parameters
         ----------
         data : tuple[MspBoxItem]
-            A tuple of non-null `MspBoxItem`s.
+            A tuple of non-null `MspBoxItem` values.
         """
         self._send_request_message(MSP_SET_BOX, data)
 
