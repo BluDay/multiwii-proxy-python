@@ -5,7 +5,8 @@ from typing      import Self
 
 @dataclass
 class MspCompGps:
-    """Represents data values for the MSP_COMP_GPS command.
+    """
+    Represents data values for the MSP_COMP_GPS command.
 
     This class encapsulates the GPS compass data from the MultiWii flight controller.
     It provides information about the distance and direction to the hime position, as
@@ -27,8 +28,9 @@ class MspCompGps:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspCompGps` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspCompGps` class.
 
         Parameters
         ----------
@@ -44,7 +46,8 @@ class MspCompGps:
 
 @dataclass
 class MspRawGps:
-    """Represents data values for the MSP_RAW_GPS command.
+    """
+    Represents data values for the MSP_RAW_GPS command.
     
     This class encapsulates the GPS compass data from the MultiWii flight controller.
     It provides information about the GPS fix status, number of satellites in view,
@@ -75,8 +78,9 @@ class MspRawGps:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspRawGps` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspRawGps` class.
 
         Parameters
         ----------
@@ -102,7 +106,8 @@ class MspRawGps:
 
 @dataclass
 class MspWaypoint:
-    """Represents data values for the MSP_WP command.
+    """
+    Represents data values for the MSP_WP command.
 
     This class encapsulates the waypoint data from the MultiWii flight controller.
     It provides information about the waypoint number, coordinates, altitude hold,
@@ -133,8 +138,9 @@ class MspWaypoint:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspWaypoint` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspWaypoint` class.
 
         Parameters
         ----------

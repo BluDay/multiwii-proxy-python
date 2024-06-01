@@ -7,7 +7,8 @@ from typing      import Self
 
 @dataclass
 class MspPid:
-    """Represents data values for the MSP_PID command.
+    """
+    Represents data values for the MSP_PID command.
 
     This class encapsulates the PID controller settings for various control axes and functions
     in the MultiWii flight controller.
@@ -49,8 +50,9 @@ class MspPid:
    
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspPid` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspPid` class.
 
         Parameters
         ----------
@@ -77,7 +79,8 @@ class MspPid:
 
 @dataclass
 class MspPidNames:
-    """Represents data values for the MSP_PIDNAMES command.
+    """
+    Represents data values for the MSP_PIDNAMES command.
 
     This class is used to store the names of various PID controllers used in the MultiWii
     flight controller. Each name corresponds to a specific PID controller setting.
@@ -92,8 +95,9 @@ class MspPidNames:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspPidNames` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspPidNames` class.
 
         Parameters
         ----------

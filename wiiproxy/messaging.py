@@ -14,7 +14,8 @@ MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
 # ---------------------------------------- CLASSES -----------------------------------------
 
 class _MspResponseMessage(NamedTuple):
-    """Represents a tuple with the data size and values for a received MSP message.
+    """
+    Represents a tuple with the data size and values for a received MSP message.
 
     Attributes
     ----------
@@ -25,6 +26,7 @@ class _MspResponseMessage(NamedTuple):
     data_size : int
         The size of the unserialized data values.
     """
+    
     command: _MspCommand
 
     data: tuple[int]
@@ -38,7 +40,8 @@ class MspMessageError(Exception):
 # --------------------------------------- FUNCTIONS ----------------------------------------
 
 def _crc8_xor(payload: bytes) -> int:
-    """Calculates the checksum for the payload using an XOR CRC.
+    """
+    Calculates the checksum for the payload using an XOR CRC.
 
     Parameters
     ----------
@@ -50,6 +53,7 @@ def _crc8_xor(payload: bytes) -> int:
     int
         The checksum for the provided payload.
     """
+    
     checksum = 0
 
     for byte in payload: checksum ^= byte
@@ -57,7 +61,8 @@ def _crc8_xor(payload: bytes) -> int:
     return checksum & 0xff
 
 def _create_request_message(command: _MspCommand, data: tuple[int]) -> bytes:
-    """Constructs a serialized message for a provided command and data values.
+    """
+    Constructs a serialized message for a provided command and data values.
 
     Attributes
     ----------
@@ -72,6 +77,7 @@ def _create_request_message(command: _MspCommand, data: tuple[int]) -> bytes:
     bytes
         The full message in bytes.
     """
+    
     data_size = 0
 
     payload_content = bytes()
@@ -93,7 +99,8 @@ def _create_request_message(command: _MspCommand, data: tuple[int]) -> bytes:
     return MESSAGE_OUTGOING_HEADER + payload + checksum
 
 def _decode_names(data: tuple) -> tuple[str]:
-    """Decodes the deserialized string value and splits it to a tuple.
+    """
+    Decodes the deserialized string value and splits it to a tuple.
 
     Parameters
     ----------
@@ -105,10 +112,12 @@ def _decode_names(data: tuple) -> tuple[str]:
     tuple[str]
         A tuple of decoded names.
     """
+    
     return tuple(data[0].decode('ascii').split(';'))
 
 def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspResponseMessage:
-    """Parses the payload of a response message for a given command.
+    """
+    Parses the payload of a response message for a given command.
 
     Attributes
     ----------
@@ -128,6 +137,7 @@ def _parse_response_message(command: _MspCommand, payload: bytes) -> _MspRespons
     _MspResponseMessage
         A named tuple with the command, parsed data and additional information.
     """
+    
     command_code = payload[1]
 
     if command_code != command.code:

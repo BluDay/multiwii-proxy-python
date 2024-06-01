@@ -3,7 +3,8 @@ from typing import Generic, NamedTuple, TypeVar
 T = TypeVar('T')
 
 class Coords2D(NamedTuple):
-    """Represents 2D geographics coordinates with longitude and latitude values.
+    """
+    Represents 2D geographics coordinates with longitude and latitude values.
 
     Attributes
     ----------
@@ -17,7 +18,8 @@ class Coords2D(NamedTuple):
     longitude: float
 
 class PidValues(NamedTuple, Generic[T]):
-    """Represents PID values.
+    """
+    Represents PID values.
     
     Attributes
     ----------
@@ -35,7 +37,8 @@ class PidValues(NamedTuple, Generic[T]):
     derivative: T
 
 class Point2D(NamedTuple, Generic[T]):
-    """Represents a 2D point.
+    """
+    Represents a 2D point.
 
     Attributes
     ----------
@@ -48,7 +51,8 @@ class Point2D(NamedTuple, Generic[T]):
     y: T
 
 class Point3D(NamedTuple, Generic[T]):
-    """Represents a 3D point.
+    """
+    Represents a 3D point.
     
     Attributes
     ----------

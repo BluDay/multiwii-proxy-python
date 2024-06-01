@@ -3,7 +3,8 @@ from typing      import Self
 
 @dataclass
 class MspRc:
-    """Represents data values for the MSP_RC command.
+    """
+    Represents data values for the MSP_RC command.
     
     This class encapsulates the RC (Remote Control) input values for various control axes in
     the MultiWii flight controller.
@@ -39,8 +40,9 @@ class MspRc:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspRc` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspRc` class.
 
         Parameters
         ----------
@@ -56,7 +58,8 @@ class MspRc:
 
 @dataclass
 class MspRcTuning:
-    """Represents data values for the MSP_RC_TUNING command.
+    """
+    Represents data values for the MSP_RC_TUNING command.
 
     This class encapsulates the tuning parameters for the RC (Remote Control) inputs
     in the MultiWii flight controller. It provides information about the rates, expo,
@@ -90,8 +93,9 @@ class MspRcTuning:
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
-        """Parses a tuple of data values obtained from `struct.unpack` and returns an instance
-        of the `MspRcTuning` class.
+        """
+        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of
+        the `MspRcTuning` class.
 
         Parameters
         ----------

@@ -2,7 +2,8 @@ from enum import IntEnum, unique
 
 @unique
 class MultiWiiBox(IntEnum):
-    """Represents the various boxes that can be checked in a MultiWii flight controller.
+    """
+    Represents the various boxes that can be checked in a MultiWii flight controller.
 
     Each box corresponds to a specific function or mode that can be activated in the
     flight controller's configuration.
@@ -32,7 +33,8 @@ class MultiWiiBox(IntEnum):
 
 @unique
 class MultiWiiBoxState(IntEnum):
-    """Represents the state of an auxiliary (aux) control box in MultiWii flight controller.
+    """
+    Represents the state of an auxiliary (aux) control box in MultiWii flight controller.
 
     The state indicates whether the box is unselected (Empty), or selected at a LOW (Low),
     MID (Mid), or HIGH (High) position.
@@ -44,7 +46,8 @@ class MultiWiiBoxState(IntEnum):
 
 @unique
 class MultiWiiCapability(IntEnum):
-    """Represents various capabilities of a MultiWii flight controller.
+    """
+    Represents various capabilities of a MultiWii flight controller.
 
     Each capability indicates a specific feature that the flight controller supports.
     """
@@ -56,7 +59,8 @@ class MultiWiiCapability(IntEnum):
 
 @unique
 class MultiWiiMultitype(IntEnum):
-    """Enumeration of vehicle configurations available in MultiWii.
+    """
+    Enumeration of vehicle configurations available in MultiWii.
 
     These configurations represents different types of aircraft or vehicle setups
     that the flight controller can be configured to control.
@@ -85,7 +89,8 @@ class MultiWiiMultitype(IntEnum):
 
 @unique
 class MultiWiiSensor(IntEnum):
-    """Enumeration of sensor types supported by MultiWii.
+    """
+    Enumeration of sensor types supported by MultiWii.
 
     These sensor types indicate the various sensors that can be used with the
     MultiWii flight controller to provide additional data and functionality.
