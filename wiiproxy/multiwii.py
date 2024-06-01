@@ -77,7 +77,7 @@ from .messaging import (
 
 from serial import Serial
 from time   import sleep
-from typing import Any, Final, NoReturn
+from typing import Any, Final, NoReturn, Type
 
 class MultiWii(object):
     """The main class for wiiproxy that handles communication with MultiWii flight controllers.
@@ -159,6 +159,17 @@ class MultiWii(object):
         self._serial_port = serial_port
 
     # --------------------------------------- PROPERTIES ---------------------------------------
+
+    @property
+    def command_to_data_structure_type_map(self) -> dict[_MspCommand, Type]:
+        """Gets the command to data structure type dictionary.
+
+        Returns
+        -------
+        dict[_MspCommand, Type]
+            The dictionary.
+        """
+        return self._command_to_data_structure_type_map
     
     @property
     def message_write_read_delay(self) -> float:
