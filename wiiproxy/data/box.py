@@ -99,7 +99,7 @@ class MspBoxItem(NamedTuple):
     
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 
-    def compile(self) -> int:
+    def _compile(self) -> int:
         """
         Compiles all of the box state values into a single unsigned integer value.
 
