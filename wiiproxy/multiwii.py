@@ -167,9 +167,9 @@ class MultiWii(object):
         Returns
         -------
         dict[_MspCommand, Type]
-            The dictionary.
+            A instance with a copy of the map.
         """
-        return self._command_to_data_structure_type_map
+        return dict(self._command_to_data_structure_type_map)
     
     @property
     def message_write_read_delay(self) -> float:
