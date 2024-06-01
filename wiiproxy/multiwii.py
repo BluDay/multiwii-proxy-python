@@ -486,7 +486,7 @@ class MultiWii(object):
         data : MspSetMisc
             An instance of the `MspSetMisc` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_MISC, data)
 
@@ -502,7 +502,7 @@ class MultiWii(object):
         data : MspMotor
             An instance of the `MspMotor` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_MOTOR, data)
 
@@ -518,7 +518,7 @@ class MultiWii(object):
         data : MspPid
             An instance of the `MspPid` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_PID, data)
 
@@ -534,7 +534,7 @@ class MultiWii(object):
         data : MspRawGps
             An instance of the `MspRawGps` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_RAW_GPS, data)
 
@@ -551,7 +551,7 @@ class MultiWii(object):
         data : MspRc
             An instance of the `MspRc` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_RAW_RC, data)
     
@@ -581,7 +581,7 @@ class MultiWii(object):
         data : tuple[MspServoConfItem]
             A tuple with instances of the `MspServoConfItem` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_SERVO_CONF, data)
 
@@ -598,6 +598,6 @@ class MultiWii(object):
         data : MsWaypoint
             An instance of the `MspWaypoint` class populated with values.
         """
-        # TODO: Validate data and convert values to integers.
+        # TODO: Evaluate data and convert values to integers.
 
         self._send_request_message(MSP_SET_WP, data)
