@@ -1,5 +1,5 @@
 
-# wiiproxy
+# WiiProxy
 
 _Not functional at this time. The codebase is currently being revamped and improved._
 
