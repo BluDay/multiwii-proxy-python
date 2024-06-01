@@ -316,9 +316,16 @@ class MultiWii(object):
                 )
             )
 
+        payload = bytes()
+
+        payload += command_code
+
         data_size = self._serial_port.read(1)
 
-        payload = self._serial_port.read(data_size)
+        data = self._serial_port.read(data_size)
+
+        payload += data_size
+        payload += data
 
         checksum = self._serial_port.read(1)
 
