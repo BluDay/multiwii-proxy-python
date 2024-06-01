@@ -1,5 +1,5 @@
-wiiproxy.messaging module
-=========================
+Messaging
+=========
 
 .. automodule:: wiiproxy.messaging
    :members:

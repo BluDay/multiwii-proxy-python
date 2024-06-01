@@ -1,25 +1,42 @@
-wiiproxy.data package
-=====================
+Data structures
+===============
 
-Submodules
-----------
+.. automodule:: wiiproxy.data.box
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: wiiproxy.data.info
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-   wiiproxy.data.box
-   wiiproxy.data.info
-   wiiproxy.data.motor
-   wiiproxy.data.navigation
-   wiiproxy.data.pid
-   wiiproxy.data.rc
-   wiiproxy.data.servo
-   wiiproxy.data.telemetry
+.. automodule:: wiiproxy.data.motor
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-Module contents
----------------
+.. automodule:: wiiproxy.data.navigation
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. automodule:: wiiproxy.data
+.. automodule:: wiiproxy.data.pid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: wiiproxy.data.rc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: wiiproxy.data.servo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: wiiproxy.data.telemetry
    :members:
    :undoc-members:
    :show-inheritance:

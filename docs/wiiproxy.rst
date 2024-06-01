@@ -1,29 +1,15 @@
-wiiproxy package
-================
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   wiiproxy.data
-
-Submodules
-----------
+WiiProxy API
+============
 
 .. toctree::
    :maxdepth: 4
 
    wiiproxy.commands
    wiiproxy.config
+   wiiproxy.data
    wiiproxy.messaging
-   wiiproxy.multiwii
 
-Module contents
----------------
-
-.. automodule:: wiiproxy
+.. automodule:: wiiproxy.multiwii
    :members:
    :undoc-members:
    :show-inheritance:
