@@ -5,11 +5,14 @@ from struct import pack, unpack
 
 # --------------------------------------- CONSTANTS ----------------------------------------
 
-MESSAGE_ERROR_HEADER:    Final[bytes] = b'$M!' # 0x24, 0x4d, 0x21
+MESSAGE_ERROR_HEADER: Final[bytes] = b'$M!'
+"""bytes: The serialized error message header. (0x24, 0x4d, 0x21)"""
 
-MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<' # 0x24, 0x4d, 0x3c
+MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<'
+"""bytes: The serialized incoming message header. (0x24, 0x4d, 0x3c)"""
 
-MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>' # 0x24, 0x4d, 0x3e
+MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>'
+"""bytes: The serialized outgoing message header. (0x24, 0x4d, 0x3e)"""
 
 # ---------------------------------------- CLASSES -----------------------------------------
 
