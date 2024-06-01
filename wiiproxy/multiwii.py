@@ -346,6 +346,8 @@ class MultiWii(object):
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
 
+    # TODO: Add arming and disarming methods.
+
     def bind_transmitter_and_receiver(self) -> NoReturn:
         """
         Sends an MSP_BIND command.
