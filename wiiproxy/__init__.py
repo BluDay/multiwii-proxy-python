@@ -9,5 +9,3 @@ __maintainer__  = 'BluDay'
 __title__       = 'WiiProxy'
 __url__         = 'https://github.com/BluDay/wiiproxy'
 __version__     = '1.0'
-
-from .multiwii import MultiWii

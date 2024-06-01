@@ -1,4 +1,4 @@
-from wiiproxy import MultiWii
+from wiiproxy.multiwii import MultiWii
 
 from pytest import raises
 from typing import NoReturn
