@@ -1,4 +1,4 @@
-"""( 0 _ o )"""
+# ( 0 _ o )
 
 __author__      = 'BluDay'
 __copyrights__  = '© 2024 BluDay'
