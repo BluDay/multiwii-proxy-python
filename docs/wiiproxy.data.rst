@@ -1,9 +1,6 @@
 Data structures
 ===============
 
-MSP
----
-
 .. automodule:: wiiproxy.data.box
    :members:
    :undoc-members:
@@ -44,8 +41,8 @@ MSP
    :undoc-members:
    :show-inheritance:
 
-Base
-----
+Value types
+-----------
 
 .. automodule:: wiiproxy.data._types
    :members:
