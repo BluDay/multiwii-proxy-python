@@ -23,6 +23,7 @@ from .commands import (
     MSP_RC,
     MSP_RC_TUNING,
     MSP_RESET_CONF,
+    MSP_SELECT_SETTING,
     MSP_SERVO,
     MSP_SERVO_CONF,
     MSP_SET_BOX,
@@ -424,6 +425,25 @@ class MultiWii(object):
         values could lead to unexpected behavior or instability.
         """
         self._send_request_message(MSP_EEPROM_WRITE)
+
+    def select_setting(self, value: int) -> NoReturn:
+        """
+        Sends an MSP_SELECT_SETTING command.
+
+        Selects the "setting configuration" with different PID and rate values using the given
+        range value.
+
+        Parameters
+        ----------
+        value : int
+            A value of 0, 1 or 2.
+
+        Raises
+        ------
+        ValueError
+            If the provided value is not 0, 1 or 2.
+        """
+        self._send_request_message(MSP_SELECT_SETTING, data=(value,))
 
     def set_boxes(self, data: tuple[MspBoxItem]) -> NoReturn:
         """
