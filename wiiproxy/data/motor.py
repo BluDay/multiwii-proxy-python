@@ -57,7 +57,7 @@ class MspMotor:
         return cls(*data)
 
 @dataclass
-class MspMotorPins:
+class MspMotorPins(MspMotor):
     """
     Represents data values for the MSP_MOTOR_PINS command.
 
@@ -65,32 +65,6 @@ class MspMotorPins:
     in a MultiWii flight controller. Each motor's pin value is represented as an integer
     value.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
-    motor1: int
-    """int: The pin value for motor 1."""
-
-    motor2: int
-    """int: The pin value for motor 2."""
-
-    motor3: int
-    """int: The pin value for motor 3."""
-
-    motor4: int
-    """int: The pin value for motor 4."""
-
-    motor5: int
-    """int: The pin value for motor 5."""
-
-    motor6: int
-    """int: The pin value for motor 6."""
-
-    motor7: int
-    """int: The pin value for motor 7."""
-
-    motor8: int
-    """int: The pin value for motor 8."""
 
     # ------------------------------------ CLASS METHODS ---------------------------------------
 
