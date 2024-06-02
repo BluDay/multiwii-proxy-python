@@ -56,6 +56,19 @@ class MspRc:
         """
         return cls(*data)
 
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (roll, pitch, yaw, throttle, aux1, aux2, aux3, aux4)
+
 @dataclass
 class MspRcTuning:
     """
@@ -108,3 +121,24 @@ class MspRcTuning:
             An instance of the `MspRcTuning` class populated with the parsed data.
         """
         return cls(*data)
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (
+            rate,
+            expo,
+            roll_pitch_rate,
+            yaw_rate,
+            dynamic_throttle_pid,
+            throttle_mid,
+            throttle_expo
+        )

@@ -512,9 +512,7 @@ class MultiWii(object):
         data : MspMotor
             An instance of the `MspMotor` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_MOTOR, data)
+        self._send_request_message(MSP_SET_MOTOR, data.as_serializable())
 
     def set_pid_values(self, data: MspPid) -> NoReturn:
         """
@@ -528,9 +526,7 @@ class MultiWii(object):
         data : MspPid
             An instance of the `MspPid` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_PID, data)
+        self._send_request_message(MSP_SET_PID, data.as_serializable())
 
     def set_raw_gps(self, data: MspRawGps) -> NoReturn:
         """
@@ -544,9 +540,7 @@ class MultiWii(object):
         data : MspRawGps
             An instance of the `MspRawGps` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_RAW_GPS, data)
+        self._send_request_message(MSP_SET_RAW_GPS, data.as_serializable())
 
     def set_raw_rc(self, data: MspRc) -> NoReturn:
         """
@@ -561,9 +555,7 @@ class MultiWii(object):
         data : MspRc
             An instance of the `MspRc` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_RAW_RC, data)
+        self._send_request_message(MSP_SET_RAW_RC, data.as_serializable())
     
     def set_rc_tuning(self, data: MspRcTuning) -> NoReturn:
         """
@@ -577,11 +569,9 @@ class MultiWii(object):
         data : MspRcTuning
             An instance of the `MspRcTuning` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
+        self._send_request_message(MSP_SET_RC_TUNING, data.as_serializable())
 
-        self._send_request_message(MSP_SET_RC_TUNING, data)
-
-    def set_servo_config(self, data: tuple[MspServoConfItem]) -> NoReturn:
+    def set_servo_config(self, data: MspServoConf) -> NoReturn:
         """
         Sends an MSP_SET_SERVO_CONF command.
 
@@ -593,9 +583,7 @@ class MultiWii(object):
         data : tuple[MspServoConfItem]
             A tuple with instances of the `MspServoConfItem` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_SERVO_CONF, data)
+        self._send_request_message(MSP_SET_SERVO_CONF, data.as_serializable())
 
     def set_waypoint(self, data: MspWaypoint) -> NoReturn:
         """
@@ -610,6 +598,4 @@ class MultiWii(object):
         data : MsWaypoint
             An instance of the `MspWaypoint` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_WP, data)
+        self._send_request_message(MSP_SET_WP, data.as_serializable())

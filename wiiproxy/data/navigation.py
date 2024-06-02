@@ -104,6 +104,27 @@ class MspRawGps:
             ground_course=data[6] / 10.0
         )
 
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (
+            fix,
+            satellites,
+            int(coordinates.latitude * 10000000),
+            int(coordinates.longitude * 10000000),
+            altitude,
+            speed,
+            int(ground_course * 10)
+        )
+
 @dataclass
 class MspWaypoint:
     """
@@ -122,7 +143,7 @@ class MspWaypoint:
     coordinates: Coords2D[int]
     """Coords2D[int]: The GPS coordinates (latitude and longitude) of the waypoint."""
 
-    alt_hold: int
+    altitude_hold: int
     """int: The altitude hold value in meters."""
 
     heading: int
@@ -131,7 +152,7 @@ class MspWaypoint:
     time_to_stay: int
     """int: The time to stay at the waypoint in seconds."""
 
-    flag: int
+    status_flag: int
     """int: The waypoint flag indicating the waypoint's status or type."""
     
     # ------------------------------------ CLASS METHODS ---------------------------------------
@@ -158,8 +179,29 @@ class MspWaypoint:
                 latitude=data[1] / 10000000.0,
                 longitude=data[2] / 10000000.0
             ),
-            alt_hold=data[3],
+            altitude_hold=data[3],
             heading=data[4],
             time_to_stay=data[5],
-            flag=data[6]
+            status_flag=data[6]
+        )
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (
+            number,
+            int(coordinates.latitude * 100000000),
+            int(coordinates.longitude * 100000000),
+            altitude_hold,
+            heading,
+            time_to_stay,
+            status_flag
         )
