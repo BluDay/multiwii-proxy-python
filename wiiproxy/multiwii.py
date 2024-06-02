@@ -498,9 +498,7 @@ class MultiWii(object):
         data : MspSetMisc
             An instance of the `MspSetMisc` class populated with values.
         """
-        # TODO: Evaluate data and convert values to integers.
-
-        self._send_request_message(MSP_SET_MISC, data)
+        self._send_request_message(MSP_SET_MISC, data.as_serializable())
 
     def set_motors(self, data: MspMotor) -> NoReturn:
         """
