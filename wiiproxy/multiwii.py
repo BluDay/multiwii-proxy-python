@@ -448,7 +448,7 @@ class MultiWii(object):
 
         self._send_request_message(MSP_SELECT_SETTING, data=(value,))
 
-    def set_boxes(self, data: tuple[MspBoxItem]) -> NoReturn:
+    def set_boxes(self, data: MspBox) -> NoReturn:
         """
         Sends an MSP_SET_BOX command.
 
@@ -460,11 +460,9 @@ class MultiWii(object):
         data : tuple[MspBoxItem]
             A tuple of non-null `MspBoxItem` values.
         """
-        data = (box_item._compile() for box_item in data)
+        self._send_request_message(MSP_SET_BOX, data.as_serializable())
 
-        self._send_request_message(MSP_SET_BOX, data)
-
-    def set_head(self, range: int) -> NoReturn:
+    def set_head(self, value: int) -> NoReturn:
         """
         Sends an MSP_SET_HEAD command.
 
@@ -474,17 +472,17 @@ class MultiWii(object):
         Parameters
         ----------
         range : int
-            The heading direction range value between -180 and 180.
+            The heading direction value within a range of -180 and 180.
 
         Raises
         ------
         ValueError
             If the provided range value is less than -180 or greater than 180.
         """
-        if not -180 <= range <= 180:
+        if not -180 <= value <= 180:
             raise ValueError('Value must be within the range of -180 and 180.')
 
-        self._send_request_message(MSP_SET_HEAD, data=(range,))
+        self._send_request_message(MSP_SET_HEAD, data=(value,))
 
     def set_misc_config(self, data: MspSetMisc) -> NoReturn:
         """
