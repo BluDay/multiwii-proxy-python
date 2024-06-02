@@ -1,4 +1,4 @@
-from . import Coords2D
+from . import Coordinates
 
 from dataclasses import dataclass
 from typing      import Self
@@ -62,8 +62,8 @@ class MspRawGps:
     satellites: int
     """int: The number of satellites in view."""
 
-    coordinates: Coords2D[float]
-    """Coords2D[float]: The GPS coordinates (latitude and longitude)."""
+    coordinates: Coordinates[float]
+    """Coordinates[float]: The GPS coordinates (latitude and longitude)."""
 
     altitude: int
     """int: The altitude in meters."""
@@ -95,7 +95,7 @@ class MspRawGps:
         return cls(
             fix=data[0],
             satellites=data[1],
-            coordinates=Coords2D(
+            coordinates=Coordinates(
                 latitude=data[2] / 10000000.0,
                 longitude=data[3] / 10000000.0
             ),
@@ -140,8 +140,8 @@ class MspWaypoint:
     number: int
     """int: The waypoint number."""
 
-    coordinates: Coords2D[int]
-    """Coords2D[int]: The GPS coordinates (latitude and longitude) of the waypoint."""
+    coordinates: Coordinates[int]
+    """Coordinates[int]: The GPS coordinates (latitude and longitude) of the waypoint."""
 
     altitude_hold: int
     """int: The altitude hold value in meters."""
@@ -175,7 +175,7 @@ class MspWaypoint:
         """
         return cls(
             number=data[0],
-            coordinates=Coords2D(
+            coordinates=Coordinates(
                 latitude=data[1] / 10000000.0,
                 longitude=data[2] / 10000000.0
             ),
