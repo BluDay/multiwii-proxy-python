@@ -9,7 +9,7 @@ WiiProxy API
    wiiproxy.data
    wiiproxy.messaging
 
-.. automodule:: wiiproxy.multiwii
+.. autoclass:: wiiproxy.multiwii.MultiWii
    :members:
    :undoc-members:
    :show-inheritance:
