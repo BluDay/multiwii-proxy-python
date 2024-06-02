@@ -443,6 +443,9 @@ class MultiWii(object):
         ValueError
             If the provided value is not 0, 1 or 2.
         """
+        if value not in (0, 1, 2):
+            raise ValueError('Value must be 0, 1 or 2.')
+
         self._send_request_message(MSP_SELECT_SETTING, data=(value,))
 
     def set_boxes(self, data: tuple[MspBoxItem]) -> NoReturn:
