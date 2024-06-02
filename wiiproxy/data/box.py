@@ -127,7 +127,7 @@ class MspBoxIds:
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
     values: tuple[MultiWiiBox]
-    """tuple[MultiWiiBox]: The data values as `MultiWiiBox`es."""
+    """tuple[MultiWiiBox]: A tuple with `MultiWiiBox` values."""
 
     # ------------------------------------ CLASS METHODS ---------------------------------------
 
