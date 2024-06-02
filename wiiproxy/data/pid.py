@@ -77,6 +77,59 @@ class MspPid:
 
         return cls(*pid_values_collection)
 
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (
+            roll.p,
+            roll.i,
+            roll.d,
+
+            pitch.p,
+            pitch.i,
+            pitch.d,
+
+            yaw.p,
+            yaw.i,
+            yaw.d,
+
+            altitude_hold.p,
+            altitude_hold.i,
+            altitude_hold.d,
+
+            position_hold.p,
+            position_hold.i,
+            position_hold.d,
+
+            position_rate.p,
+            position_rate.i,
+            position_rate.d,
+
+            navigation_rate.p,
+            navigation_rate.i,
+            navigation_rate.d,
+
+            level_mode.p,
+            level_mode.i,
+            level_mode.d,
+
+            magnetometer.p,
+            magnetometer.i,
+            magnetometer.d,
+
+            velocity.p,
+            velocity.i,
+            velocity.d
+        )
+
 @dataclass
 class MspPidNames:
     """

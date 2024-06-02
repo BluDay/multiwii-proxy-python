@@ -56,6 +56,20 @@ class MspMotor:
         """
         return cls(*data)
 
+
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (motor1, motor2, motor3, motor4, motor5, motor6, motor7, motor8)
+
 @dataclass
 class MspMotorPins(MspMotor):
     """
