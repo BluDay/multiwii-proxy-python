@@ -1,14 +1,18 @@
 from ._command import _MspCommand
 
 from .commands import (
+    MSP_ACC_CALIBRATION,
     MSP_ALTITUDE,
     MSP_ANALOG,
     MSP_ATTITUDE,
+    MSP_BIND,
     MSP_BOX,
     MSP_BOXIDS,
     MSP_BOXNAMES,
     MSP_COMP_GPS,
+    MSP_EEPROM_WRITE,
     MSP_IDENT,
+    MSP_MAG_CALIBRATION,
     MSP_MISC,
     MSP_MOTOR,
     MSP_MOTOR_PINS,
@@ -18,24 +22,21 @@ from .commands import (
     MSP_RAW_IMU,
     MSP_RC,
     MSP_RC_TUNING,
+    MSP_RESET_CONF,
     MSP_SERVO,
     MSP_SERVO_CONF,
-    MSP_STATUS,
-    MSP_WP,
-    MSP_ACC_CALIBRATION,
-    MSP_BIND,
-    MSP_EEPROM_WRITE,
-    MSP_MAG_CALIBRATION,
-    MSP_RESET_CONF,
     MSP_SET_BOX,
     MSP_SET_HEAD,
     MSP_SET_MISC,
     MSP_SET_MOTOR,
     MSP_SET_PID,
-    MSP_SET_RAW_RC,
     MSP_SET_RAW_GPS,
+    MSP_SET_RAW_RC,
     MSP_SET_RC_TUNING,
-    MSP_SET_SERVO_CONF
+    MSP_SET_SERVO_CONF,
+    MSP_SET_WP,
+    MSP_STATUS,
+    MSP_WP
 )
 
 from .data import (
@@ -49,7 +50,6 @@ from .data import (
     MspCompGps,
     MspIdent,
     MspMisc,
-    MspSetMisc,
     MspMotor,
     MspMotorPins,
     MspPid,
@@ -61,18 +61,19 @@ from .data import (
     MspServo,
     MspServoConf,
     MspServoConfItem,
+    MspSetMisc,
     MspStatus,
     MspWaypoint
 )
 
 from .messaging import (
-    _crc8_xor,
-    _create_request_message,
-    _MspResponseMessage,
-    _parse_response_message,
     MESSAGE_ERROR_HEADER,
     MESSAGE_INCOMING_HEADER,
-    MspMessageError
+    MspMessageError,
+    _MspResponseMessage,
+    _crc8_xor,
+    _create_request_message,
+    _parse_response_message
 )
 
 from serial import Serial
