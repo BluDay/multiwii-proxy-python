@@ -2,7 +2,7 @@ from ..config    import MultiWiiBox, MultiWiiBoxState
 from ..messaging import _decode_names
 
 from dataclasses import dataclass
-from typing      import NamedTuple, Self
+from typing      import Self
 
 @dataclass
 class MspBoxItem:
