@@ -237,6 +237,32 @@ class MspSetMisc:
     battery_critical: float
     """float: The critical battery level, measured in volts."""
 
+    # ----------------------------------- INSTANCE METHODS -------------------------------------
+
+    def as_serializable(self) -> tuple[int]:
+        """
+        Returns a tuple with integer values to be used for serialization.
+
+        Returns
+        -------
+        tuple[int]
+            A tuple with serializable integer values.
+        """
+        return (
+            self.power_trigger,
+            self.throttle_min,
+            self.throttle_max,
+            self.min_command,
+            self.throttle_failsafe,
+            self.power_logger_arm,
+            self.power_logger_lifetime,
+            int(self.magnetometer_declination * 10),
+            self.battery_scale,
+            int(self.battery_warning_1 * 10),
+            int(self.battery_warning_2 * 10),
+            int(self.battery_critical * 10)
+        )
+
 @dataclass
 class MspStatus:
     """
