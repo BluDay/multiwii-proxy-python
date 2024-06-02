@@ -68,13 +68,13 @@ from .data import (
 )
 
 from .messaging import (
-    MESSAGE_ERROR_HEADER,
-    MESSAGE_INCOMING_HEADER,
-    MspMessageError,
-    _MspResponseMessage,
     _crc8_xor,
     _create_request_message,
-    _parse_response_message
+    _MspResponseMessage,
+    _parse_response_message,
+    MESSAGE_ERROR_HEADER,
+    MESSAGE_INCOMING_HEADER,
+    MspMessageError
 )
 
 from serial import Serial
