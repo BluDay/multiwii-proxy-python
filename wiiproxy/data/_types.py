@@ -3,66 +3,51 @@ from typing import Generic, NamedTuple, TypeVar
 T = TypeVar('T')
 
 class Coords2D(NamedTuple):
-    """
-    Represents 2D geographics coordinates with longitude and latitude values.
+    """Represents 2D geographics coordinates with longitude and latitude values."""
 
-    Attributes
-    ----------
-    latitude : float
-        The latitude value of the coordinate.
-    longitude : float
-        The longitude value of the coordinate.
-    """
+    # -------------------------------------- ATTRIBUTES ----------------------------------------
+
     latitude: float
+    """float: The latitude value of the coordinate."""
 
     longitude: float
+    """float: The longitude value of the coordinate."""
 
 class PidValues(NamedTuple, Generic[T]):
-    """
-    Represents PID values.
-    
-    Attributes
-    ----------
-    proportional : T
-        The proportional (P) component of the PID controller.
-    integral : T
-        The integral (I) component of the PID controller.
-    derivative : T 
-        The derivative (D) component of the PID controller.
-    """
+    """Represents PID values."""
+
+    # -------------------------------------- ATTRIBUTES ----------------------------------------
+
     proportional: T
+    """T: The proportional (P) component of the PID controller."""
 
     integral: T
+    """T: The integral (I) component of the PID controller."""
 
     derivative: T
+    """T: The derivative (D) component of the PID controller."""
 
 class Point2D(NamedTuple, Generic[T]):
-    """
-    Represents a 2D point.
+    """Represents a 2D point."""
 
-    Attributes
-    ----------
-    x : T
-        The x-coordinate of the point.
-    y : T
-        The y-coordinate of the point.
-    """
+    # -------------------------------------- ATTRIBUTES ----------------------------------------
+
     x: T
+    """T: The x-coordinate of the point."""
+
     y: T
+    """T: The y-coordinate of the point."""
 
 class Point3D(NamedTuple, Generic[T]):
-    """
-    Represents a 3D point.
-    
-    Attributes
-    ----------
-    x : T
-        The x-coordinate of the point.
-    y : T
-        The y-coordinate of the point.
-    z : T
-        The z-coordinate of the point.
-    """
+    """Represents a 3D point."""
+
+    # -------------------------------------- ATTRIBUTES ----------------------------------------
+
     x: T
+    """T: The x-coordinate of the point."""
+
     y: T
+    """T: The y-coordinate of the point."""
+
     z: T
+    """T: The z-coordinate of the point."""
