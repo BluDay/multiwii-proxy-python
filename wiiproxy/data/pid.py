@@ -1,4 +1,4 @@
-from . import PidValues
+from . import Pid
 
 from ..messaging import _decode_names
 
@@ -16,35 +16,35 @@ class MspPid:
 
     # ---------------------------------- INSTANCE VARIABLES ------------------------------------
 
-    roll: PidValues[int]
-    """PidValues[int]: PID values for the roll axis."""
+    roll: Pid[int]
+    """Pid[int]: PID values for the roll axis."""
 
-    pitch: PidValues[int]
-    """PidValues[int]: PID values for the pitch axis."""
+    pitch: Pid[int]
+    """Pid[int]: PID values for the pitch axis."""
 
-    yaw: PidValues[int]
-    """PidValues[int]: PID values for the yaw axis."""
+    yaw: Pid[int]
+    """Pid[int]: PID values for the yaw axis."""
 
-    altitude_hold: PidValues[int]
-    """PidValues[int]: PID values for the altitude hold."""
+    altitude_hold: Pid[int]
+    """Pid[int]: PID values for the altitude hold."""
 
-    position_hold: PidValues[int]
-    """PidValues[int]: PID values for the position hold."""
+    position_hold: Pid[int]
+    """Pid[int]: PID values for the position hold."""
 
-    position_rate: PidValues[int]
-    """PidValues[int]: PID values for the position rate."""
+    position_rate: Pid[int]
+    """Pid[int]: PID values for the position rate."""
 
-    navigation_rate: PidValues[int]
-    """PidValues[int]: PID values for the navigation rate."""
+    navigation_rate: Pid[int]
+    """Pid[int]: PID values for the navigation rate."""
 
-    level_mode: PidValues[int]
-    """PidValues[int]: PID values for the level mode."""
+    level_mode: Pid[int]
+    """Pid[int]: PID values for the level mode."""
 
-    magnetometer: PidValues[int]
-    """PidValues[int]: PID values for the magnetometer."""
+    magnetometer: Pid[int]
+    """Pid[int]: PID values for the magnetometer."""
 
-    velocity: PidValues[int]
-    """PidValues[int]: PID values for the velocity."""
+    velocity: Pid[int]
+    """Pid[int]: PID values for the velocity."""
 
     # ------------------------------------ CLASS METHODS ---------------------------------------
    
@@ -64,18 +64,18 @@ class MspPid:
         MspPid
             An instance of the `MspPid` class populated with the parsed data.
         """
-        pid_values_collection = ()
+        pid_collection = ()
 
         for index in range(len(data), step=3):
-            pid_values = PidValues(
+            pid = Pid(
                 p=data[index],
                 i=data[index + 1],
                 d=data[index + 2]
             )
 
-            pid_values_collection += (pid_values,)
+            pid_collection += (pid,)
 
-        return cls(*pid_values_collection)
+        return cls(*pid_collection)
 
     # ----------------------------------- INSTANCE METHODS -------------------------------------
 

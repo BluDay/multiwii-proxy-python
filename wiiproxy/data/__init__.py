@@ -1,6 +1,6 @@
 from ._types import (
-    Coords2D,
-    PidValues,
+    Coordinates,
+    Pid,
     Point2D,
     Point3D
 )
