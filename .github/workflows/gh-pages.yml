@@ -1,0 +1,10 @@
+name: Sphinx to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sphinx_to_gh_pages:
+    runs-on: ubuntu-latest
