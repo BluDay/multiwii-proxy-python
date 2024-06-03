@@ -16,11 +16,9 @@ The API documentation can be found on the [documentation site](https://bluday.gi
 Run either one of these commands to install the package:
 
 ```sh
-python3 setup.py
-```
+python setup.py
 
-```sh
-pip3 install .
+pip install .
 ```
 
 ## 🚀 Usage
