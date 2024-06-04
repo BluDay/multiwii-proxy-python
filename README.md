@@ -2,11 +2,17 @@
 
 ## Overview
 
-A simple and user-friendly Python 3 module for controlling [_MultiWii_](https://github.com/multiwii/multiwii-firmware)-based drones using version 1.0 of the [_MultiWii Serial Protocol (MSP)_](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
+multiwii-proxy-python (formerly known as _WiiProxy_) is a simple and user-friendly Python 3 module for controlling [_MultiWii_](https://github.com/multiwii/multiwii-firmware)-based drones using version 1.0 of the [_MultiWii Serial Protocol (MSP)_](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
 
-Formerly known as _WiiProxy_.
+This module does **not** support MSP v2, or any of the newer versions.
 
-This module does **not** support MSP v2 or any of the newer versions.
+## Versioning
+
+| Version      | Branch   | Description                               |
+| :---         | :---     | :---                                      |
+| v1           | `legacy` | Initial release.                          |
+| v2           | `legacy` | Major refactor. Added more functionality. |
+| v3 (Current) | `master` | Complete re-write and simplification.     |
 
 ## Documentation
 
