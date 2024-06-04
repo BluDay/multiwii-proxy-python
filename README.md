@@ -24,14 +24,17 @@ pip install .
 ## Usage
 
 ```python
-from serial   import Serial
+from serial import Serial
+
 from wiiproxy import MultiWii
+
+from wiiproxy.commands import MSP_IDENT
 
 serial_port = Serial('/dev/ttyUSB0', baudrate=115200)
 
 multiwii = MultiWii(serial_port)
 
-ident = multiwii.get_ident()
+ident = multiwii.get_data(MSP_IDENT)
 
 print(repr(ident.multitype)) # <MultiWiiMultitype.QuadX: 3>
 ```
