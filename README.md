@@ -1,9 +1,11 @@
 
 # WiiProxy
 
-A simple and user-friendly Python 3 module for controlling _MultiWii_-based drones.
+## Overview
 
-Supports only v1 of the [MultiWi Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
+A simple and user-friendly Python 3 module for controlling _MultiWii_-based drones using version 1.0 of the _MultiWii Serial Protocol (MSP)_.
+
+This module does not support version 2.0, or any of the newer versions, of MSP.
 
 ## Documentation
 
@@ -35,3 +37,7 @@ print(repr(ident.multitype)) # <MultiWiiMultitype.QuadX: 3>
 ```
 
 Other example usages can be found in the `examples` directory.
+
+## Licensing
+
+This project is licensed under the MIT license. See [LICENSE](https://github.com/BluDay/wiiproxy/blob/master/LICENSE) for more details.
