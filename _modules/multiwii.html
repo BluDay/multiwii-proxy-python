@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>multiwii &mdash; multiwii-proxy-python 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            multiwii-proxy-python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../multiwii.html">multiwii API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">multiwii-proxy-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">multiwii</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for multiwii</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">multiwii-proxy-python: A simple and user-friendly Python 3 module for MultiWii-based drones.</span>
+
+<span class="sd">Formerly known as WiiProxy.</span>
+
+<span class="sd">Copyright (C) 2024 BluDay</span>
+
+<span class="sd">This module only supports communication through MSP v1 and not for any of the newer</span>
+<span class="sd">versions. Consider using other libraries that uses MSP v2 and newer versions of the</span>
+<span class="sd">protocol.</span>
+
+<span class="sd">The re-write of this module was a great learning experience for me.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span>      <span class="o">=</span> <span class="s1">&#39;BluDay&#39;</span>
+<span class="n">__copyrights__</span>  <span class="o">=</span> <span class="s1">&#39;© 2024 BluDay&#39;</span>
+<span class="n">__credits__</span>     <span class="o">=</span> <span class="s1">&#39;BluDay&#39;</span>
+<span class="n">__description__</span> <span class="o">=</span> <span class="s1">&#39;A simple and user-friendly Python 3 module for MultiWii-based drones.&#39;</span>
+<span class="n">__license__</span>     <span class="o">=</span> <span class="s1">&#39;MIT&#39;</span>
+<span class="n">__maintainer__</span>  <span class="o">=</span> <span class="s1">&#39;BluDay&#39;</span>
+<span class="n">__title__</span>       <span class="o">=</span> <span class="s1">&#39;multiwii-proxy-python&#39;</span>
+<span class="n">__url__</span>         <span class="o">=</span> <span class="s1">&#39;https://bluday.github.io/multiwii-proxy-python&#39;</span>
+<span class="n">__version__</span>     <span class="o">=</span> <span class="s1">&#39;3.0&#39;</span>
+
+<span class="kn">from</span> <span class="nn">._command</span> <span class="kn">import</span> <span class="n">_MspCommand</span>
+
+<span class="kn">from</span> <span class="nn">.commands</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MSP_ACC_CALIBRATION</span><span class="p">,</span>
+    <span class="n">MSP_ALTITUDE</span><span class="p">,</span>
+    <span class="n">MSP_ANALOG</span><span class="p">,</span>
+    <span class="n">MSP_ATTITUDE</span><span class="p">,</span>
+    <span class="n">MSP_BIND</span><span class="p">,</span>
+    <span class="n">MSP_BOX</span><span class="p">,</span>
+    <span class="n">MSP_BOXIDS</span><span class="p">,</span>
+    <span class="n">MSP_BOXNAMES</span><span class="p">,</span>
+    <span class="n">MSP_COMP_GPS</span><span class="p">,</span>
+    <span class="n">MSP_EEPROM_WRITE</span><span class="p">,</span>
+    <span class="n">MSP_IDENT</span><span class="p">,</span>
+    <span class="n">MSP_MAG_CALIBRATION</span><span class="p">,</span>
+    <span class="n">MSP_MISC</span><span class="p">,</span>
+    <span class="n">MSP_MOTOR</span><span class="p">,</span>
+    <span class="n">MSP_MOTOR_PINS</span><span class="p">,</span>
+    <span class="n">MSP_PID</span><span class="p">,</span>
+    <span class="n">MSP_PIDNAMES</span><span class="p">,</span>
+    <span class="n">MSP_RAW_GPS</span><span class="p">,</span>
+    <span class="n">MSP_RAW_IMU</span><span class="p">,</span>
+    <span class="n">MSP_RC</span><span class="p">,</span>
+    <span class="n">MSP_RC_TUNING</span><span class="p">,</span>
+    <span class="n">MSP_RESET_CONF</span><span class="p">,</span>
+    <span class="n">MSP_SELECT_SETTING</span><span class="p">,</span>
+    <span class="n">MSP_SERVO</span><span class="p">,</span>
+    <span class="n">MSP_SERVO_CONF</span><span class="p">,</span>
+    <span class="n">MSP_SET_BOX</span><span class="p">,</span>
+    <span class="n">MSP_SET_HEAD</span><span class="p">,</span>
+    <span class="n">MSP_SET_MISC</span><span class="p">,</span>
+    <span class="n">MSP_SET_MOTOR</span><span class="p">,</span>
+    <span class="n">MSP_SET_PID</span><span class="p">,</span>
+    <span class="n">MSP_SET_RAW_GPS</span><span class="p">,</span>
+    <span class="n">MSP_SET_RAW_RC</span><span class="p">,</span>
+    <span class="n">MSP_SET_RC_TUNING</span><span class="p">,</span>
+    <span class="n">MSP_SET_SERVO_CONF</span><span class="p">,</span>
+    <span class="n">MSP_SET_WP</span><span class="p">,</span>
+    <span class="n">MSP_STATUS</span><span class="p">,</span>
+    <span class="n">MSP_WP</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.data</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MspAltitude</span><span class="p">,</span>
+    <span class="n">MspAnalog</span><span class="p">,</span>
+    <span class="n">MspAttitude</span><span class="p">,</span>
+    <span class="n">MspBox</span><span class="p">,</span>
+    <span class="n">MspBoxIds</span><span class="p">,</span>
+    <span class="n">MspBoxItem</span><span class="p">,</span>
+    <span class="n">MspBoxNames</span><span class="p">,</span>
+    <span class="n">MspCompGps</span><span class="p">,</span>
+    <span class="n">MspIdent</span><span class="p">,</span>
+    <span class="n">MspMisc</span><span class="p">,</span>
+    <span class="n">MspMotor</span><span class="p">,</span>
+    <span class="n">MspMotorPins</span><span class="p">,</span>
+    <span class="n">MspPid</span><span class="p">,</span>
+    <span class="n">MspPidNames</span><span class="p">,</span>
+    <span class="n">MspRawGps</span><span class="p">,</span>
+    <span class="n">MspRawImu</span><span class="p">,</span>
+    <span class="n">MspRc</span><span class="p">,</span>
+    <span class="n">MspRcTuning</span><span class="p">,</span>
+    <span class="n">MspServo</span><span class="p">,</span>
+    <span class="n">MspServoConf</span><span class="p">,</span>
+    <span class="n">MspServoConfItem</span><span class="p">,</span>
+    <span class="n">MspSetMisc</span><span class="p">,</span>
+    <span class="n">MspStatus</span><span class="p">,</span>
+    <span class="n">MspWaypoint</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.messaging</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_crc8_xor</span><span class="p">,</span>
+    <span class="n">_create_request_message</span><span class="p">,</span>
+    <span class="n">_MspResponseMessage</span><span class="p">,</span>
+    <span class="n">_parse_response_message</span><span class="p">,</span>
+    <span class="n">MESSAGE_ERROR_HEADER</span><span class="p">,</span>
+    <span class="n">MESSAGE_INCOMING_HEADER</span><span class="p">,</span>
+    <span class="n">MspMessageError</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span><span class="p">,</span> <span class="n">sleep</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Type</span>
+
+<div class="viewcode-block" id="MultiWii">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii">[docs]</a>
+<span class="k">class</span> <span class="nc">MultiWii</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The main class for wiiproxy that handles communication with MultiWii flight controllers.</span>
+<span class="sd">    </span>
+<span class="sd">    This class requires an open serial port with a baudrate of 115200 to be passed at</span>
+<span class="sd">    instantiation.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This class supports MSP v1 and does not support any newer versions.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This class can be imported directly through the main module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># -------------------------------------- CONSTANTS -----------------------------------------</span>
+
+    <span class="n">DEFAULT_MESSAGE_WRITE_READ_DELAY</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The default delay in seconds between writing and reading messages.&quot;&quot;&quot;</span>
+
+    <span class="n">MSP_VERSION</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The supported MultiWii Serial Protocol version.&quot;&quot;&quot;</span>
+
+    <span class="c1"># -------------------------------------- ATTRIBUTES ----------------------------------------</span>
+
+    <span class="n">_message_write_read_delay</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="n">_serial_port</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Serial</span><span class="p">]</span>
+
+    <span class="c1"># ------------------------------------ DUNDER METHODS --------------------------------------</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serial_port</span><span class="p">:</span> <span class="n">Serial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes an instance using the provided serial port.</span>
+
+<span class="sd">        This constructor initializes a new instance of the MultiWii class using the provided</span>
+<span class="sd">        serial port for communication with the FC. It sets up the initial state of the object,</span>
+<span class="sd">        including the activation status, command write-read delay and serial port configuration.</span>
+<span class="sd">        Additionally, it ensures that the provided serial port is of the correct type (Serial).</span>
+<span class="sd">        If the serial port is not of the expected type, a TypeError is raised.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        serial : Serial</span>
+<span class="sd">            The serial port instance used for communication with the flight controller. This</span>
+<span class="sd">            should be an instance of the `Serial` class from the `pyserial` library, which</span>
+<span class="sd">            provides the interface for serial communication.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the provided serial port instance is not an instance of the `Serial` class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">serial_port</span><span class="p">,</span> <span class="n">Serial</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;The serial port must be an instance of &quot;Serial&quot;.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command_to_data_structure_type_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">MSP_ALTITUDE</span><span class="p">:</span>   <span class="n">MspAltitude</span><span class="p">,</span>
+            <span class="n">MSP_ANALOG</span><span class="p">:</span>     <span class="n">MspAnalog</span><span class="p">,</span>
+            <span class="n">MSP_ATTITUDE</span><span class="p">:</span>   <span class="n">MspAttitude</span><span class="p">,</span>
+            <span class="n">MSP_BOX</span><span class="p">:</span>        <span class="n">MspBox</span><span class="p">,</span>
+            <span class="n">MSP_BOXIDS</span><span class="p">:</span>     <span class="n">MspBoxIds</span><span class="p">,</span>
+            <span class="n">MSP_BOXNAMES</span><span class="p">:</span>   <span class="n">MspBoxNames</span><span class="p">,</span>
+            <span class="n">MSP_COMP_GPS</span><span class="p">:</span>   <span class="n">MspCompGps</span><span class="p">,</span>
+            <span class="n">MSP_IDENT</span><span class="p">:</span>      <span class="n">MspIdent</span><span class="p">,</span>
+            <span class="n">MSP_MISC</span><span class="p">:</span>       <span class="n">MspMisc</span><span class="p">,</span>
+            <span class="n">MSP_MOTOR</span><span class="p">:</span>      <span class="n">MspMotor</span><span class="p">,</span>
+            <span class="n">MSP_MOTOR_PINS</span><span class="p">:</span> <span class="n">MspMotorPins</span><span class="p">,</span>
+            <span class="n">MSP_PID</span><span class="p">:</span>        <span class="n">MspPid</span><span class="p">,</span>
+            <span class="n">MSP_PIDNAMES</span><span class="p">:</span>   <span class="n">MspPidNames</span><span class="p">,</span>
+            <span class="n">MSP_RAW_GPS</span><span class="p">:</span>    <span class="n">MspRawGps</span><span class="p">,</span>
+            <span class="n">MSP_RAW_IMU</span><span class="p">:</span>    <span class="n">MspRawImu</span><span class="p">,</span>
+            <span class="n">MSP_RC</span><span class="p">:</span>         <span class="n">MspRc</span><span class="p">,</span>
+            <span class="n">MSP_RC_TUNING</span><span class="p">:</span>  <span class="n">MspRcTuning</span><span class="p">,</span>
+            <span class="n">MSP_SERVO</span><span class="p">:</span>      <span class="n">MspServo</span><span class="p">,</span>
+            <span class="n">MSP_SERVO_CONF</span><span class="p">:</span> <span class="n">MspServoConf</span><span class="p">,</span>
+            <span class="n">MSP_STATUS</span><span class="p">:</span>     <span class="n">MspStatus</span><span class="p">,</span>
+            <span class="n">MSP_WP</span><span class="p">:</span>         <span class="n">MspWaypoint</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_MESSAGE_WRITE_READ_DELAY</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span> <span class="o">=</span> <span class="n">serial_port</span>
+
+    <span class="c1"># --------------------------------------- PROPERTIES ---------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">command_to_data_structure_type_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_MspCommand</span><span class="p">,</span> <span class="n">Type</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the command to data structure type dictionary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[_MspCommand, Type]</span>
+<span class="sd">            A instance with a copy of the map.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_command_to_data_structure_type_map</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">message_write_read_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the delay (in seconds) between each write and read message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The delay in seconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">serial_port</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Serial</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the serial port instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Serial</span>
+<span class="sd">            The serial port instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span>
+
+    <span class="nd">@message_write_read_delay</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">message_write_read_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the delay (in seconds) between each write and read command.</span>
+
+<span class="sd">        This property controls the delay between each write message followed by a read message</span>
+<span class="sd">        sent to the FC. A message with empty data values is sent first, followed by a delay,</span>
+<span class="sd">        and then a read message to retrieve information from the FC.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            The delay in seconds.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the value is not a float.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the value is a negative number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Value must be a float.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Value must be a non-negative number.&#39;</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_read_response_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">_MspCommand</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_MspResponseMessage</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads a message using the specified MSP command.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        This method sends a write message with empty values to the FC in order to retrieve a</span>
+<span class="sd">        response message. Ensure that the FC is ready to to respond to the command code sent.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        command : _MspCommand</span>
+<span class="sd">            An instance of `_MspCommand` representing the MSP command used to read the message.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        MspMessageError</span>
+<span class="sd">            If an error message is returned from the FC.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _MspResponseMessage</span>
+<span class="sd">            A named tuple with the command, parsed data and additional information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+            <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span><span class="p">)</span>
+
+            <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">header</span> <span class="o">==</span> <span class="n">MESSAGE_ERROR_HEADER</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MspMessageError</span><span class="p">(</span><span class="s1">&#39;An error has occured.&#39;</span><span class="p">)</span> 
+
+            <span class="k">if</span> <span class="n">header</span> <span class="o">!=</span> <span class="n">MESSAGE_INCOMING_HEADER</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MspMessageError</span><span class="p">(</span><span class="s1">&#39;Invalid incoming message preamble received.&#39;</span><span class="p">)</span>
+
+            <span class="n">command_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">command_code</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">command</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MspMessageError</span><span class="p">(</span>
+                    <span class="s1">&#39;Invalid command code detected. (</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">command</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                        <span class="n">command_code</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="n">payload</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">()</span>
+
+            <span class="n">payload</span> <span class="o">+=</span> <span class="n">command_code</span>
+
+            <span class="n">data_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">data</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">payload</span> <span class="o">+=</span> <span class="n">data_size</span>
+            <span class="n">payload</span> <span class="o">+=</span> <span class="n">data</span>
+
+            <span class="n">checksum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">checksum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_crc8_xor</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">MspMessageError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid payload checksum detected for </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+        
+            <span class="k">return</span> <span class="n">_parse_response_message</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">reset_input_buffer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_send_request_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">_MspCommand</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends a message with the specified MSP command and optional data values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        command : _MspCommand</span>
+<span class="sd">            An instance of `_MspCommand` representing the MSP command used to write the message.</span>
+<span class="sd">        data : tuple[int]</span>
+<span class="sd">            Data values to serialize and include in the message payload.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">_create_request_message</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span><span class="o">.</span><span class="n">reset_output_buffer</span><span class="p">()</span>
+
+<div class="viewcode-block" id="MultiWii.arm">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.arm">[docs]</a>
+    <span class="k">def</span> <span class="nf">arm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arms the vehicle.</span>
+
+<span class="sd">        This method prepares the vehicle for operation by simulating the arming sequence</span>
+<span class="sd">        performed by physical transmitters. It sets the throttle value to its minimum, and</span>
+<span class="sd">        the yaw value to its maximum, for a few seconds simultaneously to initiate the arming</span>
+<span class="sd">        process. This ensures that the vehicle is ready for further commands and a safe flight.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Ensure that the vehicle is in a safe enviornment and that conditions are suitable for</span>
+<span class="sd">        arming before invoking this method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">MspRc</span><span class="p">(</span>
+            <span class="n">roll</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
+            <span class="n">pitch</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
+            <span class="n">yaw</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+            <span class="n">throttle</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">aux1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux3</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux4</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+
+        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_raw_rc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+
+            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.bind_transmitter_and_receiver">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.bind_transmitter_and_receiver">[docs]</a>
+    <span class="k">def</span> <span class="nf">bind_transmitter_and_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_BIND command.</span>
+
+<span class="sd">        This command initiates the binding process between the transmitter (radio controller)</span>
+<span class="sd">        and the receiver connected to the FC. Binding establishes a secure communication link</span>
+<span class="sd">        between the transmitter (TX) and the receiver (RX).</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Ensure that the FC is ready to receive the bind command and that the transmitter is in</span>
+<span class="sd">        binding mode before calling this method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_BIND</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.calibrate_accelerometer">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.calibrate_accelerometer">[docs]</a>
+    <span class="k">def</span> <span class="nf">calibrate_accelerometer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_ACC_CALIBRATION command.</span>
+
+<span class="sd">        This command initiates the accelerometer calibration process on the FC. Accelerometer</span>
+<span class="sd">        calibration is essential for accurate attitude estimation and stabilization of the</span>
+<span class="sd">        aircraft.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        The FC should be placed on a level surface during the calibration to ensure accurate</span>
+<span class="sd">        results. Avoid moving or disturbing the FC during the process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_ACC_CALIBRATION</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.calibrate_magnetometer">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.calibrate_magnetometer">[docs]</a>
+    <span class="k">def</span> <span class="nf">calibrate_magnetometer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_MAG_CALIBRATION command.</span>
+
+<span class="sd">        This command initiates the magnetometer (compass) calibration process on the FC.</span>
+<span class="sd">        Magnetometer calibration is crucial for accurate heading estimation and navigation,</span>
+<span class="sd">        especially in GPS-assisted flight modes.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        The FC should be rotated along all three axes (roll, pitch, yaw) in a smooth and</span>
+<span class="sd">        consistent manner to ensure accurate results. Avoid any magnetic interference or</span>
+<span class="sd">        disturbances during the process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_ACC_CALIBRATION</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.disarm">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.disarm">[docs]</a>
+    <span class="k">def</span> <span class="nf">disarm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disarms the vehicle.</span>
+
+<span class="sd">        This method safely disarms the vehicle by resetting the yaw and throttle to their minimum</span>
+<span class="sd">        values. This process simulates the disarming sequence used by physical transmitters,</span>
+<span class="sd">        ensuring that the vehicle is no longer ready for flight, and that the vehicle is in a</span>
+<span class="sd">        more safe state.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Always ensure that the vehicle is on the ground and stationary before invoking this</span>
+<span class="sd">        method to avoid accidental movement or damage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">MspRc</span><span class="p">(</span>
+            <span class="n">roll</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
+            <span class="n">pitch</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
+            <span class="n">yaw</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">throttle</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">aux1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux3</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">aux4</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+
+        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_raw_rc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+
+            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.get_data">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.get_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">_MspCommand</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends a given command to the FC and parses the retrieved data values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        command : _MspCommand</span>
+<span class="sd">            An instance of `_MspCommand` representing the MSP command to get corresponding data</span>
+<span class="sd">            values for.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            An instance of a corresponding data structure type for the given command.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_response_message</span><span class="p">(</span><span class="n">command</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command_to_data_structure_type_map</span><span class="p">[</span><span class="n">command</span><span class="p">]</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.reset_config">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.reset_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_RESET_CONF command.</span>
+
+<span class="sd">        This command resets the configuration settings on the FC to their default values.</span>
+<span class="sd">        It effectively restores the FC to its initial configuration state, clearing any</span>
+<span class="sd">        customized settings or adjustments made by the user.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Resetting the config should be done with caution, as it will revert all settings to</span>
+<span class="sd">        their defaults. Make sure to reconfigure the FC according to your requirements after</span>
+<span class="sd">        executing this command.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_RESET_CONF</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.save_config_to_eeprom">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.save_config_to_eeprom">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_config_to_eeprom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_EEPROM_WRITE command.</span>
+
+<span class="sd">        This command writes the current configuration settings to the EEPROM of the FC. </span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Writing to EEPROM should be done with caution, as it modifies the stored config</span>
+<span class="sd">        directly. Ensure that the values written are valid and intended, as incorrect</span>
+<span class="sd">        values could lead to unexpected behavior or instability.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_EEPROM_WRITE</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.select_setting">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.select_setting">[docs]</a>
+    <span class="k">def</span> <span class="nf">select_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SELECT_SETTING command.</span>
+
+<span class="sd">        Selects the &quot;setting configuration&quot; with different PID and rate values using the given</span>
+<span class="sd">        range value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : int</span>
+<span class="sd">            A value of 0, 1 or 2.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the provided value is not 0, 1 or 2.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Value must be 0, 1 or 2.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SELECT_SETTING</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">value</span><span class="p">,))</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_boxes">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_boxes">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspBox</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_BOX command.</span>
+
+<span class="sd">        Sets the flight modes (or &quot;boxes&quot;) config on the FC. Flight modes define the behavior</span>
+<span class="sd">        of the aircraft based on various inputs from the transmitter or other sources.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple[MspBoxItem]</span>
+<span class="sd">            A tuple of non-null `MspBoxItem` values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_BOX</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_head">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_head">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_HEAD command.</span>
+
+<span class="sd">        Sets the heading (yaw) direction reference on the FC with a value range of -180 to 180.</span>
+<span class="sd">        It is used to define the forward direction of the aircraft relative to its orientation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        range : int</span>
+<span class="sd">            The heading direction value within a range of -180 and 180.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the provided range value is less than -180 or greater than 180.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="mi">180</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Value must be within the range of -180 and 180.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_HEAD</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">value</span><span class="p">,))</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_misc_config">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_misc_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_misc_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspSetMisc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_MISC command.</span>
+
+<span class="sd">        Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe</span>
+<span class="sd">        behavior, or other settings not covered by specific MSP commands.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspSetMisc</span>
+<span class="sd">            An instance of the `MspSetMisc` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_MISC</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_motors">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_motors">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_motors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspMotor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_MOTOR command.</span>
+
+<span class="sd">        Sets the motor output values on the FC. Motor output values determine the throttle level</span>
+<span class="sd">        for each motor, controlling the rotation speed and thrust generated by the motors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspMotor</span>
+<span class="sd">            An instance of the `MspMotor` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_MOTOR</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_pid_values">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_pid_values">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_pid_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspPid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_PID command.</span>
+
+<span class="sd">        Sets the PID values on the FC. PID values are used to adjust the stability and response</span>
+<span class="sd">        characteristics of the aircraft.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspPid</span>
+<span class="sd">            An instance of the `MspPid` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_PID</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_raw_gps">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_raw_gps">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_raw_gps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRawGps</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_RAW_GPS command.</span>
+
+<span class="sd">        Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other</span>
+<span class="sd">        GPS-related information.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspRawGps</span>
+<span class="sd">            An instance of the `MspRawGps` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_RAW_GPS</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_raw_rc">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_raw_rc">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_raw_rc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_RAW_RC command.</span>
+
+<span class="sd">        Sets the raw receiver (RC/RX) channel data on the FC. Raw FC data includes the pulse</span>
+<span class="sd">        width values received from the transmitter for each channel, typically representing</span>
+<span class="sd">        control inputs such as throttle, pitch, roll, and yaw.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspRc</span>
+<span class="sd">            An instance of the `MspRc` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_RAW_RC</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+    
+<div class="viewcode-block" id="MultiWii.set_rc_tuning">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_rc_tuning">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_rc_tuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRcTuning</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_RC_TUNING command.</span>
+
+<span class="sd">        Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to</span>
+<span class="sd">        RC control response and behavior.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MspRcTuning</span>
+<span class="sd">            An instance of the `MspRcTuning` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_RC_TUNING</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_servo_config">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_servo_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_servo_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspServoConf</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_SERVO_CONF command.</span>
+
+<span class="sd">        Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and</span>
+<span class="sd">        other settings related to servo control.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple[MspServoConfItem]</span>
+<span class="sd">            A tuple with instances of the `MspServoConfItem` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_SERVO_CONF</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MultiWii.set_waypoint">
+<a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_waypoint">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_waypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspWaypoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an MSP_SET_WP command.</span>
+
+<span class="sd">        Dispatches a command to set a waypoint on the FC, providing specific latitude, longitude,</span>
+<span class="sd">        altitude, heading, duration and navigation flags for precise navigation and waypoint</span>
+<span class="sd">        management.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : MsWaypoint</span>
+<span class="sd">            An instance of the `MspWaypoint` class populated with values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_SET_WP</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">as_serializable</span><span class="p">())</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BluDay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

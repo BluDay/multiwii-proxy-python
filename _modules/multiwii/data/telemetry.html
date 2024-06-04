@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>multiwii.data.telemetry &mdash; multiwii-proxy-python 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            multiwii-proxy-python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../multiwii.html">multiwii API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">multiwii-proxy-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../multiwii.html">multiwii</a></li>
+      <li class="breadcrumb-item active">multiwii.data.telemetry</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for multiwii.data.telemetry</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Point3D</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span>      <span class="kn">import</span> <span class="n">Self</span>
+
+<div class="viewcode-block" id="MspAltitude">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspAltitude">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspAltitude</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_ALTITUDE command.</span>
+
+<span class="sd">    This class encapsulates altitude-related data from a MultiWii flight controller.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+
+    <span class="n">estimation</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The estimated altitude.&quot;&quot;&quot;</span>
+
+    <span class="n">pressure_variation</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The variation in pressure.&quot;&quot;&quot;</span>
+
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspAltitude.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspAltitude.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspAltitude` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspAltitude</span>
+<span class="sd">            An instance of the `MspAltitude` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MspAttitude">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspAttitude">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspAttitude</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_ATTITUDE command.</span>
+
+<span class="sd">    This class encapsulates attitude-related data from a MultiWii flight controller.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+
+    <span class="n">pitch_angle</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The pitch angle of the aircraft in degrees, ranging from -180.0 to 180.0.&quot;&quot;&quot;</span>
+
+    <span class="n">roll_angle</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The roll angle of the aircraft in degrees, ranging from -90.0 to 90.0.&quot;&quot;&quot;</span>
+
+    <span class="n">yaw_angle</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The heading angle of the aircraft in degrees, ranging from 0 to 360.&quot;&quot;&quot;</span>
+
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspAttitude.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspAttitude.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspAttitude` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspAttitude</span>
+<span class="sd">            An instance of the `MspAttitude` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">pitch_angle</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">roll_angle</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">yaw_angle</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MspRawImu">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspRawImu">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspRawImu</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_RAW_IMU command.</span>
+
+<span class="sd">    This class encapsulates raw IMU (Intertial Measurement Unit) data from a MultiWii</span>
+<span class="sd">    flight controller.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+
+    <span class="n">accelerometer</span><span class="p">:</span> <span class="n">Point3D</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Point3D[float]: The accelerometer data.&quot;&quot;&quot;</span>
+
+    <span class="n">gyroscope</span><span class="p">:</span> <span class="n">Point3D</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Point3D[float]: The gyroscope data.&quot;&quot;&quot;</span>
+
+    <span class="n">magnetometer</span><span class="p">:</span> <span class="n">Point3D</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Point3D[float]: The magnetometer data.&quot;&quot;&quot;</span>
+
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspRawImu.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.telemetry.MspRawImu.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span>               <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">accelerometer_unit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">gyroscope_unit</span><span class="p">:</span>     <span class="nb">int</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">magnetometer_unit</span><span class="p">:</span>  <span class="nb">int</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspRawImu` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+<span class="sd">        accelerometer_unit : int, optional</span>
+<span class="sd">            The unit conversion factor for the accelerometer data (default is 1.0).</span>
+<span class="sd">        gyroscope_unit : int, optional</span>
+<span class="sd">            The unit conversion factor for the gyroscope data (default is 1.0).</span>
+<span class="sd">        magnetometer_unit : int, optional</span>
+<span class="sd">            The unit conversion factor for the magnetometer data (default is 1.0).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspRawImu</span>
+<span class="sd">            An instance of the `MspRawImu` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">accelerometer</span><span class="o">=</span><span class="n">Point3D</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">accelerometer_unit</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">accelerometer_unit</span><span class="p">,</span>
+                <span class="n">z</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">accelerometer_unit</span>
+            <span class="p">),</span>
+            <span class="n">gyroscope</span><span class="o">=</span><span class="n">Point3D</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="n">gyroscope_unit</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">/</span> <span class="n">gyroscope_unit</span><span class="p">,</span>
+                <span class="n">z</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">/</span> <span class="n">gyroscope_unit</span>
+            <span class="p">),</span>
+            <span class="n">magnetometer</span><span class="o">=</span><span class="n">Point3D</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">/</span> <span class="n">magnetometer_unit</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">/</span> <span class="n">magnetometer_unit</span><span class="p">,</span>
+                <span class="n">z</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">/</span> <span class="n">magnetometer_unit</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BluDay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>multiwii.data.navigation &mdash; multiwii-proxy-python 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            multiwii-proxy-python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../multiwii.html">multiwii API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">multiwii-proxy-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../multiwii.html">multiwii</a></li>
+      <li class="breadcrumb-item active">multiwii.data.navigation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for multiwii.data.navigation</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Coordinates</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span>      <span class="kn">import</span> <span class="n">Self</span>
+
+<div class="viewcode-block" id="MspCompGps">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspCompGps">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspCompGps</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_COMP_GPS command.</span>
+
+<span class="sd">    This class encapsulates the GPS compass data from the MultiWii flight controller.</span>
+<span class="sd">    It provides information about the distance and direction to the hime position, as</span>
+<span class="sd">    well as the update status of the GPS data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+
+    <span class="n">distance_to_home</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The distance to the home position in meters.&quot;&quot;&quot;</span>
+
+    <span class="n">direction_to_home</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The direction to the home position in degrees.&quot;&quot;&quot;</span>
+
+    <span class="n">update_status</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The update status of the GPS data.&quot;&quot;&quot;</span>
+    
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspCompGps.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspCompGps.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspCompGps` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspCompGps</span>
+<span class="sd">            An instance of the `MspCompGps` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MspRawGps">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspRawGps">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspRawGps</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_RAW_GPS command.</span>
+<span class="sd">    </span>
+<span class="sd">    This class encapsulates the GPS compass data from the MultiWii flight controller.</span>
+<span class="sd">    It provides information about the GPS fix status, number of satellites in view,</span>
+<span class="sd">    coordinates (latitude and longitude), altitude, speed, and ground course.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+    
+    <span class="n">fix</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The GPS fix status.&quot;&quot;&quot;</span>
+
+    <span class="n">satellites</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The number of satellites in view.&quot;&quot;&quot;</span>
+
+    <span class="n">coordinates</span><span class="p">:</span> <span class="n">Coordinates</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coordinates[float]: The GPS coordinates (latitude and longitude).&quot;&quot;&quot;</span>
+
+    <span class="n">altitude</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The altitude in meters.&quot;&quot;&quot;</span>
+
+    <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The speed in cm/s.&quot;&quot;&quot;</span>
+
+    <span class="n">ground_course</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The ground course in degrees.&quot;&quot;&quot;</span>
+    
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspRawGps.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspRawGps.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspRawGps` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspRawGps</span>
+<span class="sd">            An instance of the `MspRawGps` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">fix</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">satellites</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">coordinates</span><span class="o">=</span><span class="n">Coordinates</span><span class="p">(</span>
+                <span class="n">latitude</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10000000.0</span><span class="p">,</span>
+                <span class="n">longitude</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10000000.0</span>
+            <span class="p">),</span>
+            <span class="n">altitude</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="n">speed</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="n">ground_course</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.0</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
+
+<div class="viewcode-block" id="MspRawGps.as_serializable">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspRawGps.as_serializable">[docs]</a>
+    <span class="k">def</span> <span class="nf">as_serializable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a tuple with integer values to be used for serialization.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[int]</span>
+<span class="sd">            A tuple with serializable integer values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">fix</span><span class="p">,</span>
+            <span class="n">satellites</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">latitude</span> <span class="o">*</span> <span class="mi">10000000</span><span class="p">),</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">longitude</span> <span class="o">*</span> <span class="mi">10000000</span><span class="p">),</span>
+            <span class="n">altitude</span><span class="p">,</span>
+            <span class="n">speed</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">ground_course</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MspWaypoint">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspWaypoint">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MspWaypoint</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents data values for the MSP_WP command.</span>
+
+<span class="sd">    This class encapsulates the waypoint data from the MultiWii flight controller.</span>
+<span class="sd">    It provides information about the waypoint number, coordinates, altitude hold,</span>
+<span class="sd">    heading, time to stay at the waypoint, and the waypoint flag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
+
+    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The waypoint number.&quot;&quot;&quot;</span>
+
+    <span class="n">coordinates</span><span class="p">:</span> <span class="n">Coordinates</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coordinates[int]: The GPS coordinates (latitude and longitude) of the waypoint.&quot;&quot;&quot;</span>
+
+    <span class="n">altitude_hold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The altitude hold value in meters.&quot;&quot;&quot;</span>
+
+    <span class="n">heading</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The heading in degrees.&quot;&quot;&quot;</span>
+
+    <span class="n">time_to_stay</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The time to stay at the waypoint in seconds.&quot;&quot;&quot;</span>
+
+    <span class="n">status_flag</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The waypoint flag indicating the waypoint&#39;s status or type.&quot;&quot;&quot;</span>
+    
+    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
+
+<div class="viewcode-block" id="MspWaypoint.parse">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspWaypoint.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses a tuple of data values obtained from `struct.unpack` and returns an instance of</span>
+<span class="sd">        the `MspWaypoint` class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : tuple</span>
+<span class="sd">            A tuple containing unpacked data values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MspWaypoint</span>
+<span class="sd">            An instance of the `MspWaypoint` class populated with the parsed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">number</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">coordinates</span><span class="o">=</span><span class="n">Coordinates</span><span class="p">(</span>
+                <span class="n">latitude</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10000000.0</span><span class="p">,</span>
+                <span class="n">longitude</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10000000.0</span>
+            <span class="p">),</span>
+            <span class="n">altitude_hold</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">heading</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="n">time_to_stay</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="n">status_flag</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
+
+<div class="viewcode-block" id="MspWaypoint.as_serializable">
+<a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspWaypoint.as_serializable">[docs]</a>
+    <span class="k">def</span> <span class="nf">as_serializable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a tuple with integer values to be used for serialization.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[int]</span>
+<span class="sd">            A tuple with serializable integer values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">number</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">latitude</span> <span class="o">*</span> <span class="mi">100000000</span><span class="p">),</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">longitude</span> <span class="o">*</span> <span class="mi">100000000</span><span class="p">),</span>
+            <span class="n">altitude_hold</span><span class="p">,</span>
+            <span class="n">heading</span><span class="p">,</span>
+            <span class="n">time_to_stay</span><span class="p">,</span>
+            <span class="n">status_flag</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BluDay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

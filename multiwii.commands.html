@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commands &mdash; multiwii-proxy-python 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=110ea713"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Config" href="multiwii.config.html" />
+    <link rel="prev" title="multiwii API" href="multiwii.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            multiwii-proxy-python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="multiwii.html">multiwii API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_ACC_CALIBRATION"><code class="docutils literal notranslate"><span class="pre">MSP_ACC_CALIBRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_ALTITUDE"><code class="docutils literal notranslate"><span class="pre">MSP_ALTITUDE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_ANALOG"><code class="docutils literal notranslate"><span class="pre">MSP_ANALOG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_ATTITUDE"><code class="docutils literal notranslate"><span class="pre">MSP_ATTITUDE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_BIND"><code class="docutils literal notranslate"><span class="pre">MSP_BIND</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_BOX"><code class="docutils literal notranslate"><span class="pre">MSP_BOX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_BOXIDS"><code class="docutils literal notranslate"><span class="pre">MSP_BOXIDS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_BOXNAMES"><code class="docutils literal notranslate"><span class="pre">MSP_BOXNAMES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_COMP_GPS"><code class="docutils literal notranslate"><span class="pre">MSP_COMP_GPS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_EEPROM_WRITE"><code class="docutils literal notranslate"><span class="pre">MSP_EEPROM_WRITE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_IDENT"><code class="docutils literal notranslate"><span class="pre">MSP_IDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_MAG_CALIBRATION"><code class="docutils literal notranslate"><span class="pre">MSP_MAG_CALIBRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_MISC"><code class="docutils literal notranslate"><span class="pre">MSP_MISC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_MOTOR"><code class="docutils literal notranslate"><span class="pre">MSP_MOTOR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_MOTOR_PINS"><code class="docutils literal notranslate"><span class="pre">MSP_MOTOR_PINS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_PID"><code class="docutils literal notranslate"><span class="pre">MSP_PID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_PIDNAMES"><code class="docutils literal notranslate"><span class="pre">MSP_PIDNAMES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_RAW_GPS"><code class="docutils literal notranslate"><span class="pre">MSP_RAW_GPS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_RAW_IMU"><code class="docutils literal notranslate"><span class="pre">MSP_RAW_IMU</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_RC"><code class="docutils literal notranslate"><span class="pre">MSP_RC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_RC_TUNING"><code class="docutils literal notranslate"><span class="pre">MSP_RC_TUNING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_RESET_CONF"><code class="docutils literal notranslate"><span class="pre">MSP_RESET_CONF</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SELECT_SETTING"><code class="docutils literal notranslate"><span class="pre">MSP_SELECT_SETTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SERVO"><code class="docutils literal notranslate"><span class="pre">MSP_SERVO</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SERVO_CONF"><code class="docutils literal notranslate"><span class="pre">MSP_SERVO_CONF</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_BOX"><code class="docutils literal notranslate"><span class="pre">MSP_SET_BOX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_HEAD"><code class="docutils literal notranslate"><span class="pre">MSP_SET_HEAD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_MISC"><code class="docutils literal notranslate"><span class="pre">MSP_SET_MISC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_MOTOR"><code class="docutils literal notranslate"><span class="pre">MSP_SET_MOTOR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_PID"><code class="docutils literal notranslate"><span class="pre">MSP_SET_PID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_RAW_GPS"><code class="docutils literal notranslate"><span class="pre">MSP_SET_RAW_GPS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_RAW_RC"><code class="docutils literal notranslate"><span class="pre">MSP_SET_RAW_RC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_RC_TUNING"><code class="docutils literal notranslate"><span class="pre">MSP_SET_RC_TUNING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_SERVO_CONF"><code class="docutils literal notranslate"><span class="pre">MSP_SET_SERVO_CONF</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_SET_WP"><code class="docutils literal notranslate"><span class="pre">MSP_SET_WP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_STATUS"><code class="docutils literal notranslate"><span class="pre">MSP_STATUS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiwii.commands.MSP_WP"><code class="docutils literal notranslate"><span class="pre">MSP_WP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multiwii.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiwii.data.html">Data structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiwii.messaging.html">Messaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiwii.html#multiwii.MultiWii"><code class="docutils literal notranslate"><span class="pre">MultiWii</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">multiwii-proxy-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="multiwii.html">multiwii API</a></li>
+      <li class="breadcrumb-item active">Commands</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/multiwii.commands.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-multiwii.commands">
+<span id="commands"></span><h1>Commands<a class="headerlink" href="#module-multiwii.commands" title="Link to this heading"></a></h1>
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_ACC_CALIBRATION">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_ACC_CALIBRATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;205,</span> <span class="pre">&quot;None&quot;,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_ACC_CALIBRATION" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_ACC_CALIBRATION (205) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_ALTITUDE">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_ALTITUDE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;109,</span> <span class="pre">&quot;ih&quot;,</span> <span class="pre">6,</span> <span class="pre">2,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_ALTITUDE" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_ALTITUDE (109) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_ANALOG">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_ANALOG</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;110,</span> <span class="pre">&quot;B3H&quot;,</span> <span class="pre">7,</span> <span class="pre">4,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_ANALOG" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_ANALOG (110) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_ATTITUDE">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_ATTITUDE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;108,</span> <span class="pre">&quot;3h&quot;,</span> <span class="pre">6,</span> <span class="pre">3,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_ATTITUDE" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_ATTITUDE (108) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_BIND">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_BIND</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;240,</span> <span class="pre">&quot;None&quot;,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_BIND" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_BIND (240) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_BOX">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_BOX</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;113,</span> <span class="pre">&quot;*H&quot;,</span> <span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">&quot;?&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_BOX" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_BOX (113) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_BOXIDS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_BOXIDS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;119,</span> <span class="pre">&quot;*3HB&quot;,</span> <span class="pre">7,</span> <span class="pre">4,</span> <span class="pre">&quot;?&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_BOXIDS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_BOXIDS (119) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_BOXNAMES">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_BOXNAMES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;116,</span> <span class="pre">&quot;*s&quot;,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">&quot;?&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_BOXNAMES" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_BOXNAMES (116) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_COMP_GPS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_COMP_GPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;107,</span> <span class="pre">&quot;2HB&quot;,</span> <span class="pre">5,</span> <span class="pre">3,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_COMP_GPS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_COMP_GPS (107) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_EEPROM_WRITE">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_EEPROM_WRITE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;250,</span> <span class="pre">&quot;None&quot;,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_EEPROM_WRITE" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_EEPROM_WRITE (250) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_IDENT">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_IDENT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;100,</span> <span class="pre">&quot;3BI&quot;,</span> <span class="pre">7,</span> <span class="pre">4,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_IDENT" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_IDENT (100) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_MAG_CALIBRATION">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_MAG_CALIBRATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;206,</span> <span class="pre">&quot;None&quot;,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_MAG_CALIBRATION" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_MAG_CALIBRATION (206) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_MISC">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_MISC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;114,</span> <span class="pre">&quot;6HIH4B&quot;,</span> <span class="pre">22,</span> <span class="pre">12,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_MISC" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_MISC (114) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_MOTOR">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_MOTOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;104,</span> <span class="pre">&quot;16H&quot;,</span> <span class="pre">32,</span> <span class="pre">16,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_MOTOR" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_MOTOR (104) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_MOTOR_PINS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_MOTOR_PINS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;115,</span> <span class="pre">&quot;8B&quot;,</span> <span class="pre">8,</span> <span class="pre">8,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_MOTOR_PINS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_MOTOR_PINS (115) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_PID">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_PID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;112,</span> <span class="pre">&quot;30B&quot;,</span> <span class="pre">30,</span> <span class="pre">30,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_PID" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_PID (112) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_PIDNAMES">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_PIDNAMES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;117,</span> <span class="pre">&quot;*s&quot;,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">&quot;?&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_PIDNAMES" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_PIDNAMES (117) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_RAW_GPS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_RAW_GPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;106,</span> <span class="pre">&quot;2B2I3H&quot;,</span> <span class="pre">16,</span> <span class="pre">7,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_RAW_GPS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_RAW_GPS (106) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_RAW_IMU">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_RAW_IMU</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;102,</span> <span class="pre">&quot;8h&quot;,</span> <span class="pre">16,</span> <span class="pre">8,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_RAW_IMU" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_RAW_IMU (102) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_RC">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_RC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;105,</span> <span class="pre">&quot;16H&quot;,</span> <span class="pre">32,</span> <span class="pre">16,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_RC" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_RC (105) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_RC_TUNING">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_RC_TUNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;111,</span> <span class="pre">&quot;7B&quot;,</span> <span class="pre">7,</span> <span class="pre">7,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_RC_TUNING" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_RC_TUNING (111) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_RESET_CONF">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_RESET_CONF</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;208,</span> <span class="pre">&quot;None&quot;,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_RESET_CONF" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_RESET_CONF (208) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SELECT_SETTING">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SELECT_SETTING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;210,</span> <span class="pre">&quot;B&quot;,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SELECT_SETTING" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SELECT_SETTING (210) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SERVO">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SERVO</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;103,</span> <span class="pre">&quot;16H&quot;,</span> <span class="pre">32,</span> <span class="pre">16,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SERVO" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SERVO (103) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SERVO_CONF">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SERVO_CONF</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;120,</span> <span class="pre">&quot;3HB3HB3HB3HB3HB3HB3HB3HB&quot;,</span> <span class="pre">56,</span> <span class="pre">32,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SERVO_CONF" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SERVO_CONF (120) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_BOX">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_BOX</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;203,</span> <span class="pre">&quot;*H&quot;,</span> <span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">&quot;?&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_BOX" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_BOX (203) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_HEAD">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_HEAD</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;211,</span> <span class="pre">&quot;h&quot;,</span> <span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_HEAD" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_HEAD (211) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_MISC">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_MISC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;207,</span> <span class="pre">&quot;6HIH4B&quot;,</span> <span class="pre">22,</span> <span class="pre">12,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_MISC" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_MISC (207) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_MOTOR">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_MOTOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;214,</span> <span class="pre">&quot;16H&quot;,</span> <span class="pre">32,</span> <span class="pre">16,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_MOTOR" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_MOTOR (214) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_PID">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_PID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;202,</span> <span class="pre">&quot;30B&quot;,</span> <span class="pre">30,</span> <span class="pre">30,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_PID" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_PID (202) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_RAW_GPS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_RAW_GPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;201,</span> <span class="pre">&quot;2B2I2H&quot;,</span> <span class="pre">14,</span> <span class="pre">6,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_RAW_GPS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_RAW_GPS (201) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_RAW_RC">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_RAW_RC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;200,</span> <span class="pre">&quot;16H&quot;,</span> <span class="pre">32,</span> <span class="pre">16,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_RAW_RC" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_RAW_RC (200) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_RC_TUNING">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_RC_TUNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;204,</span> <span class="pre">&quot;7B&quot;,</span> <span class="pre">7,</span> <span class="pre">7,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_RC_TUNING" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_RC_TUNING (204) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_SERVO_CONF">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_SERVO_CONF</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;212,</span> <span class="pre">&quot;3HB3HB3HB3HB3HB3HB3HB3HB&quot;,</span> <span class="pre">56,</span> <span class="pre">32,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_SERVO_CONF" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_SERVO_CONF (212) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_SET_WP">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_SET_WP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;209,</span> <span class="pre">&quot;B3I2HB&quot;,</span> <span class="pre">18,</span> <span class="pre">7,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_SET_WP" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_SET_WP (209) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_STATUS">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_STATUS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;101,</span> <span class="pre">&quot;3HIB&quot;,</span> <span class="pre">11,</span> <span class="pre">5,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_STATUS" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_STATUS (101) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="multiwii.commands.MSP_WP">
+<span class="sig-prename descclassname"><span class="pre">multiwii.commands.</span></span><span class="sig-name descname"><span class="pre">MSP_WP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">_MspCommand</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">_MspCommand&lt;118,</span> <span class="pre">&quot;B3I2HB&quot;,</span> <span class="pre">18,</span> <span class="pre">7,</span> <span class="pre">&quot;!&quot;&gt;</span></em><a class="headerlink" href="#multiwii.commands.MSP_WP" title="Link to this definition"></a></dt>
+<dd><p>An instance representing the MSP_WP (118) command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_MspCommand</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="multiwii.html" class="btn btn-neutral float-left" title="multiwii API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="multiwii.config.html" class="btn btn-neutral float-right" title="Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BluDay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
