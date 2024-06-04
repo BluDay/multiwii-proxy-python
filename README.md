@@ -5,11 +5,11 @@ A simple and user-friendly Python 3 module for controlling _MultiWii_-based dron
 
 Supports only v1 of the [MultiWi Serial Protocol (MSP)](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
 
-## 📖 Documentation
+## Documentation
 
 The API documentation can be found on the [documentation site](https://bluday.github.io/wiiproxy/).
 
-## 🔧 Installation
+## Installation
 
 Run either one of these commands to install the package:
 
@@ -19,7 +19,7 @@ python setup.py
 pip install .
 ```
 
-## 🚀 Usage
+## Usage
 
 ```python
 from serial   import Serial
