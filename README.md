@@ -3,9 +3,9 @@
 
 ## Overview
 
-A simple and user-friendly Python 3 module for controlling _MultiWii_-based drones using version 1.0 of the _MultiWii Serial Protocol (MSP)_.
+A simple and user-friendly Python 3 module for controlling [_MultiWii_](https://github.com/multiwii/multiwii-firmware)-based drones using version 1.0 of the [_MultiWii Serial Protocol (MSP)_](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol).
 
-This module does not support version 2.0, or any of the newer versions, of MSP.
+This module does **not** support MSP v2 or any of the newer versions.
 
 ## Documentation
 
