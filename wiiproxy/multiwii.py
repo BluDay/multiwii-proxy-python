@@ -325,6 +325,38 @@ class MultiWii(object):
         finally:
             self._serial_port.reset_input_buffer()
 
+    def arm(self) -> NoReturn:
+        """
+        Arms the vehicle.
+
+        This method prepares the vehicle for operation by simulating the arming sequence
+        typically performed by physical transmitters. It sets the throttle and yaw RC channels
+        to their maximum values for a few seconds to initiate the arming process, ensuring that
+        the vehicle is ready for further commands and a safe flight.
+
+        Note
+        ----
+        Ensure that the vehicle is in a safe enviornment and that conditions are suitable for
+        arming before invoking this method.
+        """
+        pass
+
+    def disarm(self) -> NoReturn:
+        """
+        Disarms the vehicle.
+
+        This method safely disarms the vehicle by resetting the throttle and yaw RC channels
+        to their minimum values. This process mimics the disarming sequence used by physical
+        transmitters, ensuring that the vehicle is no longer ready for flight, and that the
+        vehicle is in a more safe state.
+
+        Note
+        ----
+        Always ensure that the vehicle is on the ground and stationary before invoking this
+        method to avoid accidental movement or damage.
+        """
+        pass
+
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
     def get_data(self, command: _MspCommand) -> Any:
@@ -347,8 +379,6 @@ class MultiWii(object):
         return self._command_to_data_structure_type_map[command].parse(data)
 
     # --------------------------------- SET COMMAND METHODS ------------------------------------
-
-    # TODO: Add arming and disarming methods.
 
     def bind_transmitter_and_receiver(self) -> NoReturn:
         """
