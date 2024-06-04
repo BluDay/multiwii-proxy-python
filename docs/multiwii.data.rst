@@ -1,42 +1,42 @@
 Data structures
 ===============
 
-.. automodule:: wiiproxy.data.box
+.. automodule:: multiwii.data.box
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.info
+.. automodule:: multiwii.data.info
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.motor
+.. automodule:: multiwii.data.motor
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.navigation
+.. automodule:: multiwii.data.navigation
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.pid
+.. automodule:: multiwii.data.pid
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.rc
+.. automodule:: multiwii.data.rc
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.servo
+.. automodule:: multiwii.data.servo
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: wiiproxy.data.telemetry
+.. automodule:: multiwii.data.telemetry
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,7 +44,7 @@ Data structures
 Value types
 -----------
 
-.. automodule:: wiiproxy.data._types
+.. automodule:: multiwii.data._types
    :members:
    :undoc-members:
    :show-inheritance:

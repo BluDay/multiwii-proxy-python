@@ -1,7 +1,7 @@
 Commands
 ========
 
-.. automodule:: wiiproxy.commands
+.. automodule:: multiwii.commands
    :members:
    :undoc-members:
    :show-inheritance:

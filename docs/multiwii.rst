@@ -1,15 +1,15 @@
-WiiProxy API
+multiwii API
 ============
 
 .. toctree::
    :maxdepth: 4
 
-   wiiproxy.commands
-   wiiproxy.config
-   wiiproxy.data
-   wiiproxy.messaging
+   multiwii.commands
+   multiwii.config
+   multiwii.data
+   multiwii.messaging
 
-.. autoclass:: wiiproxy.MultiWii
+.. autoclass:: multiwii.MultiWii
    :members:
    :undoc-members:
    :show-inheritance:
