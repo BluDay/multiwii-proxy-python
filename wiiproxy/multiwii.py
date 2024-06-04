@@ -355,65 +355,6 @@ class MultiWii(object):
 
             elapsed_time = perf_counter() - start_time
 
-    def disarm(self) -> NoReturn:
-        """
-        Disarms the vehicle.
-
-        This method safely disarms the vehicle by resetting the yaw and throttle to their minimum
-        values. This process simulates the disarming sequence used by physical transmitters,
-        ensuring that the vehicle is no longer ready for flight, and that the vehicle is in a
-        more safe state.
-
-        Note
-        ----
-        Always ensure that the vehicle is on the ground and stationary before invoking this
-        method to avoid accidental movement or damage.
-        """
-        data = MspRc(
-            roll=1500,
-            pitch=1500,
-            yaw=1000,
-            throttle=1000,
-            aux1=0,
-            aux2=0,
-            aux3=0,
-            aux4=0
-        )
-
-        start_time = perf_counter()
-
-        elapsed_time = 0
-
-        while elapsed_time < 0.5:
-            self.set_raw_rc(data)
-
-            sleep(0.05)
-
-            elapsed_time = perf_counter() - start_time
-
-    # --------------------------------- GET COMMAND METHODS ------------------------------------
-
-    def get_data(self, command: _MspCommand) -> Any:
-        """
-        Sends a given command to the FC and parses the retrieved data values.
-
-        Parameters
-        ----------
-        command : _MspCommand
-            An instance of `_MspCommand` representing the MSP command to get corresponding data
-            values for.
-
-        Returns
-        -------
-        Any
-            An instance of a corresponding data structure type for the given command.
-        """
-        data = self._read_response_message(command).data
-
-        return self._command_to_data_structure_type_map[command].parse(data)
-
-    # --------------------------------- SET COMMAND METHODS ------------------------------------
-
     def bind_transmitter_and_receiver(self) -> NoReturn:
         """
         Sends an MSP_BIND command.
@@ -459,6 +400,61 @@ class MultiWii(object):
         disturbances during the process.
         """
         self._send_request_message(MSP_ACC_CALIBRATION)
+
+    def disarm(self) -> NoReturn:
+        """
+        Disarms the vehicle.
+
+        This method safely disarms the vehicle by resetting the yaw and throttle to their minimum
+        values. This process simulates the disarming sequence used by physical transmitters,
+        ensuring that the vehicle is no longer ready for flight, and that the vehicle is in a
+        more safe state.
+
+        Note
+        ----
+        Always ensure that the vehicle is on the ground and stationary before invoking this
+        method to avoid accidental movement or damage.
+        """
+        data = MspRc(
+            roll=1500,
+            pitch=1500,
+            yaw=1000,
+            throttle=1000,
+            aux1=0,
+            aux2=0,
+            aux3=0,
+            aux4=0
+        )
+
+        start_time = perf_counter()
+
+        elapsed_time = 0
+
+        while elapsed_time < 0.5:
+            self.set_raw_rc(data)
+
+            sleep(0.05)
+
+            elapsed_time = perf_counter() - start_time
+
+    def get_data(self, command: _MspCommand) -> Any:
+        """
+        Sends a given command to the FC and parses the retrieved data values.
+
+        Parameters
+        ----------
+        command : _MspCommand
+            An instance of `_MspCommand` representing the MSP command to get corresponding data
+            values for.
+
+        Returns
+        -------
+        Any
+            An instance of a corresponding data structure type for the given command.
+        """
+        data = self._read_response_message(command).data
+
+        return self._command_to_data_structure_type_map[command].parse(data)
 
     def reset_config(self) -> NoReturn:
         """
