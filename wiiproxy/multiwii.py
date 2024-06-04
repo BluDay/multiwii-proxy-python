@@ -78,7 +78,9 @@ from .messaging import (
 )
 
 from serial import Serial
-from time   import sleep
+
+from time import perf_counter, sleep
+
 from typing import Any, Final, NoReturn, Type
 
 class MultiWii(object):
@@ -299,7 +301,7 @@ class MultiWii(object):
         
             return _parse_response_message(command, payload)
         finally:
-            self._serial_port.reset_output_buffer()
+            self._serial_port.reset_input_buffer()
 
     def _send_request_message(self, command: _MspCommand, data: tuple[int] = ()) -> NoReturn:
         """
@@ -315,39 +317,79 @@ class MultiWii(object):
         try:
             self._serial_port.write(_create_request_message(command, data))
         finally:
-            self._serial_port.reset_input_buffer()
+            self._serial_port.reset_output_buffer()
 
     def arm(self) -> NoReturn:
         """
         Arms the vehicle.
 
         This method prepares the vehicle for operation by simulating the arming sequence
-        typically performed by physical transmitters. It sets the throttle and yaw RC channels
-        to their maximum values for a few seconds to initiate the arming process, ensuring that
-        the vehicle is ready for further commands and a safe flight.
+        performed by physical transmitters. It sets the throttle value to its minimum, and
+        the yaw value to its maximum, for a few seconds simultaneously to initiate the arming
+        process. This ensures that the vehicle is ready for further commands and a safe flight.
 
         Note
         ----
         Ensure that the vehicle is in a safe enviornment and that conditions are suitable for
         arming before invoking this method.
         """
-        pass
+        data = MspRc(
+            roll=1500,
+            pitch=1500,
+            yaw=2000,
+            throttle=1000,
+            aux1=0,
+            aux2=0,
+            aux3=0,
+            aux4=0
+        )
+
+        start_time = perf_counter()
+
+        elapsed_time = 0
+
+        while elapsed_time < 0.5:
+            self.set_raw_rc(data)
+
+            sleep(0.05)
+
+            elapsed_time = perf_counter() - start_time
 
     def disarm(self) -> NoReturn:
         """
         Disarms the vehicle.
 
-        This method safely disarms the vehicle by resetting the throttle and yaw RC channels
-        to their minimum values. This process mimics the disarming sequence used by physical
-        transmitters, ensuring that the vehicle is no longer ready for flight, and that the
-        vehicle is in a more safe state.
+        This method safely disarms the vehicle by resetting the yaw and throttle to their minimum
+        values. This process simulates the disarming sequence used by physical transmitters,
+        ensuring that the vehicle is no longer ready for flight, and that the vehicle is in a
+        more safe state.
 
         Note
         ----
         Always ensure that the vehicle is on the ground and stationary before invoking this
         method to avoid accidental movement or damage.
         """
-        pass
+        data = MspRc(
+            roll=1500,
+            pitch=1500,
+            yaw=1000,
+            throttle=1000,
+            aux1=0,
+            aux2=0,
+            aux3=0,
+            aux4=0
+        )
+
+        start_time = perf_counter()
+
+        elapsed_time = 0
+
+        while elapsed_time < 0.5:
+            self.set_raw_rc(data)
+
+            sleep(0.05)
+
+            elapsed_time = perf_counter() - start_time
 
     # --------------------------------- GET COMMAND METHODS ------------------------------------
 
