@@ -6,11 +6,9 @@ This module does **not** support MSP v2, or any of the newer versions.
 
 ## Versioning
 
-| Version      | Branch   | Description                               |
-| :---         | :---     | :---                                      |
-| v1           | `legacy` | Initial release.                          |
-| v2           | `legacy` | Major refactor. Added more functionality. |
-| v3 (Current) | `master` | Complete re-write and simplification.     |
+* [1.0](https://github.com/BluDay/multiwii-proxy-python/tree/legacy/v1) `legacy`
+* [2.0](https://github.com/BluDay/multiwii-proxy-python/tree/legacy/v2) `legacy`
+* [3.0 (Current)](https://github.com/BluDay/multiwii-proxy-python) `master`
 
 ## Documentation
 
