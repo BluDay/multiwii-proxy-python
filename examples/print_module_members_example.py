@@ -4,13 +4,13 @@ import os, sys
 
 sys.path.insert(0, os.path.abspath('.'))
 
-from wiiproxy.commands import MSP_IDENT, MSP_MISC, MSP_RC
+from multiwii.commands import MSP_IDENT, MSP_MISC, MSP_RC
 
-from wiiproxy.config import MultiWiiMultitype
+from multiwii.config import MultiWiiMultitype
 
-from wiiproxy.data import MspRc
+from multiwii.data import MspRc
 
-from wiiproxy.messaging import (
+from multiwii.messaging import (
     MESSAGE_ERROR_HEADER,
     MESSAGE_INCOMING_HEADER,
     MESSAGE_OUTGOING_HEADER

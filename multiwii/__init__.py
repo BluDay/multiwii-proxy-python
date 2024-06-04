@@ -1,5 +1,7 @@
 """
-WiiProxy: A simple and user-friendly Python 3 module for MultiWii-based drones.
+multiwii-proxy-python: A simple and user-friendly Python 3 module for MultiWii-based drones.
+
+Formerly known as WiiProxy.
 
 Copyright (C) 2024 BluDay
 
@@ -16,8 +18,8 @@ __credits__     = 'BluDay'
 __description__ = 'A simple and user-friendly Python 3 module for MultiWii-based drones.'
 __license__     = 'MIT'
 __maintainer__  = 'BluDay'
-__title__       = 'WiiProxy'
-__url__         = 'https://bluday.github.io/wiiproxy'
+__title__       = 'multiwii-proxy-python'
+__url__         = 'https://bluday.github.io/multiwii-proxy-python'
 __version__     = '3.0'
 
 from ._command import _MspCommand

@@ -5,18 +5,18 @@
 
 import os, sys
 
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'wiiproxy'
+project = 'multiwii-proxy-python'
 
 copyright = '2024, BluDay'
 
 author = 'BluDay'
 
-release = '1.0'
+release = '3.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -47,7 +47,7 @@ html_static_path = ['_static']
 
 # -- Napoleon options --------------------------------------------------------
 
-napoleon_google_docstring = True
+napoleon_google_docstring = False
 
 napoleon_numpy_docstring = True
 
