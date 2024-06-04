@@ -1,8 +1,14 @@
 #! /usr/bin/env python3
 
+import os, sys
+
+sys.path.insert(0, os.path.abspath('.'))
+
 from wiiproxy.commands import MSP_IDENT, MSP_MISC, MSP_RC
 
 from wiiproxy.config import MultiWiiMultitype
+
+from wiiproxy.data import MspRc
 
 from wiiproxy.messaging import (
     MESSAGE_ERROR_HEADER,
