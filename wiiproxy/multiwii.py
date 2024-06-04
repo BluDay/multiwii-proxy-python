@@ -259,55 +259,47 @@ class MultiWii(object):
         _MspResponseMessage
             A named tuple with the command, parsed data and additional information.
         """
-        def raise_error(message: str) -> NoReturn:
-            """
-            Raises an error of type `MspMessageError` with a brief error message.
+        try:
+            self._send_request_message(command)
 
-            This function resets the output buffer of the serial port before raising the error.
+            sleep(self._message_write_read_delay)
 
-            Parameters
-            ----------
-            message : str
-                The error message.
-            """
+            header = self._serial_port.read(3)
+
+            if header == MESSAGE_ERROR_HEADER:
+                raise MspMessageError('An error has occured.') 
+
+            if header != MESSAGE_INCOMING_HEADER:
+                raise MspMessageError('Invalid incoming message preamble received.')
+
+            command_code = self._serial_port.read(1)
+
+            if command_code[0] != command.code:
+                raise MspMessageError(
+                    'Invalid command code detected. ({}, {})'.format(
+                        command.code,
+                        command_code
+                    )
+                )
+
+            payload = bytes()
+
+            payload += command_code
+
+            data_size = self._serial_port.read(1)
+            data      = self._serial_port.read(data_size[0])
+
+            payload += data_size
+            payload += data
+
+            checksum = self._serial_port.read(1)
+
+            if checksum[0] != _crc8_xor(payload):
+                raise MspMessageError(f'Invalid payload checksum detected for {command}.')
+        
+            return _parse_response_message(command, payload)
+        finally:
             self._serial_port.reset_output_buffer()
-
-            raise MspMessageError(message)
-
-        self._send_request_message(command)
-
-        sleep(self._message_write_read_delay)
-
-        header = self._serial_port.read(3)
-
-        if header == MESSAGE_ERROR_HEADER:
-            raise_error('An error has occured.') 
-
-        if header != MESSAGE_INCOMING_HEADER:
-            raise_error('Invalid incoming message preamble received.')
-
-        command_code = self._serial_port.read(1)
-
-        if command_code != command.code:
-            raise_error(f'Invalid command code detected. ({command.code}, {command_code})')
-
-        payload = bytes()
-
-        payload += command_code
-
-        data_size = self._serial_port.read(1)
-
-        data = self._serial_port.read(data_size)
-
-        payload += data_size
-        payload += data
-
-        checksum = self._serial_port.read(1)
-
-        if checksum != _crc8_xor(payload):
-            raise_error(f'Invalid payload checksum detected for {command}.')
-
-        return _parse_response_message(command, payload)
 
     def _send_request_message(self, command: _MspCommand, data: tuple[int] = ()) -> NoReturn:
         """
