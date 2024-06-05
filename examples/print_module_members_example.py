@@ -1,9 +1,5 @@
 #! /usr/bin/env python3
 
-import os, sys
-
-sys.path.insert(0, os.path.abspath('.'))
-
 from multiwii.commands import MSP_IDENT, MSP_MISC, MSP_RC
 
 from multiwii.config import MultiWiiMultitype
