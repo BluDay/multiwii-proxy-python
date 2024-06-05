@@ -6,7 +6,7 @@ authors = ["BluDay"]
 license = "MIT"
 readme = "README.md"
 packages = [
-	{ include = "multiwii", from = "src" }
+    { include = "multiwii", from = "src" }
 ]
 
 [tool.poetry.dependencies]
