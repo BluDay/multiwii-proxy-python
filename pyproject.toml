@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "multiwii-proxy-python"
+version = "3.0"
+description = "A simple and user-friendly Python 3 module for MultiWii-based drones."
+authors = ["BluDay"]
+license = "MIT"
+readme = "README.md"
+packages = [
+	{ include = "multiwii", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyserial = "^3.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
