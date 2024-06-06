@@ -18,9 +18,6 @@ class MspBoxItem:
         * Mid   (0b010) (MID)
         * High  (0b100) (HIGH)
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     aux1: MultiWiiBoxState
     """MultiWiiStateBox: The state value for the first auxiliary function."""
 
@@ -32,8 +29,6 @@ class MspBoxItem:
 
     aux4: MultiWiiBoxState
     """MultiWiiStateBox: The state value for the fourth auxiliary function."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, value: int) -> Self:
@@ -58,8 +53,6 @@ class MspBoxItem:
             aux4=MultiWiiBoxState((value >> 9) & 0x7)
         )
 
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
-
     def compile(self) -> int:
         """
         Compiles all of the box state values into a single unsigned integer value.
@@ -81,13 +74,8 @@ class MspBox:
     controller. Control boxes can be used to enable or disable specific functions or modes
     during flight.
     """
-    
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     items: tuple[MspBoxItem]
     """tuple[MspBoxItem]: A tuple with the box items."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -107,8 +95,6 @@ class MspBox:
         """
         return cls(tuple(MspBoxItem.parse(state) for state in data))
     
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
-
     def as_serializable(self) -> tuple[int]:
         """
         Returns a tuple with integer values to be used for serialization.
@@ -123,13 +109,8 @@ class MspBox:
 @dataclass
 class MspBoxIds:
     """Represents data values for the MSP_BOXIDS command."""
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     values: tuple[MultiWiiBox]
     """tuple[MultiWiiBox]: A tuple with `MultiWiiBox` values."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -158,13 +139,8 @@ class MspBoxNames:
     flight controller. Each box corresponds to a specific function or mode that can be
     activated in the flight controller's configuration.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     names: tuple[str]
     """tuple[str]: The name of the boxes as strings."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
