@@ -13,9 +13,6 @@ class MspPid:
     This class encapsulates the PID controller settings for various control axes and functions
     in the MultiWii flight controller.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     roll: Pid[int]
     """Pid[int]: PID values for the roll axis."""
 
@@ -45,8 +42,6 @@ class MspPid:
 
     velocity: Pid[int]
     """Pid[int]: PID values for the velocity."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
    
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -76,8 +71,6 @@ class MspPid:
             pid_collection += (pid,)
 
         return cls(*pid_collection)
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """
@@ -138,13 +131,8 @@ class MspPidNames:
     This class is used to store the names of various PID controllers used in the MultiWii
     flight controller. Each name corresponds to a specific PID controller setting.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     names: tuple[str]
     """tuple[str]: The names of the PID controllers."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:

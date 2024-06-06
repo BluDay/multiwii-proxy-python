@@ -2,8 +2,6 @@ from ._command import _MspCommand
 
 from typing import Final
 
-# ------------------------------------ GET COMMANDS ----------------------------------------
-
 MSP_IDENT: Final[_MspCommand] = _MspCommand(100, '3BI:4:!')
 """_MspCommand: An instance representing the MSP_IDENT (100) command."""
 
@@ -66,9 +64,6 @@ MSP_BOXIDS: Final[_MspCommand] = _MspCommand(119, '3HB:4:?')
 
 MSP_SERVO_CONF: Final[_MspCommand] = _MspCommand(120, '3HB'*8 + ':32:!')
 """_MspCommand: An instance representing the MSP_SERVO_CONF (120) command."""
-
-
-# ------------------------------------ SET COMMANDS ----------------------------------------
 
 MSP_SET_RAW_RC: Final[_MspCommand] = _MspCommand(200, '16H:16:!')
 """_MspCommand: An instance representing the MSP_SET_RAW_RC (200) command."""

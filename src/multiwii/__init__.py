@@ -122,22 +122,15 @@ class MultiWii(object):
     ----
     This class can be imported directly through the main module.
     """
-    
-    # -------------------------------------- CONSTANTS -----------------------------------------
-
     DEFAULT_MESSAGE_WRITE_READ_DELAY: Final[float] = 0.005
     """float: The default delay in seconds between writing and reading messages."""
 
     MSP_VERSION: Final[int] = 1
     """int: The supported MultiWii Serial Protocol version."""
 
-    # -------------------------------------- ATTRIBUTES ----------------------------------------
-
     _message_write_read_delay: float
 
     _serial_port: Final[Serial]
-
-    # ------------------------------------ DUNDER METHODS --------------------------------------
 
     def __init__(self, serial_port: Serial) -> NoReturn:
         """
@@ -191,8 +184,6 @@ class MultiWii(object):
         self._message_write_read_delay = self.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
         self._serial_port = serial_port
-
-    # --------------------------------------- PROPERTIES ---------------------------------------
 
     @property
     def command_to_data_structure_type_map(self) -> dict[_MspCommand, Type]:
@@ -258,8 +249,6 @@ class MultiWii(object):
             raise ValueError('Value must be a non-negative number.')
             
         self._message_write_read_delay = value
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def _read_response_message(self, command: _MspCommand) -> _MspResponseMessage:
         """

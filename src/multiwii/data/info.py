@@ -11,9 +11,6 @@ class MspAnalog:
     This class encapsulates the analog telemetry data from the MultiWii flight controller. It
     provides information about the system's voltage, power meter, RSSI, and amperage.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     voltage: float
     """float: The voltage of the system, measured in volts."""
     
@@ -25,8 +22,6 @@ class MspAnalog:
 
     amperage: int
     """int: The current amperage drawn, measured in milliamps."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -60,9 +55,6 @@ class MspIdent:
     provides information about the firmware version, multitype, capabilities, and navigation
     version.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     version: int
     """int: The firmware version of the flight controller."""
 
@@ -74,8 +66,6 @@ class MspIdent:
 
     navigation_version: int
     """The navigation version of the firmware."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -117,9 +107,6 @@ class MspMisc:
     flight controller. It includes information about power triggers, throttle settings,
     battery warnings, and other miscellaneous parameters.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     power_trigger: int
     """int: The power trigger value."""
 
@@ -155,8 +142,6 @@ class MspMisc:
 
     battery_critical: float
     """float: The critical battery level, measured in volts."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -198,9 +183,6 @@ class MspSetMisc:
     controller. It includes information about power triggers, throttle settings, battery
     warnings, and other miscellaneous parameters.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     power_trigger: int
     """int: The power trigger value."""
 
@@ -237,8 +219,6 @@ class MspSetMisc:
     battery_critical: float
     """float: The critical battery level, measured in volts."""
 
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
-
     def as_serializable(self) -> tuple[int]:
         """
         Returns a tuple with integer values to be used for serialization.
@@ -271,9 +251,6 @@ class MspStatus:
     This class encapsulates the status data from the MultiWii flight controller. It provides
     information about cycle time, I2C errors, sensors, flags, and global configuration.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     cycle_time: int
     """int: The cycle time in microseconds."""
 
@@ -288,8 +265,6 @@ class MspStatus:
 
     global_config: int
     """int: The global configuration value."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:

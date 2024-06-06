@@ -12,9 +12,6 @@ class MspCompGps:
     It provides information about the distance and direction to the hime position, as
     well as the update status of the GPS data.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     distance_to_home: int
     """int: The distance to the home position in meters."""
 
@@ -24,8 +21,6 @@ class MspCompGps:
     update_status: int
     """int: The update status of the GPS data."""
     
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -54,8 +49,6 @@ class MspRawGps:
     coordinates (latitude and longitude), altitude, speed, and ground course.
     """
 
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-    
     fix: int
     """int: The GPS fix status."""
 
@@ -74,8 +67,6 @@ class MspRawGps:
     ground_course: float
     """float: The ground course in degrees."""
     
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -103,8 +94,6 @@ class MspRawGps:
             speed=[5],
             ground_course=data[6] / 10.0
         )
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """
@@ -134,9 +123,6 @@ class MspWaypoint:
     It provides information about the waypoint number, coordinates, altitude hold,
     heading, time to stay at the waypoint, and the waypoint flag.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     number: int
     """int: The waypoint number."""
 
@@ -155,8 +141,6 @@ class MspWaypoint:
     status_flag: int
     """int: The waypoint flag indicating the waypoint's status or type."""
     
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -184,8 +168,6 @@ class MspWaypoint:
             time_to_stay=data[5],
             status_flag=data[6]
         )
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """

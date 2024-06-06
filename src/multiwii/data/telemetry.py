@@ -10,16 +10,11 @@ class MspAltitude:
 
     This class encapsulates altitude-related data from a MultiWii flight controller.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     estimation: int
     """int: The estimated altitude."""
 
     pressure_variation: int
     """int: The variation in pressure."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -46,9 +41,6 @@ class MspAttitude:
 
     This class encapsulates attitude-related data from a MultiWii flight controller.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     pitch_angle: float
     """float: The pitch angle of the aircraft in degrees, ranging from -180.0 to 180.0."""
 
@@ -57,8 +49,6 @@ class MspAttitude:
 
     yaw_angle: int
     """int: The heading angle of the aircraft in degrees, ranging from 0 to 360."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(cls, data: tuple) -> Self:
@@ -90,9 +80,6 @@ class MspRawImu:
     This class encapsulates raw IMU (Intertial Measurement Unit) data from a MultiWii
     flight controller.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     accelerometer: Point3D[float]
     """Point3D[float]: The accelerometer data."""
 
@@ -101,8 +88,6 @@ class MspRawImu:
 
     magnetometer: Point3D[float]
     """Point3D[float]: The magnetometer data."""
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
 
     @classmethod
     def parse(

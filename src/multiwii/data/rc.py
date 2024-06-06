@@ -9,9 +9,6 @@ class MspRc:
     This class encapsulates the RC (Remote Control) input values for various control axes in
     the MultiWii flight controller.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     roll: int
     """int: The input value for the roll axis."""
 
@@ -36,8 +33,6 @@ class MspRc:
     aux4: int
     """int: The input value for the fourth auxiliary channel."""
     
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -55,8 +50,6 @@ class MspRc:
             An instance of the `MspRc` class populated with the parsed data.
         """
         return cls(*data)
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """
@@ -78,9 +71,6 @@ class MspRcTuning:
     in the MultiWii flight controller. It provides information about the rates, expo,
     and throttle settings.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     rate: int
     """int: The RC rate."""
 
@@ -102,8 +92,6 @@ class MspRcTuning:
     throttle_expo: int
     """int: The throttle expo value."""
 
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -121,8 +109,6 @@ class MspRcTuning:
             An instance of the `MspRcTuning` class populated with the parsed data.
         """
         return cls(*data)
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """

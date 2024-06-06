@@ -10,9 +10,6 @@ class _MspCommand(object):
     if it is a set-command, and details about the structure format used for serializing and
     deserializing corresponding data values.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     _code: Final[int]
 
     _data_field_count: Final[int]
@@ -24,8 +21,6 @@ class _MspCommand(object):
     _is_set_command: Final[bool]
 
     _payload_struct_format: Final[str]
-
-    # ------------------------------------- MAGIC METHODS --------------------------------------
 
     def __init__(self, code: int, data_format: str = None) -> NoReturn:
         """
@@ -140,8 +135,6 @@ class _MspCommand(object):
         """
         return self.data_struct_format
 
-    # --------------------------------------- PROPERTIES ---------------------------------------
-    
     @property
     def code(self) -> int:
         """

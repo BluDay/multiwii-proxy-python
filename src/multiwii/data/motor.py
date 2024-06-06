@@ -9,9 +9,6 @@ class MspMotor:
     This class encapsulates the motor speed values for up to eight motors in a MultiWii flight
     controller. Each motor's speed is represented as an integer value.
     """
-
-    # ---------------------------------- INSTANCE VARIABLES ------------------------------------
-
     motor1: int
     """int: The speed value for motor 1."""
 
@@ -36,8 +33,6 @@ class MspMotor:
     motor8: int
     """int: The speed value for motor 8."""
 
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """
@@ -55,9 +50,6 @@ class MspMotor:
             An instance of the `MspMotor` class populated with the parsed data.
         """
         return cls(*data)
-
-
-    # ----------------------------------- INSTANCE METHODS -------------------------------------
 
     def as_serializable(self) -> tuple[int]:
         """
@@ -79,9 +71,6 @@ class MspMotorPins(MspMotor):
     in a MultiWii flight controller. Each motor's pin value is represented as an integer
     value.
     """
-
-    # ------------------------------------ CLASS METHODS ---------------------------------------
-
     @classmethod
     def parse(cls, data: tuple) -> Self:
         """

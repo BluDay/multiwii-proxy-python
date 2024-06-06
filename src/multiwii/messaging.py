@@ -3,8 +3,6 @@ from ._command import _MspCommand
 from typing import Final, NamedTuple
 from struct import pack, unpack
 
-# --------------------------------------- CONSTANTS ----------------------------------------
-
 MESSAGE_ERROR_HEADER: Final[bytes] = b'$M!'
 """bytes: The serialized error message header. (0x24, 0x4d, 0x21)"""
 
@@ -13,8 +11,6 @@ MESSAGE_INCOMING_HEADER: Final[bytes] = b'$M<'
 
 MESSAGE_OUTGOING_HEADER: Final[bytes] = b'$M>'
 """bytes: The serialized outgoing message header. (0x24, 0x4d, 0x3e)"""
-
-# ---------------------------------------- CLASSES -----------------------------------------
 
 class _MspResponseMessage(NamedTuple):
     """
@@ -38,8 +34,6 @@ class _MspResponseMessage(NamedTuple):
 class MspMessageError(Exception):
     """Represents a specific errors related to MSP messages."""
     pass
-
-# --------------------------------------- FUNCTIONS ----------------------------------------
 
 def _crc8_xor(payload: bytes) -> int:
     """
