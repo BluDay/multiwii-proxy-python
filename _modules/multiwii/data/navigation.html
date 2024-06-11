@@ -87,9 +87,6 @@
 <span class="sd">    It provides information about the distance and direction to the hime position, as</span>
 <span class="sd">    well as the update status of the GPS data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">distance_to_home</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The distance to the home position in meters.&quot;&quot;&quot;</span>
 
@@ -99,8 +96,6 @@
     <span class="n">update_status</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The update status of the GPS data.&quot;&quot;&quot;</span>
     
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
-
 <div class="viewcode-block" id="MspCompGps.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspCompGps.parse">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -135,8 +130,6 @@
 <span class="sd">    coordinates (latitude and longitude), altitude, speed, and ground course.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-    
     <span class="n">fix</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The GPS fix status.&quot;&quot;&quot;</span>
 
@@ -155,8 +148,6 @@
     <span class="n">ground_course</span><span class="p">:</span> <span class="nb">float</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The ground course in degrees.&quot;&quot;&quot;</span>
     
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
-
 <div class="viewcode-block" id="MspRawGps.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspRawGps.parse">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -187,8 +178,6 @@
             <span class="n">ground_course</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.0</span>
         <span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspRawGps.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspRawGps.as_serializable">[docs]</a>
@@ -224,9 +213,6 @@
 <span class="sd">    It provides information about the waypoint number, coordinates, altitude hold,</span>
 <span class="sd">    heading, time to stay at the waypoint, and the waypoint flag.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">number</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The waypoint number.&quot;&quot;&quot;</span>
 
@@ -245,8 +231,6 @@
     <span class="n">status_flag</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The waypoint flag indicating the waypoint&#39;s status or type.&quot;&quot;&quot;</span>
     
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
-
 <div class="viewcode-block" id="MspWaypoint.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspWaypoint.parse">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -277,8 +261,6 @@
             <span class="n">status_flag</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
         <span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspWaypoint.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.navigation.MspWaypoint.as_serializable">[docs]</a>

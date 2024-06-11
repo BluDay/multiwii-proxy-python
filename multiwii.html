@@ -527,7 +527,7 @@ arming before invoking this method.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.bind_transmitter_and_receiver">
 <span class="sig-name descname"><span class="pre">bind_transmitter_and_receiver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.bind_transmitter_and_receiver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.bind_transmitter_and_receiver" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_BIND command.</p>
+<dd><p>Sends an MSP_BIND command to the FC using the provided data values.</p>
 <p>This command initiates the binding process between the transmitter (radio controller)
 and the receiver connected to the FC. Binding establishes a secure communication link
 between the transmitter (TX) and the receiver (RX).</p>
@@ -541,7 +541,7 @@ binding mode before calling this method.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.calibrate_accelerometer">
 <span class="sig-name descname"><span class="pre">calibrate_accelerometer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.calibrate_accelerometer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.calibrate_accelerometer" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_ACC_CALIBRATION command.</p>
+<dd><p>Sends an MSP_ACC_CALIBRATION command to the FC using the provided data values.</p>
 <p>This command initiates the accelerometer calibration process on the FC. Accelerometer
 calibration is essential for accurate attitude estimation and stabilization of the
 aircraft.</p>
@@ -555,7 +555,7 @@ results. Avoid moving or disturbing the FC during the process.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.calibrate_magnetometer">
 <span class="sig-name descname"><span class="pre">calibrate_magnetometer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.calibrate_magnetometer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.calibrate_magnetometer" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_MAG_CALIBRATION command.</p>
+<dd><p>Sends an MSP_MAG_CALIBRATION command to the FC using the provided data values.</p>
 <p>This command initiates the magnetometer (compass) calibration process on the FC.
 Magnetometer calibration is crucial for accurate heading estimation and navigation,
 especially in GPS-assisted flight modes.</p>
@@ -631,7 +631,7 @@ values for.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.reset_config">
 <span class="sig-name descname"><span class="pre">reset_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.reset_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.reset_config" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_RESET_CONF command.</p>
+<dd><p>Sends an MSP_RESET_CONF command to the FC using the provided data values.</p>
 <p>This command resets the configuration settings on the FC to their default values.
 It effectively restores the FC to its initial configuration state, clearing any
 customized settings or adjustments made by the user.</p>
@@ -639,14 +639,14 @@ customized settings or adjustments made by the user.</p>
 <p class="admonition-title">Note</p>
 <p>Resetting the config should be done with caution, as it will revert all settings to
 their defaults. Make sure to reconfigure the FC according to your requirements after
-executing this command.</p>
+executing this command to the FC using the provided data values.</p>
 </div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.save_config_to_eeprom">
 <span class="sig-name descname"><span class="pre">save_config_to_eeprom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.save_config_to_eeprom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.save_config_to_eeprom" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_EEPROM_WRITE command.</p>
+<dd><p>Sends an MSP_EEPROM_WRITE command to the FC using the provided data values.</p>
 <p>This command writes the current configuration settings to the EEPROM of the FC.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -659,7 +659,7 @@ values could lead to unexpected behavior or instability.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.select_setting">
 <span class="sig-name descname"><span class="pre">select_setting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.select_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.select_setting" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SELECT_SETTING command.</p>
+<dd><p>Sends an MSP_SELECT_SETTING command to the FC using the provided data values.</p>
 <p>Selects the “setting configuration” with different PID and rate values using the given
 range value.</p>
 <dl class="field-list simple">
@@ -689,7 +689,7 @@ range value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_boxes">
 <span class="sig-name descname"><span class="pre">set_boxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.box.MspBox" title="multiwii.data.box.MspBox"><span class="pre">MspBox</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_boxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_boxes" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_BOX command.</p>
+<dd><p>Sends an MSP_SET_BOX command to the FC using the provided data values.</p>
 <p>Sets the flight modes (or “boxes”) config on the FC. Flight modes define the behavior
 of the aircraft based on various inputs from the transmitter or other sources.</p>
 <dl class="field-list simple">
@@ -702,7 +702,7 @@ of the aircraft based on various inputs from the transmitter or other sources.</
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_head">
 <span class="sig-name descname"><span class="pre">set_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_head" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_HEAD command.</p>
+<dd><p>Sends an MSP_SET_HEAD command to the FC using the provided data values.</p>
 <p>Sets the heading (yaw) direction reference on the FC with a value range of -180 to 180.
 It is used to define the forward direction of the aircraft relative to its orientation.</p>
 <dl class="field-list simple">
@@ -718,7 +718,7 @@ It is used to define the forward direction of the aircraft relative to its orien
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_misc_config">
 <span class="sig-name descname"><span class="pre">set_misc_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.info.MspSetMisc" title="multiwii.data.info.MspSetMisc"><span class="pre">MspSetMisc</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_misc_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_misc_config" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_MISC command.</p>
+<dd><p>Sends an MSP_SET_MISC command to the FC using the provided data values.</p>
 <p>Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe
 behavior, or other settings not covered by specific MSP commands.</p>
 <dl class="field-list simple">
@@ -731,7 +731,7 @@ behavior, or other settings not covered by specific MSP commands.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_motors">
 <span class="sig-name descname"><span class="pre">set_motors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.motor.MspMotor" title="multiwii.data.motor.MspMotor"><span class="pre">MspMotor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_motors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_motors" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_MOTOR command.</p>
+<dd><p>Sends an MSP_SET_MOTOR command to the FC using the provided data values.</p>
 <p>Sets the motor output values on the FC. Motor output values determine the throttle level
 for each motor, controlling the rotation speed and thrust generated by the motors.</p>
 <dl class="field-list simple">
@@ -744,7 +744,7 @@ for each motor, controlling the rotation speed and thrust generated by the motor
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_pid_values">
 <span class="sig-name descname"><span class="pre">set_pid_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.pid.MspPid" title="multiwii.data.pid.MspPid"><span class="pre">MspPid</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_pid_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_pid_values" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_PID command.</p>
+<dd><p>Sends an MSP_SET_PID command to the FC using the provided data values.</p>
 <p>Sets the PID values on the FC. PID values are used to adjust the stability and response
 characteristics of the aircraft.</p>
 <dl class="field-list simple">
@@ -757,7 +757,7 @@ characteristics of the aircraft.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_raw_gps">
 <span class="sig-name descname"><span class="pre">set_raw_gps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.navigation.MspRawGps" title="multiwii.data.navigation.MspRawGps"><span class="pre">MspRawGps</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_raw_gps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_raw_gps" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_RAW_GPS command.</p>
+<dd><p>Sends an MSP_SET_RAW_GPS command to the FC using the provided data values.</p>
 <p>Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other
 GPS-related information.</p>
 <dl class="field-list simple">
@@ -770,7 +770,7 @@ GPS-related information.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_raw_rc">
 <span class="sig-name descname"><span class="pre">set_raw_rc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.rc.MspRc" title="multiwii.data.rc.MspRc"><span class="pre">MspRc</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_raw_rc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_raw_rc" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_RAW_RC command.</p>
+<dd><p>Sends an MSP_SET_RAW_RC command to the FC using the provided data values.</p>
 <p>Sets the raw receiver (RC/RX) channel data on the FC. Raw FC data includes the pulse
 width values received from the transmitter for each channel, typically representing
 control inputs such as throttle, pitch, roll, and yaw.</p>
@@ -784,7 +784,7 @@ control inputs such as throttle, pitch, roll, and yaw.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_rc_tuning">
 <span class="sig-name descname"><span class="pre">set_rc_tuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.rc.MspRcTuning" title="multiwii.data.rc.MspRcTuning"><span class="pre">MspRcTuning</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_rc_tuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_rc_tuning" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_RC_TUNING command.</p>
+<dd><p>Sends an MSP_SET_RC_TUNING command to the FC using the provided data values.</p>
 <p>Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to
 RC control response and behavior.</p>
 <dl class="field-list simple">
@@ -797,7 +797,7 @@ RC control response and behavior.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_servo_config">
 <span class="sig-name descname"><span class="pre">set_servo_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.servo.MspServoConf" title="multiwii.data.servo.MspServoConf"><span class="pre">MspServoConf</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_servo_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_servo_config" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_SERVO_CONF command.</p>
+<dd><p>Sends an MSP_SET_SERVO_CONF command to the FC using the provided data values.</p>
 <p>Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and
 other settings related to servo control.</p>
 <dl class="field-list simple">
@@ -810,7 +810,7 @@ other settings related to servo control.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="multiwii.MultiWii.set_waypoint">
 <span class="sig-name descname"><span class="pre">set_waypoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiwii.data.html#multiwii.data.navigation.MspWaypoint" title="multiwii.data.navigation.MspWaypoint"><span class="pre">MspWaypoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="_modules/multiwii.html#MultiWii.set_waypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#multiwii.MultiWii.set_waypoint" title="Link to this definition"></a></dt>
-<dd><p>Sends an MSP_SET_WP command.</p>
+<dd><p>Sends an MSP_SET_WP command to the FC using the provided data values.</p>
 <p>Dispatches a command to set a waypoint on the FC, providing specific latitude, longitude,
 altitude, heading, duration and navigation flags for precise navigation and waypoint
 management.</p>

@@ -84,9 +84,6 @@
 <span class="sd">    This class encapsulates the RC (Remote Control) input values for various control axes in</span>
 <span class="sd">    the MultiWii flight controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">roll</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The input value for the roll axis.&quot;&quot;&quot;</span>
 
@@ -111,8 +108,6 @@
     <span class="n">aux4</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The input value for the fourth auxiliary channel.&quot;&quot;&quot;</span>
     
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
-
 <div class="viewcode-block" id="MspRc.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.rc.MspRc.parse">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -133,8 +128,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspRc.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.rc.MspRc.as_serializable">[docs]</a>
@@ -162,9 +155,6 @@
 <span class="sd">    in the MultiWii flight controller. It provides information about the rates, expo,</span>
 <span class="sd">    and throttle settings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">rate</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The RC rate.&quot;&quot;&quot;</span>
 
@@ -186,8 +176,6 @@
     <span class="n">throttle_expo</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The throttle expo value.&quot;&quot;&quot;</span>
 
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
-
 <div class="viewcode-block" id="MspRcTuning.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.rc.MspRcTuning.parse">[docs]</a>
     <span class="nd">@classmethod</span>
@@ -208,8 +196,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspRcTuning.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.rc.MspRcTuning.as_serializable">[docs]</a>

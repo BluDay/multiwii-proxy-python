@@ -83,13 +83,8 @@
 
 <span class="sd">    This class encapsulates the servo values for channels in the MultiWii flight controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">values</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[int]: The servo output values for each channel.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspServo.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.servo.MspServo.parse">[docs]</a>
@@ -123,9 +118,6 @@
 <span class="sd">    This class encapsulates the configuration values for a single servo channel in the</span>
 <span class="sd">    MultiWii flight controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The minimum value for the servo endpoint.&quot;&quot;&quot;</span>
 
@@ -149,13 +141,8 @@
 <span class="sd">    This class encapsulates the servo configuration values for setting up servo endpoints,</span>
 <span class="sd">    middle points, and rates in the MultiWii flight controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">values</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">MspServoConfItem</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[MspServoConfItem]: The servo configuration values for each servo channel.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspServoConf.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.servo.MspServoConf.parse">[docs]</a>
@@ -191,8 +178,6 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspServoConf.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.servo.MspServoConf.as_serializable">[docs]</a>

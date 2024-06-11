@@ -196,22 +196,15 @@
 <span class="sd">    ----</span>
 <span class="sd">    This class can be imported directly through the main module.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="c1"># -------------------------------------- CONSTANTS -----------------------------------------</span>
-
     <span class="n">DEFAULT_MESSAGE_WRITE_READ_DELAY</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.005</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The default delay in seconds between writing and reading messages.&quot;&quot;&quot;</span>
 
     <span class="n">MSP_VERSION</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The supported MultiWii Serial Protocol version.&quot;&quot;&quot;</span>
 
-    <span class="c1"># -------------------------------------- ATTRIBUTES ----------------------------------------</span>
-
     <span class="n">_message_write_read_delay</span><span class="p">:</span> <span class="nb">float</span>
 
     <span class="n">_serial_port</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Serial</span><span class="p">]</span>
-
-    <span class="c1"># ------------------------------------ DUNDER METHODS --------------------------------------</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serial_port</span><span class="p">:</span> <span class="n">Serial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -226,9 +219,9 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        serial : Serial</span>
-<span class="sd">            The serial port instance used for communication with the flight controller. This</span>
-<span class="sd">            should be an instance of the `Serial` class from the `pyserial` library, which</span>
-<span class="sd">            provides the interface for serial communication.</span>
+<span class="sd">            The serial port instance used for communication with the FC. This should be an</span>
+<span class="sd">            instance of the `Serial` class from the `pyserial` library, which provides the</span>
+<span class="sd">            interface for serial communication.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -265,8 +258,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_MESSAGE_WRITE_READ_DELAY</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_serial_port</span> <span class="o">=</span> <span class="n">serial_port</span>
-
-    <span class="c1"># --------------------------------------- PROPERTIES ---------------------------------------</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">command_to_data_structure_type_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_MspCommand</span><span class="p">,</span> <span class="n">Type</span><span class="p">]:</span>
@@ -333,11 +324,9 @@
             
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_write_read_delay</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
-
     <span class="k">def</span> <span class="nf">_read_response_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">_MspCommand</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_MspResponseMessage</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads a message using the specified MSP command.</span>
+<span class="sd">        Reads a response message from the FC using the MSP command.</span>
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
@@ -403,7 +392,7 @@
 
     <span class="k">def</span> <span class="nf">_send_request_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">_MspCommand</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends a message with the specified MSP command and optional data values.</span>
+<span class="sd">        Sends a request message to the FC using the provided MSP command and data values.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -460,7 +449,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.bind_transmitter_and_receiver">[docs]</a>
     <span class="k">def</span> <span class="nf">bind_transmitter_and_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_BIND command.</span>
+<span class="sd">        Sends an MSP_BIND command to the FC using the provided data values.</span>
 
 <span class="sd">        This command initiates the binding process between the transmitter (radio controller)</span>
 <span class="sd">        and the receiver connected to the FC. Binding establishes a secure communication link</span>
@@ -478,7 +467,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.calibrate_accelerometer">[docs]</a>
     <span class="k">def</span> <span class="nf">calibrate_accelerometer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_ACC_CALIBRATION command.</span>
+<span class="sd">        Sends an MSP_ACC_CALIBRATION command to the FC using the provided data values.</span>
 
 <span class="sd">        This command initiates the accelerometer calibration process on the FC. Accelerometer</span>
 <span class="sd">        calibration is essential for accurate attitude estimation and stabilization of the</span>
@@ -496,7 +485,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.calibrate_magnetometer">[docs]</a>
     <span class="k">def</span> <span class="nf">calibrate_magnetometer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_MAG_CALIBRATION command.</span>
+<span class="sd">        Sends an MSP_MAG_CALIBRATION command to the FC using the provided data values.</span>
 
 <span class="sd">        This command initiates the magnetometer (compass) calibration process on the FC.</span>
 <span class="sd">        Magnetometer calibration is crucial for accurate heading estimation and navigation,</span>
@@ -576,7 +565,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.reset_config">[docs]</a>
     <span class="k">def</span> <span class="nf">reset_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_RESET_CONF command.</span>
+<span class="sd">        Sends an MSP_RESET_CONF command to the FC using the provided data values.</span>
 
 <span class="sd">        This command resets the configuration settings on the FC to their default values.</span>
 <span class="sd">        It effectively restores the FC to its initial configuration state, clearing any</span>
@@ -586,7 +575,7 @@
 <span class="sd">        ----</span>
 <span class="sd">        Resetting the config should be done with caution, as it will revert all settings to</span>
 <span class="sd">        their defaults. Make sure to reconfigure the FC according to your requirements after</span>
-<span class="sd">        executing this command.</span>
+<span class="sd">        executing this command to the FC using the provided data values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_send_request_message</span><span class="p">(</span><span class="n">MSP_RESET_CONF</span><span class="p">)</span></div>
 
@@ -595,7 +584,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.save_config_to_eeprom">[docs]</a>
     <span class="k">def</span> <span class="nf">save_config_to_eeprom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_EEPROM_WRITE command.</span>
+<span class="sd">        Sends an MSP_EEPROM_WRITE command to the FC using the provided data values.</span>
 
 <span class="sd">        This command writes the current configuration settings to the EEPROM of the FC. </span>
 
@@ -612,7 +601,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.select_setting">[docs]</a>
     <span class="k">def</span> <span class="nf">select_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SELECT_SETTING command.</span>
+<span class="sd">        Sends an MSP_SELECT_SETTING command to the FC using the provided data values.</span>
 
 <span class="sd">        Selects the &quot;setting configuration&quot; with different PID and rate values using the given</span>
 <span class="sd">        range value.</span>
@@ -637,7 +626,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_boxes">[docs]</a>
     <span class="k">def</span> <span class="nf">set_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspBox</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_BOX command.</span>
+<span class="sd">        Sends an MSP_SET_BOX command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the flight modes (or &quot;boxes&quot;) config on the FC. Flight modes define the behavior</span>
 <span class="sd">        of the aircraft based on various inputs from the transmitter or other sources.</span>
@@ -654,7 +643,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_head">[docs]</a>
     <span class="k">def</span> <span class="nf">set_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_HEAD command.</span>
+<span class="sd">        Sends an MSP_SET_HEAD command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the heading (yaw) direction reference on the FC with a value range of -180 to 180.</span>
 <span class="sd">        It is used to define the forward direction of the aircraft relative to its orientation.</span>
@@ -679,7 +668,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_misc_config">[docs]</a>
     <span class="k">def</span> <span class="nf">set_misc_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspSetMisc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_MISC command.</span>
+<span class="sd">        Sends an MSP_SET_MISC command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets miscellaneous config parameters on the FC—such as battery voltage scaling, failsafe</span>
 <span class="sd">        behavior, or other settings not covered by specific MSP commands.</span>
@@ -696,7 +685,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_motors">[docs]</a>
     <span class="k">def</span> <span class="nf">set_motors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspMotor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_MOTOR command.</span>
+<span class="sd">        Sends an MSP_SET_MOTOR command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the motor output values on the FC. Motor output values determine the throttle level</span>
 <span class="sd">        for each motor, controlling the rotation speed and thrust generated by the motors.</span>
@@ -713,7 +702,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_pid_values">[docs]</a>
     <span class="k">def</span> <span class="nf">set_pid_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspPid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_PID command.</span>
+<span class="sd">        Sends an MSP_SET_PID command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the PID values on the FC. PID values are used to adjust the stability and response</span>
 <span class="sd">        characteristics of the aircraft.</span>
@@ -730,7 +719,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_raw_gps">[docs]</a>
     <span class="k">def</span> <span class="nf">set_raw_gps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRawGps</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_RAW_GPS command.</span>
+<span class="sd">        Sends an MSP_SET_RAW_GPS command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the raw GPS data on the FC—such as the latitude, longitude, altitude, and other</span>
 <span class="sd">        GPS-related information.</span>
@@ -747,7 +736,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_raw_rc">[docs]</a>
     <span class="k">def</span> <span class="nf">set_raw_rc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_RAW_RC command.</span>
+<span class="sd">        Sends an MSP_SET_RAW_RC command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets the raw receiver (RC/RX) channel data on the FC. Raw FC data includes the pulse</span>
 <span class="sd">        width values received from the transmitter for each channel, typically representing</span>
@@ -765,7 +754,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_rc_tuning">[docs]</a>
     <span class="k">def</span> <span class="nf">set_rc_tuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspRcTuning</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_RC_TUNING command.</span>
+<span class="sd">        Sends an MSP_SET_RC_TUNING command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets RC tuning parameters on the FC—such as expo, rates, and other settings related to</span>
 <span class="sd">        RC control response and behavior.</span>
@@ -782,7 +771,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_servo_config">[docs]</a>
     <span class="k">def</span> <span class="nf">set_servo_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspServoConf</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_SERVO_CONF command.</span>
+<span class="sd">        Sends an MSP_SET_SERVO_CONF command to the FC using the provided data values.</span>
 
 <span class="sd">        Sets servo config parameters on the FC—such as servo mapping, direction, endpoints, and</span>
 <span class="sd">        other settings related to servo control.</span>
@@ -799,7 +788,7 @@
 <a class="viewcode-back" href="../multiwii.html#multiwii.MultiWii.set_waypoint">[docs]</a>
     <span class="k">def</span> <span class="nf">set_waypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MspWaypoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sends an MSP_SET_WP command.</span>
+<span class="sd">        Sends an MSP_SET_WP command to the FC using the provided data values.</span>
 
 <span class="sd">        Dispatches a command to set a waypoint on the FC, providing specific latitude, longitude,</span>
 <span class="sd">        altitude, heading, duration and navigation flags for precise navigation and waypoint</span>

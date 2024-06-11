@@ -93,9 +93,6 @@
 <span class="sd">        * Mid   (0b010) (MID)</span>
 <span class="sd">        * High  (0b100) (HIGH)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">aux1</span><span class="p">:</span> <span class="n">MultiWiiBoxState</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;MultiWiiStateBox: The state value for the first auxiliary function.&quot;&quot;&quot;</span>
 
@@ -107,8 +104,6 @@
 
     <span class="n">aux4</span><span class="p">:</span> <span class="n">MultiWiiBoxState</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;MultiWiiStateBox: The state value for the fourth auxiliary function.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspBoxItem.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBoxItem.parse">[docs]</a>
@@ -135,8 +130,6 @@
             <span class="n">aux4</span><span class="o">=</span><span class="n">MultiWiiBoxState</span><span class="p">((</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">9</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7</span><span class="p">)</span>
         <span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspBoxItem.compile">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBoxItem.compile">[docs]</a>
@@ -165,13 +158,8 @@
 <span class="sd">    controller. Control boxes can be used to enable or disable specific functions or modes</span>
 <span class="sd">    during flight.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">items</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">MspBoxItem</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[MspBoxItem]: A tuple with the box items.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspBox.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBox.parse">[docs]</a>
@@ -194,8 +182,6 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">MspBoxItem</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">data</span><span class="p">))</span></div>
 
     
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
-
 <div class="viewcode-block" id="MspBox.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBox.as_serializable">[docs]</a>
     <span class="k">def</span> <span class="nf">as_serializable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
@@ -216,13 +202,8 @@
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">MspBoxIds</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents data values for the MSP_BOXIDS command.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">values</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">MultiWiiBox</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[MultiWiiBox]: A tuple with `MultiWiiBox` values.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspBoxIds.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBoxIds.parse">[docs]</a>
@@ -257,13 +238,8 @@
 <span class="sd">    flight controller. Each box corresponds to a specific function or mode that can be</span>
 <span class="sd">    activated in the flight controller&#39;s configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">names</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[str]: The name of the boxes as strings.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspBoxNames.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.box.MspBoxNames.parse">[docs]</a>

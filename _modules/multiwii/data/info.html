@@ -86,9 +86,6 @@
 <span class="sd">    This class encapsulates the analog telemetry data from the MultiWii flight controller. It</span>
 <span class="sd">    provides information about the system&#39;s voltage, power meter, RSSI, and amperage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">voltage</span><span class="p">:</span> <span class="nb">float</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The voltage of the system, measured in volts.&quot;&quot;&quot;</span>
     
@@ -100,8 +97,6 @@
 
     <span class="n">amperage</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The current amperage drawn, measured in milliamps.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspAnalog.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.info.MspAnalog.parse">[docs]</a>
@@ -141,9 +136,6 @@
 <span class="sd">    provides information about the firmware version, multitype, capabilities, and navigation</span>
 <span class="sd">    version.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">version</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The firmware version of the flight controller.&quot;&quot;&quot;</span>
 
@@ -155,8 +147,6 @@
 
     <span class="n">navigation_version</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The navigation version of the firmware.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspIdent.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.info.MspIdent.parse">[docs]</a>
@@ -204,9 +194,6 @@
 <span class="sd">    flight controller. It includes information about power triggers, throttle settings,</span>
 <span class="sd">    battery warnings, and other miscellaneous parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">power_trigger</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The power trigger value.&quot;&quot;&quot;</span>
 
@@ -242,8 +229,6 @@
 
     <span class="n">battery_critical</span><span class="p">:</span> <span class="nb">float</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The critical battery level, measured in volts.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspMisc.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.info.MspMisc.parse">[docs]</a>
@@ -291,9 +276,6 @@
 <span class="sd">    controller. It includes information about power triggers, throttle settings, battery</span>
 <span class="sd">    warnings, and other miscellaneous parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">power_trigger</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The power trigger value.&quot;&quot;&quot;</span>
 
@@ -329,8 +311,6 @@
 
     <span class="n">battery_critical</span><span class="p">:</span> <span class="nb">float</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;float: The critical battery level, measured in volts.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspSetMisc.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.info.MspSetMisc.as_serializable">[docs]</a>
@@ -370,9 +350,6 @@
 <span class="sd">    This class encapsulates the status data from the MultiWii flight controller. It provides</span>
 <span class="sd">    information about cycle time, I2C errors, sensors, flags, and global configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">cycle_time</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The cycle time in microseconds.&quot;&quot;&quot;</span>
 
@@ -387,8 +364,6 @@
 
     <span class="n">global_config</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;int: The global configuration value.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspStatus.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.info.MspStatus.parse">[docs]</a>

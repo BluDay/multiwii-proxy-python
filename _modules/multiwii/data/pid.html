@@ -88,9 +88,6 @@
 <span class="sd">    This class encapsulates the PID controller settings for various control axes and functions</span>
 <span class="sd">    in the MultiWii flight controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">roll</span><span class="p">:</span> <span class="n">Pid</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pid[int]: PID values for the roll axis.&quot;&quot;&quot;</span>
 
@@ -120,8 +117,6 @@
 
     <span class="n">velocity</span><span class="p">:</span> <span class="n">Pid</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pid[int]: PID values for the velocity.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
    
 <div class="viewcode-block" id="MspPid.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.pid.MspPid.parse">[docs]</a>
@@ -154,8 +149,6 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">pid_collection</span><span class="p">)</span></div>
 
-
-    <span class="c1"># ----------------------------------- INSTANCE METHODS -------------------------------------</span>
 
 <div class="viewcode-block" id="MspPid.as_serializable">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.pid.MspPid.as_serializable">[docs]</a>
@@ -222,13 +215,8 @@
 <span class="sd">    This class is used to store the names of various PID controllers used in the MultiWii</span>
 <span class="sd">    flight controller. Each name corresponds to a specific PID controller setting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># ---------------------------------- INSTANCE VARIABLES ------------------------------------</span>
-
     <span class="n">names</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;tuple[str]: The names of the PID controllers.&quot;&quot;&quot;</span>
-
-    <span class="c1"># ------------------------------------ CLASS METHODS ---------------------------------------</span>
 
 <div class="viewcode-block" id="MspPidNames.parse">
 <a class="viewcode-back" href="../../../multiwii.data.html#multiwii.data.pid.MspPidNames.parse">[docs]</a>
