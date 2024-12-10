@@ -10,13 +10,7 @@ The API documentation can be found on the [documentation site](https://bluday.gi
 
 ## Installation
 
-Run either one of these commands to install the package:
-
-```sh
-python setup.py
-
-pip install .
-```
+Run either `pip install .` or `poetry build` to install the package:
 
 ## Usage
 
