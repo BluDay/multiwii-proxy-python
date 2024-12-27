@@ -3,7 +3,9 @@ from typing import Generic, NamedTuple, TypeVar
 T = TypeVar('T')
 
 class Coordinates(NamedTuple):
-    """Represents 2D geographics coordinates with longitude and latitude values."""
+    """
+    Represents 2D geographics coordinates with longitude and latitude values.
+    """
     latitude: float
     """float: The latitude value of the coordinate."""
 
@@ -11,7 +13,9 @@ class Coordinates(NamedTuple):
     """float: The longitude value of the coordinate."""
 
 class Pid(NamedTuple, Generic[T]):
-    """Represents PID values."""
+    """
+    Represents PID values.
+    """
     proportional: T
     """T: The proportional (P) component of the PID controller."""
 
@@ -22,7 +26,9 @@ class Pid(NamedTuple, Generic[T]):
     """T: The derivative (D) component of the PID controller."""
 
 class Point2D(NamedTuple, Generic[T]):
-    """Represents a 2D point."""
+    """
+    Represents a 2D point.
+    """
     x: T
     """T: The x-coordinate of the point."""
 
@@ -30,7 +36,9 @@ class Point2D(NamedTuple, Generic[T]):
     """T: The y-coordinate of the point."""
 
 class Point3D(NamedTuple, Generic[T]):
-    """Represents a 3D point."""
+    """
+    Represents a 3D point.
+    """
     x: T
     """T: The x-coordinate of the point."""
 

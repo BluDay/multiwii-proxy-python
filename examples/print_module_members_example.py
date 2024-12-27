@@ -1,10 +1,8 @@
 #! /usr/bin/env python3
 
 from multiwii.commands import MSP_IDENT, MSP_MISC, MSP_RC
-
-from multiwii.config import MultiWiiMultitype
-
-from multiwii.data import MspRc
+from multiwii.config   import MultiWiiMultitype
+from multiwii.data     import MspRc
 
 from multiwii.messaging import (
     MESSAGE_ERROR_HEADER,

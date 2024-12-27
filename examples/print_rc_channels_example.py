@@ -1,10 +1,8 @@
 #! /usr/bin/env python3
 
-from multiwii import MultiWii
-
+from multiwii          import MultiWii
 from multiwii.commands import MSP_RC
-
-from serial import Serial
+from serial            import Serial
 
 serial_port = Serial('/dev/ttyUSB0', baudrate=115200)
 

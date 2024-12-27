@@ -15,12 +15,7 @@ serial_port = Serial('/dev/ttyUSB0', baudrate=115200)
 
 multiwii = MultiWii(serial_port)
 
-analog = multiwii.get_data(MSP_ANALOG)
-ident  = multiwii.get_data(MSP_IDENT)
-misc   = multiwii.get_data(MSP_MISC)
-status = multiwii.get_data(MSP_STATUS)
-
-print(analog)
-print(ident)
-print(misc)
-print(status)
+print(multiwii.get_data(MSP_ANALOG))
+print(multiwii.get_data(MSP_IDENT))
+print(multiwii.get_data(MSP_MISC))
+print(multiwii.get_data(MSP_STATUS))
