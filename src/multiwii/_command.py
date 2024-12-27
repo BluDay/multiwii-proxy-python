@@ -3,7 +3,7 @@ from typing import Final, NoReturn
 
 class _MspCommand(object):
     """
-    Represents an MSP command.
+    Represents a MultiWii Serial Protocol command.
 
     This class encapsulates the details of a command for the MultiWii Serial Protocol (MSP).
     It includes information about the command code, whether the command size is variable,
