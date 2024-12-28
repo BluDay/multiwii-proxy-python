@@ -18,6 +18,7 @@ import pytest
 def test_msp_servo_parse():
     """
     Test parsing of the MSP_SERVO command data.
+
     This test ensures that the `MspServo.parse()` method correctly
     parses a tuple of servo values and creates an instance of `MspServo`.
     """
@@ -35,6 +36,7 @@ def test_msp_servo_parse():
 def test_msp_servo_parse_invalid_data():
     """
     Test invalid data input to the `MspServo.parse()` method.
+
     This test ensures that the method raises a TypeError when given
     insufficient data (less than expected number of values).
     """
@@ -48,6 +50,7 @@ def test_msp_servo_parse_invalid_data():
 def test_msp_servo_as_serializable():
     """
     Test the `as_serializable()` method of the `MspServo` class.
+
     This test ensures that the `MspServo` instance can be correctly
     serialized into a tuple of integer values.
     """
@@ -64,6 +67,7 @@ def test_msp_servo_as_serializable():
 def test_msp_servo_as_serializable_empty():
     """
     Test the `as_serializable()` method with an empty `MspServo` instance.
+
     This ensures that the method can handle empty configurations correctly.
     """
     # Create an empty MspServo instance
@@ -78,6 +82,7 @@ def test_msp_servo_as_serializable_empty():
 def test_msp_servo_conf_parse():
     """
     Test parsing of the MSP_SERVO_CONF command data.
+
     This test ensures that the `MspServoConf.parse()` method correctly
     parses a tuple of servo configuration values and creates an instance
     of `MspServoConf`.
@@ -90,13 +95,16 @@ def test_msp_servo_conf_parse():
     
     # Ensure the result is an instance of MspServoConf
     assert isinstance(result, MspServoConf)
+    
     # Ensure the number of servo configuration items is as expected
     assert len(result.values) == 2
+    
     # Ensure the first item has the expected values
     assert result.values[0].min == 1000
     assert result.values[0].max == 1500
     assert result.values[0].middle == 2000
     assert result.values[0].rate == 2500
+    
     # Ensure the second item has the expected values
     assert result.values[1].min == 1100
     assert result.values[1].max == 1600
@@ -106,6 +114,7 @@ def test_msp_servo_conf_parse():
 def test_msp_servo_conf_parse_invalid_data():
     """
     Test invalid data input to the `MspServoConf.parse()` method.
+
     This test ensures that the method raises a TypeError when given
     insufficient data for parsing.
     """
@@ -119,6 +128,7 @@ def test_msp_servo_conf_parse_invalid_data():
 def test_msp_servo_conf_as_serializable():
     """
     Test the `as_serializable()` method of the `MspServoConf` class.
+
     This test ensures that the `MspServoConf` instance can be correctly
     serialized into a tuple of integer values.
     """
@@ -134,6 +144,7 @@ def test_msp_servo_conf_as_serializable():
     
     # Ensure the serialized data matches the expected tuple of values
     assert isinstance(serializable_data, tuple)
+
     assert serializable_data == (
         1000, 1500, 2000, 2500, 1100, 1600, 2100, 2600
     )
@@ -141,10 +152,12 @@ def test_msp_servo_conf_as_serializable():
 def test_msp_servo_conf_as_serializable_empty():
     """
     Test the `as_serializable()` method with an empty `MspServoConf` instance.
+
     This ensures that the method can handle empty servo configurations correctly.
     """
     # Create an empty MspServoConf instance
     conf_item_1 = MspServoConfItem(min=0, max=0, middle=0, rate=0)
+
     servo_conf = MspServoConf(values=(conf_item_1,))
     
     # Serialize the empty instance
