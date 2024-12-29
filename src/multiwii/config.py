@@ -47,7 +47,7 @@ class MultiWiiBoxState(IntEnum):
     High  = 0b100
 
     @classmethod
-    def parse_value_to_enum(cls, value: int) -> Self:
+    def parse(cls, value: int) -> Self:
         """
         Gets a parsed value from the provided integer value.
 

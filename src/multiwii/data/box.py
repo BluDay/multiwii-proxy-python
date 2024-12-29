@@ -47,10 +47,10 @@ class MspBoxItem:
             An instance of the `MspBoxItem` class with parsed box item state values.
         """
         return cls(
-            aux1=MultiWiiBoxState.parse_enum_to_value(value),
-            aux2=MultiWiiBoxState.parse_enum_to_value(value >> 3),
-            aux3=MultiWiiBoxState.parse_enum_to_value(value >> 6),
-            aux4=MultiWiiBoxState.parse_enum_to_value(value >> 9)
+            aux1=MultiWiiBoxState.parse(value),
+            aux2=MultiWiiBoxState.parse(value >> 3),
+            aux3=MultiWiiBoxState.parse(value >> 6),
+            aux4=MultiWiiBoxState.parse(value >> 9)
         )
 
     def compile(self) -> int:
