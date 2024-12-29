@@ -47,10 +47,10 @@ class MspBoxItem:
             An instance of the `MspBoxItem` class with parsed box item state values.
         """
         return cls(
-            aux1=MultiWiiBoxState(value & 0x7),
-            aux2=MultiWiiBoxState((value >> 3) & 0x7),
-            aux3=MultiWiiBoxState((value >> 6) & 0x7),
-            aux4=MultiWiiBoxState((value >> 9) & 0x7)
+            aux1=MultiWiiBoxState.parse_enum_to_value(value),
+            aux2=MultiWiiBoxState.parse_enum_to_value(value >> 3),
+            aux3=MultiWiiBoxState.parse_enum_to_value(value >> 6),
+            aux4=MultiWiiBoxState.parse_enum_to_value(value >> 9)
         )
 
     def compile(self) -> int:
@@ -108,7 +108,9 @@ class MspBox:
 
 @dataclass
 class MspBoxIds:
-    """Represents data values for the MSP_BOXIDS command."""
+    """
+    Represents data values for the MSP_BOXIDS command.
+    """
     values: tuple[MultiWiiBox]
     """tuple[MultiWiiBox]: A tuple with `MultiWiiBox` values."""
 
@@ -158,4 +160,4 @@ class MspBoxNames:
         MspBoxNames
             An instance of the `MspBoxNames` class populated with the parsed data.
         """
-        return cls(decode_names(data))
+        return cls(_decode_names(data))
