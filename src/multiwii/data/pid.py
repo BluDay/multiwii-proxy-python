@@ -150,4 +150,4 @@ class MspPidNames:
         MspPidNames
             An instance of the `MspPidNames` class populated with the parsed data.
         """
-        return cls(decode_names(data))
+        return cls(_decode_names(data))
