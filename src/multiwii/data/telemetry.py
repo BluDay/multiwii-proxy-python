@@ -32,7 +32,10 @@ class MspAltitude:
         MspAltitude
             An instance of the `MspAltitude` class populated with the parsed data.
         """
-        return cls(*data)
+        return cls(
+            estimation=((data[3] << 24) | (data[2] << 16) | (data[1] << 8) | data[0]),
+            pressure_variation=((data[5] << 8) | data[4])
+        )
 
 @dataclass
 class MspAttitude:
