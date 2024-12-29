@@ -1,87 +1,74 @@
-"""
-Test suite generated using ChatGPT-4o mini.
-
-This suite contains various tests for the MspBoxItem, MspBox, MspBoxIds, and MspBoxNames 
-classes to ensure correct functionality. It covers different edge cases, invalid 
-inputs, and verifies the expected behavior of properties, methods, and attributes for 
-parsing, compiling, and serializing MultiWii box data.
-"""
-
-from multiwii.config import (
-    MultiWiiBox,
-    MultiWiiBoxState
-)
-
-from multiwii.data import (
-    MspBox,
-    MspBoxIds,
-    MspBoxItem,
-    MspBoxNames
-)
-
-from multiwii.messaging import _decode_names
+from multiwii.config import MultiWiiBoxState
+from multiwii.data   import MspBox, MspBoxIds, MspBoxItem, MspBoxNames
 
 import pytest
 
-def test_msp_box_item_parse_valid():
-    """
-    Test that MspBoxItem.parse correctly parses an integer value into a box item.
-    """
-    value = 0b101010101
-
+@pytest.mark.parametrize("value,expected_aux1,expected_aux2,expected_aux3,expected_aux4", [
+    (
+        0b101010101,
+        MultiWiiBoxState.Low,
+        MultiWiiBoxState.Mid,
+        MultiWiiBoxState.High,
+        MultiWiiBoxState.Empty
+    ),
+])
+def test_msp_box_item_parse_valid(value, expected_aux1, expected_aux2, expected_aux3, expected_aux4):
     result = MspBoxItem.parse(value)
     
     assert isinstance(result, MspBoxItem)
-    assert result.aux1 == MultiWiiBoxState.Low
-    assert result.aux2 == MultiWiiBoxState.Mid
-    assert result.aux3 == MultiWiiBoxState.High
-    assert result.aux4 == MultiWiiBoxState.Empty
+    assert result.aux1 == expected_aux1
+    assert result.aux2 == expected_aux2
+    assert result.aux3 == expected_aux3
+    assert result.aux4 == expected_aux4
 
-def test_msp_box_item_compile():
-    """
-    Test that MspBoxItem.compile correctly compiles box state values into an integer.
-    """
+@pytest.mark.parametrize("aux1,aux2,aux3,aux4,expected_value", [
+    (
+        MultiWiiBoxState.Low,
+        MultiWiiBoxState.Mid,
+        MultiWiiBoxState.High,
+        MultiWiiBoxState.Empty,
+        0b101010101
+    ),
+])
+def test_msp_box_item_compile(aux1, aux2, aux3, aux4, expected_value):
     item = MspBoxItem(
-        aux1=MultiWiiBoxState.Low,
-        aux2=MultiWiiBoxState.Mid,
-        aux3=MultiWiiBoxState.High,
-        aux4=MultiWiiBoxState.Empty
+        aux1=aux1,
+        aux2=aux2,
+        aux3=aux3,
+        aux4=aux4
     )
     
     compiled_value = item.compile()
 
-    assert compiled_value == 0b101010101
+    assert compiled_value == expected_value
 
-def test_msp_box_parse():
-    """
-    Test that MspBox.parse correctly parses a tuple of data into a MspBox instance.
-    """
-    data = (0b101010101, 0b110101010)
-
+@pytest.mark.parametrize("data", [
+    ((0b101010101, 0b110101010)),
+])
+def test_msp_box_parse(data):
     result = MspBox.parse(data)
     
     assert isinstance(result, MspBox)
     assert len(result.items) == 2
     assert all(isinstance(item, MspBoxItem) for item in result.items)
 
-def test_msp_box_as_serializable():
-    """
-    Test that MspBox.as_serializable returns a tuple of integers.
-    """
-    item1 = MspBoxItem(
-        aux1=MultiWiiBoxState.Low,
-        aux2=MultiWiiBoxState.Mid,
-        aux3=MultiWiiBoxState.High,
-        aux4=MultiWiiBoxState.Empty
-    )
-
-    item2 = MspBoxItem(
-        aux1=MultiWiiBoxState.High,
-        aux2=MultiWiiBoxState.Low,
-        aux3=MultiWiiBoxState.Mid,
-        aux4=MultiWiiBoxState.Empty
-    )
-
+@pytest.mark.parametrize("item1,item2", [
+    (
+        MspBoxItem(
+            aux1=MultiWiiBoxState.Low,
+            aux2=MultiWiiBoxState.Mid,
+            aux3=MultiWiiBoxState.High,
+            aux4=MultiWiiBoxState.Empty
+        ),
+        MspBoxItem(
+            aux1=MultiWiiBoxState.High,
+            aux2=MultiWiiBoxState.Low,
+            aux3=MultiWiiBoxState.Mid,
+            aux4=MultiWiiBoxState.Empty
+        )
+    ),
+])
+def test_msp_box_as_serializable(item1, item2):
     box = MspBox(items=(item1, item2))
     
     serializable_data = box.as_serializable()
@@ -90,54 +77,44 @@ def test_msp_box_as_serializable():
     assert len(serializable_data) == 2
     assert all(isinstance(value, int) for value in serializable_data)
 
-def test_msp_box_ids_parse():
-    """
-    Test that MspBoxIds.parse correctly parses a tuple of data into a MspBoxIds instance.
-    """
-    data = (1, 2, 3)
-
+@pytest.mark.parametrize("data", [
+    ((1, 2, 3)),
+])
+def test_msp_box_ids_parse(data):
     result = MspBoxIds.parse(data)
     
     assert isinstance(result, MspBoxIds)
     assert len(result.values) == 3
     assert all(isinstance(box, MultiWiiBox) for box in result.values)
 
-def test_msp_box_names_parse():
-    """
-    Test that MspBoxNames.parse correctly parses a tuple of data into a MspBoxNames instance.
-    """
-    data = ("Box1", "Box2", "Box3")
-
+@pytest.mark.parametrize("data", [
+    (b'Box1;Box2;Box3',),
+])
+def test_msp_box_names_parse(data):
     result = MspBoxNames.parse(data)
     
     assert isinstance(result, MspBoxNames)
     assert len(result.names) == 3
     assert all(isinstance(name, str) for name in result.names)
 
-def test_msp_box_names_parse_empty():
-    """
-    Test that MspBoxNames.parse handles an empty tuple correctly.
-    """
-    data = ()
-
+@pytest.mark.parametrize("data", [
+    (),
+])
+def test_msp_box_names_parse_empty(data):
     result = MspBoxNames.parse(data)
     
     assert isinstance(result, MspBoxNames)
     assert len(result.names) == 0
 
-def test_msp_box_item_invalid_parse():
-    """
-    Test that MspBoxItem.parse raises an error when provided with an invalid value.
-    """
+@pytest.mark.parametrize("value", [
+    ("invalid_value",),
+])
+def test_msp_box_item_invalid_parse(value):
     with pytest.raises(ValueError):
-        MspBoxItem.parse("invalid_value")  # Pass a non-integer value
+        MspBoxItem.parse(value)
 
-def test_msp_box_as_serializable_empty():
-    """
-    Test that MspBox.as_serializable works with an empty box.
-    """
-    box = MspBox(items=())
-
-    serializable_data = box.as_serializable()
-    
-    assert serializable_data == ()
+@pytest.mark.parametrize("item", [
+    MspBox(items=()),
+])
+def test_msp_box_as_serializable_empty(item):
+    assert item.as_serializable() == ()

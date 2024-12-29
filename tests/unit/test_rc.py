@@ -1,151 +1,168 @@
-"""
-Test suite for the MspRc and MspRcTuning classes.
-
-This suite tests the functionality of the MspRc and MspRcTuning classes, ensuring correct parsing,
-serialization, and handling of RC values and tuning parameters in the MultiWii flight controller.
-"""
-
 from multiwii.data import MspRc, MspRcTuning
 
 import pytest
 
-def test_msp_rc_parse():
-    """
-    Test that MspRc.parse correctly parses a tuple of data values into an MspRc instance.
-    """
-    data = (
-        1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300
-    )
-
+@pytest.mark.parametrize(
+    "data, expected_values",
+    [
+        (
+            (1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300),
+            (1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300),
+        ),
+    ]
+)
+def test_msp_rc_parse(data, expected_values):
     result = MspRc.parse(data)
     
     assert isinstance(result, MspRc)
-    assert result.roll == 1000
-    assert result.pitch == 2000
-    assert result.yaw == 1500
-    assert result.throttle == 1200
-    assert result.aux1 == 1800
-    assert result.aux2 == 1600
-    assert result.aux3 == 1400
-    assert result.aux4 == 1300
+    assert result.roll == expected_values[0]
+    assert result.pitch == expected_values[1]
+    assert result.yaw == expected_values[2]
+    assert result.throttle == expected_values[3]
+    assert result.aux1 == expected_values[4]
+    assert result.aux2 == expected_values[5]
+    assert result.aux3 == expected_values[6]
+    assert result.aux4 == expected_values[7]
 
-def test_msp_rc_parse_invalid_data():
-    """
-    Test that MspRc.parse raises an error when provided with invalid data (less than required number of elements).
-    """
-    data = (
-        1000, 2000, 1500, 1200, 1800  # Invalid length (5 values)
-    )
-    
+@pytest.mark.parametrize(
+    "data",
+    [
+        (1000, 2000, 1500, 1200, 1800),
+    ]
+)
+def test_msp_rc_parse_invalid_data(data):
     with pytest.raises(TypeError):
         MspRc.parse(data)
 
-def test_msp_rc_as_serializable():
-    """
-    Test that MspRc.as_serializable returns the correct tuple of serializable values.
-    """
+@pytest.mark.parametrize(
+    "rc_values, expected_serializable",
+    [
+        (
+            (1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300),
+            (1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300),
+        ),
+    ]
+)
+def test_msp_rc_as_serializable(rc_values, expected_serializable):
     rc = MspRc(
-        roll=1000,
-        pitch=2000,
-        yaw=1500,
-        throttle=1200,
-        aux1=1800,
-        aux2=1600,
-        aux3=1400,
-        aux4=1300
+        roll=rc_values[0],
+        pitch=rc_values[1],
+        yaw=rc_values[2],
+        throttle=rc_values[3],
+        aux1=rc_values[4],
+        aux2=rc_values[5],
+        aux3=rc_values[6],
+        aux4=rc_values[7]
     )
 
     serializable_data = rc.as_serializable()
     
     assert isinstance(serializable_data, tuple)
-    assert serializable_data == (
-        1000, 2000, 1500, 1200, 1800, 1600, 1400, 1300
-    )
+    assert serializable_data == expected_serializable
 
-def test_msp_rc_as_serializable_empty():
-    """
-    Test that MspRc.as_serializable handles an empty instance correctly.
-    """
+@pytest.mark.parametrize(
+    "rc_values, expected_serializable",
+    [
+        (
+            (0, 0, 0, 0, 0, 0, 0, 0),
+            (0, 0, 0, 0, 0, 0, 0, 0),
+        ),
+    ]
+)
+def test_msp_rc_as_serializable_empty(rc_values, expected_serializable):
     rc = MspRc(
-        roll=0,
-        pitch=0,
-        yaw=0,
-        throttle=0,
-        aux1=0,
-        aux2=0,
-        aux3=0,
-        aux4=0
+        roll=rc_values[0],
+        pitch=rc_values[1],
+        yaw=rc_values[2],
+        throttle=rc_values[3],
+        aux1=rc_values[4],
+        aux2=rc_values[5],
+        aux3=rc_values[6],
+        aux4=rc_values[7]
     )
 
     serializable_data = rc.as_serializable()
     
-    assert serializable_data == (0, 0, 0, 0, 0, 0, 0, 0)
+    assert serializable_data == expected_serializable
 
-def test_msp_rc_tuning_parse():
-    """
-    Test that MspRcTuning.parse correctly parses a tuple of data values into an MspRcTuning instance.
-    """
-    data = (
-        100, 200, 300, 400, 500, 600, 700
-    )
-
+@pytest.mark.parametrize(
+    "data, expected_values",
+    [
+        (
+            (100, 200, 300, 400, 500, 600, 700),
+            [
+                100, 200, 300, 400, 500, 600, 700
+            ]
+        ),
+    ]
+)
+def test_msp_rc_tuning_parse(data, expected_values):
     result = MspRcTuning.parse(data)
     
     assert isinstance(result, MspRcTuning)
-    assert result.rate == 100
-    assert result.expo == 200
-    assert result.roll_pitch_rate == 300
-    assert result.yaw_rate == 400
-    assert result.dynamic_throttle_pid == 500
-    assert result.throttle_mid == 600
-    assert result.throttle_expo == 700
+    assert result.rate == expected_values[0]
+    assert result.expo == expected_values[1]
+    assert result.roll_pitch_rate == expected_values[2]
+    assert result.yaw_rate == expected_values[3]
+    assert result.dynamic_throttle_pid == expected_values[4]
+    assert result.throttle_mid == expected_values[5]
+    assert result.throttle_expo == expected_values[6]
 
-def test_msp_rc_tuning_parse_invalid_data():
-    """
-    Test that MspRcTuning.parse raises an error when provided with invalid data (less than required number of elements).
-    """
-    data = (
-        100, 200, 300, 400, 500  # Invalid length (5 values)
-    )
-    
+@pytest.mark.parametrize(
+    "data",
+    [
+        (100, 200, 300, 400, 500),
+    ]
+)
+def test_msp_rc_tuning_parse_invalid_data(data):
     with pytest.raises(TypeError):
         MspRcTuning.parse(data)
 
-def test_msp_rc_tuning_as_serializable():
-    """
-    Test that MspRcTuning.as_serializable returns the correct tuple of serializable values.
-    """
+@pytest.mark.parametrize(
+    "tuning_values, expected_serializable",
+    [
+        (
+            (100, 200, 300, 400, 500, 600, 700),
+            (100, 200, 300, 400, 500, 600, 700),
+        ),
+    ]
+)
+def test_msp_rc_tuning_as_serializable(tuning_values, expected_serializable):
     rc_tuning = MspRcTuning(
-        rate=100,
-        expo=200,
-        roll_pitch_rate=300,
-        yaw_rate=400,
-        dynamic_throttle_pid=500,
-        throttle_mid=600,
-        throttle_expo=700
+        rate=tuning_values[0],
+        expo=tuning_values[1],
+        roll_pitch_rate=tuning_values[2],
+        yaw_rate=tuning_values[3],
+        dynamic_throttle_pid=tuning_values[4],
+        throttle_mid=tuning_values[5],
+        throttle_expo=tuning_values[6]
     )
 
     serializable_data = rc_tuning.as_serializable()
     
     assert isinstance(serializable_data, tuple)
-    assert serializable_data == (
-        100, 200, 300, 400, 500, 600, 700
-    )
+    assert serializable_data == expected_serializable
 
-def test_msp_rc_tuning_as_serializable_empty():
-    """
-    Test that MspRcTuning.as_serializable handles an empty instance correctly.
-    """
+@pytest.mark.parametrize(
+    "tuning_values, expected_serializable",
+    [
+        (
+            (0, 0, 0, 0, 0, 0, 0),
+            (0, 0, 0, 0, 0, 0, 0),
+        ),
+    ]
+)
+def test_msp_rc_tuning_as_serializable_empty(tuning_values, expected_serializable):
     rc_tuning = MspRcTuning(
-        rate=0,
-        expo=0,
-        roll_pitch_rate=0,
-        yaw_rate=0,
-        dynamic_throttle_pid=0,
-        throttle_mid=0,
-        throttle_expo=0
+        rate=tuning_values[0],
+        expo=tuning_values[1],
+        roll_pitch_rate=tuning_values[2],
+        yaw_rate=tuning_values[3],
+        dynamic_throttle_pid=tuning_values[4],
+        throttle_mid=tuning_values[5],
+        throttle_expo=tuning_values[6]
     )
 
     serializable_data = rc_tuning.as_serializable()
     
-    assert serializable_data == (0, 0, 0, 0, 0, 0, 0)
+    assert serializable_data == expected_serializable

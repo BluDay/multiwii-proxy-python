@@ -1,24 +1,6 @@
-"""
-Test suite generated using ChatGPT-4o mini.
-
-This suite contains various tests for the MultiWii class to ensure 
-correct functionality. It covers different edge cases, invalid 
-inputs, and verifies the expected behavior of properties, methods, 
-and attributes for a range of MSP command codes and data formats.
-
-Tests include:
- - Initialization and parameter validation
- - MSP command processing
- - Communication with the flight controller (mocked)
- - Specific functionalities like binding, calibration, and setting configuration
-"""
-
 from multiwii import MultiWii
 
-from multiwii.messaging import (
-    _MspResponseMessage,
-    MspMessageError
-)
+from multiwii.messaging import _MspResponseMessage, MspMessageError
 
 from multiwii.commands import (
     MSP_ACC_CALIBRATION,
@@ -31,10 +13,7 @@ from multiwii.commands import (
     MSP_SET_PID
 )
 
-from multiwii.data import (
-    MspAltitude,
-    MspRc,
-)
+from multiwii.data import MspAltitude, MspRc
 
 from serial        import Serial
 from time          import sleep
@@ -44,101 +23,70 @@ import pytest
 
 @pytest.fixture
 def mock_serial():
-    """
-    Fixture to mock the serial port used by the MultiWii class.
-    """
     return MagicMock(spec=Serial)
 
 @pytest.fixture
 def multiwii(mock_serial):
-    """
-    Fixture to create an instance of the MultiWii class with a mock serial port.
-    """
     return MultiWii(mock_serial)
 
-def test_init_with_invalid_serial_port():
-    """
-    Test that a TypeError is raised when an invalid serial port is passed to MultiWii.
-    """
+@pytest.mark.parametrize("serial_port", ['invalid_serial_port'])
+def test_init_with_invalid_serial_port(serial_port):
     with pytest.raises(TypeError):
-        MultiWii('invalid_serial_port')
+        MultiWii(serial_port)
 
+@pytest.mark.parametrize("mock_serial", [MagicMock(spec=Serial)])
 def test_init_with_valid_serial_port(mock_serial):
-    """
-    Test that the MultiWii instance is initialized correctly with a valid serial port.
-    """
     multiwii = MultiWii(mock_serial)
 
     assert multiwii.serial_port == mock_serial
     assert multiwii.message_write_read_delay == MultiWii.DEFAULT_MESSAGE_WRITE_READ_DELAY
 
 def test_command_to_data_structure_type_map(multiwii):
-    """
-    Test the mapping of MSP commands to their corresponding data structures.
-    """
     map_ = multiwii.command_to_data_structure_type_map
 
     assert isinstance(map_, dict)
     assert MSP_ALTITUDE in map_
     assert map_[MSP_ALTITUDE] == MspAltitude
 
-def test_set_message_write_read_delay_valid(multiwii):
-    """
-    Test setting the message write/read delay to a valid value.
-    """
-    multiwii.message_write_read_delay = 0.01
+@pytest.mark.parametrize("valid_delay", [0.01])
+def test_set_message_write_read_delay_valid(multiwii, valid_delay):
+    multiwii.message_write_read_delay = valid_delay
 
-    assert multiwii.message_write_read_delay == 0.01
+    assert multiwii.message_write_read_delay == valid_delay
 
-def test_set_message_write_read_delay_invalid_type(multiwii):
-    """
-    Test that setting an invalid type for the message write/read delay raises a TypeError.
-    """
+@pytest.mark.parametrize("invalid_delay", ['string'])
+def test_set_message_write_read_delay_invalid_type(multiwii, invalid_delay):
     with pytest.raises(TypeError):
-        multiwii.message_write_read_delay = 'string'
+        multiwii.message_write_read_delay = invalid_delay
 
-def test_set_message_write_read_delay_negative_value(multiwii):
-    """
-    Test that setting a negative value for the message write/read delay raises a ValueError.
-    """
+@pytest.mark.parametrize("negative_delay", [-0.01])
+def test_set_message_write_read_delay_negative_value(multiwii, negative_delay):
     with pytest.raises(ValueError):
-        multiwii.message_write_read_delay = -0.01
+        multiwii.message_write_read_delay = negative_delay
 
 def test_read_response_message_invalid_header(multiwii, mock_serial):
-    """
-    Test that an invalid header in the response message raises an MspMessageError.
-    """
     mock_serial.read.return_value = b'123'
 
     with pytest.raises(MspMessageError):
         multiwii._read_response_message(MSP_ALTITUDE)
 
 def test_read_response_message_invalid_command_code(multiwii, mock_serial):
-    """
-    Test that an invalid command code in the response raises an MspMessageError.
-    """
     mock_serial.read.return_value = b'\x01\x01\x01'
 
     with pytest.raises(MspMessageError):
         multiwii._read_response_message(MSP_ALTITUDE)
 
 def test_read_response_message_invalid_checksum(multiwii, mock_serial):
-    """
-    Test that an invalid checksum in the response message raises an MspMessageError.
-    """
     mock_serial.read.return_value = b'\x01\x01\x01\x02'
 
     with pytest.raises(MspMessageError):
         multiwii._read_response_message(MSP_ALTITUDE)
 
 def test_get_data_valid(multiwii, mock_serial):
-    """
-    Test that valid data can be retrieved from the flight controller using MSP commands.
-    """
     response_message = _MspResponseMessage(
         MSP_ALTITUDE,
-        b'fake_data',
-        'extra_info'
+        b'\x01\x01\x01\x03\x00\x05',
+        6
     )
 
     multiwii._read_response_message = MagicMock(return_value=response_message)
@@ -147,21 +95,16 @@ def test_get_data_valid(multiwii, mock_serial):
 
     assert data == response_message.data
 
-def test_get_data_invalid_command(multiwii, mock_serial):
-    """
-    Test that an invalid MSP command raises an MspMessageError.
-    """
+@pytest.mark.parametrize("error_message", ['Invalid command'])
+def test_get_data_invalid_command(multiwii, mock_serial, error_message):
     multiwii._read_response_message = MagicMock(
-        side_effect=MspMessageError('Invalid command')
+        side_effect=MspMessageError(error_message)
     )
 
     with pytest.raises(MspMessageError):
         multiwii.get_data(MSP_ALTITUDE)
 
 def test_arm_function(multiwii, mock_serial):
-    """
-    Test that the arm function sends the correct raw RC data to arm the system.
-    """
     multiwii.set_raw_rc = MagicMock()
 
     multiwii.arm()
@@ -169,9 +112,6 @@ def test_arm_function(multiwii, mock_serial):
     assert multiwii.set_raw_rc.call_count > 0
 
 def test_disarm_function(multiwii, mock_serial):
-    """
-    Test that the disarm function sends the correct raw RC data to disarm the system.
-    """
     multiwii.set_raw_rc = MagicMock()
 
     multiwii.disarm()
@@ -179,9 +119,6 @@ def test_disarm_function(multiwii, mock_serial):
     assert multiwii.set_raw_rc.call_count > 0
 
 def test_bind_transmitter_and_receiver(multiwii, mock_serial):
-    """
-    Test that the bind_transmitter_and_receiver function sends the correct MSP_BIND command.
-    """
     multiwii._send_request_message = MagicMock()
 
     multiwii.bind_transmitter_and_receiver()
@@ -189,9 +126,6 @@ def test_bind_transmitter_and_receiver(multiwii, mock_serial):
     multiwii._send_request_message.assert_called_once_with(MSP_BIND)
 
 def test_calibrate_accelerometer(multiwii, mock_serial):
-    """
-    Test that the calibrate_accelerometer function sends the correct MSP_ACC_CALIBRATION command.
-    """
     multiwii._send_request_message = MagicMock()
 
     multiwii.calibrate_accelerometer()
@@ -199,9 +133,6 @@ def test_calibrate_accelerometer(multiwii, mock_serial):
     multiwii._send_request_message.assert_called_once_with(MSP_ACC_CALIBRATION)
 
 def test_calibrate_magnetometer(multiwii, mock_serial):
-    """
-    Test that the calibrate_magnetometer function sends the correct MSP_ACC_CALIBRATION command.
-    """
     multiwii._send_request_message = MagicMock()
 
     multiwii.calibrate_magnetometer()
@@ -209,39 +140,29 @@ def test_calibrate_magnetometer(multiwii, mock_serial):
     multiwii._send_request_message.assert_called_once_with(MSP_ACC_CALIBRATION)
 
 def test_save_config_to_eeprom(multiwii, mock_serial):
-    """
-    Test that the save_config_to_eeprom function sends the correct MSP_EEPROM_WRITE command.
-    """
     multiwii._send_request_message = MagicMock()
 
     multiwii.save_config_to_eeprom()
 
     multiwii._send_request_message.assert_called_once_with(MSP_EEPROM_WRITE)
 
-def test_select_setting_valid(multiwii, mock_serial):
-    """
-    Test that the select_setting function sends the correct MSP_SELECT_SETTING command.
-    """
+@pytest.mark.parametrize("setting_value", [1])
+def test_select_setting_valid(multiwii, mock_serial, setting_value):
     multiwii._send_request_message = MagicMock()
 
-    multiwii.select_setting(1)
+    multiwii.select_setting(setting_value)
 
     multiwii._send_request_message.assert_called_once_with(
         MSP_SELECT_SETTING,
-        data=(1,)
+        data=(setting_value,)
     )
 
-def test_select_setting_invalid_value(multiwii):
-    """
-    Test that selecting an invalid setting raises a ValueError.
-    """
+@pytest.mark.parametrize("invalid_setting", [5])
+def test_select_setting_invalid_value(multiwii, invalid_setting):
     with pytest.raises(ValueError):
-        multiwii.select_setting(5)
+        multiwii.select_setting(invalid_setting)
 
 def test_set_boxes(multiwii, mock_serial):
-    """
-    Test that the set_boxes function sends the correct MSP_SET_BOX command with serialized data.
-    """
     data = MagicMock()
 
     data.as_serializable = MagicMock(return_value=('serializable_data',))
@@ -255,30 +176,23 @@ def test_set_boxes(multiwii, mock_serial):
         ('serializable_data',)
     )
 
-def test_set_head_valid(multiwii, mock_serial):
-    """
-    Test that the set_head function sends the correct MSP_SET_HEAD command with valid data.
-    """
+@pytest.mark.parametrize("heading_value", [90])
+def test_set_head_valid(multiwii, mock_serial, heading_value):
     multiwii._send_request_message = MagicMock()
 
-    multiwii.set_head(90)
+    multiwii.set_head(heading_value)
 
     multiwii._send_request_message.assert_called_once_with(
         MSP_SET_HEAD,
-        data=(90,)
+        data=(heading_value,)
     )
 
-def test_set_head_invalid_value(multiwii):
-    """
-    Test that setting an invalid heading value raises a ValueError.
-    """
+@pytest.mark.parametrize("invalid_heading", [200])
+def test_set_head_invalid_value(multiwii, invalid_heading):
     with pytest.raises(ValueError):
-        multiwii.set_head(200)
+        multiwii.set_head(invalid_heading)
 
 def test_set_pid_values(multiwii, mock_serial):
-    """
-    Test that the set_pid_values function sends the correct MSP_SET_PID command with serialized data.
-    """
     data = MagicMock()
 
     data.as_serializable = MagicMock(return_value=('serializable_data',))
