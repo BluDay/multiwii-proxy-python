@@ -29,7 +29,7 @@ def test_msp_box_item_parse_valid(value, expected_aux1, expected_aux2, expected_
             aux2=MultiWiiBoxState.Mid,
             aux3=MultiWiiBoxState.High,
             aux4=MultiWiiBoxState.Empty,
-        )
+        ),
         0b101010101
     ),
 ])
