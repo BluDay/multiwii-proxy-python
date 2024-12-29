@@ -1,5 +1,7 @@
 from enum import IntEnum, unique
 
+from typing import Self
+
 @unique
 class MultiWiiBox(IntEnum):
     """
@@ -43,6 +45,33 @@ class MultiWiiBoxState(IntEnum):
     Low   = 0b001
     Mid   = 0b010
     High  = 0b100
+
+    @classmethod
+    def parse_value_to_enum(cls, value: int) -> Self:
+        """
+        Gets a parsed value from the provided integer value.
+
+        Parameters
+        ----------
+        value : int
+            The integer value to evaluate the first three bits from.
+
+        Returns
+        -------
+        A parsed value or `Empty` if unsuccessful.
+        """
+        value = value & 0x7
+
+        if value & cls.Low.value:
+            return cls.Low
+
+        if value & cls.Mid.value:
+            return cls.Mid
+
+        if value & cls.High.value:
+            return cls.High
+
+        return cls.Empty
 
 @unique
 class MultiWiiCapability(IntEnum):
