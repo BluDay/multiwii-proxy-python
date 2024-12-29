@@ -40,15 +40,15 @@ def test_msp_analog_parse(data, expected_values):
 @pytest.mark.parametrize("data, expected_values", [
     (
         (1, 2, 0b101, 3),
-        (1, MultiWiiMultitype.TYPE_2, 3)
+        (1, MultiWiiMultitype.Gimbal, 3)
     ),
     (
         (2, 1, 0b110, 4),
-        (2, MultiWiiMultitype.TYPE_1, 4)
+        (2, MultiWiiMultitype.Y6, 4)
     ),
     (
         (3, 4, 0b111, 5),
-        (3, MultiWiiMultitype.TYPE_3, 5)
+        (3, MultiWiiMultitype.Hex6, 5)
     )
 ])
 def test_msp_ident_parse(data, expected_values):
